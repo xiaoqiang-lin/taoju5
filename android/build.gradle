@@ -1,0 +1,51 @@
+buildscript {
+    ext.kotlin_version = '1.4.10'
+    repositories {
+        google()
+        jcenter()
+         maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+        }
+
+        maven { url 'https://dl.bintray.com/magicbaby/maven' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.tencent.bugly:tinker-support:1.2.1'
+        classpath 'com.sk.hannibal:hannibal:1.0.7'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+         maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+        }
+//        google()
+//        jcenter()
+        maven { url 'https://dl.bintray.com/magicbaby/maven' }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
