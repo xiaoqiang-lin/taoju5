@@ -28,7 +28,11 @@ class GauzeAttrSelectorBar extends StatelessWidget {
             initialValue: _.value,
             onFuture: () =>
                 showCurtainAttrSelectorModal<GauzeAttrSelectorController>(
-                    title: "选择窗纱", tag: tag),
+                        title: "选择窗纱", tag: tag)
+                    .then((value) {
+              _.filter();
+              print(_.value);
+            }),
           ),
         );
       },

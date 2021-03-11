@@ -15,7 +15,7 @@ class AccessoryAttrSelectorController extends BaseAttrSelectorController {
   @override
   void onInit() {
     accessory = taojuwuController.accessory ?? CurtainProductAttrModel();
-    attr?.optionList?.first?.isChecked = true;
+
     super.onInit();
   }
 

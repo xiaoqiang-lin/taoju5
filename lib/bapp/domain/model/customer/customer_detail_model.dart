@@ -26,7 +26,7 @@ class CustomerDetailModel {
   String type;
   CustomerAddressModel address;
   XGender gender;
-  int cartCount;
+  String cartCount = '0';
 
   String get addressId => address?.addressId;
   String get concreteAddress =>

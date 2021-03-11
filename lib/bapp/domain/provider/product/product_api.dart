@@ -61,4 +61,16 @@ class ProductAPI {
   //加入购物车
   Future<BaseResponse> addToCart(String url, {Map params}) =>
       XDio().post(url, formData: params);
+
+  //加入购物车
+  Future<BaseResponse> scanFromCode(String url, {Map params}) =>
+      XDio().post(url, formData: params);
+
+  //添加测装数据
+  Future<BaseResponse> addMeasureData(String url, {Map params}) =>
+      XDio().post(url, formData: params);
+
+  //添加测装数据
+  Future<BaseResponse> removeFromCart(String url, {Map params}) =>
+      XDio().post(url, formData: params);
 }

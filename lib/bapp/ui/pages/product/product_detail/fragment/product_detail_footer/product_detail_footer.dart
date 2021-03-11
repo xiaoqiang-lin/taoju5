@@ -8,8 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
-import 'package:taoju5/bapp/ui/modal/product/finished_product.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/product_action_bar.dart';
@@ -48,15 +46,14 @@ class ProductDetailFooter extends StatelessWidget {
                           onPressed: Get.find<OrderDetailController>().select,
                         )
                       else
-                        ProductActionBar(
-                          onAddToCart: () => Get.toNamed(BAppRoutes.commitOrder,
-                              arguments: []),
-                          onBuy: () => showFinishedProductAttrModal(context,
-                              product: _.product),
-                          // onBuy: () => Get.toNamed( BAppRoutes.commitOrder,
-                          //     arguments: Get.find<ProductDetailController>().adapt()
-
-                          //     ),
+                        GetBuilder<ProductDetailController>(
+                          tag: tag,
+                          builder: (_) {
+                            return ProductActionBar(
+                              onAddToCart: _.addToCart,
+                              onBuy: _.buy,
+                            );
+                          },
                         ),
                     ],
                   ),

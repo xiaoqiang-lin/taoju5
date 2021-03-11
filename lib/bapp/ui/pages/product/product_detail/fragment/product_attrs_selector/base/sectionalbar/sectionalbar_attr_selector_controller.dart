@@ -13,8 +13,7 @@ class SectionalbarAttrSelectorController extends BaseAttrSelectorController {
   @override
   void onInit() {
     attr = taojuwuController.sectionalbar;
-    attr?.optionList?.first?.isChecked = true;
-
+    initCheckState();
     super.onInit();
   }
 }

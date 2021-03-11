@@ -12,12 +12,12 @@ class RoomAttrSelectorController extends BaseAttrSelectorController {
 
   void onInit() {
     attr = taojuwuController.room;
-    attr?.optionList?.first?.isChecked = true;
-    attr?.optionList?.first?.hasConfirmed = true;
+    initCheckState();
     super.onInit();
   }
 
   String get value => attr?.currentOptionName;
+  String get id => attr?.currentOptionId;
 
   void select(
       CurtainProductAttrModel attr, CurtainProductAttrOptionModel option) {

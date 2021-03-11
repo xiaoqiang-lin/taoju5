@@ -39,8 +39,10 @@ class XDio {
         onRequest: ((RequestOptions options) {
           Map queryParameters = options.queryParameters;
           options.queryParameters = _formatParams(queryParameters);
-          // var formData = options.data;
-          // options.data = _formatParams(formData);
+          var formData = options.data;
+          if (formData is Map) {
+            options.data = _formatParams(formData);
+          }
           print(DateTime.now());
           print("--------------请求地址----------------");
           XLogger.v("${options.baseUrl + options.path}");
@@ -54,16 +56,19 @@ class XDio {
         }),
         onResponse: (Response response) {
           response.data = jsonDecode(response.toString());
-          BaseResponse baseResponse = BaseResponse.fromJson(response.data);
-          if (response.data is Map) {
-            // response.data = JsonKit.normalize(response.data);
-            print(response.data);
-          }
-          if (!baseResponse.isValid) {
-            EasyLoading.showInfo(baseResponse.message);
-          }
           XLogger.e(
               "*******************************请求结果*******************************\n${response.data}");
+          BaseResponse baseResponse = BaseResponse.fromJson(response.data);
+
+          if (!baseResponse.isValid) {
+            throw EasyLoading.showInfo(baseResponse.message);
+          }
+          response.data = baseResponse;
+          // if (baseResponse.data is Map) {
+          //   // baseResponse.data = JsonKit.normalize(baseResponse.data);
+          //   print(response.data);
+          // }
+
           return response;
         },
       ))
@@ -89,7 +94,7 @@ class XDio {
   Future<BaseResponse> get(String url, {Map params, Options options}) async {
     Response response = await dio.get(url,
         queryParameters: params?.cast<String, dynamic>(), options: options);
-    return BaseResponse.fromJson(response.data);
+    return response.data;
   }
 
   Future<BaseResponse> post<T>(String url,
@@ -98,7 +103,7 @@ class XDio {
         queryParameters: queryParameters?.cast<String, dynamic>(),
         options: options,
         data: formData);
-    return BaseResponse.fromJson(response.data);
+    return response.data;
   }
 
   ///刷新token

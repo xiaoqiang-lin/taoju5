@@ -26,7 +26,7 @@ class CustomerListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("客户列表页面"),
+        title: Text("客户列表"),
         actions: [
           IconButton(
               icon: Icon(BIcons.search),

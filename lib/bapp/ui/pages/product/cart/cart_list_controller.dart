@@ -12,9 +12,11 @@ import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/dialog/product/cart/romve_from_cart.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/xdio/x_dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CartListParentController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -29,6 +31,14 @@ class CartListParentController extends GetxController
   TabController tabController;
 
   double totalPrice = 0.0;
+
+  bool isInEditMode = false;
+
+  void switchMode() {
+    isInEditMode = !isInEditMode;
+    update(["editMode", "totalPrice", "buttonBar"]);
+  }
+
   CartListParentController();
 
   String get tag => "${tabList[tabController?.index ?? 0].id}";
@@ -44,6 +54,10 @@ class CartListParentController extends GetxController
     });
     totalPrice = cartListController.totalPrice;
     // cartListController.isCheckedAll = flag;
+  }
+
+  void batchRemove() {
+    cartListController.remove();
   }
 
   void commit() {
@@ -141,7 +155,11 @@ class CartListController extends GetxController {
         .toList();
   }
 
-  void commit() {
+  commit() {
+    if (GetUtils.isNullOrBlank(checkedProductList)) {
+      EasyLoading.showInfo("当前暂未选中商品哦");
+      return;
+    }
     Get.toNamed(BAppRoutes.commitOrder + "/1", arguments: checkedProductList);
   }
 
@@ -161,6 +179,43 @@ class CartListController extends GetxController {
     }).catchError((err) {
       loadState = XLoadState.error;
     }).whenComplete(update);
+  }
+
+  Future removeFromCart() {
+    Map params = {
+      "cart_id_array": checkedCartList.map((e) => e.id).join(","),
+      "client_uid": clientId
+    };
+    return _repository.removeFromCart(params: params).then((value) {
+      removeFromList();
+      Get.find<CustomerProviderController>().refreshData();
+    }).whenComplete(update);
+  }
+
+  void removeFromList() {
+    // for (CartPorductModel e in cartList) {
+    //   if (e.isChecked.value) {
+    //     cartList.remove(e);
+    //   }
+    // }
+    if (GetUtils.isNullOrBlank(cartList)) return;
+    List<int> list = [];
+    for (int i = 0; i < cartList.length; i++) {
+      if (cartList[i].isChecked.value) {
+        list.add(i);
+      }
+    }
+    if (GetUtils.isNullOrBlank(list)) return;
+    for (int i = 0; i < list.length; i++) {
+      cartList.removeAt(i);
+    }
+  }
+
+  Future remove({CartPorductModel element, String tag}) {
+    if (element != null) {
+      checkItem(element, true);
+    }
+    return showRemoveFromCartDialog(tag);
   }
 
   @override

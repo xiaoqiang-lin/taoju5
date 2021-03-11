@@ -115,4 +115,9 @@ class BColors {
   static const Color timePointColor = Color(0xFF242424);
 
   static const Color actionChipBorderColor = Color(0xFF707070);
+
+  ///二维码扫描页面的颜色
+  static const Color scanLineColor = Color(0xFF4759DA);
+
+  static const Color badgeColor = Color(0xFFFF6161);
 }

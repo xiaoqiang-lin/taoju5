@@ -63,6 +63,6 @@ class ProductDetailBinding extends Bindings {
 
     Get.lazyPut(() => XLikeController());
 
-    Get.lazyPut(() => XCountController());
+    Get.lazyPut(() => XCartCountController());
   }
 }

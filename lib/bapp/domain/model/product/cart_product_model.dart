@@ -52,8 +52,9 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
     description = json["goods_attr_str"];
 
     room = JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"]);
-    image = JsonKit.asWebUrl(
-        JsonKit.getValueInComplexMap(json, ["picture_info", "pic_cover"]));
+    image = JsonKit.asWebUrl(JsonKit.getValueInComplexMap(
+            json, ["picture_info", "pic_cover"])) ??
+        '';
     type = json["goods_type"];
     unit = json["goods_unit"];
     length = json["material"];

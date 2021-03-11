@@ -77,7 +77,7 @@ class XBorderFrame extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             width == null || height == null
-                ? FittedBox(
+                ? Container(
                     child: child,
                   )
                 : SizedBox.expand(

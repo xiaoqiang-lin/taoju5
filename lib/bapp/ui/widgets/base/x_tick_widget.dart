@@ -52,7 +52,6 @@ class XTickController extends GetxController {
       }).catchError((err) {
         status = SubmitStatus.failure;
         if (onError != null) onError();
-        tip = err;
       }).whenComplete(() {
         update(["status"]);
         Future.delayed(Duration(milliseconds: 1500), () {

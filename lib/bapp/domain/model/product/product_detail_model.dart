@@ -58,6 +58,7 @@ class ProductDetailModel implements AbstractProdductModel {
 
   String unit;
   List<String> imgList;
+  String skuId;
   String skuName;
   int defalutSkuId;
   String picture;
@@ -80,6 +81,16 @@ class ProductDetailModel implements AbstractProdductModel {
   List<ProductSpecModel> specList;
   List<ProductSkuModel> skuList;
   List<ProductMaterialModel> materialList;
+
+  Map toJson() => {
+        "sku_id": skuId,
+        "goods_id": id,
+        "goods_name": name,
+        "shop_id": shopId,
+        "price": price,
+        "picture": picture,
+        "num": 1
+      };
 
   ProductDetailModel.fromJson(Map json) {
     id = json['goods_id'];
@@ -109,6 +120,7 @@ class ProductDetailModel implements AbstractProdductModel {
     materialList = JsonKit.asList(json['goods_attribute_list'])
         .map((e) => ProductMaterialModel.fromJson(e))
         ?.toList();
+    skuId = "${json['sku_id']}";
     skuName = json['sku_name'];
     detailImgList = json["new_description"]?.cast<String>();
     isFixedHeight = json['fixed_height'] == 1;

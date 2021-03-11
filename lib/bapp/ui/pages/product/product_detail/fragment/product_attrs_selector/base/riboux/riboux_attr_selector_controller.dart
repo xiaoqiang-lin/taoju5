@@ -14,7 +14,7 @@ class RibouxAttrSelectorController extends BaseAttrSelectorController {
   @override
   void onInit() {
     attr = taojuwuController.riboux;
-    attr?.optionList?.first?.isChecked = true;
+    initCheckState();
     super.onInit();
   }
 }

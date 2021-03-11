@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 
@@ -16,6 +15,7 @@ class CustomerProviderController extends GetxController {
   CustomerDetailModel _customer;
 
   bool get isCustomerNull => _customer == null;
+
   String get abbrName {
     if (_customer == null || _customer?.name == null) return "请选择";
     if (_customer.name.length > 12) {
@@ -57,8 +57,8 @@ class CustomerProviderController extends GetxController {
       Get.find<XLikeController>().loadData();
     }
 
-    if (Get.isRegistered<XCountController>()) {
-      Get.find<XCountController>().loadData();
+    if (Get.isRegistered<XCartCountController>()) {
+      Get.find<XCartCountController>().loadData();
     }
   }
 
@@ -68,8 +68,8 @@ class CustomerProviderController extends GetxController {
     // refreshData();
   }
 
-  void updateCartCount(int count) {
-    _customer.cartCount = count;
+  void updateCartCount(String count) {
+    _customer?.cartCount = count;
     update(["count"]);
   }
 }

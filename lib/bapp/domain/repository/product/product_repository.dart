@@ -141,5 +141,20 @@ class ProductRepository {
     return _api.dislike("/api/member/cancelCollection", params: params);
   }
 
-  Future addToCart() {}
+  Future<BaseResponse> scanFromCode({Map params}) {
+    return _api.scanFromCode("/api/goods/scanqrcode", params: params);
+  }
+
+  Future<BaseResponse> addToCart({Map params}) {
+    return _api.addToCart("/api/goods/addCart", params: params);
+  }
+
+  ///添加测装数据
+  Future<BaseResponse> addMeasureData({Map params}) {
+    return _api.addMeasureData("/api/order/saveMeasure", params: params);
+  }
+
+  Future<BaseResponse> removeFromCart({Map params}) {
+    return _api.removeFromCart("/api/goods/deleteCart", params: params);
+  }
 }

@@ -13,8 +13,8 @@ class CraftAttrSelectorController extends BaseAttrSelectorController {
 
   @override
   void onInit() {
-    attr = taojuwuController.craft;
-    attr?.optionList?.first?.isChecked = true;
     super.onInit();
+    attr = taojuwuController.craft;
+    initCheckState();
   }
 }

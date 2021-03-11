@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-02-02 14:04:10
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5/bapp/res/b_colors.dart';
+import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
 
 class ProductActionBar extends StatelessWidget {
   final Function onBuy;
@@ -20,24 +20,26 @@ class ProductActionBar extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: OutlinedButton(
-              style: ButtonStyle(
-                  side: MaterialStateProperty.all(
-                      BorderSide(color: BColors.outlineBorderColor, width: .8)),
-                  shape: MaterialStateProperty.all(
-                      BeveledRectangleBorder(borderRadius: BorderRadius.zero))),
-              onPressed: onAddToCart,
+            child: XFutureButton(
+              onFuture: onAddToCart,
+              buttonMode: ButtonMode.outline,
+              successTip: "加入购物车成功",
+              failTip: "加入购物车失败",
               child: Text("加入购物车"),
             ),
           ),
           Expanded(
-            child: ElevatedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(BeveledRectangleBorder(
-                        borderRadius: BorderRadius.zero))),
-                onPressed: onBuy,
-                child: Text("  立即购买  ",
-                    style: TextStyle(color: BColors.primaryColor))),
+            child: XFutureButton(
+              onFuture: onBuy,
+              child: Text("立即购买"),
+            ),
+            // child: ElevatedButton(
+            //     style: ButtonStyle(
+            //         shape: MaterialStateProperty.all(BeveledRectangleBorder(
+            //             borderRadius: BorderRadius.zero))),
+            //     onPressed: onBuy,
+            //     child: Text("  立即购买  ",
+            //         style: TextStyle(color: BColors.primaryColor))),
           )
         ],
       ),

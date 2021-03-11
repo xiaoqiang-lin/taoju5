@@ -34,7 +34,6 @@
   <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
     <activity android:name="com.buyi.taojuwu.MainActivity" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:windowSoftInputMode="adjustResize">
       <meta-data android:name="io.flutter.app.android.SplashScreenUntilFirstFrame" android:value="true"/>
-      <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme"/>
       <meta-data android:name="io.flutter.embedding.android.SplashScreenDrawable" android:resource="@drawable/launch_background"/>
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -217,6 +216,6 @@
     <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
     <meta-data android:name="JPUSH_APPKEY" android:value="appkey"/>
     <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0310-10-54-28"/>
+    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0311-09-15-26"/>
   </application>
 </manifest>

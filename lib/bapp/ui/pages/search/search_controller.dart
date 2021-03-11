@@ -81,6 +81,7 @@ class SearchController extends GetxController {
   }
 
   Future loadData() {
+    if (type != SearchType.customer) return Future.value();
     SearchRepository repository = SearchRepository();
     return repository.search().then((SearchModel value) {
       keyList = value.data;

@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_controller.dart';
@@ -28,6 +27,11 @@ abstract class BaseAttrSelectorController extends GetxController {
   void onInit() {
     initFromCartPorductModel();
     super.onInit();
+  }
+
+  void initCheckState() {
+    attr?.optionList?.first?.isChecked = true;
+    attr?.optionList?.first?.hasConfirmed = true;
   }
 
   void assignToCartProduct() {
@@ -53,7 +57,7 @@ abstract class BaseAttrSelectorController extends GetxController {
           });
         }
       });
-      update();
+      update(["attribute"]);
     }
   }
 
@@ -68,7 +72,7 @@ abstract class BaseAttrSelectorController extends GetxController {
       }
     }
 
-    filter();
+    // filter();
     update(["attribute"]);
   }
 
@@ -185,17 +189,9 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   Future<bool> reset() {
     List<CurtainProductAttrOptionModel> optionList = attr?.optionList;
-    CurtainProductAttrOptionModel option = optionList?.firstWhere(
-        (e) => e.isChecked && e.hasConfirmed,
-        orElse: () => optionList?.first);
-    // if (GetUtils.isNullOrBlank(attr?.confirmSelectedOptionList)) {
-    //   attr?.optionList?.first?.isChecked = true;
-    //   attr?.optionList?.first?.hasConfirmed = true;
-    // }
     optionList?.forEach((e) {
-      e.isChecked = e == option;
+      e.isChecked = e.hasConfirmed;
     });
-
     update(["options"]);
     Get.back();
     return Future.value(true);

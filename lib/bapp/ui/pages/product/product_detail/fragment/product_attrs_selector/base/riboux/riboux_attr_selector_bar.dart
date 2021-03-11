@@ -19,6 +19,7 @@ class RibouxAttrSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<RibouxAttrSelectorController>(
       tag: tag,
+      id: "attribute",
       builder: (_) {
         return Container(
           child: XSelectorTextField(

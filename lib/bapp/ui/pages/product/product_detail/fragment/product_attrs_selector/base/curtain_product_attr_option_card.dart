@@ -30,6 +30,7 @@ class CurtainProductAttrOptionCard extends StatelessWidget {
             margin: EdgeInsets.only(top: BDimens.gap12),
             child: Text(
               option.name,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: BDimens.sp24),
             ),
           ),

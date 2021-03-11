@@ -81,6 +81,9 @@ extension CurtainProductAttrModelKit on CurtainProductAttrModel {
   List<CurtainProductAttrOptionModel> get currentSelectedOptionList =>
       optionList.where((e) => e.isChecked).toList();
 
+  String get currentOptionId =>
+      currentSelectedOptionList?.map((e) => e.id)?.join(",");
+
   String get currentOptionName =>
       currentSelectedOptionList.map((e) => e.name).join("/");
 
@@ -141,7 +144,7 @@ class CurtainProductAttrOptionModel implements IXSelectable {
   int type;
   String typeName;
   String assetImage;
-  bool hasConfirmed;
+  bool hasConfirmed = false;
   CurtainProductAttrOptionModel();
   CurtainProductAttrOptionModel.fromJson(Map json) {
     id = json["id"];
@@ -153,7 +156,6 @@ class CurtainProductAttrOptionModel implements IXSelectable {
     price = JsonKit.asDouble(json["price"]);
     type = json["type"];
     typeName = _dict[json[type]];
-    hasConfirmed = false;
   }
 
   CurtainProductAttrOptionModel copy() {

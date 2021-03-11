@@ -39,7 +39,7 @@ class CurtainProductAttrModal<T extends BaseAttrSelectorController>
               onWillPop: _.reset,
               child: Container(
                 child: GridView.builder(
-                    shrinkWrap: true,
+                    // shrinkWrap: true,
                     padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
                     physics: BouncingScrollPhysics(),
                     itemCount: _.attr?.optionList?.length ?? 0,

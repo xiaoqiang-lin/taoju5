@@ -12,6 +12,7 @@ import 'package:taoju5/config/net_config.dart';
 abstract class CommonKit {
   static bool isNullOrZero(dynamic value) {
     if (value == null) return true;
+    if (value is String) return value == "0";
     return value == 0;
   }
 

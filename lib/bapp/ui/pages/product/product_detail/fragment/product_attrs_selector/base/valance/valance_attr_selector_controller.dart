@@ -13,7 +13,7 @@ class ValanceAttrSelectorController extends BaseAttrSelectorController {
   @override
   void onInit() {
     attr = taojuwuController.valance;
-    attr?.optionList?.first?.isChecked = true;
+    initCheckState();
     super.onInit();
   }
 }

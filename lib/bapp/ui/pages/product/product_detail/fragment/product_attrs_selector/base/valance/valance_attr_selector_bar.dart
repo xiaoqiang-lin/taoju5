@@ -18,6 +18,7 @@ class ValanceAttrSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ValanceAttrSelectorController>(
       tag: tag,
+      id: "attribute",
       builder: (_) {
         return Container(
           child: XSelectorTextField(
