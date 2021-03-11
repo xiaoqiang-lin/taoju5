@@ -4,6 +4,8 @@
  * @Date: 2020-12-22 15:49:00
  * @LastEditTime: 2021-01-22 23:46:32
  */
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_detail_model.dart';
@@ -16,6 +18,7 @@ import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';
+import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/validator/params_validator.dart';
 
 ///测量单参数模型
@@ -62,6 +65,9 @@ class CommitOrderParamsModel extends ParamsValidator {
 
   String get cartId => productList.map((e) => "${e.cartId}").join(",");
 
+  String get attribute =>
+      jsonEncode(productList.map((e) => "${e.attribute}")?.toList() ?? []);
+
   String get shopId => "${Get.find<UserProviderController>().user.shopId}";
   Map get params {
     Map map = optionalParams.params;
@@ -70,15 +76,16 @@ class CommitOrderParamsModel extends ParamsValidator {
       "client_uid": customer?.id,
       "cart_id": cartId,
       "shop_id": shopId,
+      "wc_attr": attribute,
       "data": """{
-         "order_type": "1",
-          "point": "0",
-          "pay_type": "10",
-          "shipping_info": {"shipping_type": "1", "shipping_company_id": "0"},
-          "coupon_id": "0",
-          "order_tag": "2",
-          "address_id":${customer?.address?.addressId},
-          "goods_sku_list":"$productSku"
+        "order_type": "1",
+        "point": "0",
+        "pay_type": "10",
+        "shipping_info": {"shipping_type": "1", "shipping_company_id": "0"},
+        "coupon_id": "0",
+        "order_tag": "2",
+        "address_id": "${customer?.address?.addressId}",
+        "goods_sku_list": "$productSku"
       }"""
     });
     return map;
@@ -125,13 +132,17 @@ class CommitOrderController extends GetxController {
 
   Future submitOrder() {
     if (!params.validate()) throw Future.value(false);
-    Map args = {};
-    args.addAll(params.params);
+    // Map args = {};
+    // args.addAll(params?.params ?? {});
     if (isFromShare) {
-      args.addAll({"client_info": customer.toJson()});
+      params.params.addAll({"client_info": customer?.toJson() ?? {}});
     }
+    XLogger.v(params.params);
+
     return _repository.submitOrder(
-        params: args, isMeasureOrder: isMeasureOrder, isWeb: GetPlatform.isWeb);
+        params: params.params,
+        isMeasureOrder: isMeasureOrder,
+        isWeb: GetPlatform.isWeb);
   }
 
   Future onSubmitSuceess() async {

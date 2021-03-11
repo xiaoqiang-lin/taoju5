@@ -216,6 +216,6 @@
     <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
     <meta-data android:name="JPUSH_APPKEY" android:value="appkey"/>
     <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0311-09-15-26"/>
+    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0311-12-25-59"/>
   </application>
 </manifest>

@@ -37,12 +37,12 @@ class XDio {
           return error;
         },
         onRequest: ((RequestOptions options) {
-          Map queryParameters = options.queryParameters;
-          options.queryParameters = _formatParams(queryParameters);
-          var formData = options.data;
-          if (formData is Map) {
-            options.data = _formatParams(formData);
-          }
+          // Map queryParameters = options.queryParameters;
+          // options.queryParameters = _formatParams(queryParameters);
+          // var formData = options.data;
+          // if (formData is Map) {
+          //   options.data = _formatParams(formData);
+          // }
           print(DateTime.now());
           print("--------------请求地址----------------");
           XLogger.v("${options.baseUrl + options.path}");

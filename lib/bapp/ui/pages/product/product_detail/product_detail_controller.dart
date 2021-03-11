@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
@@ -253,7 +254,7 @@ class ProductDetailController extends GetxController {
   }
 
   Future<BaseResponse> addMeasureData() {
-    if (!_isValidInfo()) return Future.value(null);
+    if (!_isValidInfo()) return Future.error(null);
     EditMeasureDataParamsModel args = EditMeasureDataParamsModel(tag: tag);
     return _repository.addMeasureData(params: args.params);
   }
@@ -263,12 +264,15 @@ class ProductDetailController extends GetxController {
   }
 
   Future buy() {
-    return Get.toNamed(BAppRoutes.commitOrder);
+    return addMeasureData().then((BaseResponse response) {
+      Get.toNamed(BAppRoutes.commitOrder + "/1",
+          arguments: adapt(measureId: "${response.data}"));
+    });
   }
 
   Future addToCart() {
     return addMeasureData().then((BaseResponse response) {
-      if (response == null) return;
+      // if (response == null) return;
       String measureId = "${response.data}";
       AddToCartParamsModel args = AddToCartParamsModel(
           tag: tag,
@@ -303,11 +307,9 @@ class ProductDetailController extends GetxController {
         Get.find<RoomAttrSelectorController>(tag: tag),
         Get.find<GauzeAttrSelectorController>(tag: tag),
         Get.find<CraftAttrSelectorController>(tag: tag),
-        Get.find<CraftAttrSelectorController>(tag: tag),
         Get.find<SectionalbarAttrSelectorController>(tag: tag),
         Get.find<RibouxAttrSelectorController>(tag: tag),
         Get.find<SizeSelectorController>(tag: tag),
-        Get.find<ValanceAttrSelectorController>(tag: tag),
         Get.find<RibouxAttrSelectorController>(tag: tag),
         Get.find<WindowStyleSelectorController>(tag: tag)
       ];
@@ -339,16 +341,65 @@ class ProductDetailController extends GetxController {
     update(["totalPrice"]);
   }
 
+  String get _description {
+    String description = "";
+    for (GetxController e in _attrControllerList) {
+      if (e is RoomAttrSelectorController) {
+        description += "${e?.value}、";
+      }
+      if (e is WindowStyleSelectorController) {
+        String windowPattern = e?.style?.name;
+        description += "$windowPattern、";
+        String installMode = e?.currentInstallModeOption?.name;
+        description += "$installMode、";
+        WindowOpenModeOptionModel option = e?.currentOpenModeOption;
+        description += "${option.name}、";
+        if (!GetUtils.isNullOrBlank(option?.suboptionList)) {
+          for (WindowSubopenModeModel mode in option?.suboptionList) {
+            for (WindowSubopenModeOptionModel o in mode?.optionList)
+              if (o.isChecked) {
+                description += "${mode.title}:${o.name};";
+              }
+          }
+        }
+      }
+      if (e is SizeSelectorController) {
+        description += "宽:${e.widthM}米,";
+        description += "高:${e.height}米,";
+        description += "离地距离:${e.deltaY}cm,";
+      }
+    }
+    return description;
+  }
+
+  List<ProductAttrAdapterModel> get _attrList {
+    List<ProductAttrAdapterModel> list = [];
+    for (GetxController e in _attrControllerList) {
+      if (e is BaseAttrSelectorController &&
+          !(e is RoomAttrSelectorController)) {
+        list.add(ProductAttrAdapterModel.fromJson(
+            {"attr_category": e?.attr?.typeName, "attr_name": e?.value}));
+      }
+    }
+    return list;
+  }
+
   ///模型适配转换
-  List<ProductAdapterModel> adapt() {
+  List<ProductAdapterModel> adapt({@required String measureId}) {
+    CurtainProductAtrrParamsModel attr =
+        CurtainProductAtrrParamsModel(tag: tag);
     Map json = {
       "id": product.id,
       "name": product.name,
-      "room": selectorController.room.currentOptionName,
+      "room": selectorController?.room?.currentOptionName,
       "price": product.price,
-      // "attrList": selectorController.attrList,
-      "description": "",
-      "totalPrice": priceDelegator.totalPrice
+      "attrList": _attrList,
+      "description": _description,
+      "totalPrice": priceDelegator.totalPrice,
+      "image": product.cover,
+      "measure_id": measureId,
+      "sku_id": product.skuId,
+      "attribute": jsonEncode(attr.params)
     };
     return [ProductAdapterModel.fromJson(json)];
   }

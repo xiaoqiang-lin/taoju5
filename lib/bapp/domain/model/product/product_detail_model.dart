@@ -88,7 +88,7 @@ class ProductDetailModel implements AbstractProdductModel {
         "goods_name": name,
         "shop_id": shopId,
         "price": price,
-        "picture": picture,
+        "picture": cover,
         "num": 1
       };
 

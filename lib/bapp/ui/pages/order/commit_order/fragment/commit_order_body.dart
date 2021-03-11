@@ -14,6 +14,7 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taoju5/bapp/ui/pages/product/widgets/product_attr_card.dart';
 
 class CommitOrderBody extends GetView<CommitOrderController> {
   const CommitOrderBody({Key key}) : super(key: key);
@@ -48,6 +49,7 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                   Row(
                     children: [
                       Container(
+                        width: 180.w,
                         child: AspectRatio(
                           aspectRatio: 1.0,
                           child: CachedNetworkImage(imageUrl: product.image),
@@ -91,15 +93,22 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                                         color: BColors.descriptionTextColor),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       )
                     ],
-                  )
+                  ),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: BDimens.gap24),
+                      padding: EdgeInsets.all(BDimens.gap20),
+                      decoration: BoxDecoration(
+                          color: BColors.accentCardColor,
+                          borderRadius: BorderRadius.circular(4)),
+                      child: ProductAttrCard(attrList: product.attrList))
                 ],
-              )
+              ),
           ],
         ),
       ),

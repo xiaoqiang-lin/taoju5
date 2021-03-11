@@ -20,6 +20,7 @@ import 'package:taoju5/bapp/ui/modal/product/finished_product.dart';
 import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taoju5/bapp/ui/pages/product/widgets/product_attr_card.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_step_counter.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_rotation_arrow.dart';
@@ -86,6 +87,7 @@ class CartPage extends GetView<CartListParentController> {
                                 itemBuilder:
                                     (BuildContext context, CartPorductModel e) {
                                   return Slidable(
+                                    key: ValueKey(e.id),
                                     actionPane: SlidableBehindActionPane(),
                                     actions: [
                                       IconSlideAction(
@@ -255,42 +257,8 @@ class CartPage extends GetView<CartListParentController> {
                                                   child: Row(
                                                     children: [
                                                       Expanded(
-                                                        child: GridView.builder(
-                                                          shrinkWrap: true,
-                                                          physics:
-                                                              NeverScrollableScrollPhysics(),
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          itemCount: e
-                                                              .attrsList.length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
-                                                            ProductAttrAdapterModel
-                                                                item =
-                                                                e.attrsList[
-                                                                    index];
-                                                            return Text(
-                                                              "${item.key}:${item.value}",
-                                                              style: TextStyle(
-                                                                  color: BColors
-                                                                      .descriptionTextColor,
-                                                                  fontSize:
-                                                                      BDimens
-                                                                          .sp24),
-                                                            );
-                                                          },
-                                                          gridDelegate:
-                                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                                  crossAxisCount:
-                                                                      2,
-                                                                  mainAxisSpacing:
-                                                                      0,
-                                                                  crossAxisSpacing:
-                                                                      0,
-                                                                  childAspectRatio:
-                                                                      8),
+                                                        child: ProductAttrCard(
+                                                          attrList: e.attrsList,
                                                         ),
                                                       ),
                                                       GestureDetector(

@@ -88,7 +88,7 @@ extension CartPorductModelKit on CartPorductModel {
     model.type = type;
     model.description = description;
     model.measureId = measureId;
-    model.skuId = skuId;
+    model.skuId = "$skuId";
     model.cartId = id;
     return model;
   }

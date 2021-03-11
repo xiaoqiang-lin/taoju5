@@ -31,15 +31,9 @@ class ProductActionBar extends StatelessWidget {
           Expanded(
             child: XFutureButton(
               onFuture: onBuy,
+              showLoading: false,
               child: Text("立即购买"),
             ),
-            // child: ElevatedButton(
-            //     style: ButtonStyle(
-            //         shape: MaterialStateProperty.all(BeveledRectangleBorder(
-            //             borderRadius: BorderRadius.zero))),
-            //     onPressed: onBuy,
-            //     child: Text("  立即购买  ",
-            //         style: TextStyle(color: BColors.primaryColor))),
           )
         ],
       ),

@@ -11,6 +11,8 @@ class BColors {
   static const Color primaryColor = Colors.white;
   static const Color scaffoldBgColor = Color(0xFFF5F5F9);
 
+  static const Color accentCardColor = Color(0xFFF5F5F9);
+
   static const Color foregroundColor = Color(0xFF171717);
 
   static const Color indicatorColor = Color(0xFF333333);

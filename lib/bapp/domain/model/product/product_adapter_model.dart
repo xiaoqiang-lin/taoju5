@@ -10,7 +10,7 @@ import 'product_type.dart';
 
 class ProductAdapterModel {
   int id;
-  int skuId;
+  String skuId;
   String room;
   String name;
   double unitPrcie;
@@ -24,6 +24,7 @@ class ProductAdapterModel {
   int count;
   String length;
   String cartId;
+  String attribute;
   ProductAdapterModel();
   ProductAdapterModel.fromJson(Map json) {
     id = json["id"];
@@ -34,6 +35,9 @@ class ProductAdapterModel {
     attrList = json["attrList"];
     image = json["image"];
     totalPrice = json["totalPrice"];
+    measureId = json["measure_id"];
+    skuId = "${json["sku_id"]}";
+    attribute = json["attribute"];
   }
 }
 
