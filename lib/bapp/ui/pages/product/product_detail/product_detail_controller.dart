@@ -303,7 +303,7 @@ class ProductDetailController extends GetxController {
 
   String get id => Get.parameters["id"];
   String get tag => "$id";
-  List<GetxController> get _attrControllerList => [
+  List<GetxController> get attrControllerList => [
         Get.find<RoomAttrSelectorController>(tag: tag),
         Get.find<GauzeAttrSelectorController>(tag: tag),
         Get.find<CraftAttrSelectorController>(tag: tag),
@@ -315,7 +315,7 @@ class ProductDetailController extends GetxController {
       ];
 
   void _onClose() {
-    _attrControllerList?.forEach((e) {
+    attrControllerList?.forEach((e) {
       e?.onClose();
       e?.onDelete();
     });
@@ -343,7 +343,7 @@ class ProductDetailController extends GetxController {
 
   String get _description {
     String description = "";
-    for (GetxController e in _attrControllerList) {
+    for (GetxController e in attrControllerList) {
       if (e is RoomAttrSelectorController) {
         description += "${e?.value}、";
       }
@@ -374,7 +374,7 @@ class ProductDetailController extends GetxController {
 
   List<ProductAttrAdapterModel> get _attrList {
     List<ProductAttrAdapterModel> list = [];
-    for (GetxController e in _attrControllerList) {
+    for (GetxController e in attrControllerList) {
       if (e is BaseAttrSelectorController &&
           !(e is RoomAttrSelectorController)) {
         list.add(ProductAttrAdapterModel.fromJson(

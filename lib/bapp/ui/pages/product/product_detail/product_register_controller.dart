@@ -7,7 +7,13 @@
 import 'package:get/get.dart';
 
 class ProductRegisterController extends GetxController {
-  final String tag;
+  String tag;
 
-  ProductRegisterController(this.tag);
+  ProductRegisterController();
+
+  @override
+  void onInit() {
+    tag ??= Get.parameters["id"];
+    super.onInit();
+  }
 }

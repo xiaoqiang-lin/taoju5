@@ -100,13 +100,17 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                       )
                     ],
                   ),
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: BDimens.gap24),
-                      padding: EdgeInsets.all(BDimens.gap20),
-                      decoration: BoxDecoration(
-                          color: BColors.accentCardColor,
-                          borderRadius: BorderRadius.circular(4)),
-                      child: ProductAttrCard(attrList: product.attrList))
+                  Visibility(
+                    visible: (product.productType is CurtainProductType) &&
+                        !GetUtils.isNullOrBlank(product.attrList),
+                    child: Container(
+                        margin: EdgeInsets.symmetric(vertical: BDimens.gap24),
+                        padding: EdgeInsets.all(BDimens.gap20),
+                        decoration: BoxDecoration(
+                            color: BColors.accentCardColor,
+                            borderRadius: BorderRadius.circular(4)),
+                        child: ProductAttrCard(attrList: product.attrList)),
+                  )
                 ],
               ),
           ],

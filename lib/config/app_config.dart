@@ -12,10 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppConfig {
   // app名字
   // static String get appName => isDebug ? '淘居屋商家测试版' : "淘居屋商家";
-  static AppEnv env = AppEnv.$c;
+  static AppEnv env = AppEnv.$b;
 
   ///打包时只需要修改这两个即可
-  static AppMode mode = AppMode.release;
+  static AppMode mode = AppMode.debug;
 
   static String get appName => getAppName(env: env, mode: mode);
 
@@ -38,11 +38,12 @@ class AppConfig {
 
   static bool get isCEndApp => env == AppEnv.$c;
 
-  static Future syncConfig({bool isDebug = true, bool is$B = true}) {
+  static Future syncConfig() {
     return SharedPreferences.getInstance().then((SharedPreferences sp) {
       AppConfig.mode =
           (sp.getBool("isDebug") ?? isDebug) ? AppMode.debug : AppMode.release;
-      AppConfig.env = (sp.getBool("isBEnd") ?? is$B) ? AppEnv.$b : AppEnv.$c;
+      AppConfig.env =
+          (sp.getBool("isBEnd") ?? isBEndApp) ? AppEnv.$b : AppEnv.$c;
     });
   }
 

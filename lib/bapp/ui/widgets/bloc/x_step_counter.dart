@@ -6,39 +6,113 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:taoju5/bapp/ui/widgets/common/textfield/x_sized_text_field.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
+import 'package:get/utils.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class XStepCounter extends StatelessWidget {
+class XStepCounter extends StatefulWidget {
   // 输入框内容改变
-  final ValueChanged<String> onChanged;
-  final Function onSubstract;
-  final Function onPlus;
-  const XStepCounter(
-      {Key key,
-      @required this.onChanged,
-      @required this.onSubstract,
-      @required this.onPlus})
-      : super(key: key);
+  final ValueChanged<String> onValueChange;
+  final int initialValue;
+  const XStepCounter({
+    Key key,
+    @required this.onValueChange,
+    this.initialValue = 1,
+  }) : super(key: key);
+
+  @override
+  _XStepCounterState createState() => _XStepCounterState();
+}
+
+class _XStepCounterState extends State<XStepCounter> {
+  ValueChanged<String> get onValueChange => widget.onValueChange;
+
+  TextEditingController controller;
+  int value = 1;
+
+  @override
+  void initState() {
+    value = widget.initialValue;
+    controller = TextEditingController(text: "$value");
+    super.initState();
+  }
+
+  void onPlus() {
+    value += 1;
+    controller.text = "$value";
+    onValueChange("$value");
+  }
+
+  void onSubstract() {
+    value -= 1;
+    controller.text = "$value";
+    onValueChange("$value");
+  }
+
+  void onChange(String val) {
+    if (GetUtils.isNum(val)) {
+      value = int.parse(val);
+    } else {
+      EasyLoading.showInfo("请输入正确的数值哦");
+      setState(() {
+        value = 1;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 32,
+      width: 128,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: BColors.inputBorderColor)),
       child: Row(
         children: [
-          IconButton(
-            onPressed: onSubstract,
-            icon: Text(
-              "-",
-              style: TextStyle(fontSize: 36),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: onSubstract,
+              child: Container(
+                child: Image.asset("assets/images/substract.png"),
+              ),
             ),
           ),
-          XSizedTextField(
-            width: 96,
-            onChanged: onChanged,
-          ),
-          IconButton(
-            onPressed: onPlus,
-            icon: Text("+", style: TextStyle(fontSize: 36)),
+          Expanded(
+              flex: 2,
+              child: Container(
+                alignment: Alignment.center,
+                height: 36,
+                decoration: BoxDecoration(
+                    border: Border(
+                        right: BorderSide(color: BColors.inputBorderColor),
+                        left: BorderSide(color: BColors.inputBorderColor))),
+                child: TextFormField(
+                  maxLines: 1,
+                  controller: controller,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(isCollapsed: true),
+                ),
+              )),
+          // XSizedTextField(
+          //   // width: 96,
+          //   width: 56,
+          //   onChanged: onChange,
+          // ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+                onTap: onPlus,
+                child: Container(
+                  child: Image.asset("assets/images/plus.png"),
+                )),
           ),
         ],
       ),

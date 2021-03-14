@@ -15,7 +15,7 @@ class CartBinding extends Bindings {
     Get.lazyPut(() => CartListParentController());
 
     for (ProductTabModel tab in Get.find<CartListParentController>().tabList) {
-      Get.lazyPut(() => CartListController({"category_type": tab.id}),
+      Get.lazyPut(() => CartListController(type: "${tab.id}"),
           tag: "${tab.id}");
     }
   }

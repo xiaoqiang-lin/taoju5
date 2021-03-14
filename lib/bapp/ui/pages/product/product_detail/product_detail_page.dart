@@ -76,7 +76,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SliverToBoxAdapter(
                           child: SoftDesignProductSection(
-                              productList: _.sceneDesignProductList),
+                              productList: _.softDesignProductList),
                         ),
                         SliverToBoxAdapter(
                           child: ProductDetailImageSectionView(

@@ -13,9 +13,15 @@ class DesignProductModel {
   String name;
   String image;
 
+  String width;
+
+  String height;
+
   String tag;
   String room;
   String style;
+  String defaultWidth;
+  String defaultHeight;
   List<ProductModel> productList;
 
   DesignProductModel.fromJson(Map json) {
@@ -23,6 +29,10 @@ class DesignProductModel {
     name = json["scenes_name"];
     tag = json["name"];
 
+    defaultWidth = json["default_width"] ?? "3.5";
+    defaultHeight = json["default_height"] ?? "2.65";
+    width = json["width"] ?? defaultWidth;
+    height = json["height"] ?? defaultHeight;
     image = JsonKit.asWebUrl(json["image"]);
     productList = JsonKit.asList(json["goods_list"])
         .map((e) => ProductModel.fromJson(e))

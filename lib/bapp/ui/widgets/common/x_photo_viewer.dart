@@ -10,12 +10,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
+import 'package:taoju5/bapp/res/b_icons.dart';
 
 class XPhotoViewer extends StatelessWidget {
   final String url;
   final String bigImageUrl;
   final BoxFit fit;
-  const XPhotoViewer({Key key, @required this.url, this.bigImageUrl, this.fit})
+  final double height;
+  final double width;
+  const XPhotoViewer(
+      {Key key,
+      @required this.url,
+      this.bigImageUrl,
+      this.fit,
+      this.height,
+      this.width})
       : super(key: key);
 
   @override
@@ -23,7 +33,12 @@ class XPhotoViewer extends StatelessWidget {
     return OpenContainer(
         closedElevation: 0,
         closedBuilder: (BuildContext context, _) {
-          return CachedNetworkImage(fit: fit, imageUrl: url);
+          return CachedNetworkImage(
+            fit: fit,
+            imageUrl: url,
+            width: width,
+            height: height,
+          );
         },
         openBuilder: (BuildContext context, _) {
           return XInteractivePhotoViewer(
@@ -69,15 +84,18 @@ class _XInteractivePhotoViewerState extends State<XInteractivePhotoViewer> {
             Positioned(
                 right: 10,
                 top: MediaQuery.of(context).padding.top,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      size: 30,
-                      color: Colors.white,
+                child: GestureDetector(
+                  onTap: Navigator.of(context).pop,
+                  child: CircleAvatar(
+                    radius: 12,
+                    backgroundColor: BColors.maskColor,
+                    child: Icon(
+                      BIcons.close,
+                      size: 28,
+                      color: BColors.whiteColor,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    })),
+                  ),
+                )),
           ],
         ),
       ),

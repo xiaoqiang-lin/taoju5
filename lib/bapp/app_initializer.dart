@@ -68,7 +68,7 @@ abstract class AppInitializer {
   }
 
   static Future _initAppConfig() async {
-    await AppConfig.syncConfig(isDebug: true, is$B: true);
+    await AppConfig.syncConfig();
   }
 
   static Future _initWidgetBinding() async {

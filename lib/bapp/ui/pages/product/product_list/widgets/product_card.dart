@@ -10,7 +10,7 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 
 class ProductGridCard extends StatelessWidget {
@@ -28,7 +28,13 @@ class ProductGridCard extends StatelessWidget {
             SizedBox(
               width: 320.w,
               child: AspectRatio(
-                  aspectRatio: 1.0, child: Image.network(product.image)),
+                  aspectRatio: 1.0,
+                  child: CachedNetworkImage(
+                    imageUrl: product.image,
+                    placeholder: (BuildContext context, String desc) {
+                      return Image.network(product.thumbnail);
+                    },
+                  )),
             ),
             Container(
               alignment: Alignment.centerLeft,

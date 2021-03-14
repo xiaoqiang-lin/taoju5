@@ -23,9 +23,16 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   String get value => attr?.currentOptionName;
 
+  String get valueId => attr?.currentOptionId;
+
+  String get key => attr?.typeName;
+
+  String get type => "${attr?.type}";
+
   @override
   void onInit() {
     initFromCartPorductModel();
+
     super.onInit();
   }
 

@@ -31,7 +31,7 @@ class GauzeAttrSelectorBar extends StatelessWidget {
                         title: "选择窗纱", tag: tag)
                     .then((value) {
               _.filter();
-              print(_.value);
+              _.update(["attribute"]);
             }),
           ),
         );

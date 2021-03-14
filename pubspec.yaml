@@ -39,9 +39,8 @@ dev_dependencies:
   package_info: ^0.4.3+4
   connectivity: ^2.0.2
   flutter_staggered_animations: ^0.1.2
-  get: ^3.25.4
+  get: ^3.26.0
   logger: ^0.9.4
-  
   path_provider: ^1.6.24
   flutter_bugly: ^0.3.0+2 
   cached_network_image: ^2.3.3

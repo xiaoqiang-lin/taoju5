@@ -116,7 +116,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     child: GridView.builder(
-                        itemCount: min(5, product?.productlist?.length ?? 0),
+                        itemCount: min(5, product?.productList?.length ?? 0),
                         padding: EdgeInsets.only(top: 8, bottom: 0),
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -124,7 +124,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                             childAspectRatio: .68,
                             crossAxisSpacing: 8),
                         itemBuilder: (BuildContext context, int index) {
-                          ProductModel o = product.productlist[index];
+                          ProductModel o = product.productList[index];
                           return GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () => Get.toNamed(

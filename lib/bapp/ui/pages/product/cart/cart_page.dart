@@ -66,6 +66,7 @@ class CartPage extends GetView<CartListParentController> {
               for (ProductTabModel tab in controller.tabList)
                 GetBuilder<CartListController>(
                     tag: "${tab.id}",
+                    key: ValueKey(tab.id),
                     autoRemove: false,
                     builder: (_) {
                       return XLoadStateBuilder(
@@ -212,19 +213,12 @@ class CartPage extends GetView<CartListParentController> {
                                                                   XRotationArrow(
                                                                       onTap: () => showFinishedProductAttrModal(
                                                                           context,
-                                                                          id: e
-                                                                              .productId))
+                                                                          id: "${e.productId}"))
                                                                 ],
                                                               )),
                                                         ),
                                                         Visibility(
-                                                          child: Container(
-                                                            width: Get.width,
-                                                            alignment: Alignment
-                                                                .centerRight,
-                                                            child:
-                                                                XStepCounter(),
-                                                          ),
+                                                          child: XStepCounter(),
                                                           visible: e.productType
                                                               is FinishedProductType,
                                                         ),

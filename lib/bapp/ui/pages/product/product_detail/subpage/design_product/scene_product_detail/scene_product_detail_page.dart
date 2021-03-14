@@ -6,7 +6,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -117,6 +118,7 @@ class SceneProductDetailPage extends StatelessWidget {
                               fontWeight: FontWeight.w500),
                         ),
                       ),
+                      // GridView.builder(gridDelegate: null, itemBuilder: null)
                     ],
                   ),
                 );

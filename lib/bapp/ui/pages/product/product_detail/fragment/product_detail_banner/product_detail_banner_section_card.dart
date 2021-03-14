@@ -20,7 +20,7 @@ class ProductDetailBannerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 24, right: 24),
+      // margin: EdgeInsets.only(left: 24, right: 24),
       child: XSwiper(
         itemCount: imageList?.length,
         itemBuilder: (BuildContext context, int index) {

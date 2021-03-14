@@ -106,10 +106,10 @@ class CartListParentController extends GetxController
 class CartListController extends GetxController {
   ProductRepository _repository = ProductRepository();
 
-  CartListController(this.initialParams);
+  CartListController({@required this.type});
 
   String get clientId => Get.find<CustomerProviderController>().id;
-  final Map initialParams;
+  final String type;
   List<CartPorductModel> cartList = [];
 
   List<CartPorductModel> get checkedCartList {
@@ -167,9 +167,10 @@ class CartListController extends GetxController {
   Future loadData() {
     loadState = XLoadState.busy;
     update();
-    return _repository.cartList(params: {
-      "client_uid": clientId,
-    }).then((CartPorductModelListWrapper value) {
+
+    return _repository
+        .cartList(params: {"client_uid": clientId, "category_type": type}).then(
+            (CartPorductModelListWrapper value) {
       cartList = value.list;
       if (GetUtils.isNullOrBlank(cartList)) {
         loadState = XLoadState.empty;

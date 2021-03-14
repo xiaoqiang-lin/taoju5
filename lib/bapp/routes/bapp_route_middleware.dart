@@ -22,5 +22,11 @@ class BAppRouteMiddleWare extends RouteObserver {
       XDio().refreshToken(controller?.token);
       controller?.loadData();
     }
+
+    ///进入商品详情页
+    if (RegExp(BAppRoutes.productDetail).hasMatch(routing?.current)) {
+      // String tag = Get.parameters["id"];
+      // Get.find<ProductRegisterController>().tag ??= tag;
+    }
   }
 }

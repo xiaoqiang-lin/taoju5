@@ -226,3 +226,11 @@ class GauzeCurtainProductPriceDelegator
     return tmp;
   }
 }
+
+class FinishedProductPriceDelegator extends BasePoductPriceDelegator {
+  ///数量
+  int get count => product.count;
+
+  ///总价
+  double get totalPrice => unitPrice * count;
+}

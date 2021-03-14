@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_selector_bar.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_share_button.dart';
@@ -20,12 +21,8 @@ class ProductDetailHeader extends StatelessWidget {
   const ProductDetailHeader({Key key, @required this.product})
       : super(key: key);
 
-  static const List<String> tipList = ["前沿设计", "上门测装", "品质保障", "贴心售后"];
-
   @override
   Widget build(BuildContext context) {
-    // ThemeData themeData = Theme.of(context);
-    // TextTheme textTheme = themeData.textTheme;
     return Container(
       color: Theme.of(context).primaryColor,
       padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
@@ -93,69 +90,79 @@ class ProductDetailHeader extends StatelessWidget {
           ),
           Visibility(
             visible: product.productType is CurtainProductType,
-            child: Column(
-              children: [
-                Container(
-                  color: BColors.lightBlueColor,
-                  padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: BDimens.gap16),
-                        child: Text(
-                          "·",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: BColors.blueTextColor,
-                              fontSize: 24),
-                        ),
-                      ),
-                      Text(
-                        "该商品为定制商品，此价格为米价",
-                        style: TextStyle(
-                          color: BColors.blueTextColor,
-                          fontSize: BDimens.sp24,
-                        ),
-                      ),
-                    ],
-                  ),
+            child: CurtainProductDetailHeader(),
+          ),
+          Visibility(
+              visible: product.productType is FinishedProductType,
+              child: FinishedProductAttrsSelectorBar(tag: "${product.id}"))
+        ],
+      ),
+    );
+  }
+}
+
+class CurtainProductDetailHeader extends StatelessWidget {
+  const CurtainProductDetailHeader({Key key}) : super(key: key);
+  static const List<String> tipList = ["前沿设计", "上门测装", "品质保障", "贴心售后"];
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          color: BColors.lightBlueColor,
+          padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+                child: Text(
+                  "·",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: BColors.blueTextColor,
+                      fontSize: 24),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: BDimens.gap12),
-                  child: DefaultTextStyle(
-                    style: TextStyle(color: BColors.tipTextColor),
+              ),
+              Text(
+                "该商品为定制商品，此价格为米价",
+                style: TextStyle(
+                  color: BColors.blueTextColor,
+                  fontSize: BDimens.sp24,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: BDimens.gap12),
+          child: DefaultTextStyle(
+            style: TextStyle(color: BColors.tipTextColor),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                for (String e in tipList)
+                  Container(
+                    padding: EdgeInsets.only(right: BDimens.gap10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        for (String e in tipList)
-                          Container(
-                            padding: EdgeInsets.only(right: BDimens.gap10),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: BDimens.gap16),
-                                  child: Text(
-                                    "·",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 24),
-                                  ),
-                                ),
-                                Text(e)
-                              ],
-                            ),
-                          )
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: BDimens.gap16),
+                          child: Text(
+                            "·",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 24),
+                          ),
+                        ),
+                        Text(e)
                       ],
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }

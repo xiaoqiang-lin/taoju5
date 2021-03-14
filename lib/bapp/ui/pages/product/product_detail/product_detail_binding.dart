@@ -11,6 +11,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/valance/valance_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_register_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
@@ -25,7 +26,9 @@ class ProductDetailBinding extends Bindings {
   @override
   void dependencies() {
     String id = Get.parameters["id"];
-    Get.lazyPut(() => ProductRegisterController(id));
+
+    Get.lazyPut(() => ProductDetailController(), tag: id);
+    Get.lazyPut(() => ProductRegisterController());
 
     ///空间选择器
     Get.lazyPut(() => RoomAttrSelectorController(), tag: id, fenix: true);
@@ -59,7 +62,10 @@ class ProductDetailBinding extends Bindings {
     Get.lazyPut(() => WindowStyleSelectorController(tag: id),
         tag: id, fenix: true);
 
-    Get.lazyPut(() => ProductDetailController(), tag: id);
+    // Get.lazyPut(() => ProductDetailController(), tag: id);
+
+    ///成品属性选择
+    Get.lazyPut(() => FinishedProductAttrsController(id: id), tag: id);
 
     Get.lazyPut(() => XLikeController());
 

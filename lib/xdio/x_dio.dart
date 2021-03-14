@@ -6,7 +6,7 @@
  */
 
 import 'dart:convert';
-
+import 'package:get/get_utils/get_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:taoju5/storage/storage_manager.dart';
@@ -22,6 +22,13 @@ class XDio {
   // dio 实例
   Dio dio;
 
+  ///白名单里面的api不需要错误提示
+  List<String> whiteList = ["/api/Config/getAppUpgradeInfo"];
+
+  bool _isInWhiteList(String url) {
+    return whiteList.any((e) => url.contains(e));
+  }
+
   XDio._internal() {
     netConfig = NetConfig(headers: {});
     String token = StorageManager().sharedPreferences?.getString("token");
@@ -36,12 +43,12 @@ class XDio {
           return error;
         },
         onRequest: ((RequestOptions options) {
-          // Map queryParameters = options.queryParameters;
-          // options.queryParameters = _formatParams(queryParameters);
-          // var formData = options.data;
-          // if (formData is Map) {
-          //   options.data = _formatParams(formData);
-          // }
+          Map queryParameters = options.queryParameters;
+          options.queryParameters = _formatParams(queryParameters);
+          var formData = options.data;
+          if (formData is Map) {
+            options.data = _formatParams(formData);
+          }
           print(DateTime.now());
           print("--------------请求地址----------------");
           XLogger.v("${options.baseUrl + options.path}");
@@ -59,7 +66,7 @@ class XDio {
               "*******************************请求结果*******************************\n${response.data}");
           BaseResponse baseResponse = BaseResponse.fromJson(response.data);
 
-          if (!baseResponse.isValid) {
+          if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
             throw EasyLoading.showInfo(baseResponse.message);
           }
           response.data = baseResponse;
@@ -77,18 +84,13 @@ class XDio {
   static XDio _singleton = XDio._internal();
   factory XDio() => _singleton;
 
-  // Map _formatParams(Map map) {
-  //   if (map == null) return {};
-  //   List list = map.values?.toList();
-  //   if (GetUtils.isNullOrBlank(list)) return {};
-  //   for (int i = 0; i < list.length; i++) {
-  //     var v = list[i];
-  //     if (GetUtils.isNullOrBlank(v) || v == "null") {
-  //       map.remove(map.keys.toList()[i]);
-  //     }
-  //   }
-  //   return map;
-  // }
+  Map _formatParams(Map map) {
+    if (map == null) return {};
+    List list = map.values?.toList();
+    if (GetUtils.isNullOrBlank(list)) return {};
+    map.removeWhere((key, value) => GetUtils.isNullOrBlank(value));
+    return map;
+  }
 
   Future<BaseResponse> get(String url, {Map params, Options options}) async {
     Response response = await dio.get(url,

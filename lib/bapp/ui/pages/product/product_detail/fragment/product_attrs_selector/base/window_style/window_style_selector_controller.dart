@@ -4,6 +4,8 @@
  * @Date: 2021-01-19 10:30:21
  * @LastEditTime: 2021-02-01 15:41:38
  */
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
@@ -106,6 +108,32 @@ class WindowStyleSelectorController extends GetxController {
       });
     }
     update();
+  }
+
+  Map get data {
+    String dataId = "${style?.id}";
+    String windowPattern = style?.name;
+    List<String> installMode = [currentInstallModeOption?.name];
+    var openMode;
+    String openModeName = currentOpenModeOption?.name;
+    if (GetUtils.isNullOrBlank(currentOpenModeOption?.suboptionList)) {
+      openMode = [openModeName];
+    } else {
+      Map map = {};
+      for (WindowSubopenModeModel e in currentOpenModeOption?.suboptionList) {
+        map[e?.title] = e?.optionList
+            ?.firstWhere((element) => element.isChecked,
+                orElse: () => e.optionList?.first)
+            ?.name;
+      }
+      openMode = {openModeName: map};
+    }
+    return {
+      "$dataId": jsonEncode({
+        "name": windowPattern,
+        "selected": {"安装选项": installMode, "打开方式": openMode}
+      })
+    };
   }
 
   @override

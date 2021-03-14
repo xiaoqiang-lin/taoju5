@@ -13,8 +13,8 @@ class CraftAttrSelectorController extends BaseAttrSelectorController {
 
   @override
   void onInit() {
-    super.onInit();
     attr = taojuwuController.craft;
     initCheckState();
+    super.onInit();
   }
 }

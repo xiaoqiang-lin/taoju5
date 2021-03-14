@@ -82,16 +82,6 @@ class ProductDetailModel implements AbstractProdductModel {
   List<ProductSkuModel> skuList;
   List<ProductMaterialModel> materialList;
 
-  Map toJson() => {
-        "sku_id": skuId,
-        "goods_id": id,
-        "goods_name": name,
-        "shop_id": shopId,
-        "price": price,
-        "picture": cover,
-        "num": 1
-      };
-
   ProductDetailModel.fromJson(Map json) {
     id = json['goods_id'];
 
@@ -141,15 +131,47 @@ extension ProductDetailModelKit on ProductDetailModel {
   String get currentSpecOptionName =>
       specList?.map((e) => e?.currentOption?.name ?? "")?.join(",") ?? "";
 
-  int get colorCount => 0;
+  String get tip => specList?.map((e) => e?.name)?.join("/");
 
-  String get tip => "";
+  int get colorCount {
+    String keyword = "颜色";
+    ProductSpecModel color = specList?.firstWhere(
+        (e) => e.name.contains(keyword) || keyword.contains(e.name),
+        orElse: () => null);
+    return color?.optionList?.length ?? 0;
+  }
+
+  ProductSkuModel get currentSku {
+    List<String> list = [];
+    for (ProductSpecModel spec in specList) {
+      for (ProductSpecOptionModel option in spec.optionList) {
+        if (option.isChecked) {
+          list.add(option.name);
+        }
+      }
+    }
+    String key = list.join(" ");
+    return skuList?.firstWhere(
+        (e) => e.name.contains(key) || key.contains(e.name),
+        orElse: () => null);
+  }
+
+  Map toJson() => {
+        "sku_id": currentSku?.id ?? skuId,
+        "goods_id": id,
+        "goods_name": name,
+        "shop_id": shopId,
+        "price": price,
+        "picture": currentSku?.picId ?? picId,
+        "num": count
+      };
 }
 
 class ProductSpecModel {
   String name;
   String id;
   String type;
+  bool isMultiple = false;
 
   List<ProductSpecOptionModel> optionList;
 
