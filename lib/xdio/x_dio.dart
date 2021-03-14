@@ -9,7 +9,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:get/utils.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
@@ -78,18 +77,18 @@ class XDio {
   static XDio _singleton = XDio._internal();
   factory XDio() => _singleton;
 
-  Map _formatParams(Map map) {
-    if (map == null) return {};
-    List list = map.values?.toList();
-    if (GetUtils.isNullOrBlank(list)) return {};
-    for (int i = 0; i < list.length; i++) {
-      var v = list[i];
-      if (GetUtils.isNullOrBlank(v) || v == "null") {
-        map.remove(map.keys.toList()[i]);
-      }
-    }
-    return map;
-  }
+  // Map _formatParams(Map map) {
+  //   if (map == null) return {};
+  //   List list = map.values?.toList();
+  //   if (GetUtils.isNullOrBlank(list)) return {};
+  //   for (int i = 0; i < list.length; i++) {
+  //     var v = list[i];
+  //     if (GetUtils.isNullOrBlank(v) || v == "null") {
+  //       map.remove(map.keys.toList()[i]);
+  //     }
+  //   }
+  //   return map;
+  // }
 
   Future<BaseResponse> get(String url, {Map params, Options options}) async {
     Response response = await dio.get(url,

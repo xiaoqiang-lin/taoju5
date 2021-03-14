@@ -9,7 +9,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';

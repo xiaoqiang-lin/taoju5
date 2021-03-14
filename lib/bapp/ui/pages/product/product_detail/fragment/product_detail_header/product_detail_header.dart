@@ -42,7 +42,7 @@ class ProductDetailHeader extends StatelessWidget {
               ),
               Spacer(),
               Visibility(
-                visible: GetPlatform.isAndroid || GetPlatform.isAndroid,
+                visible: GetPlatform.isIOS || GetPlatform.isAndroid,
                 child: Container(
                     margin: EdgeInsets.only(right: BDimens.gap16),
                     child: XShareButton(id: product.id)),

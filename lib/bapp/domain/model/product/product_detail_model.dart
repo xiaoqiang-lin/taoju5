@@ -140,6 +140,10 @@ extension ProductDetailModelKit on ProductDetailModel {
 
   String get currentSpecOptionName =>
       specList?.map((e) => e?.currentOption?.name ?? "")?.join(",") ?? "";
+
+  int get colorCount => 0;
+
+  String get tip => "";
 }
 
 class ProductSpecModel {

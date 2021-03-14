@@ -68,7 +68,6 @@ abstract class AppInitializer {
   }
 
   static Future _initAppConfig() async {
-    ///TODO AppConfig修改选项
     await AppConfig.syncConfig(isDebug: true, is$B: true);
   }
 

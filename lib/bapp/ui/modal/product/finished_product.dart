@@ -21,7 +21,7 @@ import 'package:taoju5/bapp/ui/widgets/common/button/x_check_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_submit_button.dart';
 
 Future showFinishedProductAttrModal(BuildContext context,
-    {ProductDetailModel product, int id}) {
+    {ProductDetailModel product, String id}) {
   return showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {

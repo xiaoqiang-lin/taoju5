@@ -104,7 +104,7 @@ class _XDesignProductModal extends StatelessWidget {
                 height: BDimens.gap16,
                 thickness: BDimens.gap16,
               ),
-              for (ProductModel e in product.productlist)
+              for (ProductModel e in product.productList)
                 Container(
                   margin: EdgeInsets.symmetric(
                       vertical: BDimens.gap32, horizontal: BDimens.gap32),
