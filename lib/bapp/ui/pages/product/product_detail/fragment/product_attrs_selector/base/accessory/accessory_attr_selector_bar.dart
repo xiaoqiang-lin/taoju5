@@ -29,7 +29,10 @@ class AccessoryAttrSelectorBar extends StatelessWidget {
             initialValue: _.value,
             onFuture: () =>
                 showCurtainAttrSelectorModal<AccessoryAttrSelectorController>(
-                    title: "配饰选择", tag: tag),
+                        title: "配饰选择", tag: tag)
+                    .whenComplete(() {
+              _.update(["attribute"]);
+            }),
           ),
         );
       },

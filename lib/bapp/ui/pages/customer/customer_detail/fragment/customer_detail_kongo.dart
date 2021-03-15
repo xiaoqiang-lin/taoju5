@@ -9,10 +9,8 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/customer_detail_controller.dart';
 
-class CustomerDetailKongo extends StatelessWidget {
+class CustomerDetailKongo extends GetView<CustomerDetailController> {
   const CustomerDetailKongo({Key key}) : super(key: key);
-
-  get id => Get.find<CustomerDetailController>().customer.id;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,24 @@ class CustomerDetailKongo extends StatelessWidget {
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [],
+        children: [
+          for (CustomerDetailKongoModel e in controller.kongoList)
+            GestureDetector(
+              onTap: e.onTap,
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.symmetric(vertical: BDimens.gap20),
+                        child: Image.asset(e.image)),
+                    Container(
+                        margin: EdgeInsets.only(bottom: BDimens.gap16),
+                        child: Text(e.description)),
+                  ],
+                ),
+              ),
+            )
+        ],
       ),
     );
   }

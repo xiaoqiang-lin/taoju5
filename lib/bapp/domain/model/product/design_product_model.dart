@@ -5,8 +5,9 @@
  * @LastEditTime: 2021-01-26 10:16:07
  */
 
-import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/utils/json_kit.dart';
+
+import 'product_mixin_model.dart';
 
 class DesignProductModel {
   int id;
@@ -22,7 +23,7 @@ class DesignProductModel {
   String style;
   String defaultWidth;
   String defaultHeight;
-  List<ProductModel> productList;
+  List<ProductMixinModel> productList;
 
   DesignProductModel.fromJson(Map json) {
     id = json["scenes_id"];
@@ -33,10 +34,12 @@ class DesignProductModel {
     defaultHeight = json["default_height"] ?? "2.65";
     width = json["width"] ?? defaultWidth;
     height = json["height"] ?? defaultHeight;
+    style = json["style"];
+    room = json["space"];
     image = JsonKit.asWebUrl(json["image"]);
     productList = JsonKit.asList(json["goods_list"])
-        .map((e) => ProductModel.fromJson(e))
-        .cast<ProductModel>()
+        .map((e) => ProductMixinModel.fromJson(e))
+        .cast<ProductMixinModel>()
         .toList();
   }
 }

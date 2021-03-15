@@ -6,4 +6,10 @@
  */
 import 'package:get/get.dart';
 
-class CollectionController extends GetxController {}
+class CollectionController extends GetxController {
+  @override
+  void onInit() {
+    print("))))))");
+    super.onInit();
+  }
+}

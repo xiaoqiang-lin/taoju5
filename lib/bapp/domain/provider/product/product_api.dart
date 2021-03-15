@@ -42,8 +42,12 @@ class ProductAPI {
   Future<BaseResponse> sceneDesignProductDetail(String url, {Map params}) =>
       XDio().get(url, params: params);
 
+  ///软装方案详情
+  Future<BaseResponse> softDesignProductDetail({Map params}) =>
+      XDio().get("/api/goods/softProjectGoodsDetail", params: params);
+
   ///软装详情
-  Future<BaseResponse> softDesignProductDetail(String url, {Map params}) =>
+  Future<BaseResponse> softDesignProductList(String url, {Map params}) =>
       XDio().get(url, params: params);
 
   ///查询是否为收藏状态

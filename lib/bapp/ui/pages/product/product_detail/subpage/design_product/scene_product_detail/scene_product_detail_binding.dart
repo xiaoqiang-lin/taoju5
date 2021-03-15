@@ -11,6 +11,7 @@ import 'scene_product_detail_controller.dart';
 class SceneProductDetailBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => SceneProductDetailController());
+    Get.lazyPut(() => SceneProductDetailController(),
+        tag: Get.parameters["id"]);
   }
 }

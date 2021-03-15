@@ -6,7 +6,6 @@
  */
 
 import 'package:flutter/foundation.dart';
-import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/utils/json_kit.dart';
 
 import 'product_type.dart';
@@ -44,28 +43,21 @@ class ProductModel {
   String name;
   String image;
   double marketPrice;
+
   double price;
   String unit;
   int picId;
   int code;
-  double width;
-  double height;
 
-  List<CurtainProductAttrAdapterModel> attrList = [];
-
-  String room;
-
-  String roomId;
-
-  ///离地距离
-  String deltaY;
-
-  Map installData;
-  double totalPrice;
-
-  List<ProductSpecModel> specList;
   String thumbnail;
 
+  String measureId;
+
+  String attribute;
+
+  String skuId;
+  String count = "1";
+  String skuName;
   ProductModel.fromJson(Map json) {
     id = json['goods_id'];
     name = json['goods_name'];
@@ -73,13 +65,13 @@ class ProductModel {
     image = (json['pic_cover_mid'] ?? json['image'] ?? json['picture']);
     code = json["goods_type"];
     marketPrice = JsonKit.asDouble(json['market_price']);
-    totalPrice = JsonKit.asDouble(json['total_price']);
+
     unit = json["unit"];
     picId = json["pic_id"];
     price = JsonKit.asDouble(
         (json['price'] ?? json['display_price'] ?? json['market_price']));
-    width = JsonKit.asDouble(json['width']);
-    height = JsonKit.asDouble(json['height']);
+    skuId = json["sku_id"];
+    skuName = json["sku_name"];
   }
 }
 

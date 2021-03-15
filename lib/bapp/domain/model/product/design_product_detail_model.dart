@@ -10,10 +10,10 @@ import 'package:taoju5/utils/json_kit.dart';
 
 class DesignProductDetailModelWrapper {
   DesignProductDetailModel product;
-  List<DesignProductModel> list;
+  List<DesignProductModel> sceneList;
   DesignProductDetailModelWrapper.fromJson(Map json) {
     product = DesignProductDetailModel.fromJson(json["scenes_detail"]);
-    list = JsonKit.asList(json["related_scenes"])
+    sceneList = JsonKit.asList(json["related_scenes"])
         .map((e) => DesignProductModel.fromJson(e))
         .cast<DesignProductModel>()
         .toList();

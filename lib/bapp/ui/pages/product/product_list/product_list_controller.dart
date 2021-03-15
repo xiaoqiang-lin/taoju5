@@ -21,7 +21,7 @@ class ProductListParentController extends GetxController
     with SingleGetTickerProviderMixin {
   ProductRepository _repository = ProductRepository();
   List<ProductTabModel> tabList = [
-    ProductTabModel(name: "窗帘", id: 0),
+    ProductTabModel(name: "窗帘", id: 0, isChecked: true),
     ProductTabModel(name: "床品", id: 1),
     ProductTabModel(name: "抱枕", id: 2),
     ProductTabModel(name: "沙发", id: 3),
@@ -40,6 +40,7 @@ class ProductListParentController extends GetxController
   ///是否为网格视图
   bool isGridMode = true;
 
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TabController tabController;
 
   Future loadData() {
@@ -56,15 +57,34 @@ class ProductListParentController extends GetxController
     });
   }
 
+  void _onTabChanged() {
+    tabList.forEach((element) {
+      element.isChecked = element.id == tabController.index;
+    });
+    closePanel();
+    // openFilterDrawer(Get.context);
+  }
+
+  void closePanel() {
+    if (scaffoldKey.currentState.isEndDrawerOpen) {
+      Get.back();
+    }
+  }
+
+  ProductTabModel get currentTabModel =>
+      tabList?.firstWhere((e) => e?.isChecked, orElse: () => tabList?.first);
+
   @override
   void onInit() {
-    tabController = TabController(length: tabList.length, vsync: this);
+    tabController = TabController(length: tabList.length, vsync: this)
+      ..addListener(_onTabChanged);
     loadData();
     super.onInit();
   }
 
   @override
   void onClose() {
+    tabController?.removeListener(_onTabChanged);
     tabController?.dispose();
     super.onClose();
   }
@@ -75,10 +95,13 @@ class ProductListParentController extends GetxController
     }
     update(["sort"]);
     Get.back();
-    productListController.refreshData(params: model.params);
+    Map map = {};
+    map.addAll(model.params);
+    map.addAll({"category_type": currentTabModel.id});
+    productListController.refreshData(params: map);
   }
 
-  Future sort(BuildContext ctx) {
+  Future openSortPanel(BuildContext ctx) {
     ///判断是否已经打开了排序面板,如果已经打开,则关闭
     if (!ModalRoute.of(ctx).isCurrent) {
       Get.back();
@@ -111,13 +134,12 @@ class ProductListParentController extends GetxController
     return Get.find<ProductListController>(tag: tag);
   }
 
-  GlobalKey<ScaffoldState> get scaffoldKey =>
-      productListController?.scaffoldKey;
-  void filter(BuildContext context) {
+  void openFilterDrawer(BuildContext context) {
     ///如果已经打开了排序面版 则关闭排序面板
     if (!ModalRoute.of(context).isCurrent) {
       Get.back();
     }
+
     // print("啦啦啦啦啦啦");
     // print(scaffoldKey.currentState);
     //如果已经打开了筛选面板
@@ -134,7 +156,6 @@ class ProductListController extends GetxController {
 
   List<ProductModel> productList = [];
   //[_scaffoldKey]控制右侧筛选面板的打开与关闭
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   XLoadState loadState = XLoadState.idle;
 
@@ -142,18 +163,19 @@ class ProductListController extends GetxController {
 
   ScrollController scrollController;
 
-  final Map initialParams;
+  final String type;
 
   int pageIndex = 1;
 
-  ProductListController(this.initialParams);
+  ProductListController({@required this.type});
+
+  Map get params => {"category_type": type, "page_index": pageIndex};
 
   Future loadData({Map params}) {
-    pageIndex = 1;
     loadState = XLoadState.busy;
 
     return _repository
-        .productList(params: initialParams)
+        .productList(params: params)
         .then((ProductModelListWrapper wrapper) {
       productList = wrapper.list;
       if (GetUtils.isNullOrBlank(productList)) {
@@ -168,9 +190,9 @@ class ProductListController extends GetxController {
 
   Future loadMore({Map params}) {
     pageIndex += 1;
-    initialParams.addAll({"page_index": pageIndex});
+
     return _repository
-        .productList(params: initialParams)
+        .productList(params: params)
         .then((ProductModelListWrapper wrapper) {
       loadState = XLoadState.idle;
       productList.addAll(wrapper.list);
@@ -186,11 +208,11 @@ class ProductListController extends GetxController {
   }
 
   Future refreshData({Map params}) {
-    initialParams.addAll(params ?? {});
+    pageIndex = 0;
     loadState = XLoadState.busy;
     update();
     return _repository
-        .productList(params: initialParams)
+        .productList(params: params)
         .then((ProductModelListWrapper wrapper) {
       refreshController.refreshCompleted();
       productList = wrapper.list;
@@ -206,7 +228,7 @@ class ProductListController extends GetxController {
 
   @override
   void onInit() {
-    loadData();
+    loadData(params: params);
     refreshController = RefreshController();
     scrollController = ScrollController();
     super.onInit();

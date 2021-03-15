@@ -7,6 +7,7 @@
 
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 
@@ -14,7 +15,7 @@ import '../design_product_detail_controller.dart';
 
 class SceneProductDetailController extends DesignProductDetailController {
   final id = Get.parameters["id"];
-
+  List<DesignProductModel> sceneList;
   XLoadState loadState = XLoadState.idle;
   Future loadData() {
     loadState = XLoadState.busy;
@@ -22,6 +23,8 @@ class SceneProductDetailController extends DesignProductDetailController {
     return repository.sceneDesignProductDetail(params: {"scenes_id": id}).then(
         (DesignProductDetailModelWrapper value) {
       product = value.product;
+      sceneList = value.sceneList;
+
       loadState = XLoadState.idle;
     }).catchError((err) {
       loadState = XLoadState.error;

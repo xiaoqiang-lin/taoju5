@@ -27,7 +27,10 @@ class CraftAttrSelectorBar extends StatelessWidget {
             initialValue: _.value,
             onFuture: () =>
                 showCurtainAttrSelectorModal<CraftAttrSelectorController>(
-                    title: "工艺选择", tag: tag),
+                        title: "工艺选择", tag: tag)
+                    .whenComplete(() {
+              _.update(["attribute"]);
+            }),
           ),
         );
       },

@@ -31,7 +31,7 @@ class SelectableProductListPage
           //     child: ProductListHeader(), preferredSize: Size.fromHeight(36)),
         ),
         body: GetBuilder<ProductListController>(
-            init: ProductListController({"category_type": 0}),
+            init: ProductListController(type: "0"),
             tag: "窗帘",
             builder: (_) {
               return Column(children: [

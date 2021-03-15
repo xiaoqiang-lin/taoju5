@@ -48,15 +48,18 @@ class OrderListPage extends GetView<OrderListParentController> {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: BDimens.gap16),
                                   child: Text("请选择订单时间")),
-                              TabBar(
-                                  controller: controller.tabController,
-                                  isScrollable: true,
-                                  tabs: [
-                                    for (OrderStatusTabModel tab
-                                        in controller.tabList)
-                                      Obx(() => Text(
-                                          "${tab.name}(${tab.count.value})"))
-                                  ]),
+                              Container(
+                                margin: EdgeInsets.only(right: 36),
+                                child: TabBar(
+                                    controller: controller.tabController,
+                                    isScrollable: true,
+                                    tabs: [
+                                      for (OrderStatusTabModel tab
+                                          in controller.tabList)
+                                        Obx(() => Text(
+                                            "${tab.name}(${tab.count.value})"))
+                                    ]),
+                              ),
                             ],
                           );
                         }),
@@ -68,6 +71,10 @@ class OrderListPage extends GetView<OrderListParentController> {
                               EdgeInsets.symmetric(horizontal: BDimens.gap16),
                           child: Row(
                             children: [
+                              Container(
+                                  width: 1.2,
+                                  height: 18,
+                                  color: Color(0xFFD4D4D4)),
                               XRotationArrow(
                                   onTap: () => controller.filter(context))
                             ],
@@ -84,6 +91,7 @@ class OrderListPage extends GetView<OrderListParentController> {
         children: [
           for (OrderStatusTabModel tab in controller.tabList)
             Container(
+              key: ValueKey(tab.name),
               child: GetBuilder<OrderListController>(
                 init: OrderListController(status: tab.status),
                 tag: tab.name,

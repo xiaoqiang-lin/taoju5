@@ -23,6 +23,8 @@ class _UserProtocolPageState extends State<UserProtocolPage> {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

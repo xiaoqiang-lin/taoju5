@@ -32,9 +32,9 @@ class ProductAdapterModel {
     room = json["room"];
     unitPrcie = json["price"];
     description = json["description"];
-    attrList = json["attrList"];
+    attrList = json["attr_list"];
     image = json["image"];
-    totalPrice = json["totalPrice"];
+    totalPrice = json["total_price"];
     measureId = json["measure_id"];
     skuId = "${json["sku_id"]}";
     attribute = json["attribute"];

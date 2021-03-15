@@ -47,7 +47,7 @@ class XBaseModal extends StatelessWidget {
                 icon: Icon(BIcons.close),
                 onPressed: () {
                   Function.apply(onClose, []);
-                  Navigator();
+                  Navigator.of(context).pop();
                 },
               ),
               top: 5,

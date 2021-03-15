@@ -7,6 +7,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/user/user_info_model.dart';
 import 'package:taoju5/bapp/domain/repository/login/login_repository.dart';
@@ -20,14 +21,33 @@ import 'package:taoju5/xdio/x_dio.dart';
 class LoginController extends GetxController {
   static LoginRepository _repository = LoginRepository();
   LoginMode loginMode = LoginMode.password;
-  LoginParamModel paramModel = LoginParamModel();
+  double start = 0;
+  LoginParamModel args = LoginParamModel();
 
-  Map get params => paramModel.toJson();
+  bool isPasswordCypher = true;
+
+  Map get params => args.toJson();
 
   static Map<LoginMode, ILoginStrategy> _strategyDict = {
     LoginMode.password: PasswordLoginStrategy(_repository),
     LoginMode.sms: SmsLoginStrategy(_repository),
   };
+
+  void switchPasswordMode() {
+    isPasswordCypher = !isPasswordCypher;
+  }
+
+  void setPassword(String val) {
+    args.password = val;
+  }
+
+  void setSms(String val) {
+    args.code = val;
+  }
+
+  void setTel(String val) {
+    args.mobile = val;
+  }
 
   ///[_currentStrategy]当前登录策略
   ILoginStrategy get _currentStrategy => _strategyDict[loginMode];
@@ -35,7 +55,7 @@ class LoginController extends GetxController {
     XLogger.v(params);
 
     ///参数校验
-    if (!paramModel.validate(flag: loginMode)) return Future.error(false);
+    if (!args.validate(flag: loginMode)) return Future.error(false);
     return _currentStrategy.login(params: params).then((UserInfoModel model) {
       ///刷新dio中的token
       XDio().refreshToken(model.token);
@@ -66,6 +86,12 @@ class LoginController extends GetxController {
   ///[return]:
   Future getSms() {
     return _repository.getSms(params: params);
+  }
+
+  void switchMode({@required LoginMode mode, @required double startx}) {
+    loginMode = mode;
+    start = startx;
+    update();
   }
 }
 

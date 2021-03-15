@@ -218,7 +218,20 @@ class CartPage extends GetView<CartListParentController> {
                                                               )),
                                                         ),
                                                         Visibility(
-                                                          child: XStepCounter(),
+                                                          child: XStepCounter(
+                                                            onValueChange:
+                                                                (String val) {
+                                                              if (GetUtils
+                                                                  .isNum(val)) {
+                                                                e.count.value =
+                                                                    int.parse(
+                                                                        val);
+                                                              } else {
+                                                                e.count.value =
+                                                                    1;
+                                                              }
+                                                            },
+                                                          ),
                                                           visible: e.productType
                                                               is FinishedProductType,
                                                         ),

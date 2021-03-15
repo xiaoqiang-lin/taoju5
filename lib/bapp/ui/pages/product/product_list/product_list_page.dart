@@ -72,7 +72,7 @@ class ProductListPage extends GetView<ProductListParentController> {
           children: [
             for (ProductTabModel tab in controller.tabList)
               GetBuilder<ProductListController>(
-                init: ProductListController({"category_type": tab.id}),
+                init: ProductListController(type: "${tab.id}"),
                 tag: "${tab.id}",
                 autoRemove: false,
                 builder: (_) {

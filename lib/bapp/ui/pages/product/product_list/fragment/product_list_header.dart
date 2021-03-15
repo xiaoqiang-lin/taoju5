@@ -49,15 +49,15 @@ class ProductListHeader extends StatelessWidget {
                     padding: EdgeInsets.only(right: BDimens.gap16),
                     child: XRotationArrow(
                       label: _.sortName,
-                      onTap: () => _.sort(context),
+                      onTap: () => _.openSortPanel(context),
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => _.filter(context),
+                    onTap: () => _.openFilterDrawer(context),
                     child: Row(
                       children: [
                         Text("筛选"),
-                        Image.asset("assets/images/" + "filter.png")
+                        Image.asset("assets/images/filter.png")
                       ],
                     ),
                   )

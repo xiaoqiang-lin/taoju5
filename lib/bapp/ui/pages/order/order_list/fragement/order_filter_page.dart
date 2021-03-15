@@ -73,6 +73,7 @@ class OrderFilterPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: BDimens.gap24),
               width: Get.width,
+              height: 48,
               child: ElevatedButton(
                   onPressed: Get.find<OrderListParentController>().refreshData,
                   child: Text("确定")),

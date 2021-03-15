@@ -28,6 +28,9 @@ class _LoginIndicatorState extends State<LoginIndicator> {
 
   double startX1 = 0;
   double startX2 = 0;
+
+  double startX = 0;
+
   @override
   void initState() {
     super.initState();
@@ -42,10 +45,10 @@ class _LoginIndicatorState extends State<LoginIndicator> {
       ///取中间坐标
       startX1 = position1.dx + (size1.width / 2);
       startX2 = position2.dx + (size2.width / 2);
-
-      print(startX1);
-      print(startX2);
-      setState(() {});
+      LoginController _ = Get.find();
+      setState(() {
+        _.start = startX2;
+      });
     });
   }
 
@@ -60,28 +63,36 @@ class _LoginIndicatorState extends State<LoginIndicator> {
               Row(
                 children: [
                   Expanded(
-                    child: Center(
-                      child: Builder(builder: (BuildContext ctx) {
-                        ctx1 = ctx;
-                        return Text("密码登录");
-                      }),
+                    child: GestureDetector(
+                      onTap: () =>
+                          _.switchMode(mode: LoginMode.sms, startx: startX1),
+                      child: Center(
+                        child: Builder(builder: (BuildContext ctx) {
+                          ctx1 = ctx;
+                          return Text("手机号码登录");
+                        }),
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: Center(
-                      child: Builder(builder: (BuildContext ctx) {
-                        ctx2 = ctx;
-                        return Text("验证码登录");
-                      }),
+                    child: GestureDetector(
+                      onTap: () => _.switchMode(
+                          mode: LoginMode.password, startx: startX2),
+                      child: Center(
+                        child: Builder(builder: (BuildContext ctx) {
+                          ctx2 = ctx;
+                          return Text("密码登录");
+                        }),
+                      ),
                     ),
                   ),
                 ],
               ),
               Container(
+                width: Get.width,
                 margin: EdgeInsets.only(top: BDimens.gap32),
-                child: CustomPaint(
-                    painter: LoginIndicatorPainter(
-                        startX1: startX1, startX2: startX2)),
+                child:
+                    CustomPaint(painter: LoginIndicatorPainter(start: _.start)),
               )
             ],
           ),

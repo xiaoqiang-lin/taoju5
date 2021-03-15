@@ -6,6 +6,7 @@
  */
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_filter_tag_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
@@ -114,9 +115,17 @@ class ProductRepository {
     });
   }
 
+  ///软装方案详情
+  Future<DesignProductModel> softDesignProductDetail({Map params}) {
+    return _api
+        .softDesignProductDetail(params: params)
+        .then((BaseResponse response) {
+      return DesignProductModel.fromJson(response.data);
+    });
+  }
+
   //// {'scenes_id': widget.scenesId
-  Future<DesignProductDetailModelWrapper> softDesignProductDetail(
-      {Map params}) {
+  Future<DesignProductDetailModelWrapper> softDesignProducList({Map params}) {
     return _api
         .cartList("/api/goods/scenesDetail", params: params)
         .then((BaseResponse response) {
@@ -154,6 +163,7 @@ class ProductRepository {
     return _api.addMeasureData("/api/order/saveMeasure", params: params);
   }
 
+  ///从购物车中移除
   Future<BaseResponse> removeFromCart({Map params}) {
     return _api.removeFromCart("/api/goods/deleteCart", params: params);
   }

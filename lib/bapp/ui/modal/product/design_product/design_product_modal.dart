@@ -7,13 +7,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal.dart';
 
-Future showDesignProductModal({@required DesignProductModel product}) {
+Future showDesignProductModal({@required String id}) {
   return showCupertinoModalPopup(
       context: Get.context,
       builder: (BuildContext context) {
-        return DesignProductModal(product: product);
+        return DesignProductModal(id: id);
       });
 }

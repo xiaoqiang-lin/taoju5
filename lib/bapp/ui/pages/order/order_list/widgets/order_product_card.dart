@@ -134,6 +134,9 @@ class _SelectOrderCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     "创建时间:${order.createTime}",
+                    style: TextStyle(
+                        fontSize: BDimens.sp26,
+                        color: BColors.weightGreyTextColor),
                   ),
                 )
               ],

@@ -257,7 +257,7 @@ class BAppPages {
 
     ///搜藏夹
     GetPage(
-        name: BAppRoutes.collection,
+        name: BAppRoutes.collection + "/:id",
         page: () => CollectionPage(),
         binding: CollectionBinding()),
 

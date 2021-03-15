@@ -35,7 +35,7 @@ class XSizedTextField extends StatefulWidget {
   final BorderRadius borderRadius;
   const XSizedTextField(
       {Key key,
-      this.height,
+      this.height = 42,
       this.width,
       this.initialValue,
       this.focusNode,
@@ -120,6 +120,7 @@ class _XSizedTextFieldState extends State<XSizedTextField> {
             Expanded(
               child: TextFormField(
                 decoration: InputDecoration(
+                  isCollapsed: true,
                   hintText: widget.hintText,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,

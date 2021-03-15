@@ -9,9 +9,10 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/login/login/login_controller.dart';
-import 'package:taoju5/bapp/ui/widgets/bloc/x_sms_button.dart';
 
 import 'widget/loge_indicator.dart';
+import 'widget/x_sms_input_field.dart';
+import 'widget/x_tel_input_field.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -34,71 +35,48 @@ class LoginPage extends StatelessWidget {
                       fontSize: BDimens.sp48),
                 ),
                 LoginIndicator(),
-                // GetBuilder<LoginController>(
-                //   id: "mode",
-                //   builder: (_) {
-                //     return Row(
-                //       children: [
-                //         Row(
-                //           children: [
-                //             Text("密码登录"),
-                //             Checkbox(
-                //                 value: _.loginMode == LoginMode.password,
-                //                 onChanged: (bool flag) {
-                //                   _.loginMode = LoginMode.password;
-                //                   _.update(["mode"]);
-                //                 }),
-                //           ],
-                //         ),
-
-                //         Row(
-                //           children: [
-                //             Text("验证码登录"),
-                //             Checkbox(
-                //                 value: _.loginMode == LoginMode.sms,
-                //                 onChanged: (bool flag) {
-                //                   _.loginMode = LoginMode.sms;
-                //                   _.update(["mode"]);
-                //                 }),
-                //           ],
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // ),
                 Form(
                   autovalidateMode: AutovalidateMode.always,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(hintText: "请输入手机号码"),
-                        onChanged: (String text) {
-                          _.paramModel.mobile = text;
-                        },
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(hintText: "请输入密码"),
-                        onChanged: (String text) {
-                          _.paramModel.password = text;
-                        },
-                      ),
-                      TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(hintText: "请输入验证码"),
-                        onChanged: (String text) {
-                          _.paramModel.code = text;
-                        },
-                      ),
-                    ],
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+                    child: Column(
+                      children: [
+                        Container(
+                            margin:
+                                EdgeInsets.symmetric(vertical: BDimens.gap16),
+                            child: XTelInputField(
+                              onChanged: _.setTel,
+                            )),
+                        IndexedStack(
+                          index: _.loginMode == LoginMode.password ? 1 : 0,
+                          children: [
+                            XSmsTextField(onChanged: _.setSms),
+                            TextFormField(
+                              obscureText: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(hintText: "请输入密码"),
+                              onChanged: _.setPassword,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                XSmsButton(
-                  onFuture: _.getSms,
-                ),
-                TextButton(onPressed: _.login, child: Text("登录"))
+                Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: BDimens.gap48, horizontal: BDimens.gap16),
+                    width: Get.width,
+                    child: ElevatedButtonTheme(
+                        data: ElevatedButtonThemeData(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    BColors.buttonColor),
+                                minimumSize:
+                                    MaterialStateProperty.all(Size(172, 56)))),
+                        child: ElevatedButton(
+                            onPressed: _.login, child: Text("登录"))))
               ],
             );
           },

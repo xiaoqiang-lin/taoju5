@@ -99,7 +99,9 @@ class XShareButton extends StatelessWidget {
       tag: "$id",
       builder: (_) {
         return IconButton(
-            icon: Image.asset("assets/images/" + "share.png"),
+            icon: Image.asset("assets/images/share.png"
+                // color: Colors.black54,
+                ),
             onPressed: _.share);
       },
     );

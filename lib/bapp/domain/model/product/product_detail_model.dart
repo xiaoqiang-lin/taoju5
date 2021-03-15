@@ -237,7 +237,7 @@ class ProductSkuModel {
     price = json["price"];
     marketPrice = json['market_price'];
     id = json["sku_id"];
-    picId = json["pic_id"];
+    picId = json["picture"];
     count = 1;
   }
 }

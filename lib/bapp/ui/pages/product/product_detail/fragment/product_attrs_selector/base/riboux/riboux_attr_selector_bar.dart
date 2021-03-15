@@ -28,7 +28,10 @@ class RibouxAttrSelectorBar extends StatelessWidget {
             initialValue: _.value,
             onFuture: () =>
                 showCurtainAttrSelectorModal<RibouxAttrSelectorController>(
-                    title: "里布选择", tag: tag),
+                        title: "里布选择", tag: tag)
+                    .whenComplete(() {
+              _.update(["attribute"]);
+            }),
           ),
         );
       },

@@ -7,5 +7,6 @@
 class ProductTabModel {
   String name;
   int id;
-  ProductTabModel({this.name, this.id});
+  bool isChecked;
+  ProductTabModel({this.name, this.id, this.isChecked = false});
 }

@@ -27,7 +27,10 @@ class ValanceAttrSelectorBar extends StatelessWidget {
             initialValue: _.value,
             onFuture: () =>
                 showCurtainAttrSelectorModal<ValanceAttrSelectorController>(
-                    title: "幔头选择", tag: tag),
+                        title: "幔头选择", tag: tag)
+                    .whenComplete(() {
+              _.update(["attribute"]);
+            }),
           ),
         );
       },

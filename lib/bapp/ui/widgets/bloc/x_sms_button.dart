@@ -71,9 +71,13 @@ class XSmsButton extends StatelessWidget {
           // }
           if (_.buttonState == ButtonState.busy) {
             return ElevatedButton(
-              onPressed: () {},
-              child: CupertinoActivityIndicator(),
-            );
+                onPressed: () {},
+                child: Stack(
+                  children: [
+                    Text("获取验证码"),
+                    CupertinoActivityIndicator(),
+                  ],
+                ));
           }
           if (_.buttonState == ButtonState.succeed) {
             return XCountDownButton(

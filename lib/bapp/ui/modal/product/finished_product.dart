@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/modal/base/x_base_modal.dart';
@@ -95,21 +96,76 @@ Future showFinishedProductAttrModal(BuildContext context,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: BDimens.gap24),
-                                              child: Text(
-                                                "数量:",
-                                                style: TextStyle(
-                                                    fontSize: BDimens.sp28,
-                                                    fontWeight:
-                                                        FontWeight.w500),
+                                            Visibility(
+                                                visible: product.productType
+                                                    is SectionalbarProductType,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: BDimens
+                                                                  .gap24),
+                                                      child: Text(
+                                                        "米数:(单位:米)",
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                BDimens.sp28,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: 42,
+                                                      width: Get.width / 2.4,
+                                                      child: TextField(
+                                                          scrollPadding:
+                                                              EdgeInsets.zero,
+                                                          decoration: InputDecoration(
+                                                              hintText:
+                                                                  "输入米数 例:1.5米",
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: BColors
+                                                                          .inputBorderColor)),
+                                                              enabledBorder: OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              BColors.inputBorderColor)))),
+                                                    )
+                                                  ],
+                                                )),
+                                            Visibility(
+                                              visible: product.productType
+                                                  is FabricFurnitureProductType,
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical:
+                                                                BDimens.gap24),
+                                                    child: Text(
+                                                      "数量:",
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              BDimens.sp28,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ),
+                                                  XStepCounter(
+                                                    initialValue:
+                                                        _.product.count,
+                                                    onValueChange:
+                                                        _.changeProductCount,
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            XStepCounter(
-                                              initialValue: _.product.count,
-                                              onValueChange:
-                                                  _.changeProductCount,
                                             ),
                                             for (ProductSpecModel spec
                                                 in _.product.specList)

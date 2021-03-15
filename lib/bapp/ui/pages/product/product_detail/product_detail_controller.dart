@@ -123,7 +123,7 @@ class AddToCartParamsModel {
       {@required this.tag,
       @required this.product,
       @required this.totalPrice,
-      @required this.measureId});
+      this.measureId});
 
   Map get params {
     clientId = Get.find<CustomerProviderController>().id;
@@ -393,9 +393,9 @@ class ProductDetailController extends GetxController {
       "name": product.name,
       "room": selectorController?.room?.currentOptionName,
       "price": product.price,
-      "attrList": _attrList,
+      "attr_list": _attrList,
       "description": _description,
-      "totalPrice": priceDelegator.totalPrice,
+      "total_price": priceDelegator.totalPrice,
       "image": product.cover,
       "measure_id": measureId,
       "sku_id": product.skuId,

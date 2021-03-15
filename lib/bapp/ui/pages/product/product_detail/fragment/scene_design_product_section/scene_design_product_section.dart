@@ -8,7 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
@@ -90,7 +90,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(6)),
                         child: Image.asset(
-                          "assets/images/" + "shadow_mask.png",
+                          "assets/images/shadow_mask.png",
                           width: Get.width,
                           fit: BoxFit.fitWidth,
                         ),
@@ -124,7 +124,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                             childAspectRatio: .68,
                             crossAxisSpacing: 8),
                         itemBuilder: (BuildContext context, int index) {
-                          ProductModel o = product.productList[index];
+                          ProductMixinModel o = product.productList[index];
                           return GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             onTap: () => Get.toNamed(

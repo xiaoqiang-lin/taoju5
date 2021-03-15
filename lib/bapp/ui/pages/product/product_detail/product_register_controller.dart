@@ -13,7 +13,7 @@ class ProductRegisterController extends GetxController {
 
   @override
   void onInit() {
-    tag ??= Get.parameters["id"];
+    tag = Get.parameters["id"];
     super.onInit();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DesignCurtainProductCard extends StatelessWidget {
   final DesignProductModel designProduct;
-  final ProductModel product;
+  final ProductMixinModel product;
   const DesignCurtainProductCard(
       {Key key, @required this.product, @required this.designProduct})
       : super(key: key);
@@ -44,7 +45,11 @@ class DesignCurtainProductCard extends StatelessWidget {
                     Container(
                         margin: EdgeInsets.symmetric(vertical: BDimens.gap8),
                         child: Text(
-                            "默认数据:  宽:${product?.width}米 高:${product?.height}米")),
+                          "默认数据:  宽:${product?.width}米 高:${product?.height}米",
+                          style: TextStyle(
+                              color: BColors.descriptionTextColor,
+                              fontSize: BDimens.sp28),
+                        )),
                     GestureDetector(
                       onTap: () => Get.toNamed(
                           BAppRoutes.editMeasureData + "/${product?.id}"),

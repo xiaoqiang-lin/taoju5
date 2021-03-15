@@ -29,7 +29,9 @@ class SoftDesignProductSection extends StatelessWidget {
             horizontal: BDimens.gap16, vertical: BDimens.gap16),
         child: Column(
           children: [
-            XTitleBar(title: "软装方案"),
+            XTitleBar(
+              title: "软装方案",
+            ),
             AspectRatio(
                 aspectRatio: 2.4,
                 child: XSwiper(
@@ -111,7 +113,7 @@ class SoftDesignProductSection extends StatelessWidget {
                                         Spacer(),
                                         GestureDetector(
                                             onTap: () => showDesignProductModal(
-                                                product: product),
+                                                id: "${product.id}"),
                                             child: Text(
                                               "立即购买",
                                               style: TextStyle(

@@ -41,8 +41,9 @@ class BTheme {
                   fontWeight: FontWeight.w500))),
       tabBarTheme: TabBarTheme(
         indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(color: BColors.indicatorColor, width: 2),
-            insets: EdgeInsets.symmetric(horizontal: 8)),
+          borderSide: BorderSide(color: BColors.indicatorColor, width: 2),
+          // insets: EdgeInsets.symmetric(horizontal: 8)
+        ),
 
         labelPadding: EdgeInsets.only(
             bottom: BDimens.gap10, right: BDimens.gap10, left: BDimens.gap10),
