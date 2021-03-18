@@ -44,6 +44,9 @@ class _XStepCounterState extends State<XStepCounter> {
   }
 
   void onSubstract() {
+    if (value <= 1) {
+      return;
+    }
     value -= 1;
     controller.text = "$value";
     onValueChange("$value");

@@ -6,6 +6,7 @@
  */
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/window/window_pattern_model.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/modal/product/base/x_base_attr_modal.dart';
@@ -14,7 +15,8 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_check_button.dart';
 
-Future showWindowPatternModal({@required String tag}) {
+Future showWindowPatternModal(
+    {@required String tag, ProductMixinModel product}) {
   return showCupertinoModalPopup(
       context: Get.context,
       builder: (BuildContext context) {
@@ -25,7 +27,7 @@ Future showWindowPatternModal({@required String tag}) {
           onWillPop: controller.onCancel,
           child: XBaseAttrModal(
               title: "窗型选择",
-              onConfirm: controller.onConfirm,
+              onConfirm: () => controller.onConfirm(product: product),
               onClose: controller.onCancel,
               builder: (BuildContext context) {
                 return SingleChildScrollView(

@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/modal/window/window_pattern_modal.dart';
 import 'package:taoju5/bapp/ui/widgets/common/textfield/x_selector_text_field.dart';
 
@@ -14,19 +15,26 @@ import 'window_pattern_selector_controller.dart';
 
 class PatternSelectorBar extends StatelessWidget {
   final String tag;
-  const PatternSelectorBar({Key key, @required this.tag}) : super(key: key);
+  final ProductMixinModel product;
+  const PatternSelectorBar({Key key, @required this.tag, this.product})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<WindowPatternSelectorController>(
       tag: tag,
       id: "value",
+      initState: (_) {
+        final controller = Get.find<WindowPatternSelectorController>(tag: tag);
+        controller.product = product;
+        controller.initWithMixinProduct();
+      },
       builder: (_) {
         return Container(
           child: XSelectorTextField(
             label: Text("窗型"),
             key: ValueKey(_.value),
             initialValue: _.value,
-            onFuture: () => showWindowPatternModal(tag: tag),
+            onFuture: () => showWindowPatternModal(tag: tag, product: product),
           ),
         );
       },

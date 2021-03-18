@@ -6,6 +6,7 @@ import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/base_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
@@ -14,10 +15,31 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_contr
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_register_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/utils/common_kit.dart';
+import 'package:taoju5/utils/x_logger.dart';
+import 'package:taoju5/validator/params_validator.dart';
 import 'package:taoju5/xdio/x_dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class DesignProductAddToCartParamsModel {
-  List<ProductModel> productList;
+class DesignProductAddToCartParamsModel extends ParamsValidator {
+  List<ProductMixinModel> productList;
+  String clientId;
+  DesignProductAddToCartParamsModel({this.productList}) {
+    clientId = Get.find<CustomerProviderController>().id;
+  }
+
+  Map get params => {
+        "client_uid": clientId,
+        "cart_list": productList.map((e) => e.params).toList()
+      };
+
+  @override
+  bool validate({flag}) {
+    if (GetUtils.isNullOrBlank(clientId)) {
+      EasyLoading.showInfo("请先选择客户哦");
+      return false;
+    }
+    return true;
+  }
 }
 
 class DesignProductModalController extends GetxController {
@@ -30,7 +52,7 @@ class DesignProductModalController extends GetxController {
   String tag = "";
   DesignProductModalController({@required this.id});
 
-  XLoadState loadState = XLoadState.busy;
+  XLoadState loadState = XLoadState.idle;
 
   Future loadData() {
     loadState = XLoadState.busy;
@@ -46,8 +68,10 @@ class DesignProductModalController extends GetxController {
 
   @override
   void onInit() {
-    loadData();
-    _initWithPreConfig();
+    loadData().then((_) {
+      _initWithPreConfig();
+    });
+
     super.onInit();
   }
 
@@ -56,7 +80,7 @@ class DesignProductModalController extends GetxController {
       tag = Get.find<ProductRegisterController>().tag;
       ProductDetailController productController =
           Get.find<ProductDetailController>(tag: tag);
-      designProduct.productList.forEach((ProductMixinModel product) {
+      designProduct?.productList?.forEach((ProductMixinModel product) {
         productController?.attrControllerList?.forEach((e) {
           _parse(product, e);
         });
@@ -108,7 +132,13 @@ class DesignProductModalController extends GetxController {
   }
 
   Future addToCart() {
-    return Future.value(false);
+    DesignProductAddToCartParamsModel args = DesignProductAddToCartParamsModel(
+        productList: designProduct.productList);
+    if (!args.validate()) {
+      return Future.value(false);
+    }
+    XLogger.v(args.params);
+    return Future.value(true);
   }
 
   Future buy() {

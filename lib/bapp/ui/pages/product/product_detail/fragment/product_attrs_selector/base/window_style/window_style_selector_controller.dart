@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/window/window_style_model.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/subpage/measure_data/order_measure_data_controller.dart';
@@ -34,6 +35,16 @@ class WindowStyleSelectorController extends GetxController {
       return list.firstWhere(
           (e) => RegExp(controller.measureData.windowPattern).hasMatch(e.name),
           orElse: () => list?.first);
+    } else if (Get.arguments != null && Get.arguments is ProductMixinModel) {
+      ProductMixinModel product = Get.arguments;
+
+      if (product.style == null) {
+        return list.firstWhere(
+            (e) =>
+                RegExp(windowPatternSelectorController.value).hasMatch(e.name),
+            orElse: () => list?.first);
+      }
+      return product.style;
     } else {
       return list.firstWhere(
           (e) => RegExp(windowPatternSelectorController.value).hasMatch(e.name),
@@ -141,6 +152,7 @@ class WindowStyleSelectorController extends GetxController {
     super.onInit();
     if (Get.isRegistered<OrderMeasureDataController>()) {
       _initWithOrderMeasureData();
+      return;
     }
   }
 
@@ -184,6 +196,11 @@ class WindowStyleSelectorController extends GetxController {
     });
     if (Get.isRegistered<OrderMeasureDataController>()) {
       _saveToOrderMeasureData();
+    }
+
+    if (Get.arguments != null && Get.arguments is ProductMixinModel) {
+      ProductMixinModel product = Get.arguments;
+      product.style = style.copy();
     }
   }
 }

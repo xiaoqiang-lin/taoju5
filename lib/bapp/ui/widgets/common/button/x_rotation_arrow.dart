@@ -12,7 +12,7 @@ class XRotationArrow extends StatefulWidget {
   final String label;
   final Widget child;
   final FutureCallback onTap;
-
+  final Color color;
   XRotationArrow({
     Key key,
     this.child = const Icon(
@@ -21,6 +21,7 @@ class XRotationArrow extends StatefulWidget {
     ),
     this.onTap,
     this.label,
+    this.color,
   }) : super(key: key);
 
   @override

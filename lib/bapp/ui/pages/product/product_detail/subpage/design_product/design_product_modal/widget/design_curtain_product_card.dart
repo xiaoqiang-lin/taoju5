@@ -13,8 +13,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DesignCurtainProductCard extends StatelessWidget {
   final DesignProductModel designProduct;
   final ProductMixinModel product;
+  final String tag;
   const DesignCurtainProductCard(
-      {Key key, @required this.product, @required this.designProduct})
+      {Key key,
+      @required this.product,
+      @required this.designProduct,
+      @required this.tag})
       : super(key: key);
 
   @override
@@ -45,14 +49,16 @@ class DesignCurtainProductCard extends StatelessWidget {
                     Container(
                         margin: EdgeInsets.symmetric(vertical: BDimens.gap8),
                         child: Text(
-                          "默认数据:  宽:${product?.width}米 高:${product?.height}米",
+                          "默认数据:  宽:${product?.widthMStr}米 高:${product?.heightMStr}米  ${product?.room}",
                           style: TextStyle(
                               color: BColors.descriptionTextColor,
                               fontSize: BDimens.sp28),
                         )),
                     GestureDetector(
                       onTap: () => Get.toNamed(
-                          BAppRoutes.editMeasureData + "/${product?.id}"),
+                          BAppRoutes.editMeasureData + "/$tag",
+                          arguments: product,
+                          preventDuplicates: false),
                       child: Row(
                         children: [
                           Text(
@@ -103,8 +109,9 @@ class DesignCurtainProductCard extends StatelessWidget {
                       fontSize: BDimens.sp24, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
-                  onTap: () => Get.toNamed(BAppRoutes.modifyCurtainProductAttr +
-                      "/${product?.id}/0"),
+                  onTap: () => Get.toNamed(
+                      BAppRoutes.modifyCurtainProductAttr + "/${product?.id}/0",
+                      preventDuplicates: false),
                   child: Row(
                     children: [
                       Text(

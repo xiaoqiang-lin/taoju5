@@ -25,31 +25,32 @@ class CustomerDetailController extends GetxController {
 
   CustomerDetailModel customer;
 
+  String get id => Get.parameters["id"];
+
   List<CustomerDetailKongoModel> get kongoList {
-    String id = Get.parameters["id"];
     return [
       CustomerDetailKongoModel(
           image: "assets/images/customer_collection.png",
           description: "收藏夹",
-          onTap: () => Get.toNamed(BAppRoutes.collection + "/$id}")),
+          onTap: () => Get.toNamed(BAppRoutes.collection + "/$id")),
       CustomerDetailKongoModel(
           description: "购物车",
           image: "assets/images/customer_cart.png",
-          onTap: () => Get.toNamed(BAppRoutes.cart + "/$id}")),
+          onTap: () => Get.toNamed(BAppRoutes.cart + "/$id")),
       CustomerDetailKongoModel(
           image: "assets/images/customer_order.png",
           description: "订单",
-          onTap: () => Get.toNamed(BAppRoutes.orderList + "/$id}")),
+          onTap: () => Get.toNamed(BAppRoutes.orderList + "/$id")),
       CustomerDetailKongoModel(
           image: "assets/images/after_sell_service.png",
           description: "退单/售后",
-          onTap: () => Get.toNamed(BAppRoutes.cart + "/$id}"))
+          onTap: () => Get.toNamed(BAppRoutes.orderList + "/$id"))
     ];
   }
 
   Future<CustomerDetailModel> loadData() {
     loadState = XLoadState.busy;
-    String id = Get.parameters["id"];
+
     return _repository
         .customerDetail(params: {"id": id}).then((CustomerDetailModel model) {
       customer = model;

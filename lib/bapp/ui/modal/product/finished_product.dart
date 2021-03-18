@@ -143,6 +143,8 @@ Future showFinishedProductAttrModal(BuildContext context,
                                               visible: product.productType
                                                   is FabricFurnitureProductType,
                                               child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     padding:

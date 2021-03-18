@@ -7,6 +7,7 @@
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_collection_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_filter_tag_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
@@ -167,4 +168,17 @@ class ProductRepository {
   Future<BaseResponse> removeFromCart({Map params}) {
     return _api.removeFromCart("/api/goods/deleteCart", params: params);
   }
+
+  ///获取收藏列表
+  Future<List<ProductCollectionModel>> collection({Map params}) =>
+      _api.collection(params: params).then((BaseResponse response) {
+        return response.data["data"]
+            .map((e) => ProductCollectionModel.fromJson(e))
+            .toList()
+            .cast<ProductCollectionModel>();
+      });
+
+  ///从收藏列表中删除
+  Future<BaseResponse> removeFromCollection({Map params}) =>
+      _api.removeFromCollection(params: params);
 }

@@ -58,8 +58,14 @@ class EditMeasureDataPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
                 child: Column(
                   children: [
-                    RoomAttrSelectorBar(tag: tag),
-                    PatternSelectorBar(tag: tag),
+                    RoomAttrSelectorBar(
+                      tag: tag,
+                      product: Get.arguments,
+                    ),
+                    PatternSelectorBar(
+                      tag: tag,
+                      product: Get.arguments,
+                    ),
                     WindowStyleSelectorBar(tag: tag),
                     SizeSelectorCard(tag: tag)
                   ],

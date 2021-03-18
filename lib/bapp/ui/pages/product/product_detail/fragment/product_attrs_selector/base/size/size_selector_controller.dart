@@ -7,6 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_mainfest_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
 
 class SizeSelectorController extends GetxController {
@@ -43,6 +46,12 @@ class SizeSelectorController extends GetxController {
     widthController = TextEditingController();
     heightController = TextEditingController();
     deltaYController = TextEditingController();
+    if (Get.arguments != null && Get.arguments is ProductMainfestModel) {
+      ProductMixinModel product = Get.arguments;
+      width = "${product.width}";
+      height = "${product.height}";
+      deltaY = product.deltaY;
+    }
     super.onInit();
   }
 
@@ -59,6 +68,14 @@ class SizeSelectorController extends GetxController {
     height = heightController?.text;
     deltaY = deltaYController?.text;
     hasChecked = true;
+    print(Get.arguments != null && Get.arguments is ProductMixinModel);
+    if (Get.arguments != null && Get.arguments is ProductMixinModel) {
+      ProductMixinModel product = Get.arguments;
+      product.width = widthCM;
+      product.height = heightCM;
+      product.deltaY = deltaY;
+      Get.find<DesignProductModalController>().update();
+    }
     update(["size"]);
   }
 }

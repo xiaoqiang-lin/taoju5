@@ -23,7 +23,7 @@ class DesignProductModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DesignProductModalController>(
         init: DesignProductModalController(id: id),
-        autoRemove: false,
+        autoRemove: true,
         builder: (_) {
           return XBaseModal(
             height: Get.height * 0.84,
@@ -47,7 +47,7 @@ class DesignProductModal extends StatelessWidget {
                                         width: 180.w,
                                         height: 180.w,
                                         child: XPhotoViewer(
-                                            url: _.designProduct.image)),
+                                            url: _.designProduct?.image)),
                                     Expanded(
                                       child: Container(
                                         height: 180.w,
@@ -119,10 +119,11 @@ class DesignProductModal extends StatelessWidget {
                               child: Column(
                                 children: [
                                   for (ProductMixinModel e
-                                      in _.designProduct.productList)
+                                      in _.designProduct?.productList)
                                     if (e.productType is CurtainProductType)
                                       DesignCurtainProductCard(
                                           product: e,
+                                          tag: _.tag,
                                           designProduct: _.designProduct)
                                     else
                                       DesignFinishedProductCard(product: e)

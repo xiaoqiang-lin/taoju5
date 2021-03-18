@@ -42,10 +42,10 @@ class ProductListFilterController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future _loadData() {
+  Future loadData({Map params}) {
     loadState = XLoadState.idle;
     update();
-    return _repository.filterTag().then((value) {
+    return _repository.filterTag(params: params).then((value) {
       tagList = value.list;
       if (GetUtils.isNullOrBlank(tagList)) {
         loadState = XLoadState.empty;
@@ -116,7 +116,7 @@ class ProductListFilterController extends GetxController {
 
   @override
   void onInit() {
-    _loadData();
+    loadData();
     super.onInit();
   }
 }

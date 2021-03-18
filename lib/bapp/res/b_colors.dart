@@ -122,4 +122,8 @@ class BColors {
   static const Color scanLineColor = Color(0xFF4759DA);
 
   static const Color badgeColor = Color(0xFFFF6161);
+
+  static const Color accentGraphColor = Color(0xFF5C89FF);
+
+  static const Color graphColor = Color(0xFF292929);
 }

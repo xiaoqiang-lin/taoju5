@@ -8,11 +8,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+enum DateOption { week, month, quarter, year, more }
+
+extension DateOptionKit on DateOption {
+  int get type => index + 1;
+}
+
+class DashboardParamsModel {
+  DateOption date;
+  String start;
+  String end;
+  Map get params => {"type": date.type, "start": start, "end": end};
+}
+
+class DashboardDateOption {
+  DateOption date;
+  String text;
+
+  DashboardDateOption({@required this.date, @required this.text});
+}
+
 class DataDashBoardController extends GetxController
     with SingleGetTickerProviderMixin {
   List<String> tabList = ["客流统计", "销售统计", "销售分析"];
 
-  List<String> timeList = ["本周", "本月", "本季度", "本年", "更多"];
+  DateOption dateOption = DateOption.week;
+
+  List<DashboardDateOption> dateOptionList = [
+    DashboardDateOption(date: DateOption.week, text: "本周"),
+    DashboardDateOption(date: DateOption.month, text: "本月"),
+    DashboardDateOption(date: DateOption.quarter, text: "本季"),
+    DashboardDateOption(date: DateOption.year, text: "本年"),
+    DashboardDateOption(date: DateOption.more, text: "更多")
+  ];
+
+  void selectDateOption(DateOption option) {
+    dateOption = option;
+    update();
+  }
 
   TabController tabController1;
   TabController tabController2;
@@ -22,7 +55,7 @@ class DataDashBoardController extends GetxController
   @override
   void onInit() {
     tabController1 = TabController(length: tabList.length, vsync: this);
-    tabController2 = TabController(length: timeList.length, vsync: this);
+    // tabController2 = TabController(length: timeList.length, vsync: this);
     super.onInit();
   }
 

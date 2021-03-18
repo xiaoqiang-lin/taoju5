@@ -12,7 +12,7 @@ import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
-import 'package:taoju5/bapp/ui/dialog/product/cart/romve_from_cart.dart';
+import 'package:taoju5/bapp/ui/dialog/product/cart/remove_from_cart.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/xdio/x_dio.dart';
@@ -108,7 +108,8 @@ class CartListController extends GetxController {
 
   CartListController({@required this.type});
 
-  String get clientId => Get.find<CustomerProviderController>().id;
+  String get clientId =>
+      Get.parameters["id"] ?? Get.find<CustomerProviderController>().id;
   final String type;
   List<CartPorductModel> cartList = [];
 

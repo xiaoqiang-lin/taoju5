@@ -6,14 +6,16 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/ui/modal/product/room_attr_selector.dart';
+import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/widgets/common/textfield/x_selector_text_field.dart';
 
 import 'room_attr_selector_controller.dart';
 
 class RoomAttrSelectorBar extends StatelessWidget {
   final String tag;
-  const RoomAttrSelectorBar({Key key, @required this.tag}) : super(key: key);
+  final ProductMixinModel product;
+  const RoomAttrSelectorBar({Key key, @required this.tag, this.product})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,18 @@ class RoomAttrSelectorBar extends StatelessWidget {
             label: Text("空间"),
             key: ValueKey(_?.value),
             initialValue: _?.value,
-            onFuture: () =>
-                showRoomAttrSelectorModal(tag: tag, onConfirm: _.confirm),
+            onFuture: () => _.openRoomAttrSelectorModal(
+                tag: tag, onConfirm: _.confirm, product: product),
+            // onFuture: () =>
+            //     showRoomAttrSelectorModal(tag: tag, onConfirm: _.confirm)
+            //         .then((value) {
+            //   if (product != null) {
+            //     product.room = _.value;
+            //     product.roomId = _.id;
+            //     Get.find<DesignProductModalController>().update();
+            //   }
+            // }
+            // ),
           ),
         );
       },

@@ -77,4 +77,12 @@ class ProductAPI {
   //添加测装数据
   Future<BaseResponse> removeFromCart(String url, {Map params}) =>
       XDio().post(url, formData: params);
+
+  ///获取收藏列表
+  Future<BaseResponse> collection({Map params}) =>
+      XDio().get("/api/member/collection", params: params);
+
+  ///从收藏列表中删除
+  Future<BaseResponse> removeFromCollection({Map params}) =>
+      XDio().get("/api/member/cancelCollection", params: params);
 }

@@ -12,6 +12,7 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_filter/product_list_filter_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_sorter/product_list_sorter_panel.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/ui/widgets/common/modal/x_popdown_modal.dart';
@@ -62,6 +63,10 @@ class ProductListParentController extends GetxController
       element.isChecked = element.id == tabController.index;
     });
     closePanel();
+    if (Get.isRegistered<ProductListFilterController>()) {
+      Get.find<ProductListFilterController>()
+          .loadData(params: {"category_type": currentTabModel.id});
+    }
     // openFilterDrawer(Get.context);
   }
 
@@ -169,7 +174,7 @@ class ProductListController extends GetxController {
 
   ProductListController({@required this.type});
 
-  Map get params => {"category_type": type, "page_index": pageIndex};
+  Map get args => {"category_type": type, "page_index": pageIndex};
 
   Future loadData({Map params}) {
     loadState = XLoadState.busy;
@@ -188,11 +193,11 @@ class ProductListController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future loadMore({Map params}) {
+  Future loadMore() {
     pageIndex += 1;
 
     return _repository
-        .productList(params: params)
+        .productList(params: args)
         .then((ProductModelListWrapper wrapper) {
       loadState = XLoadState.idle;
       productList.addAll(wrapper.list);
@@ -209,10 +214,11 @@ class ProductListController extends GetxController {
 
   Future refreshData({Map params}) {
     pageIndex = 0;
+    args.addAll(params ?? {});
     loadState = XLoadState.busy;
     update();
     return _repository
-        .productList(params: params)
+        .productList(params: args)
         .then((ProductModelListWrapper wrapper) {
       refreshController.refreshCompleted();
       productList = wrapper.list;
@@ -228,7 +234,7 @@ class ProductListController extends GetxController {
 
   @override
   void onInit() {
-    loadData(params: params);
+    loadData(params: args);
     refreshController = RefreshController();
     scrollController = ScrollController();
     super.onInit();

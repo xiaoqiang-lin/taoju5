@@ -22,6 +22,7 @@ class CustomerDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Get.theme.primaryColor,
       appBar: AppBar(
         title: Text("客户详情"),
         actions: [
