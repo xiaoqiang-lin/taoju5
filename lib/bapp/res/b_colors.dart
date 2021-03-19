@@ -126,4 +126,6 @@ class BColors {
   static const Color accentGraphColor = Color(0xFF5C89FF);
 
   static const Color graphColor = Color(0xFF292929);
+
+  static const Color cardBorderColor = Color(0xFFF2F2F2);
 }

@@ -10,7 +10,6 @@ import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_selector_bar.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_share_button.dart';
@@ -91,10 +90,7 @@ class ProductDetailHeader extends StatelessWidget {
           Visibility(
             visible: product.productType is CurtainProductType,
             child: CurtainProductDetailHeader(),
-          ),
-          Visibility(
-              visible: product.productType is FinishedProductType,
-              child: FinishedProductAttrsSelectorBar(tag: "${product.id}"))
+          )
         ],
       ),
     );

@@ -13,7 +13,7 @@ class DesignProductDetailModelWrapper {
   List<DesignProductModel> sceneList;
   DesignProductDetailModelWrapper.fromJson(Map json) {
     product = DesignProductDetailModel.fromJson(json["scenes_detail"]);
-    sceneList = JsonKit.asList(json["related_scenes"])
+    sceneList = JsonKit.asList(json["related_scenes"] ?? json["data"])
         .map((e) => DesignProductModel.fromJson(e))
         .cast<DesignProductModel>()
         .toList();

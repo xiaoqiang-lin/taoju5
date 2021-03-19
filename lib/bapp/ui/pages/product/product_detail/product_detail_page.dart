@@ -14,6 +14,7 @@ import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
 import 'fragment/product_attrs_selector/product_attrs_selector_card.dart';
 import 'fragment/product_detail_footer/product_detail_footer.dart';
 import 'fragment/product_detail_image_section_view/product_detail_image_section_view.dart';
+import 'fragment/product_material_section/product_material_section.dart';
 import 'product_detail_skeleton.dart';
 import 'fragment/product_mix_section/product_mix_section.dart';
 import 'fragment/recommend_product_section/recommend_product_section.dart';
@@ -76,7 +77,13 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SliverToBoxAdapter(
                           child: SoftDesignProductSection(
+                              fromProductId: _.product.id,
                               productList: _.softDesignProductList),
+                        ),
+                        SliverToBoxAdapter(
+                          child: ProductMaterialSection(
+                            materialList: _.product.materialList,
+                          ),
                         ),
                         SliverToBoxAdapter(
                           child: ProductDetailImageSectionView(

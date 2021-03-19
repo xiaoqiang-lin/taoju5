@@ -36,7 +36,7 @@ class SceneDesignProductSection extends StatelessWidget {
           children: [
             XTitleBar(title: "场景推荐"),
             AspectRatio(
-              aspectRatio: .92,
+              aspectRatio: 1.108,
               // height: 420.h,
               child: Container(
                 child: XSwiper(
@@ -111,7 +111,7 @@ class _SceneDesignProductCard extends StatelessWidget {
               ),
             ),
             AspectRatio(
-                aspectRatio: 3,
+                aspectRatio: 3.2,
                 child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
@@ -153,8 +153,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: BDimens.gap8),
+                                  padding: EdgeInsets.only(top: BDimens.gap8),
                                   child: Text("¥${o.price.toStringAsFixed(2)}"),
                                 )
                               ],

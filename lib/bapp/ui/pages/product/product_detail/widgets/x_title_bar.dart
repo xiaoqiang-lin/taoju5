@@ -34,8 +34,15 @@ class XTitleBar extends StatelessWidget {
             trailing ??
                 Row(
                   children: [
-                    Text("查看全部"),
-                    Icon(BIcons.next),
+                    Text(
+                      "查看全部",
+                      style: TextStyle(
+                          fontSize: BDimens.sp24, color: BColors.greyTextColor),
+                    ),
+                    Icon(
+                      BIcons.next,
+                      size: 16,
+                    ),
                   ],
                 )
           ],

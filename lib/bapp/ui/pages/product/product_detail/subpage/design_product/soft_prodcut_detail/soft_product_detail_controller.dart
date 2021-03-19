@@ -6,15 +6,34 @@
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
+import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 
 class SoftProductDetailController extends GetxController {
-  final id = Get.arguments["id"];
+  ProductRepository _repository = ProductRepository();
 
+  String get id => Get.parameters["id"];
+  String get productId => Get.parameters["productId"];
   XLoadState loadState = XLoadState.idle;
 
+  List<DesignProductModel> productList = [];
+
   Future loadData() {
-    return Future.value(false);
+    loadState = XLoadState.busy;
+    update();
+    return _repository.softDesignProducList(
+        params: {"goods_id": productId, "scenes_id": id}).then((value) {
+      productList = value;
+      if (GetUtils.isNullOrBlank(productList)) {
+        loadState = XLoadState.empty;
+      } else {
+        loadState = XLoadState.idle;
+      }
+    }).catchError((err) {
+      loadState = XLoadState.error;
+    }).whenComplete(update);
   }
 
   @override

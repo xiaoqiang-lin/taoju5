@@ -213,7 +213,7 @@ class ProductListController extends GetxController {
   }
 
   Future refreshData({Map params}) {
-    pageIndex = 0;
+    pageIndex = 1;
     args.addAll(params ?? {});
     loadState = XLoadState.busy;
     update();

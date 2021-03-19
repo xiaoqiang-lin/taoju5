@@ -126,16 +126,14 @@ class ProductRepository {
   }
 
   //// {'scenes_id': widget.scenesId
-  Future<DesignProductDetailModelWrapper> softDesignProducList({Map params}) {
+  Future<List<DesignProductModel>> softDesignProducList({Map params}) {
     return _api
-        .cartList("/api/goods/scenesDetail", params: params)
+        .softDesignProductList(params: params)
         .then((BaseResponse response) {
-      if (response.isValid) {
-        return DesignProductDetailModelWrapper.fromJson(response.data);
-      }
-      throw Future.error(response.message);
-    }).catchError((err) {
-      throw err;
+      return response.data
+          .map((e) => DesignProductModel.fromJson(e))
+          .toList()
+          .cast<DesignProductModel>();
     });
   }
 

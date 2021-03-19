@@ -23,10 +23,12 @@ class DesignProductModel {
   String style;
   String defaultWidth;
   String defaultHeight;
+  int productId;
   List<ProductMixinModel> productList;
 
   DesignProductModel.fromJson(Map json) {
     id = json["scenes_id"];
+    productId = json["goods_id"];
     name = json["scenes_name"];
     tag = json["name"];
 

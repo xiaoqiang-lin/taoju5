@@ -1,7 +1,7 @@
 <manifest package="com.buyi.taojuwu" android:versionCode="1" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.0">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29"/>
-  <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
   <uses-permission android:name="android.permission.READ_LOGS"/>
@@ -31,7 +31,7 @@
   <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
   <uses-feature android:name="android.hardware.screen.landscape" android:required="false"/>
   <uses-feature android:name="android.hardware.wifi" android:required="false"/>
-  <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
+  <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
     <activity android:name="com.buyi.taojuwu.MainActivity" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:windowSoftInputMode="adjustResize">
       <meta-data android:name="io.flutter.app.android.SplashScreenUntilFirstFrame" android:value="true"/>
       <meta-data android:name="io.flutter.embedding.android.SplashScreenDrawable" android:resource="@drawable/launch_background"/>
@@ -43,9 +43,6 @@
     <activity android:name="com.tencent.bugly.beta.ui.BetaActivity" android:configChanges="keyboardHidden|orientation|screenSize|locale" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="flutterEmbedding" android:value="2"/>
     <provider android:name="androidx.core.content.FileProvider" android:authorities="com.buyi.taojuwu.fileProvider" android:exported="false" android:grantUriPermissions="true">
-      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
-    </provider>
-    <provider android:name="com.tencent.bugly.beta.utils.BuglyFileProvider" android:authorities="com.buyi.taojuwu.fileProvider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
     </provider>
     <activity android:name="com.jarvan.fluwx.wxapi.FluwxWXEntryActivity" android:launchMode="singleTask" android:taskAffinity="com.buyi.taojuwu" android:theme="@style/DisablePreviewTheme"/>
@@ -66,6 +63,21 @@
     <provider android:name="com.jarvan.fluwx.FluwxFileProvider" android:authorities="com.buyi.taojuwu.fluwxprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/fluwx_file_provider_paths"/>
     </provider>
+    <provider android:name="com.sangcomz.fishbun.FishBunFileProvider" android:authorities="com.buyi.taojuwu.fishbunfileprovider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
+    </provider>
+    <activity android:name="com.sangcomz.fishbun.ui.album.AlbumActivity" android:label="@string/album" android:theme="@style/FishBunTheme"/>
+    <activity android:name="com.sangcomz.fishbun.ui.picker.PickerActivity" android:theme="@style/FishBunTheme"/>
+    <activity android:name="com.sangcomz.fishbun.ui.detail.DetailActivity" android:theme="@style/DetailViewTheme"/>
+    <service android:name="com.tencent.tinker.lib.service.TinkerPatchForeService" android:enabled="true" android:exported="false" android:process=":patch"/>
+    <service android:name="com.tencent.tinker.lib.service.TinkerPatchService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" android:process=":patch"/>
+    <service android:name="com.tencent.tinker.lib.service.TinkerPatchService$InnerService" android:exported="false" android:process=":patch"/>
+    <service android:name="com.tencent.tinker.lib.service.DefaultTinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <provider android:name="com.tencent.bugly.beta.utils.BuglyFileProvider" android:authorities="com.buyi.taojuwu.fileProvider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
+    </provider>
+    <activity android:name="com.tencent.bugly.beta.ui.BetaActiveAlertActivity"/>
+    <service android:name="com.tencent.bugly.beta.tinker.TinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
     <receiver android:name="com.jiguang.jpush.JPushPlugin$JPushReceiver" android:enabled="true" android:exported="false">
       <intent-filter>
         <action android:name="cn.jpush.android.intent.REGISTRATION"/>
@@ -88,18 +100,6 @@
         <action android:name="cn.jiguang.user.service.action"/>
       </intent-filter>
     </service>
-    <provider android:name="com.sangcomz.fishbun.FishBunFileProvider" android:authorities="com.buyi.taojuwu.fishbunfileprovider" android:exported="false" android:grantUriPermissions="true">
-      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
-    </provider>
-    <activity android:name="com.sangcomz.fishbun.ui.album.AlbumActivity" android:label="@string/album" android:theme="@style/FishBunTheme"/>
-    <activity android:name="com.sangcomz.fishbun.ui.picker.PickerActivity" android:theme="@style/FishBunTheme"/>
-    <activity android:name="com.sangcomz.fishbun.ui.detail.DetailActivity" android:theme="@style/DetailViewTheme"/>
-    <service android:name="com.tencent.tinker.lib.service.TinkerPatchForeService" android:enabled="true" android:exported="false" android:process=":patch"/>
-    <service android:name="com.tencent.tinker.lib.service.TinkerPatchService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" android:process=":patch"/>
-    <service android:name="com.tencent.tinker.lib.service.TinkerPatchService$InnerService" android:exported="false" android:process=":patch"/>
-    <service android:name="com.tencent.tinker.lib.service.DefaultTinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <activity android:name="com.tencent.bugly.beta.ui.BetaActiveAlertActivity"/>
-    <service android:name="com.tencent.bugly.beta.tinker.TinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_00"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_01"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_02"/>
@@ -216,6 +216,6 @@
     <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
     <meta-data android:name="JPUSH_APPKEY" android:value="appkey"/>
     <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0317-15-06-36"/>
+    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0319-14-47-02"/>
   </application>
 </manifest>

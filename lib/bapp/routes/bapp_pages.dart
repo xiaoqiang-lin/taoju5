@@ -137,7 +137,7 @@ class BAppPages {
 
     ///软装方案
     GetPage(
-        name: BAppRoutes.softProductDetail + "/:id",
+        name: BAppRoutes.softProductDetail + "/:productId/:id",
         page: () => SoftProductDetailPage(),
         binding: SoftProductDetailBinding()),
 

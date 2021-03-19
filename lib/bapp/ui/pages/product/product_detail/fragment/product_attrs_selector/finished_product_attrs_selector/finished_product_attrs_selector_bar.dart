@@ -6,6 +6,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/bapp/ui/modal/product/finished_product.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_controller.dart';
@@ -25,26 +27,73 @@ class FinishedProductAttrsSelectorBar extends StatelessWidget {
           return GestureDetector(
             onTap: () => showFinishedProductAttrModal(context,
                 product: _.product, id: tag),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text("选择"),
-                    Text("请选择${_.product.tip}"),
-                    Spacer(),
-                    Icon(
-                      BIcons.three_dot,
-                      color: Colors.black,
-                    )
-                  ],
-                ),
-                Visibility(
-                  visible: !CommonKit.isNullOrZero(_.product.colorCount),
-                  child: Row(
-                    children: [Text("共${_.product.colorCount}种颜色分类可选")],
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: BDimens.gap20),
+              child: Column(
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            "选择",
+                            style: TextStyle(
+                                fontSize: BDimens.sp28,
+                                color: BColors.greyTextColor),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 8,
+                          child: Container(
+                            margin: EdgeInsets.only(left: BDimens.gap16),
+                            child: Text(
+                              "请选择${_.product.tip}",
+                              style: TextStyle(
+                                  letterSpacing: .5,
+                                  fontSize: BDimens.sp28,
+                                  color: BColors.textColor),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Icon(
+                          BIcons.three_dot,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Visibility(
+                    visible: !CommonKit.isNullOrZero(_.product.colorCount),
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          top: BDimens.gap16, left: BDimens.gap8),
+                      child: Row(
+                        children: [
+                          Spacer(flex: 1),
+                          Flexible(
+                              flex: 4,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: BDimens.gap8,
+                                      horizontal: BDimens.gap16),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: BColors.scaffoldBgColor),
+                                  child: Text(
+                                    "共${_.product.colorCount}种颜色分类可选",
+                                    style: TextStyle(
+                                        fontSize: BDimens.sp26,
+                                        color: BColors.greyTextColor),
+                                  ))),
+                          Spacer(flex: 4)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         });

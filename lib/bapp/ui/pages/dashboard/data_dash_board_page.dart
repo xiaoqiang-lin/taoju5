@@ -25,32 +25,32 @@ class DataDashBoardPage extends GetView<DataDashBoardController> {
       appBar: AppBar(
         title: Text("数据中心"),
         bottom: TabBar(
-          controller: controller.tabController1,
+          controller: controller.tabController,
           tabs: [for (String tab in controller.tabList) Text(tab)],
         ),
       ),
       body: Column(
         children: [
           GetBuilder<DataDashBoardController>(builder: (_) {
-            return Container(
-              color: BColors.scaffoldBgColor,
-              child: Row(
-                children: [
-                  for (DashboardDateOption date in _.dateOptionList)
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => _.selectDateOption(date.date),
-                        child: Container(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            height: 36,
-                            color: _.dateOption != date.date
-                                ? BColors.scaffoldBgColor
-                                : Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
+            return Column(
+              children: [
+                Container(
+                  color: BColors.scaffoldBgColor,
+                  child: Row(
+                    children: [
+                      for (DashboardDateOption date in _.dateOptionList)
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => _.selectDateOption(date.date),
+                            child: Container(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                height: 36,
+                                alignment: Alignment.center,
+                                color: _.dateOption != date.date
+                                    ? BColors.scaffoldBgColor
+                                    : Colors.white,
+                                child: Text(
                                   date.text,
                                   style: _.dateOption == date.date
                                       ? TextStyle(
@@ -61,34 +61,85 @@ class DataDashBoardPage extends GetView<DataDashBoardController> {
                                           fontSize: BDimens.sp26,
                                           color: BColors.greyTextColor),
                                 ),
-                                Visibility(
-                                    visible: date.date == DateOption.more,
-                                    child: XRotationArrow())
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                ],
-              ),
+                      Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "更多",
+                            style: TextStyle(
+                                fontSize: BDimens.sp26,
+                                color: BColors.greyTextColor),
+                          ),
+                          XRotationArrow(
+                            onTap: _.openSelectDateModal,
+                            child: const Icon(
+                              Icons.expand_more,
+                              size: 22,
+                              color: BColors.greyTextColor,
+                            ),
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
+                ),
+                GetBuilder<DataDashBoardController>(
+                    id: "title",
+                    builder: (_) {
+                      return Container(
+                        width: Get.width,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: BDimens.gap32, vertical: BDimens.gap16),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: BColors.dividerColor,
+                                height: 1,
+                              ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: BDimens.gap8,
+                                    horizontal: BDimens.gap16),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                        color: BColors.scaffoldBgColor),
+                                    color: BColors.scaffoldBgColor),
+                                child: Text(
+                                  "${_.title}",
+                                  style: TextStyle(fontSize: BDimens.sp28),
+                                )),
+                            Expanded(
+                              child: Container(
+                                color: BColors.dividerColor,
+                                height: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    })
+              ],
             );
           }),
+          // Container(),
           Expanded(
             child: GetBuilder<DataDashBoardController>(
-              id: "more",
               builder: (_) {
-                return IndexedStack(
-                  index: _.showMore ? 1 : 0,
+                return TabBarView(
+                  controller: controller.tabController,
                   children: [
-                    TabBarView(
-                      controller: controller.tabController1,
-                      children: [
-                        PassengerFlowGraph(),
-                        SalesStatisticsGraph(),
-                        SalesAnalysisGraph()
-                      ],
-                    )
+                    PassengerFlowGraph(),
+                    SalesStatisticsGraph(),
+                    SalesAnalysisGraph()
                   ],
                 );
               },

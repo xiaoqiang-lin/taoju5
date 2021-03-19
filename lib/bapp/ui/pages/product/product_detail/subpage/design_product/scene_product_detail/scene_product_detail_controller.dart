@@ -24,7 +24,6 @@ class SceneProductDetailController extends DesignProductDetailController {
         (DesignProductDetailModelWrapper value) {
       product = value.product;
       sceneList = value.sceneList;
-
       loadState = XLoadState.idle;
     }).catchError((err) {
       loadState = XLoadState.error;

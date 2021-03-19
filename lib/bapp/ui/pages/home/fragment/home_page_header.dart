@@ -33,18 +33,24 @@ class HomePageHeader extends GetView<UserProviderController> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Text("${controller.user?.shopName}",
-              style: TextStyle(
-                  fontSize: BDimens.sp24, color: BColors.subTitleColor)),
           Container(
-            width: Get.width,
-            margin: EdgeInsets.only(top: BDimens.gap24),
-            child: GestureDetector(
-              onTap: () => Get.toNamed(BAppRoutes.productList),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                child: CachedNetworkImage(
-                    imageUrl: CommonKit.asWebUrl("upload/master.jpg")),
+            margin: EdgeInsets.only(bottom: BDimens.gap16),
+            child: Text("${controller.user?.shopName}",
+                style: TextStyle(
+                    fontSize: BDimens.sp24, color: BColors.subTitleColor)),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            child: Container(
+              width: Get.width,
+              child: AspectRatio(
+                aspectRatio: 1.36,
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(BAppRoutes.productList),
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: CommonKit.asWebUrl("upload/master.jpg")),
+                ),
               ),
             ),
           )

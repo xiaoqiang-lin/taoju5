@@ -44,6 +44,18 @@ class ProductDetailModelWrapper {
   }
 }
 
+class ProductMaterialFunctionInfoModel {
+  int id;
+  String key;
+  String value;
+
+  ProductMaterialFunctionInfoModel.fromJson(Map json) {
+    id = json["attr_value_id"];
+    key = json["attr_value"];
+    value = json["attr_value_name"];
+  }
+}
+
 class ProductDetailModel implements AbstractProdductModel {
   int id;
   String name;

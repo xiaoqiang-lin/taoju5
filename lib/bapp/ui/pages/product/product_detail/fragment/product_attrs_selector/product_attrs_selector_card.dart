@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_selector_bar.dart';
 import 'fabric_curtain_product_attrs_selector/fabric_curtain_product_attrs_selector_card.dart';
 import 'gauze_curtain_product_attrs_selector/gauze_curtain_product_attrs_selector_card.dart';
 
@@ -37,6 +38,12 @@ class ProductAttrsSelectorCard extends StatelessWidget {
             child: GauzeCurtainProductAttrsSelectorCard(tag: tag),
             visible: productType is GauzeCurtainProductType,
           ),
+
+          Visibility(
+              visible: productType is FinishedProductType,
+              child: FinishedProductAttrsSelectorBar(
+                tag: tag,
+              ))
           // Visibility(
           //   child: RollingCurtainProductAttrsSelectorCard(),
           //   visible: productType is RollingCurtainProductType,

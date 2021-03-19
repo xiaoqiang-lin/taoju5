@@ -7,18 +7,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/ui/modal/dashboard/select_date_modal.dart';
+import 'package:taoju5/bapp/ui/modal/dashboard/select_date_modal_controller.dart';
+import 'package:taoju5/bapp/ui/pages/dashboard/fragment/passenger_flow/passsenger_flow_controller.dart';
+import 'package:taoju5/bapp/ui/pages/dashboard/fragment/sales_analysis/sales_analysis_controller.dart';
+import 'package:taoju5/bapp/ui/pages/dashboard/fragment/sales_statistics/sales_statistics_controller.dart';
 
-enum DateOption { week, month, quarter, year, more }
+enum DateOption { week, month, quarter, year, more, other }
 
 extension DateOptionKit on DateOption {
   int get type => index + 1;
 }
 
 class DashboardParamsModel {
-  DateOption date;
-  String start;
-  String end;
-  Map get params => {"type": date.type, "start": start, "end": end};
+  DateOption option;
+  String date;
+
+  DashboardParamsModel({@required this.option, this.date = ""});
+  Map get params => {"type": option.type, "date": date};
 }
 
 class DashboardDateOption {
@@ -34,49 +40,73 @@ class DataDashBoardController extends GetxController
 
   DateOption dateOption = DateOption.week;
 
+  String date = "";
+
+  String title = "--:--";
+
+  void updateTitle(String str) {
+    title = str;
+    update(["title"]);
+  }
+
   List<DashboardDateOption> dateOptionList = [
     DashboardDateOption(date: DateOption.week, text: "本周"),
     DashboardDateOption(date: DateOption.month, text: "本月"),
     DashboardDateOption(date: DateOption.quarter, text: "本季"),
-    DashboardDateOption(date: DateOption.year, text: "本年"),
-    DashboardDateOption(date: DateOption.more, text: "更多")
+    DashboardDateOption(date: DateOption.year, text: "本年")
   ];
 
+  DashboardParamsModel get args =>
+      DashboardParamsModel(option: dateOption, date: date);
+
   void selectDateOption(DateOption option) {
+    if (dateOption == option) return;
     dateOption = option;
     update();
+    refreshData();
   }
 
-  TabController tabController1;
-  TabController tabController2;
+  refreshData() {
+    if (Get.isRegistered<PassengerFlowController>()) {
+      Get.find<PassengerFlowController>().loadData(params: args.params);
+    }
 
-  bool showMore = false;
+    if (Get.isRegistered<SalesAnalysisController>()) {
+      Get.find<SalesAnalysisController>().loadData(params: args.params);
+    }
+    if (Get.isRegistered<SalesStatisticsController>()) {
+      Get.find<SalesStatisticsController>().loadData(params: args.params);
+    }
+  }
+
+  Future openSelectDateModal() {
+    return showSelectDateModal().then((value) {
+      if (value != null && value is Map) {
+        var year = value["year"];
+        var month = value["month"];
+        SelectDateMode mode = value["mode"];
+        dateOption =
+            mode == SelectDateMode.byYear ? DateOption.other : DateOption.more;
+        date = mode == SelectDateMode.byYear ? "$year" : "$year-$month";
+        return args;
+      }
+    }).then((_) {
+      refreshData();
+    });
+  }
+
+  TabController tabController;
 
   @override
   void onInit() {
-    tabController1 = TabController(length: tabList.length, vsync: this);
+    tabController = TabController(length: tabList.length, vsync: this);
     // tabController2 = TabController(length: timeList.length, vsync: this);
     super.onInit();
   }
 
-  selectTime() {
-    showCupertinoModalPopup(
-        context: Get.context,
-        builder: (BuildContext context) {
-          return Material(
-            child: Container(
-              width: Get.width,
-              height: .6 * Get.height,
-              child: Text("啦啦啦啦"),
-            ),
-          );
-        });
-  }
-
   @override
   void dispose() {
-    tabController1?.dispose();
-    tabController2.dispose();
+    tabController?.dispose();
     super.dispose();
   }
 }

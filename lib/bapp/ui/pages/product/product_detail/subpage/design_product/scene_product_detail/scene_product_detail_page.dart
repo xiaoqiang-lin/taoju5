@@ -74,7 +74,8 @@ class SceneProductDetailPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: BDimens.gap32),
+                          padding:
+                              EdgeInsets.symmetric(vertical: BDimens.gap32),
                           child: Text(
                             "相关商品",
                             style: TextStyle(
@@ -116,7 +117,8 @@ class SceneProductDetailPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: BDimens.gap32),
+                          padding:
+                              EdgeInsets.symmetric(vertical: BDimens.gap32),
                           child: Text(
                             "场景推荐",
                             style: TextStyle(
@@ -139,47 +141,60 @@ class SceneProductDetailPage extends StatelessWidget {
                             return GestureDetector(
                               onTap: () => Get.toNamed(
                                   BAppRoutes.sceneProductDetail + "/${e.id}"),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border:
-                                          Border.all(color: Color(0xFFF2F2F2))),
-                                  child: Column(
-                                    children: [
-                                      Flexible(
-                                        flex: i.isEven ? 5 : 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: BColors.cardBorderColor),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(5),
+                                      bottomRight: Radius.circular(5)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: i.isEven ? 5 : 1,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                            topRight: Radius.circular(5)),
                                         child: CachedNetworkImage(
                                           imageUrl: e.image,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            for (ProductMixinModel item
-                                                in e.productList)
-                                              GestureDetector(
-                                                onTap: () => Get.toNamed(
-                                                    BAppRoutes.productDetail +
-                                                        "/${item.id}"),
-                                                child: XThumbnailCard(
-                                                    child: Image.network(
-                                                  item.image,
-                                                  height: 48,
-                                                  // width: 48,
-                                                )),
-                                              )
-                                          ],
-                                        ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          for (ProductMixinModel item
+                                              in e.productList)
+                                            GestureDetector(
+                                              onTap: () => Get.toNamed(
+                                                  BAppRoutes.productDetail +
+                                                      "/${item.id}"),
+                                              child: XThumbnailCard(
+                                                  child: Image.network(
+                                                item.image,
+                                                height: 48,
+                                                // width: 48,
+                                              )),
+                                            )
+                                        ],
                                       ),
-                                      Container(
-                                        child: Text("${e.room},${e.style}"),
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: BDimens.gap16),
+                                      margin: EdgeInsets.only(
+                                          bottom: BDimens.gap16),
+                                      child: Text("${e.room},${e.style}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: BDimens.sp28,
+                                          )),
+                                    )
+                                  ],
                                 ),
                               ),
                             );

@@ -11,6 +11,7 @@ import 'package:taoju5/bapp/domain/model/product/product_collection_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/product/collect/remove_from_collection.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 
@@ -39,60 +40,65 @@ class CollectionPage extends StatelessWidget {
                   items: _.collectionList,
                   itemBuilder:
                       (BuildContext context, ProductCollectionModel product) {
-                    return Slidable(
-                      key: ValueKey(product.productId),
-                      actionPane: SlidableBehindActionPane(),
-                      actions: [
-                        IconSlideAction(
-                          caption: '删除',
-                          color: Colors.red,
-                          icon: BIcons.del,
-                          onTap: () =>
-                              showRemoveFromCollection(product: product),
-                        ),
-                      ],
-                      child: Container(
-                        color: Get.theme.primaryColor,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: BDimens.gap32, vertical: BDimens.gap32),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 180.w,
-                              height: 180.w,
-                              child: Image.network(product.image),
-                              margin: EdgeInsets.only(right: BDimens.gap24),
-                            ),
-                            Expanded(
-                                child: Container(
-                              height: 180.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    product.productName,
-                                    style: TextStyle(
-                                        fontSize: BDimens.sp28,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    product.categoryName,
-                                    style: TextStyle(
-                                        color: BColors.greyTextColor,
-                                        fontSize: BDimens.sp26),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    "¥${product.productPrice.toStringAsFixed(2)}",
-                                    style: TextStyle(
-                                        fontSize: BDimens.sp26,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
+                    return GestureDetector(
+                      onTap: () => Get.toNamed(
+                          BAppRoutes.productDetail + "/${product.productId}"),
+                      child: Slidable(
+                        key: ValueKey(product.productId),
+                        actionPane: SlidableBehindActionPane(),
+                        actions: [
+                          IconSlideAction(
+                            caption: '删除',
+                            color: Colors.red,
+                            icon: BIcons.del,
+                            onTap: () =>
+                                showRemoveFromCollection(product: product),
+                          ),
+                        ],
+                        child: Container(
+                          color: Get.theme.primaryColor,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: BDimens.gap32,
+                              vertical: BDimens.gap32),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 180.w,
+                                height: 180.w,
+                                child: Image.network(product.image),
+                                margin: EdgeInsets.only(right: BDimens.gap24),
                               ),
-                            ))
-                          ],
+                              Expanded(
+                                  child: Container(
+                                height: 180.w,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      product.productName,
+                                      style: TextStyle(
+                                          fontSize: BDimens.sp28,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      product.categoryName,
+                                      style: TextStyle(
+                                          color: BColors.greyTextColor,
+                                          fontSize: BDimens.sp26),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "¥${product.productPrice.toStringAsFixed(2)}",
+                                      style: TextStyle(
+                                          fontSize: BDimens.sp26,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ],
+                                ),
+                              ))
+                            ],
+                          ),
                         ),
                       ),
                     );
