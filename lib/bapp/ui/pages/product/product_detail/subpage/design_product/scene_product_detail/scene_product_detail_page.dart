@@ -10,11 +10,13 @@ import 'package:get/get.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_skeleton.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
@@ -32,7 +34,13 @@ class SceneProductDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("相关场景"),
-        actions: [XCustomerChooseButton()],
+        actions: [
+          XCustomerChooseButton(
+            event: ChooseCustomerEventModel(
+                fromUrl:
+                    BAppRoutes.sceneProductDetail + "/${Get.parameters["id"]}"),
+          )
+        ],
       ),
       body: GetBuilder<SceneProductDetailController>(
         tag: Get.parameters["id"],
@@ -84,22 +92,8 @@ class SceneProductDetailPage extends StatelessWidget {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(0),
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _.product.productList.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            ProductModel e = _.product.productList[i];
-                            return Container(
-                              child: Image.network(e.image),
-                            );
-                          },
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                          ),
-                        ),
+                        MixinProductGridView(
+                            productList: _.product.productList),
                         Container(
                           child: Row(
                             children: [
@@ -112,7 +106,9 @@ class SceneProductDetailPage extends StatelessWidget {
                                 ),
                               ),
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("立即购买"))
+                                  onPressed: () =>
+                                      showDesignProductModal(id: _.id),
+                                  child: Text("立即购买"))
                             ],
                           ),
                         ),

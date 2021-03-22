@@ -25,16 +25,28 @@ class ProductListHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GetBuilder(
+          GetBuilder<ProductListParentController>(
+            id: "tab",
             builder: (_) {
               return Row(
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(right: BDimens.gap16),
-                    child: Image.asset("assets/images/" + "grid_mode.png"),
+                  GestureDetector(
+                    onTap: _.switchViewMode,
+                    child: Container(
+                        padding: EdgeInsets.only(right: BDimens.gap16),
+                        child: Image.asset("assets/images/grid_mode.png",
+                            color: _.isGridMode
+                                ? Colors.black
+                                : Colors.grey.shade400)),
                   ),
-                  Container(
-                    child: Image.asset("assets/images/" + "list_mode.png"),
+                  GestureDetector(
+                    onTap: _.switchViewMode,
+                    child: Container(
+                      child: Image.asset("assets/images/list_mode.png",
+                          color: !_.isGridMode
+                              ? Colors.black
+                              : Colors.grey.shade400),
+                    ),
                   ),
                 ],
               );
@@ -56,7 +68,9 @@ class ProductListHeader extends StatelessWidget {
                     onTap: () => _.openFilterDrawer(context),
                     child: Row(
                       children: [
-                        Text("筛选"),
+                        Container(
+                            margin: EdgeInsets.only(right: BDimens.gap8),
+                            child: Text("筛选")),
                         Image.asset("assets/images/filter.png")
                       ],
                     ),

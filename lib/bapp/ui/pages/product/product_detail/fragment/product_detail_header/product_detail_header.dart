@@ -10,9 +10,11 @@ import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_share_button.dart';
+import 'package:taoju5/utils/common_kit.dart';
 
 class ProductDetailHeader extends StatelessWidget {
   final ProductDetailModel product;
@@ -63,25 +65,36 @@ class ProductDetailHeader extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "¥${product.price.toStringAsFixed(2)}",
-                  style: TextStyle(
-                      fontSize: BDimens.sp36, fontWeight: FontWeight.w500),
-                ),
+                GetBuilder<ProductDetailController>(
+                    tag: "${product.id}",
+                    id: "unitPrice",
+                    builder: (_) {
+                      return Text(
+                        "¥${product?.currentSku?.price?.toStringAsFixed(2) ?? product.price.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            fontSize: BDimens.sp36,
+                            fontWeight: FontWeight.w500),
+                      );
+                    }),
                 Text(
                   "${product.unit}",
                   style: TextStyle(fontSize: BDimens.sp24),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: BDimens.gap8),
-                  child: Text(
-                    "¥${product.marketPrice.toStringAsFixed(2)}",
-                    style: TextStyle(
-                        fontSize: BDimens.sp24,
-                        color: product.marketPrice == 0
-                            ? Colors.transparent
-                            : BColors.tipColor),
+                Visibility(
+                  visible: !CommonKit.isNullOrZero(product.marketPrice),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: BDimens.gap8),
+                    child: Text(
+                      "¥${product.marketPrice.toStringAsFixed(2)}",
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          fontSize: BDimens.sp24,
+                          color: product.marketPrice == 0
+                              ? Colors.transparent
+                              : BColors.tipColor),
+                    ),
                   ),
                 )
               ],

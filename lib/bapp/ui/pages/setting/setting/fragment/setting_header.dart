@@ -29,6 +29,8 @@ class SettingHeader extends StatelessWidget {
               margin: EdgeInsets.only(right: BDimens.gap32),
               child: CircleAvatar(
                 radius: 64.sp,
+                foregroundColor: Get.theme.primaryColor,
+                child: Image.asset("assets/images/default_avatar.png"),
               ),
             ),
             Expanded(

@@ -79,13 +79,13 @@ extension PassengerFlowModelKit on PassengerFlowModel {
           color: BColors.graphColor,
           description: CommonKit.isNullOrZero(unturnoverCount)
               ? ""
-              : "未转订单\n $unturnoverCount位 ${unturnoverRate * 100}%",
+              : "未转订单\n $unturnoverCount位 ${(unturnoverRate * 100).toStringAsFixed(2)}%",
           value: unturnoverRate),
       PassengerTurnoverRateModel(
           color: BColors.accentGraphColor,
           description: CommonKit.isNullOrZero(turnoverCount)
               ? ""
-              : "转单率\n $turnoverCount位 ${turnoverRate * 100}%",
+              : "转单率\n $turnoverCount位 ${(turnoverRate * 100).toStringAsFixed(2)}%",
           value: turnoverRate)
     ];
   }

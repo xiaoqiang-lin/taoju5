@@ -85,4 +85,12 @@ class ProductAPI {
   ///从收藏列表中删除
   Future<BaseResponse> removeFromCollection({Map params}) =>
       XDio().get("/api/member/cancelCollection", params: params);
+
+  ///修改购物车数量
+  Future<BaseResponse> modifyProuductCountInCart({Map params}) =>
+      XDio().get("/api/goods/modifyCartNum", params: params);
+
+  ///修改购物车成品属性
+  Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>
+      XDio().get("/api/goods/modifyCartAccessory", params: params);
 }

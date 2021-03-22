@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
@@ -27,7 +28,8 @@ class CommitOrderPage extends GetView<CommitOrderController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("${controller.isMeasureOrder ? '预约测量' : '提交订单'}"),
+        title: Text(
+            "${controller.orderType == OrderType.measureOrder ? '预约测量' : '提交订单'}"),
         actions: [
           Visibility(
               visible: !controller.isFromShare, child: XCustomerChooseButton())
@@ -36,6 +38,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
       body: GetBuilder<CommitOrderController>(
         builder: (_) {
           return SingleChildScrollView(
+            controller: _.scrollController,
             child: Column(
               children: [
                 CommitOrderHeader(),
@@ -54,7 +57,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
         alignment: Alignment.centerRight,
         child: XFutureButton(
           onFuture: controller.submitOrder,
-          onSuccess: controller.onSubmitSuceess,
+          // onSuccess: controller.onSubmitSuceess,
           child: Text("提交订单"),
         ),
       ),

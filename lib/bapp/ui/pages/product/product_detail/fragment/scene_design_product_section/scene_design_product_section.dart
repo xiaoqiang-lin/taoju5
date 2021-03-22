@@ -36,8 +36,7 @@ class SceneDesignProductSection extends StatelessWidget {
           children: [
             XTitleBar(title: "场景推荐"),
             AspectRatio(
-              aspectRatio: 1.108,
-              // height: 420.h,
+              aspectRatio: 1.08,
               child: Container(
                 child: XSwiper(
                   itemCount: productList.length,
@@ -65,7 +64,7 @@ class _SceneDesignProductCard extends StatelessWidget {
     return Container(
       width: Get.width,
       child: AspectRatio(
-        aspectRatio: 1.8,
+        aspectRatio: .68,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,10 +76,15 @@ class _SceneDesignProductCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(6)),
-                    child: CachedNetworkImage(
-                      width: Get.width,
-                      fit: BoxFit.fitWidth,
-                      imageUrl: product.image,
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      height: Get.width * .6,
+                      child: CachedNetworkImage(
+                        // height: Get.width,
+                        width: Get.width,
+                        fit: BoxFit.fitWidth,
+                        imageUrl: product.image,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -111,18 +115,19 @@ class _SceneDesignProductCard extends StatelessWidget {
               ),
             ),
             AspectRatio(
-                aspectRatio: 3.2,
+                aspectRatio: 4,
                 child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     child: GridView.builder(
                         itemCount: min(5, product?.productList?.length ?? 0),
-                        padding: EdgeInsets.only(top: 8, bottom: 0),
+                        padding: EdgeInsets.only(top: BDimens.gap8, bottom: 0),
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            childAspectRatio: .68,
-                            crossAxisSpacing: 8),
+                          crossAxisCount: 5,
+                          childAspectRatio: .78,
+                          crossAxisSpacing: 4,
+                        ),
                         itemBuilder: (BuildContext context, int index) {
                           ProductMixinModel o = product.productList[index];
                           return GestureDetector(
@@ -135,7 +140,7 @@ class _SceneDesignProductCard extends StatelessWidget {
                                   children: [
                                     XThumbnailCard(
                                         child: AspectRatio(
-                                      aspectRatio: 1.0,
+                                      aspectRatio: 1,
                                       child: Image.network(o.image),
                                     )),
                                     Container(
@@ -154,7 +159,10 @@ class _SceneDesignProductCard extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(top: BDimens.gap8),
-                                  child: Text("¥${o.price.toStringAsFixed(2)}"),
+                                  child: Text(
+                                    "¥${o.price.toStringAsFixed(2)}",
+                                    style: TextStyle(fontSize: BDimens.sp24),
+                                  ),
                                 )
                               ],
                             ),

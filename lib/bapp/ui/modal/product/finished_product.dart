@@ -9,6 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
@@ -23,7 +24,10 @@ import 'package:taoju5/bapp/ui/widgets/common/button/x_check_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_submit_button.dart';
 
 Future showFinishedProductAttrModal(BuildContext context,
-    {ProductDetailModel product, String id}) {
+    {ProductDetailModel product,
+    CartPorductModel cartProduct,
+    String id,
+    Function onConfirm}) {
   return showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
@@ -31,8 +35,8 @@ Future showFinishedProductAttrModal(BuildContext context,
             height: Get.height * .80,
             builder: (BuildContext context) {
               return GetBuilder<FinishedProductAttrsController>(
-                  init:
-                      FinishedProductAttrsController(product: product, id: id),
+                  init: FinishedProductAttrsController(
+                      product: product, id: id, cartProduct: cartProduct),
                   builder: (_) {
                     return XLoadStateBuilder(
                         loadState: _.loadState,
@@ -43,49 +47,73 @@ Future showFinishedProductAttrModal(BuildContext context,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                right: BDimens.gap24),
-                                            width: 180.w,
-                                            child: AspectRatio(
-                                              aspectRatio: 1.0,
-                                              child: CachedNetworkImage(
-                                                  imageUrl: _.product.currentSku
-                                                          ?.image ??
-                                                      _.product.cover),
-                                            ),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "¥${_.product?.currentSku?.price ?? _.product.price.toStringAsFixed(2)}",
-                                                style: TextStyle(
-                                                    fontSize: BDimens.sp36,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:
-                                                        BColors.highLightColor),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    top: BDimens.gap20),
-                                                child: Text(
-                                                  ("已选:${_.product.currentSpecOptionName ?? ""}"),
-                                                  style: TextStyle(
-                                                      fontSize: BDimens.sp28,
-                                                      color: BColors
-                                                          .descriptionTextColor),
+                                    GetBuilder<FinishedProductAttrsController>(
+                                        id: "header",
+                                        builder: (_) {
+                                          return Container(
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      right: BDimens.gap24),
+                                                  width: 180.w,
+                                                  child: AspectRatio(
+                                                    aspectRatio: 1.0,
+                                                    child: CachedNetworkImage(
+                                                        imageUrl: _
+                                                                .product
+                                                                .currentSku
+                                                                ?.image ??
+                                                            _.product.cover),
+                                                  ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "¥${((_.product?.currentSku?.price ?? _.product?.price ?? 0) * (_.product?.count ?? 1)).toStringAsFixed(2)}",
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              BDimens.sp36,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: BColors
+                                                              .highLightColor),
+                                                    ),
+                                                    if (_.product.productType
+                                                        is SectionalbarProductType)
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: BDimens.gap20),
+                                                        child: Text(
+                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? ""}"),
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  BDimens.sp28,
+                                                              color: BColors
+                                                                  .descriptionTextColor),
+                                                        ),
+                                                      )
+                                                    else
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: BDimens.gap20),
+                                                        child: Text(
+                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 数量x${_.product.count}"),
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  BDimens.sp28,
+                                                              color: BColors
+                                                                  .descriptionTextColor),
+                                                        ),
+                                                      )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
                                     Container(
                                         margin: EdgeInsets.symmetric(
                                             vertical: BDimens.gap24),
@@ -97,7 +125,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                               CrossAxisAlignment.start,
                                           children: [
                                             Visibility(
-                                                visible: product.productType
+                                                visible: _.product.productType
                                                     is SectionalbarProductType,
                                                 child: Column(
                                                   crossAxisAlignment:
@@ -140,7 +168,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                   ],
                                                 )),
                                             Visibility(
-                                              visible: product.productType
+                                              visible: _.product.productType
                                                   is FabricFurnitureProductType,
                                               child: Column(
                                                 crossAxisAlignment:
@@ -190,8 +218,8 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                     ),
                                                   ),
                                                   Wrap(
-                                                    spacing: BDimens.gap16,
-                                                    runSpacing: BDimens.gap16,
+                                                    spacing: BDimens.gap32,
+                                                    runSpacing: BDimens.gap32,
                                                     children: [
                                                       for (ProductSpecOptionModel option
                                                           in spec.optionList)
@@ -216,7 +244,10 @@ Future showFinishedProductAttrModal(BuildContext context,
                                   ]),
                             ),
                             bottomNavigationBar: XSubmitButton(
-                                child: Text("确定"), onFuture: _.addToCart),
+                              child: Text("确定"),
+                              onFuture: onConfirm ?? _.onConfirm,
+                              showLoading: false,
+                            ),
                           );
                         });
                   });

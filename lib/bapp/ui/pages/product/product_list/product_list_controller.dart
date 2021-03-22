@@ -8,12 +8,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_filter/product_list_filter_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_sorter/product_list_sorter_panel.dart';
+import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/ui/widgets/common/modal/x_popdown_modal.dart';
 import 'package:taoju5/xdio/x_dio.dart';
@@ -56,6 +59,11 @@ class ProductListParentController extends GetxController
         update(["tab"]);
       }
     });
+  }
+
+  void switchViewMode() {
+    isGridMode = !isGridMode;
+    update(["tab", "tabview"]);
   }
 
   void _onTabChanged() {
@@ -103,7 +111,7 @@ class ProductListParentController extends GetxController
     Map map = {};
     map.addAll(model.params);
     map.addAll({"category_type": currentTabModel.id});
-    productListController.refreshData(params: map);
+    productListController.refreshData(parameters: map);
   }
 
   Future openSortPanel(BuildContext ctx) {
@@ -174,7 +182,19 @@ class ProductListController extends GetxController {
 
   ProductListController({@required this.type});
 
-  Map get args => {"category_type": type, "page_index": pageIndex};
+  Map get args {
+    Map map = {"category_type": type, "page_index": pageIndex};
+    if (Get.arguments != null && Get.arguments is SelectProductEvent) {
+      SelectProductEvent event = Get.arguments;
+      OrderDetailProductModel orderProduct = event.orderProduct;
+      OrderMeasureDataModel measureData = orderProduct.measureData;
+      map.addAll(
+          {"order_goods_id": orderProduct.id, "height": measureData.height});
+    }
+    return map;
+  }
+
+  void assignArgs() {}
 
   Future loadData({Map params}) {
     loadState = XLoadState.busy;
@@ -212,13 +232,16 @@ class ProductListController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future refreshData({Map params}) {
+  Future refreshData({Map parameters}) {
     pageIndex = 1;
-    args.addAll(params ?? {});
+    Map map = {};
+    map.addAll(args);
+    map.addAll(parameters ?? {});
+
     loadState = XLoadState.busy;
     update();
     return _repository
-        .productList(params: args)
+        .productList(params: map)
         .then((ProductModelListWrapper wrapper) {
       refreshController.refreshCompleted();
       productList = wrapper.list;
@@ -228,6 +251,7 @@ class ProductListController extends GetxController {
         loadState = XLoadState.idle;
       }
     }).catchError((err) {
+      loadState = XLoadState.error;
       refreshController.refreshFailed();
     }).whenComplete(update);
   }

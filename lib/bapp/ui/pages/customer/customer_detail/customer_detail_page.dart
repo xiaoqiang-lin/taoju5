@@ -12,6 +12,7 @@ import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/customer_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/fragment/customer_detail_header.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/fragment/customer_detail_kongo.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 
 import 'fragment/customer_detail_body.dart';
@@ -31,7 +32,8 @@ class CustomerDetailPage extends StatelessWidget {
                 CustomerDetailController controller =
                     Get.find<CustomerDetailController>();
                 Get.toNamed(BAppRoutes.customerEdit + "/0",
-                    arguments: controller.customer);
+                    arguments: ChooseCustomerEventModel(
+                        customer: controller.customer));
               },
               child: Text("编辑"))
         ],

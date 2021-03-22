@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/constants/x_gender.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -37,9 +38,14 @@ class CustomerEditPage extends GetView<CustomerEditController> {
           Visibility(
             visible: Get.parameters["canChoose"] == "1",
             child: TextButton(
-                onPressed: () =>
-                    Get.toNamed(BAppRoutes.customerList, arguments: true),
-                child: Text("选择已有客户")),
+                onPressed: () => Get.toNamed(BAppRoutes.customerList,
+                    arguments:
+                        ChooseCustomerEventModel(fromUrl: controller.fromUrl)),
+                child: Text(
+                  "选择已有客户",
+                  style: TextStyle(
+                      fontSize: BDimens.sp26, color: BColors.pinkColor),
+                )),
           )
         ],
       ),

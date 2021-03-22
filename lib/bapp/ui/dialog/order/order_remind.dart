@@ -12,7 +12,7 @@ import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
 
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 
-Future showOrderRemindDialog() {
+Future showOrderRemindDialog(String title) {
   Map<OrderStatus, String> map = {
     OrderStatus.toBeAudited: "1",
     OrderStatus.toBeMeasured: "2",
@@ -28,15 +28,17 @@ Future showOrderRemindDialog() {
 
             return AlertDialog(
               title: Text(
-                "是否提醒测量?",
+                "$title",
                 textAlign: TextAlign.center,
               ),
               content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
                     onPressed: Get.back,
                     child: Text("取消"),
                   ),
+                  SizedBox(width: 24),
                   XFutureButton(
                       onFuture: () => _.remind(params),
                       onSuccess: Get.back,

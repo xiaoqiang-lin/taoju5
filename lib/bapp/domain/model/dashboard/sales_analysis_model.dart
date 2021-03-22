@@ -53,6 +53,7 @@ class SalesAnalysisModel {
         genderData.add(CustomerGenderAnalysisModel(
             name: "未知",
             value: 100,
+            hasData: false,
             color: BColors.graphColor,
             description: "暂无数据"));
       } else {
@@ -60,15 +61,18 @@ class SalesAnalysisModel {
           CustomerGenderAnalysisModel(
               name: "男性",
               value: male,
+              hasData: false,
               color: BColors.graphColor,
-              description:
-                  male == 0 ? "" : "男性\n$male位 ${(male / total) * 100}%"),
+              description: male == 0
+                  ? ""
+                  : "男性\n$male位 ${((male / total) * 100).toStringAsFixed(2)}%"),
         );
         genderData.add(CustomerGenderAnalysisModel(
             name: "女性",
             value: female,
             color: BColors.accentGraphColor,
-            description: "女性\n$female位 ${(female / total) * 100}%"));
+            description:
+                "女性\n$female位 ${((female / total) * 100).toStringAsFixed(2)}%"));
       }
     }
 
@@ -77,7 +81,11 @@ class SalesAnalysisModel {
     if (total == 0) {
       ageData = [
         CustomerAgeAnalysisModel(
-            color: BColors.graphColor, name: "暂无数据", value: 100, rate: 1.0)
+            color: BColors.graphColor,
+            name: "暂无数据",
+            value: 100,
+            rate: 1.0,
+            hasData: false)
       ];
     } else {
       for (int i = 0; i < ageList.length; i++) {
@@ -104,8 +112,13 @@ class CustomerGenderAnalysisModel {
   num value;
   String description;
   Color color;
+  bool hasData;
   CustomerGenderAnalysisModel(
-      {this.name, this.value, this.description, this.color});
+      {this.name,
+      this.value,
+      this.description,
+      this.color,
+      this.hasData = true});
   CustomerGenderAnalysisModel.fromJson(Map json) {
     name = json["0"];
   }
@@ -118,16 +131,19 @@ class CustomerAgeAnalysisModel {
   double rate = 0.0;
 
   Color color;
+  bool hasData;
 
-  CustomerAgeAnalysisModel({this.name, this.value, this.color, this.rate});
+  CustomerAgeAnalysisModel(
+      {this.name, this.value, this.color, this.rate, this.hasData = true});
   CustomerAgeAnalysisModel.fromJson(Map json) {
     name = json["0"];
   }
 }
 
 extension CustomerAgeAnalysisModelKit on CustomerAgeAnalysisModel {
-  String get description =>
-      CommonKit.isNullOrZero(rate) ? "" : "$name\n ${(rate ?? 0.0) * 100}%";
+  String get description => CommonKit.isNullOrZero(rate)
+      ? ""
+      : "$name\n ${((rate ?? 0.0) * 100).toStringAsFixed(2)}% ${hasData ? value : 0}位";
 }
 
 class CustomerProductStylePreferenceAnalysisModel {

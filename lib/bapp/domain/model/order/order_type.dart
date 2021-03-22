@@ -28,6 +28,7 @@ OrderType getOrderType(int type, OrderStatus orderStatus) {
     1: OrderType.selectionOrder,
     2: OrderType.measureOrder,
   };
+
   if (type == 2 && orderStatus > OrderStatus.toBeSelected) {
     type = 1;
   }

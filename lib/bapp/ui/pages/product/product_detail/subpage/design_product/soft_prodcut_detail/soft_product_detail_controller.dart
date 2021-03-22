@@ -8,7 +8,6 @@
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 
 class SoftProductDetailController extends GetxController {

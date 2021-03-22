@@ -14,7 +14,7 @@ enum RefundStatus {
 // 0=默认  1=取消待审核  5=取消商品成功 13=取消订单待工程部审核 14=工程部拒绝取消  -4=取消品牌已拒绝
 RefundStatus getRefundStatus(int code) {
   Map<int, RefundStatus> map = {
-    -4: RefundStatus.failed,
+    -4: RefundStatus.refundable,
     0: RefundStatus.refundable,
     1: RefundStatus.toBeAuthed,
     5: RefundStatus.succeed,
@@ -22,4 +22,13 @@ RefundStatus getRefundStatus(int code) {
     13: RefundStatus.toBeAuthed,
   };
   return map[code] ?? RefundStatus.refundable;
+}
+
+String getRefundStatusText(RefundStatus status) {
+  Map<RefundStatus, String> map = {
+    RefundStatus.succeed: "已取消",
+    RefundStatus.toBeAuthed: "取消待审核",
+    RefundStatus.failed: "取消已拒绝",
+  };
+  return map[status];
 }

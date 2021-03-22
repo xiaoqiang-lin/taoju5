@@ -56,7 +56,7 @@ class SalesStatisticsGraph extends StatelessWidget {
                     primaryYAxis: NumericAxis(
                         isVisible: true,
                         desiredIntervals: 8,
-                        maximum: 100000,
+                        maximum: 160000,
                         minimum: 0),
                     primaryXAxis: CategoryAxis(
                         isVisible: true,
@@ -94,7 +94,7 @@ class SalesStatisticsGraph extends StatelessWidget {
                         minimum: 0,
                         isVisible: true,
                         desiredIntervals: 8,
-                        maximum: 80000),
+                        maximum: 160000),
                     primaryXAxis: CategoryAxis(
                         isVisible: true,
                         majorGridLines:

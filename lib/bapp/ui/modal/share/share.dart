@@ -15,6 +15,8 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/modal/base/x_base_modal.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:taoju5/bapp/ui/modal/share/product/share_product_controller.dart';
 
 Future showShareModal(BuildContext context,
     {@required TaojuwuShareModel shareModel}) {
@@ -62,72 +64,75 @@ Future showShareModal(BuildContext context,
         return XBaseModal(
             height: 450.h,
             builder: (BuildContext context) {
-              return Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: BDimens.gap32,
+              return GetBuilder<ShareProductController>(builder: (_) {
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: BDimens.gap32,
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: BDimens.gap32,
+                            ),
+                            child: Text(
+                              "分享至",
+                              style: TextStyle(
+                                  fontSize: BDimens.sp30,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          Divider(),
+                          Container(
+                            margin:
+                                EdgeInsets.symmetric(vertical: BDimens.gap32),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                for (XShareModel e in list)
+                                  GestureDetector(
+                                    onTap: e.onTap,
+                                    behavior: HitTestBehavior.opaque,
+                                    child: Column(
+                                      children: [
+                                        Image.asset("assets/images/" + e.icon),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: BDimens.gap16),
+                                          child: Text(
+                                            e.description,
+                                            style: TextStyle(
+                                                fontSize: BDimens.sp22,
+                                                color: BColors
+                                                    .descriptionTextColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: BDimens.gap32,
-                          ),
-                          child: Text(
-                            "分享至",
-                            style: TextStyle(
-                                fontSize: BDimens.sp30,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        Divider(),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: BDimens.gap32),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              for (XShareModel e in list)
-                                GestureDetector(
-                                  onTap: e.onTap,
-                                  behavior: HitTestBehavior.opaque,
-                                  child: Column(
-                                    children: [
-                                      Image.asset("assets/images/" + e.icon),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: BDimens.gap16),
-                                        child: Text(
-                                          e.description,
-                                          style: TextStyle(
-                                              fontSize: BDimens.sp22,
-                                              color:
-                                                  BColors.descriptionTextColor),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                            ],
-                          ),
-                        ),
-                      ],
+                    Divider(
+                      height: BDimens.gap16,
+                      thickness: BDimens.gap16,
                     ),
-                  ),
-                  Divider(
-                    height: BDimens.gap16,
-                    thickness: BDimens.gap16,
-                  ),
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(
-                        "取消",
-                        style: TextStyle(
-                            fontSize: BDimens.sp30,
-                            fontWeight: FontWeight.w400),
-                      ))
-                ],
-              );
+                    TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(
+                          "取消",
+                          style: TextStyle(
+                              fontSize: BDimens.sp30,
+                              fontWeight: FontWeight.w400),
+                        ))
+                  ],
+                );
+              });
             });
       });
 }

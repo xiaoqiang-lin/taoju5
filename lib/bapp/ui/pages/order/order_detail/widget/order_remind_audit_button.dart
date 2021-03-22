@@ -22,7 +22,9 @@ class OrderRemindAuditButton extends StatelessWidget {
       builder: (_) {
         return Visibility(
           child: OutlinedButton(
-              onPressed: _.order.canRefund ? _.openRemindOrderDialog : null,
+              onPressed: _.order.canRefund
+                  ? () => _.openRemindOrderDialog("是否要提醒审核?")
+                  : null,
               child: Text("提醒审核")),
 
           ///商品是窗帘商品 并且处于待审核状态

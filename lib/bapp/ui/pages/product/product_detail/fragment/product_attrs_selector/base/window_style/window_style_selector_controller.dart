@@ -182,7 +182,7 @@ class WindowStyleSelectorController extends GetxController {
   void _saveToOrderMeasureData() {
     OrderMeasureDataController controller =
         Get.find<OrderMeasureDataController>();
-    controller.measureData.newOpenMode = currentOpenModeOption.name;
+    controller.measureData.newOpenModeName = currentOpenModeOption.name;
     controller.update(["openMode"]);
   }
 

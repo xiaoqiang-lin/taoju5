@@ -47,7 +47,7 @@ class ProductMixSection extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: BDimens.gap24),
-                height: 180.h,
+                height: 196.h,
                 child: XSwiper(
                     itemCount: groupCount,
                     itemBuilder: (BuildContext context, int i) {

@@ -70,6 +70,7 @@ import 'package:taoju5/bapp/ui/pages/setting/feed_back/feed_back_binding.dart';
 import 'package:taoju5/bapp/ui/pages/setting/feed_back/feed_back_page.dart';
 import 'package:taoju5/bapp/ui/pages/setting/setting/setting_binding.dart';
 import 'package:taoju5/bapp/ui/pages/setting/setting/setting_page.dart';
+import 'package:taoju5/bapp/ui/pages/user_protocol/user_protocol_binding.dart';
 import 'package:taoju5/bapp/ui/pages/user_protocol/user_protocol_page.dart';
 import 'package:taoju5/bc-app/ui/pages/debug/debug_binding.dart';
 import 'package:taoju5/bc-app/ui/pages/debug/debug_page.dart';
@@ -80,7 +81,7 @@ part 'bapp_routes.dart';
 class BAppPages {
   static get initial => GetUtils.isNullOrBlank(
           StorageManager().sharedPreferences?.getString("token"))
-      ? BAppRoutes.home
+      ? BAppRoutes.login
       : BAppRoutes.home;
 
   static final unkonw =
@@ -221,7 +222,7 @@ class BAppPages {
         binding: OrderMeasureDataBinding()),
 
     GetPage(
-        name: BAppRoutes.commitOrder + "/:orderType",
+        name: BAppRoutes.commitOrder,
         page: () => CommitOrderPage(),
         binding: CommitOrderBinding()),
     GetPage(
@@ -262,7 +263,10 @@ class BAppPages {
         binding: CollectionBinding()),
 
     ///用户协议
-    GetPage(name: BAppRoutes.userProtocol, page: () => UserProtocolPage()),
+    GetPage(
+        name: BAppRoutes.userProtocol,
+        page: () => UserProtocolPage(),
+        binding: UserProtocolBinding()),
 
     ///app版本号
     GetPage(name: BAppRoutes.appVersion, page: () => AppVersionPage()),

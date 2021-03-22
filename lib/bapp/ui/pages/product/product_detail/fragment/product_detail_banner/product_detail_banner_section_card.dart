@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_swiper.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
@@ -20,11 +21,20 @@ class ProductDetailBannerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(left: 24, right: 24),
+      padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+      height: Get.width * .96,
+      width: Get.width,
       child: XSwiper(
         itemCount: imageList?.length,
+        itemWidth: Get.width,
+        itemHeight: .8 * Get.width,
         itemBuilder: (BuildContext context, int index) {
-          return XPhotoViewer(fit: BoxFit.fitHeight, url: imageList[index]);
+          return XPhotoViewer(
+              fadeInDuration: const Duration(milliseconds: 75),
+              closedShape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              fit: BoxFit.fitWidth,
+              url: imageList[index]);
         },
       ),
     );

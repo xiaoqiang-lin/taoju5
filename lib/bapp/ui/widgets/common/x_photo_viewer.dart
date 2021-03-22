@@ -19,25 +19,35 @@ class XPhotoViewer extends StatelessWidget {
   final BoxFit fit;
   final double height;
   final double width;
+  final ShapeBorder closedShape;
+  final Duration fadeInDuration;
+  final Duration fadeOutDuration;
   const XPhotoViewer(
       {Key key,
       @required this.url,
       this.bigImageUrl,
       this.fit,
       this.height,
-      this.width})
+      this.width,
+      this.closedShape = const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4))),
+      this.fadeInDuration = const Duration(milliseconds: 375),
+      this.fadeOutDuration = const Duration(milliseconds: 500)})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
         closedElevation: 0,
+        closedShape: closedShape,
         closedBuilder: (BuildContext context, _) {
           return CachedNetworkImage(
             fit: fit,
             imageUrl: url,
             width: width,
             height: height,
+            fadeOutDuration: fadeOutDuration,
+            fadeInDuration: fadeInDuration,
           );
         },
         openBuilder: (BuildContext context, _) {
@@ -87,11 +97,11 @@ class _XInteractivePhotoViewerState extends State<XInteractivePhotoViewer> {
                 child: GestureDetector(
                   onTap: Navigator.of(context).pop,
                   child: CircleAvatar(
-                    radius: 12,
+                    radius: 16,
                     backgroundColor: BColors.maskColor,
                     child: Icon(
                       BIcons.close,
-                      size: 28,
+                      size: 24,
                       color: BColors.whiteColor,
                     ),
                   ),

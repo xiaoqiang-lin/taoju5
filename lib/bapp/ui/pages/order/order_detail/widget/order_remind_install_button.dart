@@ -19,7 +19,8 @@ class OrderRemindInstallButton extends GetView<OrderDetailController> {
   Widget build(BuildContext context) {
     return Visibility(
       child: OutlinedButton(
-          onPressed: controller.openRemindOrderDialog, child: Text("提醒安装")),
+          onPressed: () => controller.openRemindOrderDialog("是否要提醒安装?"),
+          child: Text("提醒安装")),
 
       ///商品是窗帘商品 并且处于待审核状态
       visible: controller.order.productType is CurtainProductType &&

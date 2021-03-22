@@ -6,6 +6,7 @@
  */
 
 import 'package:flutter/foundation.dart';
+import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
 
 import 'product_type.dart';
@@ -43,7 +44,7 @@ class ProductModel {
   String name;
   String image;
   double marketPrice;
-
+  double displayPrice;
   double price;
   String unit;
   int picId;
@@ -62,11 +63,13 @@ class ProductModel {
     id = json['goods_id'];
     name = json['goods_name'];
     thumbnail = json['pic_cover_small'] ?? "";
-    image = (json['pic_cover_mid'] ?? json['image'] ?? json['picture']);
+    image = JsonKit.asWebUrl(
+        (json['pic_cover_mid'] ?? json['image'] ?? json['picture']));
     code = json["goods_type"];
     marketPrice = JsonKit.asDouble(json['market_price']);
+    displayPrice = JsonKit.asDouble(json["displya_price"]);
+    unit = "${json["goods_unit"] ?? json["unit"]}"?.trim();
 
-    unit = json["unit"];
     picId = json["pic_id"];
     price = JsonKit.asDouble(
         (json['price'] ?? json['display_price'] ?? json['market_price']));
@@ -77,4 +80,7 @@ class ProductModel {
 
 extension ProductModelKit on ProductModel {
   BaseProductType get productType => getProductType(code);
+
+  bool get isOnsale =>
+      CommonKit.isNullOrZero(marketPrice) && marketPrice != displayPrice;
 }

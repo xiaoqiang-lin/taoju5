@@ -49,6 +49,7 @@ class OrderDetailModel {
   String createTime;
   String username;
   String customerName;
+  String customerId;
   String shopName;
 
   String deposit;
@@ -80,6 +81,7 @@ class OrderDetailModel {
     measureTime = json["measure_time"];
     username = json["user_name"];
     customerName = json["client_name"];
+    customerId = "${json["client_id"]}";
     deltaPrice = json["adjust_money"];
     originalPrice = json["order_estimated_price"];
     modifyPriceNote = json["adjust_money_remark"];
@@ -169,7 +171,7 @@ class OrderMeasureDataModel {
   String heightNote;
   String installMode;
   String openMode;
-  String newOpenMode;
+  String newOpenModeName;
   String installationSurfaceMaterial;
   String plasterLine;
 
@@ -209,10 +211,12 @@ class OrderMeasureDataModel {
     boxSize = json["curtain_box_size"];
     plasterLineHeight = json["top_height"];
     deltaY = json["vertical_ground_height"];
+    newDeltaY = deltaY;
+    newOpenModeName = openModeName;
   }
 }
 
 extension OrderMeasureDataModelKit on OrderMeasureDataModel {
   String get openModeName =>
-      RegExp(".*[a-zA-Z]+.*").hasMatch(openMode) ? "分墙面打开" : openMode;
+      RegExp(".*[a-zA-Z]+.*").hasMatch(openMode ?? "") ? "分墙面打开" : openMode;
 }

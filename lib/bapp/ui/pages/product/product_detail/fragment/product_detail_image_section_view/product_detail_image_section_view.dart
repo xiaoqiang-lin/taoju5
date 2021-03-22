@@ -24,7 +24,10 @@ class ProductDetailImageSectionView extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int i) {
-            return XPhotoViewer(url: imageList[i]);
+            return XPhotoViewer(
+                closedShape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                url: imageList[i]);
           },
           itemCount: imageList.length,
         ),

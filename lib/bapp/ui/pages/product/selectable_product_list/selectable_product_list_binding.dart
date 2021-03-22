@@ -6,11 +6,13 @@
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 
 class SelectableProductListBinding extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => ProductListParentController());
     Get.lazyPut(() => SelectableProductListController());
   }
 }

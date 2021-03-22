@@ -102,7 +102,10 @@ class _XSearchBarState extends State<XSearchBar> {
   }
 
   void dispose() {
-    FocusManager.instance.primaryFocus.unfocus();
+    if (FocusManager.instance.primaryFocus.hasFocus) {
+      FocusManager.instance.primaryFocus.unfocus();
+    }
+
     _controller?.dispose();
     _focusNode?.dispose();
     super.dispose();

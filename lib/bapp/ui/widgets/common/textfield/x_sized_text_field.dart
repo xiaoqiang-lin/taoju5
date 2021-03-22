@@ -112,7 +112,7 @@ class _XSizedTextFieldState extends State<XSizedTextField> {
     return Container(
         width: widget.width,
         height: widget.height,
-        margin: EdgeInsets.only(left: 15, right: 15),
+        // margin: EdgeInsets.only(left: 15, right: 15),
         decoration: BoxDecoration(
             color: widget.fillColor, borderRadius: widget.borderRadius),
         child: Row(

@@ -62,7 +62,7 @@ class CustomerModel implements ISuspensionBean {
 
   String wanted;
 
-  CustomerModel();
+  CustomerModel({this.name, this.id});
   CustomerAddressModel address;
 
   @override

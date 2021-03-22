@@ -21,4 +21,7 @@ class TaojuwuAPI {
 
   Future<BaseResponse> feedback(String url, {Map params}) =>
       XDio().post(url, queryParameters: params);
+
+  Future<BaseResponse> userProtocol({Map params}) =>
+      XDio().get("/api/login/registerAgreement", params: params);
 }

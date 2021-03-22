@@ -13,6 +13,7 @@ class XRotationArrow extends StatefulWidget {
   final Widget child;
   final FutureCallback onTap;
   final Color color;
+  final TextStyle labelStyle;
   XRotationArrow({
     Key key,
     this.child = const Icon(
@@ -22,6 +23,7 @@ class XRotationArrow extends StatefulWidget {
     this.onTap,
     this.label,
     this.color,
+    this.labelStyle,
   }) : super(key: key);
 
   @override
@@ -68,10 +70,19 @@ class _XRotationArrowState extends State<XRotationArrow>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _onTap,
+      key: ValueKey(widget.label),
       behavior: HitTestBehavior.opaque,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          widget.label == null ? SizedBox.shrink() : Text(widget.label),
+          widget.label == null
+              ? SizedBox.shrink()
+              : Text(
+                  widget.label,
+                  style: widget.labelStyle,
+                ),
           RotationTransition(
             turns: _iconTurns,
             child: widget?.child,

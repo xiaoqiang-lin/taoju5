@@ -46,6 +46,10 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
+  - video_player (0.0.1):
+    - Flutter
+  - wakelock (0.0.1):
+    - Flutter
   - webview_flutter (0.0.1):
     - Flutter
   - WechatOpenSDK (1.8.7.1)
@@ -65,6 +69,8 @@ DEPENDENCIES:
   - scan (from `.symlinks/plugins/scan/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
@@ -108,6 +114,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
@@ -134,6 +144,8 @@ SPEC CHECKSUMS:
   scan: aea35bb4aa59ccc8839c576a18cd57c7d492cc86
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  wakelock: bfc7955c418d0db797614075aabbc58a39ab5107
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
 

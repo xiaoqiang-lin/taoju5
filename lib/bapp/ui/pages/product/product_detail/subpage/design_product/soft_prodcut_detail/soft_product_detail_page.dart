@@ -7,14 +7,15 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/widget/x_tag_chip.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_card.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
+import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 class SoftProductDetailPage extends StatelessWidget {
@@ -25,6 +26,13 @@ class SoftProductDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("软装方案"),
+        actions: [
+          XCustomerChooseButton(
+            event: ChooseCustomerEventModel(
+                fromUrl: BAppRoutes.softProductDetail +
+                    "/${Get.parameters["productId"]}/${Get.parameters["id"]}"),
+          )
+        ],
       ),
       body: GetBuilder<SoftProductDetailController>(
         builder: (_) {
@@ -63,7 +71,9 @@ class SoftProductDetailPage extends StatelessWidget {
                                     color: BColors.highLightColor),
                               ),
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("立即购买"))
+                                  onPressed: () =>
+                                      showDesignProductModal(id: _.id),
+                                  child: Text("立即购买"))
                             ],
                           ),
                           Divider(),
@@ -78,22 +88,7 @@ class SoftProductDetailPage extends StatelessWidget {
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
-                          GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 10,
-                                    crossAxisCount: 3,
-                                    childAspectRatio: .72),
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: e.productList.length,
-                            itemBuilder: (BuildContext context, int i) {
-                              return MixinProductCard(
-                                  product: e.productList[i]);
-                            },
-                          )
+                          MixinProductGridView(productList: e.productList)
                         ],
                       );
                     },

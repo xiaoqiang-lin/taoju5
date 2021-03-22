@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -37,7 +38,7 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+                    padding: EdgeInsets.symmetric(vertical: BDimens.gap4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -52,7 +53,7 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+                    padding: EdgeInsets.symmetric(vertical: BDimens.gap4),
                     child: GetBuilder<OrderDetailController>(
                       id: "modifyPrice",
                       builder: (_) {
@@ -62,7 +63,7 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: BDimens.gap8),
+                                      vertical: BDimens.gap4),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -79,30 +80,34 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: BDimens.gap8),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("修改:"),
-                                      Spacer(),
-                                      Text(
-                                        "¥${controller.order.deltaPrice}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      Visibility(
-                                        child: Text(
-                                          "(${controller.order.modifyPriceNote})",
+                                Visibility(
+                                  visible: _.order.orderStatus ==
+                                      OrderStatus.toBePaid,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: BDimens.gap4),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("修改:"),
+                                        Spacer(),
+                                        Text(
+                                          "¥${controller.order.deltaPrice}",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        visible: !GetUtils.isNullOrBlank(
-                                            controller.order.modifyPriceNote),
-                                      )
-                                    ],
+                                        Visibility(
+                                          child: Text(
+                                            "(${controller.order.modifyPriceNote})",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          visible: !GetUtils.isNullOrBlank(
+                                              controller.order.modifyPriceNote),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -110,28 +115,33 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
                       },
                     ),
                   ),
-                  GestureDetector(
-                    onTap: controller.openModifyPriceModal,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("尾款:"),
-                          GetBuilder<OrderDetailController>(
-                              id: "modifyPrice",
-                              builder: (_) {
-                                return Text(
-                                  "¥${controller.order.balance}",
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                );
-                              })
-                        ],
+                  Visibility(
+                    visible:
+                        controller.order.orderStatus == OrderStatus.toBePaid,
+                    child: GestureDetector(
+                      onTap: controller.openModifyPriceModal,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: BDimens.gap4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("尾款:"),
+                            GetBuilder<OrderDetailController>(
+                                id: "modifyPrice",
+                                builder: (_) {
+                                  return Text(
+                                    "¥${controller.order.balance}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
+                                  );
+                                })
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+                    padding: EdgeInsets.symmetric(vertical: BDimens.gap4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

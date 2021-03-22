@@ -5,8 +5,9 @@
  * @LastEditTime: 2021-01-10 14:19:19
  */
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
-import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/utils/json_kit.dart';
+
+import 'product_mixin_model.dart';
 
 class DesignProductDetailModelWrapper {
   DesignProductDetailModel product;
@@ -30,7 +31,7 @@ class DesignProductDetailModel {
   String image;
   String bigImage;
 
-  List<ProductModel> productList;
+  List<ProductMixinModel> productList;
 
   DesignProductDetailModel.fromJson(Map json) {
     id = json["scenes_id"];
@@ -41,8 +42,8 @@ class DesignProductDetailModel {
     image = JsonKit.asWebUrl(json["image"]);
     bigImage = JsonKit.asWebUrl(json["image_big"]);
     productList = JsonKit.asList(json["goods_list"])
-        .map((e) => ProductModel.fromJson(e))
-        .cast<ProductModel>()
+        .map((e) => ProductMixinModel.fromJson(e))
+        .cast<ProductMixinModel>()
         .toList();
   }
 }

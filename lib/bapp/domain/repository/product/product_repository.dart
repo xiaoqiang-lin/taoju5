@@ -179,4 +179,12 @@ class ProductRepository {
   ///从收藏列表中删除
   Future<BaseResponse> removeFromCollection({Map params}) =>
       _api.removeFromCollection(params: params);
+
+  ///修改购物车商品数量
+  Future<BaseResponse> modifyProuductCountInCart({Map params}) =>
+      _api.modifyProuductCountInCart(params: params);
+
+  ///修改购物车成品属性
+  Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>
+      _api.modifyProuductAttrInCart(params: params);
 }

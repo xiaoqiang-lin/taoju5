@@ -43,6 +43,7 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
   String length;
   final isChecked = false.obs;
   RxInt count;
+  String categoryType;
   CartPorductModel.fromJson(Map json) {
     id = "${json["cart_id"]}";
     measureId = json["measure_id"];
@@ -51,11 +52,12 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
     skuId = JsonKit.asInt(json["sku_id"]);
     description = json["goods_attr_str"];
 
-    room = JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"]);
+    room = "${JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"])}";
     image = JsonKit.asWebUrl(JsonKit.getValueInComplexMap(
             json, ["picture_info", "pic_cover"])) ??
         '';
     type = json["goods_type"];
+
     unit = json["goods_unit"];
     length = json["material"];
     productId = json["goods_id"];
@@ -86,7 +88,7 @@ extension CartPorductModelKit on CartPorductModel {
     model.totalPrice = totalPrice;
     model.image = image;
     model.type = type;
-    model.description = description;
+    model.description = description + "\n数量x$count";
     model.measureId = measureId;
     model.skuId = "$skuId";
     model.cartId = id;

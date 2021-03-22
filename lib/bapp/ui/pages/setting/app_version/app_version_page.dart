@@ -5,6 +5,7 @@
  * @LastEditTime: 2021-01-09 20:58:26
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/config/app_manager.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,20 @@ class _AppVersionPageState extends State<AppVersionPage> {
       body: Center(
           child: Column(
         children: [
-          Image.asset("assets/images/logo.png"),
+          Container(
+              margin:
+                  EdgeInsets.only(top: BDimens.gap144, bottom: BDimens.gap32),
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
+                        color: Color.fromARGB(45, 0, 0, 0)),
+                  ]),
+              child: Image.asset("assets/images/logo.png")),
           Text(versionCode),
         ],
       )),

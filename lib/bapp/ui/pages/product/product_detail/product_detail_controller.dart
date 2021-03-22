@@ -8,6 +8,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
@@ -18,6 +20,7 @@ import 'package:taoju5/bapp/domain/model/window/window_style_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
+import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
@@ -25,6 +28,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base_curtain_product_attrs_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_pridce_delegator.dart';
+import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
 import 'package:taoju5/xdio/x_dio.dart';
@@ -153,7 +157,7 @@ class CurtainProductAtrrParamsModel<T> {
         _find<ValanceAttrSelectorController>(tag: tag),
         _find<AccessoryAttrSelectorController>(tag: tag),
         _find<SizeSelectorController>(tag: tag)
-      ];
+      ].where((e) => e != null).toList();
 
   T _find<T>({@required String tag}) {
     if (Get.isRegistered<T>(tag: tag)) {
@@ -184,7 +188,10 @@ class ProductDetailController extends GetxController {
 
   ProductDetailModelWrapper wrapper;
 
-  ProductDetailModel product;
+  ///选品事件
+  SelectProductEvent selectProductEvent;
+
+  ProductDetailModel product = ProductDetailModel();
 
   XLoadState loadState = XLoadState.idle;
 
@@ -192,13 +199,16 @@ class ProductDetailController extends GetxController {
 
   BasePoductPriceDelegator get priceDelegator {
     if (product.productType is FabricCurtainProductType) {
-      return FabricCurtainProductPriceDelegator();
+      return FabricCurtainProductPriceDelegator(product);
     }
     if (product.productType is RollingCurtainProductType) {
-      return RollingCurtainProductPriceDelegator();
+      return RollingCurtainProductPriceDelegator(product);
     }
     if (product.productType is GauzeCurtainProductType) {
-      return GauzeCurtainProductPriceDelegator();
+      return GauzeCurtainProductPriceDelegator(product);
+    }
+    if (product.productType is FinishedProductType) {
+      return FinishedProductPriceDelegator(product);
     }
     return null;
   }
@@ -217,11 +227,12 @@ class ProductDetailController extends GetxController {
   ///软装方案
   List<DesignProductModel> softDesignProductList;
 
-  Future _loadData() {
+  Future loadData() {
     loadState = XLoadState.busy;
 
-    return _repository.productDetail(params: {"goods_id": id}).then(
-        (ProductDetailModelWrapper wrapper) {
+    return _repository
+        .productDetail(params: {"goods_id": id, "go_selection": flag}).then(
+            (ProductDetailModelWrapper wrapper) {
       loadState = XLoadState.idle;
       this.wrapper = wrapper;
       product = wrapper.product;
@@ -260,36 +271,64 @@ class ProductDetailController extends GetxController {
   }
 
   bool _isValidInfo() {
+    if (product.productType is FinishedProductType)
+      return _checkValidCustomer();
     return _checkValidCustomer() && _checkValidSize();
   }
 
   Future buy() {
-    return addMeasureData().then((BaseResponse response) {
-      Get.toNamed(BAppRoutes.commitOrder + "/1",
-          arguments: adapt(measureId: "${response.data}"));
-    });
+    if (product.productType is CurtainProductType) {
+      return addMeasureData().then((BaseResponse response) {
+        Get.toNamed(BAppRoutes.commitOrder,
+            arguments: CommitOrderEvent(
+                productList: adapt(measureId: "${response.data}"),
+                orderType: OrderType.selectionOrder),
+            preventDuplicates: false);
+      });
+    }
+    if (!_isValidInfo()) {
+      scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 200), curve: Curves.ease);
+      return Future.value(false);
+    }
+
+    return Get.toNamed(BAppRoutes.commitOrder + "/1",
+        arguments: adapt(measureId: "0"), preventDuplicates: false);
   }
 
   Future addToCart() {
-    return addMeasureData().then((BaseResponse response) {
-      // if (response == null) return;
-      String measureId = "${response.data}";
-      AddToCartParamsModel args = AddToCartParamsModel(
-          tag: tag,
-          product: product,
-          totalPrice: "${priceDelegator.totalPrice}",
-          measureId: measureId);
-      _repository.addToCart(params: args.params).then((BaseResponse response) {
-        CustomerProviderController customerController =
-            Get.find<CustomerProviderController>();
-        customerController.updateCartCount("${response.data}");
+    AddToCartParamsModel args = AddToCartParamsModel(
+        tag: tag, product: product, totalPrice: "${priceDelegator.totalPrice}");
+    if (product.productType is CurtainProductType) {
+      addMeasureData().then((BaseResponse response) {
+        // if (response == null) return;
+        String measureId = "${response.data}";
+        args.measureId = measureId;
       });
+    }
+    if (!_isValidInfo()) {
+      scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 200), curve: Curves.ease);
+      return Future.value(false);
+    }
+    return _repository
+        .addToCart(params: args.params)
+        .then((BaseResponse response) {
+      CustomerProviderController customerController =
+          Get.find<CustomerProviderController>();
+      customerController.updateCartCount("${response.data}");
     });
   }
 
   @override
   void onInit() {
-    _loadData();
+    tag ??= Get.parameters["id"];
+    if (Get.arguments != null && Get.arguments is SelectProductEvent) {
+      selectProductEvent = Get.arguments;
+      CustomerModel customer = selectProductEvent.customer;
+      Get.find<CustomerProviderController>().setCustomer(customer);
+    }
+    loadData();
 
     super.onInit();
   }
@@ -302,7 +341,9 @@ class ProductDetailController extends GetxController {
   }
 
   String get id => Get.parameters["id"];
-  String get tag => "$id";
+  bool get isForSelect => selectProductEvent != null;
+  String get flag => isForSelect ? '1' : '0';
+  String tag;
   List<GetxController> get attrControllerList => [
         Get.find<RoomAttrSelectorController>(tag: tag),
         Get.find<GauzeAttrSelectorController>(tag: tag),
@@ -342,6 +383,12 @@ class ProductDetailController extends GetxController {
   }
 
   String get _description {
+    if (product.productType is FinishedProductType) {
+      return "${product.currentSpecOptionName}\n数量x${product.count}";
+    }
+    if (product.productType is SectionalbarProductType) {
+      // return "用料:${product.widthMStr}米";
+    }
     String description = "";
     for (GetxController e in attrControllerList) {
       if (e is RoomAttrSelectorController) {
@@ -373,6 +420,7 @@ class ProductDetailController extends GetxController {
   }
 
   List<ProductAttrAdapterModel> get _attrList {
+    if (product.productType is FinishedProductType) return [];
     List<ProductAttrAdapterModel> list = [];
     for (GetxController e in attrControllerList) {
       if (e is BaseAttrSelectorController &&
@@ -388,7 +436,9 @@ class ProductDetailController extends GetxController {
   List<ProductAdapterModel> adapt({@required String measureId}) {
     CurtainProductAtrrParamsModel attr =
         CurtainProductAtrrParamsModel(tag: tag);
+
     Map json = {
+      "type": product.type,
       "id": product.id,
       "name": product.name,
       "room": selectorController?.room?.currentOptionName,
@@ -399,7 +449,7 @@ class ProductDetailController extends GetxController {
       "image": product.cover,
       "measure_id": measureId,
       "sku_id": product.skuId,
-      "attribute": jsonEncode(attr.params)
+      "attribute": jsonEncode(attr?.params)
     };
     return [ProductAdapterModel.fromJson(json)];
   }

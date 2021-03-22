@@ -18,48 +18,53 @@ class CustomerDetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CustomerDetailController>(builder: (_) {
-      return Row(
-        children: [
-          CircleAvatar(
-            radius: 80.sp,
-          ),
-          Expanded(
-              child: Padding(
-            padding: EdgeInsets.only(left: BDimens.gap24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: BDimens.gap32),
-                      child: Text("${_.customer.name}"),
-                    ),
-                    Text(_.customer.type)
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: BDimens.gap32),
-                      child: Text(getGenderName(_.customer.gender)),
-                    ),
-                    Text(_.customer.age),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: BDimens.gap32),
-                      child: Text(getGenderName(_.customer.gender)),
-                    ),
-                    Text(_.customer.concreteAddress),
-                  ],
-                )
-              ],
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
+        child: Row(
+          children: [
+            CircleAvatar(
+              foregroundColor: Get.theme.primaryColor,
+              radius: 72.sp,
+              child: Image.asset("assets/images/customer_avatar.png"),
             ),
-          ))
-        ],
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.only(left: BDimens.gap24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: BDimens.gap32),
+                        child: Text("${_.customer.name}"),
+                      ),
+                      Text(_.customer.type)
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: BDimens.gap32),
+                        child: Text(getGenderName(_.customer.gender)),
+                      ),
+                      Text(_.customer.age),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: BDimens.gap32),
+                        child: Text(getGenderName(_.customer.gender)),
+                      ),
+                      Text(_.customer.concreteAddress),
+                    ],
+                  )
+                ],
+              ),
+            ))
+          ],
+        ),
       );
     });
   }

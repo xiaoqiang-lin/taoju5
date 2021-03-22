@@ -36,10 +36,14 @@ Future showCancelOrderDialog(BuildContext context) {
                     },
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                         onPressed: Get.back,
                         child: Text("取消"),
+                      ),
+                      SizedBox(
+                        width: 24,
                       ),
                       Container(
                         margin: EdgeInsets.only(left: BDimens.gap24),

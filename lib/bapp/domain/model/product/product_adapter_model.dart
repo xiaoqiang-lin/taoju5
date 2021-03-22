@@ -37,6 +37,7 @@ class ProductAdapterModel {
     totalPrice = json["total_price"];
     measureId = json["measure_id"];
     skuId = "${json["sku_id"]}";
+    type = json["type"];
     attribute = json["attribute"];
   }
 }

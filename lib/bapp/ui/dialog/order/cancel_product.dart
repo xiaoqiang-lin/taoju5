@@ -10,10 +10,9 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
 
-Future showCancelProductDialog(BuildContext context,
-    {@required OrderDetailProductModel product}) {
+Future showCancelProductDialog({@required OrderDetailProductModel product}) {
   return showDialog(
-      context: context,
+      context: Get.context,
       builder: (BuildContext context) {
         return GetBuilder<OrderDetailController>(
           builder: (_) {
@@ -23,17 +22,21 @@ Future showCancelProductDialog(BuildContext context,
             );
             return AlertDialog(
               title: Text(
-                "你确定要取消订单吗?",
+                "你确定要取消改商品吗?",
                 textAlign: TextAlign.center,
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                         onPressed: Get.back,
                         child: Text("取消"),
+                      ),
+                      SizedBox(
+                        width: 24,
                       ),
                       XFutureButton(
                           onFuture: () =>

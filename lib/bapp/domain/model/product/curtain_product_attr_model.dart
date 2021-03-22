@@ -36,8 +36,7 @@ class CurtainProductAttrModel {
   bool isMultiple;
   List<CurtainProductAttrOptionModel> optionList;
 
-  CurtainProductAttrModel.fromType(this.type, Map json,
-      {this.isMultiple = false}) {
+  CurtainProductAttrModel.fromType(this.type, Map json, {isMultiple = false}) {
     optionList = JsonKit.asList(json["$type"])
         .map((e) => CurtainProductAttrOptionModel.fromJson(e))
         ?.toList();
@@ -54,7 +53,7 @@ class CurtainProductAttrModel {
     CurtainProductAttrModel e = CurtainProductAttrModel();
     e.type = type;
     e.typeName = typeName;
-    e.isMultiple = isMultiple;
+    e.isMultiple = isMultiple ?? false;
     e.optionList = optionList
         .map((e) => e.copy())
         .cast<CurtainProductAttrOptionModel>()
@@ -79,7 +78,7 @@ class CurtainProductAttrModel {
 extension CurtainProductAttrModelKit on CurtainProductAttrModel {
   ///当前选中的[option]
   List<CurtainProductAttrOptionModel> get currentSelectedOptionList =>
-      optionList.where((e) => e.isChecked).toList();
+      optionList?.where((e) => e.isChecked)?.toList();
 
   String get currentOptionId =>
       currentSelectedOptionList?.map((e) => e.id)?.join(",");
@@ -87,14 +86,13 @@ extension CurtainProductAttrModelKit on CurtainProductAttrModel {
   String get currentOptionName =>
       currentSelectedOptionList.map((e) => e.name).join("/");
 
-  double get currentOptionPrice => isMultiple
-      ? currentSelectedOptionList?.map((e) => e.price)?.reduce((a, b) => a + b)
-      : currentSelectedOptionList?.first?.price;
+  double get currentOptionPrice =>
+      currentSelectedOptionList?.map((e) => e.price)?.reduce((a, b) => a + b);
 
   Map toArgs() => {type: currentSelectedOptionList.map((e) => e.toJson())};
 
   List<CurtainProductAttrOptionModel> get confirmSelectedOptionList =>
-      optionList.where((e) => e.isChecked && e.hasConfirmed).toList();
+      optionList?.where((e) => e.isChecked && e.hasConfirmed)?.toList();
 
   Map toJson() => {
         "type": type,

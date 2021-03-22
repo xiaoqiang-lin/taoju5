@@ -51,7 +51,7 @@ class CustomerTablePage extends GetView<CustomerTableController> {
                           itemBuilder: (BuildContext context, int index) {
                             CustomerModel customer = _.customerList[index];
                             return GestureDetector(
-                              onTap: () => _.selectCustomer(customer),
+                              onTap: () => _.onCustomerTap(customer),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(

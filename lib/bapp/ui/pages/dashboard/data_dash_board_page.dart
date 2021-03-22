@@ -66,24 +66,12 @@ class DataDashBoardPage extends GetView<DataDashBoardController> {
                           ),
                         ),
                       Expanded(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "更多",
-                            style: TextStyle(
-                                fontSize: BDimens.sp26,
-                                color: BColors.greyTextColor),
-                          ),
-                          XRotationArrow(
-                            onTap: _.openSelectDateModal,
-                            child: const Icon(
-                              Icons.expand_more,
-                              size: 22,
-                              color: BColors.greyTextColor,
-                            ),
-                          )
-                        ],
+                          child: XRotationArrow(
+                        onTap: _.openSelectDateModal,
+                        label: "更多",
+                        labelStyle: TextStyle(
+                            fontSize: BDimens.sp26,
+                            color: BColors.greyTextColor),
                       ))
                     ],
                   ),
@@ -105,8 +93,9 @@ class DataDashBoardPage extends GetView<DataDashBoardController> {
                               ),
                             ),
                             Container(
+                                height: 32,
+                                alignment: Alignment.center,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: BDimens.gap8,
                                     horizontal: BDimens.gap16),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),

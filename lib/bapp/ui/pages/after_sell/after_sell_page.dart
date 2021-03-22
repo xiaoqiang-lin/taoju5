@@ -106,6 +106,7 @@ class AfterSellPage extends GetView<AfterSellController> {
                           )),
                       child: TextFormField(
                         initialValue: controller.description,
+                        onChanged: controller.setDescription,
                         decoration: InputDecoration(
                             hintText: "请输入问题描述",
                             border: InputBorder.none,

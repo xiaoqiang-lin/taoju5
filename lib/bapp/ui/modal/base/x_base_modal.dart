@@ -45,10 +45,7 @@ class XBaseModal extends StatelessWidget {
             Positioned(
               child: IconButton(
                 icon: Icon(BIcons.close),
-                onPressed: () {
-                  Function.apply(onClose, []);
-                  Navigator.of(context).pop();
-                },
+                onPressed: Navigator.of(context).pop,
               ),
               top: 5,
               right: 5,

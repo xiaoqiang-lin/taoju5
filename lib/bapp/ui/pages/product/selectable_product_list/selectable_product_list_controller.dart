@@ -5,8 +5,20 @@
  * @LastEditTime: 2021-01-10 17:59:44
  */
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
+
+class SelectProductEvent {
+  OrderDetailProductModel orderProduct;
+  CustomerModel customer;
+  OrderType orderType = OrderType.measureOrder;
+  SelectProductEvent({@required this.orderProduct, @required this.customer});
+}
 
 class SelectableProductListController extends GetxController {
   List<ProductSortModel> sortList = [
@@ -19,6 +31,7 @@ class SelectableProductListController extends GetxController {
 
   String get sortName => sortList.firstWhere((e) => e.isChecked).name;
 
-  ///是否为网格视图
-  bool isGridMode = true;
+  SelectProductEvent get event => Get.arguments;
+
+  OrderMeasureDataModel get measureData => event.orderProduct.measureData;
 }

@@ -9,6 +9,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_price_model.dart';
@@ -21,6 +22,7 @@ import 'package:taoju5/bapp/ui/dialog/order/cancel_product.dart';
 import 'package:taoju5/bapp/ui/dialog/order/order_remind.dart';
 import 'package:taoju5/bapp/ui/modal/order/modify_price.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/utils/x_logger.dart';
 
@@ -133,8 +135,6 @@ class OrderDetailController extends GetxController {
   OrderRepository _repository = OrderRepository();
 
   OrderDetailModel order;
-
-  OrderDetailProductModel currentProduct;
   XLoadState loadState = XLoadState.busy;
 
   SelectProductParamsModel selectProductArgs;
@@ -144,6 +144,19 @@ class OrderDetailController extends GetxController {
     final id = Get.parameters["id"];
     loadState = XLoadState.busy;
     update();
+    return _repository.orderDetail(params: {"order_id": id}).then((value) {
+      order = value.orderDetailModel;
+      loadState = XLoadState.idle;
+    }).catchError((err) {
+      loadState = XLoadState.error;
+    }).whenComplete(update);
+  }
+
+  ///加载数据
+  Future<OrderDetailModelWrapper> refreshData() {
+    final id = Get.parameters["id"];
+    loadState = XLoadState.busy;
+
     return _repository.orderDetail(params: {"order_id": id}).then((value) {
       order = value.orderDetailModel;
       loadState = XLoadState.idle;
@@ -165,8 +178,10 @@ class OrderDetailController extends GetxController {
   }
 
   Future goToSelect(OrderDetailProductModel product) {
-    currentProduct = product;
-    return Get.toNamed(BAppRoutes.selectableProductList);
+    SelectProductEvent event = SelectProductEvent(
+        customer: CustomerModel(name: order.customerName, id: order.customerId),
+        orderProduct: product);
+    return Get.toNamed(BAppRoutes.selectableProductList, arguments: event);
   }
 
   ///打开修改价格弹窗
@@ -203,24 +218,20 @@ class OrderDetailController extends GetxController {
   }
 
   Future openCancelProductDialog(OrderDetailProductModel product) {
-    return showCancelProductDialog(Get.context, product: product);
+    return showCancelProductDialog(product: product);
   }
 
   Future cancelProduct(CancelProductParamsModel model,
       {@required OrderDetailProductModel product}) {
     return _repository.cancelProduct(params: model.params).then((_) {
-      product.refundStatus = RefundStatus.toBeAuthed;
-      update(["${product.id}"]);
-
-      ///如果全部商品都取消 更显按钮状态
-      if (order.isAllProductCanceled) {
-        update(["buttonState"]);
-      }
+      refreshData();
     });
   }
 
-  Future openRemindOrderDialog() {
-    return showOrderRemindDialog();
+  Future openRemindOrderDialog(String title) {
+    return showOrderRemindDialog(title).then((value) {
+      refreshData();
+    });
   }
 
   Future remind(RemindOrderParamsModel model) {
@@ -236,8 +247,7 @@ class OrderDetailController extends GetxController {
   @override
   void onInit() {
     _loadData();
-    selectProductArgs = SelectProductParamsModel(
-        orderProductId: currentProduct?.measureData?.orderProductId);
+
     super.onInit();
   }
 }

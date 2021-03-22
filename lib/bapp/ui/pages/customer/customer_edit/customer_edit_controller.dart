@@ -16,7 +16,20 @@ class CustomerEditController extends GetxController {
   CustomerRepository _repository = CustomerRepository();
 
   ///[target]修改句柄
-  CustomerDetailModel target = Get.arguments ?? CustomerDetailModel();
+  CustomerDetailModel target;
+
+  String fromUrl;
+
+  @override
+  void onInit() {
+    if (Get.arguments != null && Get.arguments is ChooseCustomerEventModel) {
+      ChooseCustomerEventModel event = Get.arguments;
+      target = event.customer;
+      fromUrl = event.fromUrl;
+    }
+    target ??= CustomerDetailModel();
+    super.onInit();
+  }
 
   Future edit() {
     XLogger.v(target.toJson());

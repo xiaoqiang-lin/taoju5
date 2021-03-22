@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
-import 'package:taoju5/bapp/ui/modal/product/finished_product.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_controller.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/utils/common_kit.dart';
@@ -25,8 +24,8 @@ class FinishedProductAttrsSelectorBar extends StatelessWidget {
         tag: tag,
         builder: (_) {
           return GestureDetector(
-            onTap: () => showFinishedProductAttrModal(context,
-                product: _.product, id: tag),
+            onTap: () => _.openFinishedProductAttrModal(context,
+                product: _.product, id: tag, onConfirm: _.closeModal),
             child: Container(
               padding: EdgeInsets.symmetric(vertical: BDimens.gap20),
               child: Column(
@@ -48,7 +47,7 @@ class FinishedProductAttrsSelectorBar extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.only(left: BDimens.gap16),
                             child: Text(
-                              "请选择${_.product.tip}",
+                              "${_.product.tip}",
                               style: TextStyle(
                                   letterSpacing: .5,
                                   fontSize: BDimens.sp28,

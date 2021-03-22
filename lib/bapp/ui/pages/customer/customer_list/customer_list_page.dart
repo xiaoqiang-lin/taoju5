@@ -28,13 +28,19 @@ class CustomerListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("客户列表"),
         actions: [
-          IconButton(
-              icon: Icon(BIcons.search),
-              onPressed: () => Get.toNamed(BAppRoutes.search,
-                  arguments: SearchType.customer)),
-          IconButton(
-              icon: Image.asset("assets/images/" + "customer_add.png"),
-              onPressed: () => Get.toNamed(BAppRoutes.customerEdit + "/0"))
+          Visibility(
+            visible: Get.arguments == null,
+            child: IconButton(
+                icon: Icon(BIcons.search),
+                onPressed: () => Get.toNamed(BAppRoutes.search,
+                    arguments: SearchType.customer)),
+          ),
+          Visibility(
+            visible: Get.arguments == null,
+            child: IconButton(
+                icon: Image.asset("assets/images/" + "customer_add.png"),
+                onPressed: () => Get.toNamed(BAppRoutes.customerEdit + "/0")),
+          )
         ],
       ),
       body: GetBuilder<CustomerListController>(builder: (_) {
@@ -46,7 +52,7 @@ class CustomerListPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Get.toNamed(
                         BAppRoutes.categoryCustomerList + "/${e.type}",
-                        arguments: e),
+                        arguments: ChooseCustomerEventModel(category: e)),
                     child: Container(
                       color: BColors.primaryColor,
                       padding: EdgeInsets.symmetric(

@@ -8,12 +8,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_category_model.dart';
+import 'package:taoju5/bapp/domain/model/customer/customer_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/domain/repository/customer/customer_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
-import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
+
+class ChooseCustomerEventModel {
+  String fromUrl;
+  CustomerDetailModel customer;
+  CustomerCategoryModel category;
+  ChooseCustomerEventModel({this.customer, this.fromUrl, this.category});
+}
 
 class CustomerListController extends GetxController {
   CustomerRepository _repository = CustomerRepository();
@@ -54,15 +61,22 @@ class CustomerListController extends GetxController {
   }
 
   onCustomerTap(CustomerModel customer) {
-    bool isSelect = Get.arguments ?? false;
-    if (!isSelect) {
-      return Get.toNamed(BAppRoutes.customerDetail + "/${customer.id}");
+    if (Get.arguments != null && Get.arguments is ChooseCustomerEventModel) {
+      ChooseCustomerEventModel event = Get.arguments;
+      String fromUrl = event.fromUrl;
+      Get.find<CustomerProviderController>().setCustomer(customer);
+      return Get.until((route) => Get.currentRoute.contains(fromUrl));
     }
-    Get.find<CustomerProviderController>().setCustomer(customer);
-    return Get.until((route) => Get.currentRoute.contains(
-        (Get.isRegistered<CommitOrderController>()
-            ? BAppRoutes.commitOrder
-            : BAppRoutes.productDetail)));
+
+    return Get.toNamed(BAppRoutes.customerDetail + "/${customer.id}");
+
+    // bool isSelect = Get.arguments ?? false;
+    // if (!isSelect) {}
+    // Get.find<CustomerProviderController>().setCustomer(customer);
+    // return Get.until((route) => Get.currentRoute.contains(
+    //     (Get.isRegistered<CommitOrderController>()
+    //         ? BAppRoutes.commitOrder
+    //         : BAppRoutes.productDetail)));
   }
 
   @override

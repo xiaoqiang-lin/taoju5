@@ -9,8 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
+import 'package:taoju5/bapp/domain/model/order/refund_status.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +22,9 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 
 class OrderDetailProductCard extends StatelessWidget {
   final OrderDetailProductModel product;
-  const OrderDetailProductCard(this.product, {Key key}) : super(key: key);
+  final int orderId;
+  const OrderDetailProductCard(this.product, {Key key, @required this.orderId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +42,8 @@ class OrderDetailProductCard extends StatelessWidget {
                       padding: EdgeInsets.only(right: BDimens.gap32),
                       child: SizedBox(
                         height: 180.h,
-                        child: AspectRatio(
-                          aspectRatio: 1.0,
-                          child: XPhotoViewer(url: product.image),
-                        ),
+                        width: 180.h,
+                        child: XPhotoViewer(url: product.image),
                       ),
                     ),
                     Expanded(
@@ -98,9 +101,7 @@ class OrderDetailProductCard extends StatelessWidget {
           Container(
             width: Get.width,
             alignment: Alignment.centerRight,
-            child: _OrderDetailProductActionBar(
-              product: product,
-            ),
+            child: _OrderDetailProductActionBar(product: product),
           )
         ],
       ),
@@ -110,6 +111,7 @@ class OrderDetailProductCard extends StatelessWidget {
 
 class _OrderDetailProductActionBar extends StatelessWidget {
   final OrderDetailProductModel product;
+
   const _OrderDetailProductActionBar({Key key, this.product}) : super(key: key);
 
   @override
@@ -121,9 +123,66 @@ class _OrderDetailProductActionBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ///进入生产环节的商品不可取消
+            Row(
+              children: [
+                Visibility(
+                    child: Container(
+                      // margin: EdgeInsets.only(right: BDimens.gap24),
+                      child: OutlinedButton(
+                        onPressed: () => _.openCancelProductDialog(product),
+                        child: Text("取消"),
+                      ),
+                    ),
+                    visible: (_.order.orderStatus < OrderStatus.producing &&
+                        product.refundStatus == RefundStatus.refundable)),
+                Visibility(
+                    visible: (_.order.orderType == OrderType.measureOrder &&
+                        _.order.orderStatus == OrderStatus.toBeSelected),
+                    child: Container(
+                      margin: EdgeInsets.only(left: BDimens.gap24),
+                      child: Row(
+                        children: [
+                          Visibility(
+                            visible:
+                                product.refundStatus != RefundStatus.refundable,
+                            child: OutlineButton(
+                              onPressed: null,
+                              child: Text("去选品"),
+                            ),
+                          ),
+                          Visibility(
+                            visible:
+                                product.refundStatus == RefundStatus.refundable,
+                            child: OutlinedButton(
+                              onPressed: () => _.goToSelect(product),
+                              child: Text(product.hasSelected ? "去选品" : "去选品"),
+                            ),
+                          )
+                        ],
+                      ),
+                    ))
+              ],
+            ),
             Visibility(
                 child: OutlineButton(
-                  onPressed: () {},
+                  onPressed: null,
+                  child: Text("取消待审核"),
+                ),
+                visible: (_.order.orderStatus < OrderStatus.producing &&
+                    product.refundStatus == RefundStatus.toBeAuthed)),
+            Visibility(
+                child: OutlineButton(
+                  onPressed: null,
+                  child: Text("商品已取消"),
+                ),
+                visible: (_.order.orderStatus < OrderStatus.producing &&
+                    product.refundStatus == RefundStatus.succeed)),
+
+            ///进入生产环节的商品不可取消
+            Visibility(
+                child: OutlineButton(
+                  onPressed: () =>
+                      Get.toNamed(BAppRoutes.afterSell + "/${_.order.id}"),
                   child: Text("售后维权"),
                 ),
                 visible: _.order.orderStatus == OrderStatus.finished),

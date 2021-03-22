@@ -32,10 +32,7 @@ class OrderLogisticsCard extends GetView<OrderDetailController> {
             children: [
               Padding(
                 padding: EdgeInsets.only(right: BDimens.gap24),
-                child: Icon(
-                  BIcons.add,
-                  color: BColors.foregroundColor,
-                ),
+                child: Image.asset("assets/images/ship.png"),
               ),
               Expanded(
                 child: Column(

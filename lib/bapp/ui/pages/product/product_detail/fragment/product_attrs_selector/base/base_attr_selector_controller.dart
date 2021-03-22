@@ -71,7 +71,7 @@ abstract class BaseAttrSelectorController extends GetxController {
   @mustCallSuper
   void select(
       CurtainProductAttrModel attr, CurtainProductAttrOptionModel option) {
-    if (attr.isMultiple) {
+    if (attr?.isMultiple ?? false) {
       option.isChecked = !option.isChecked;
     } else {
       for (CurtainProductAttrOptionModel o in attr.optionList) {

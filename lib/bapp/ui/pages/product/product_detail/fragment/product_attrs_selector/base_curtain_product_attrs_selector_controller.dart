@@ -123,7 +123,7 @@ abstract class BaseCurtainProductAttrsSelectorController
   ///[return]: [void]
   void select(CurtainProductAttrModel model,
       {@required CurtainProductAttrOptionModel currentOption}) {
-    if (model.isMultiple) {
+    if (model?.isMultiple ?? false) {
       currentOption.isChecked = !currentOption.isChecked;
     } else {
       model.optionList.forEach((element) {

@@ -59,9 +59,12 @@ abstract class JsonKit {
     return path;
   }
 
-  static dynamic getValueInComplexMap(Map json, List keys) {
+  static dynamic getValueInComplexMap(var json, List keys) {
     if (GetUtils.isNull(json)) return json;
-    return json.getValueInComplexMap(keys);
+    if (json is Map) {
+      return json.getValueInComplexMap(keys);
+    }
+    return json;
   }
 
   static List asList(dynamic value) {

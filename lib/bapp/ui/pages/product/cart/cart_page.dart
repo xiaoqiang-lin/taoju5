@@ -49,11 +49,8 @@ class CartPage extends GetView<CartListParentController> {
               id: "tab",
               builder: (_) {
                 return TabBar(
-                  controller: controller.tabController,
-                  tabs: [
-                    for (ProductTabModel tab in controller.tabList)
-                      Text(tab.name)
-                  ],
+                  controller: _.tabController,
+                  tabs: [for (ProductTabModel tab in _.tabList) Text(tab.name)],
                 );
               },
             ),
@@ -87,18 +84,18 @@ class CartPage extends GetView<CartListParentController> {
                                 itemBuilder:
                                     (BuildContext context, CartPorductModel e) {
                                   return Slidable(
-                                    key: ValueKey(e.id),
                                     actionPane: SlidableBehindActionPane(),
                                     actions: [
                                       IconSlideAction(
-                                        caption: 'Share',
-                                        color: Colors.indigo,
-                                        icon: Icons.share,
+                                        caption: '删除',
+                                        color: Colors.red,
+                                        icon: BIcons.del,
                                         onTap: () => _.remove(
                                             element: e, tag: "${tab.id}"),
                                       ),
                                     ],
                                     child: Container(
+                                      key: ValueKey(e.skuId),
                                       color: BColors.primaryColor,
                                       padding: EdgeInsets.all(BDimens.gap16),
                                       child: Column(
@@ -184,53 +181,58 @@ class CartPage extends GetView<CartListParentController> {
                                                           visible: e.productType
                                                               is FinishedProductType,
                                                           child: Container(
-                                                              color: BColors
-                                                                  .scaffoldBgColor,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          4),
+                                                              decoration: BoxDecoration(
+                                                                  color: BColors
+                                                                      .scaffoldBgColor,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          4)),
+
                                                               // padding: EdgeInsets.zero,
                                                               // margin: EdgeInsets.only(
                                                               //     top: BDimens.gap20),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Text(
-                                                                    "${e.description}",
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    softWrap:
-                                                                        true,
-                                                                    style: TextStyle(
-                                                                        height:
-                                                                            .5,
-                                                                        fontSize:
-                                                                            BDimens
-                                                                                .sp24,
-                                                                        color: BColors
-                                                                            .descriptionTextColor),
-                                                                  ),
-                                                                  XRotationArrow(
-                                                                      onTap: () => showFinishedProductAttrModal(
-                                                                          context,
-                                                                          id: "${e.productId}"))
-                                                                ],
-                                                              )),
+                                                              child: XRotationArrow(
+                                                                  key: ValueKey(e
+                                                                      .description),
+                                                                  label:
+                                                                      "${e.description}",
+                                                                  labelStyle: TextStyle(
+                                                                      fontSize: BDimens
+                                                                          .sp24,
+                                                                      color: BColors
+                                                                          .descriptionTextColor),
+                                                                  onTap: () => showFinishedProductAttrModal(
+                                                                      context,
+                                                                      id:
+                                                                          "${e.productId}",
+                                                                      cartProduct:
+                                                                          e))),
                                                         ),
                                                         Visibility(
-                                                          child: XStepCounter(
-                                                            onValueChange:
-                                                                (String val) {
-                                                              if (GetUtils
-                                                                  .isNum(val)) {
-                                                                e.count.value =
-                                                                    int.parse(
-                                                                        val);
-                                                              } else {
-                                                                e.count.value =
-                                                                    1;
-                                                              }
-                                                            },
+                                                          child: Container(
+                                                            alignment: Alignment
+                                                                .centerRight,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: BDimens
+                                                                        .gap32),
+                                                            child: XStepCounter(
+                                                              width: 108,
+                                                              height: 28,
+                                                              key: ValueKey(e
+                                                                  .count.value),
+                                                              initialValue:
+                                                                  e.count.value,
+                                                              onValueChange:
+                                                                  (String val) {
+                                                                _.onProductCountChange(
+                                                                    e, val);
+                                                              },
+                                                            ),
                                                           ),
                                                           visible: e.productType
                                                               is FinishedProductType,

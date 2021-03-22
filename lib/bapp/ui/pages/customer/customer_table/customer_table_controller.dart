@@ -10,13 +10,15 @@ import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_table_model.dart';
 import 'package:taoju5/bapp/domain/repository/customer/customer_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CustomerTableController extends GetxController {
   CustomerRepository _repository = CustomerRepository();
 
-  CustomerCategoryModel category = Get.arguments;
+  CustomerCategoryModel category = Get.arguments.category;
 
   List<CustomerModel> customerList = [];
 
@@ -30,8 +32,9 @@ class CustomerTableController extends GetxController {
     loadState = XLoadState.busy;
     update();
 
-    return _repository.categoryCustomerList(
-        params: {"client_type": category.type}).then((CustomerTableModel data) {
+    return _repository
+        .categoryCustomerList(params: {"client_type": category?.type}).then(
+            (CustomerTableModel data) {
       customerList = data.customerList;
       if (GetUtils.isNullOrBlank(customerList)) {
         loadState = XLoadState.empty;
@@ -44,11 +47,15 @@ class CustomerTableController extends GetxController {
     }).whenComplete(update);
   }
 
-  selectCustomer(CustomerModel customer) {
+  onCustomerTap(CustomerModel customer) {
     // bool isSelect = Get.arguments ?? false;
-    if (true) {
-      return Get.toNamed(BAppRoutes.customerDetail + "/${customer.id}");
+    if (Get.arguments != null && Get.arguments is ChooseCustomerEventModel) {
+      ChooseCustomerEventModel event = Get.arguments;
+      String fromUrl = event.fromUrl;
+      Get.find<CustomerProviderController>().setCustomer(customer);
+      return Get.until((route) => Get.currentRoute.contains(fromUrl));
     }
+    return Get.toNamed(BAppRoutes.customerDetail + "/${customer.id}");
     // Get.find<CustomerProviderController>().setCustomer(customer);
     // return Get.until((route) => Get.currentRoute.contains(
     //     (Get.isRegistered<CommitOrderController>()

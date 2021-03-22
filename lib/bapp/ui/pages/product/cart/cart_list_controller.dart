@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
@@ -14,6 +15,7 @@ import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/product/cart/remove_from_cart.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
+import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -21,12 +23,15 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 class CartListParentController extends GetxController
     with SingleGetTickerProviderMixin {
   List<ProductTabModel> tabList = [
+    // ProductTabModel(name: "全部", id: 0),
     ProductTabModel(name: "窗帘", id: 0),
     ProductTabModel(name: "床品", id: 1),
     ProductTabModel(name: "抱枕", id: 2),
     ProductTabModel(name: "沙发", id: 3),
     ProductTabModel(name: "搭毯", id: 4),
   ];
+
+  XLoadState loadState = XLoadState.busy;
 
   TabController tabController;
 
@@ -73,16 +78,22 @@ class CartListParentController extends GetxController
   Future loadData() {
     ProductRepository _repository = ProductRepository();
     List<ProductTabModel> _tabList = [];
+    loadState = XLoadState.busy;
+    update();
     return _repository.categoryList().then((BaseResponse response) {
-      if (response.isValid) {
-        List list = response.data;
-        for (int i = 0; i < list.length; i++) {
-          _tabList.add(ProductTabModel(name: list[i], id: i));
-        }
-        tabList = _tabList;
-        update(["tab"]);
+      List list = response.data;
+      for (int i = 0; i < list.length; i++) {
+        _tabList.add(ProductTabModel(name: list[i], id: i));
       }
-    });
+      tabList = _tabList;
+      tabController = TabController(
+        length: tabList.length,
+        vsync: this,
+      )..addListener(tabChangeListener);
+      loadState = XLoadState.idle;
+    }).catchError((err) {
+      loadState = XLoadState.error;
+    }).whenComplete(update);
   }
 
   @override
@@ -90,7 +101,7 @@ class CartListParentController extends GetxController
     tabController = TabController(
       length: tabList.length,
       vsync: this,
-    )..addListener(tabChangeListener);
+    );
     loadData();
     super.onInit();
   }
@@ -109,7 +120,7 @@ class CartListController extends GetxController {
   CartListController({@required this.type});
 
   String get clientId =>
-      Get.parameters["id"] ?? Get.find<CustomerProviderController>().id;
+      Get.parameters["customerId"] ?? Get.find<CustomerProviderController>().id;
   final String type;
   List<CartPorductModel> cartList = [];
 
@@ -161,7 +172,20 @@ class CartListController extends GetxController {
       EasyLoading.showInfo("当前暂未选中商品哦");
       return;
     }
-    Get.toNamed(BAppRoutes.commitOrder + "/1", arguments: checkedProductList);
+    Get.toNamed(BAppRoutes.commitOrder,
+        arguments: CommitOrderEvent(
+            productList: checkedProductList,
+            orderType: OrderType.selectionOrder));
+  }
+
+  void onProductCountChange(CartPorductModel e, String val) {
+    if (GetUtils.isNum(val)) {
+      e.count.value = int.parse(val);
+    } else {
+      e.count.value = 1;
+    }
+    _repository.modifyProuductCountInCart(
+        params: {"sku_id": e.skuId, "cart_id": e.id, "num": e.count});
   }
 
   XLoadState loadState = XLoadState.idle;
@@ -170,8 +194,11 @@ class CartListController extends GetxController {
     update();
 
     return _repository
-        .cartList(params: {"client_uid": clientId, "category_type": type}).then(
+        .cartList(params: {"client_uid": clientId, "category_id": type}).then(
             (CartPorductModelListWrapper value) {
+      value.list.forEach((e) {
+        e.categoryType = type;
+      });
       cartList = value.list;
       if (GetUtils.isNullOrBlank(cartList)) {
         loadState = XLoadState.empty;

@@ -6,7 +6,9 @@
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 
 class AppModuleModelListWrapper {
   List<AppModuleModel> appModuleList = [
@@ -14,7 +16,9 @@ class AppModuleModelListWrapper {
         title: '预约测量',
         description: '上门测量，更准确',
         icon: 'measure.png',
-        onTap: () => Get.toNamed(BAppRoutes.commitOrder + "/2")),
+        onTap: () => Get.toNamed(BAppRoutes.commitOrder,
+            arguments: CommitOrderEvent(
+                productList: [], orderType: OrderType.measureOrder))),
     AppModuleModel(
         title: '订单管理',
         description: '订单进度一目了然',
@@ -24,7 +28,7 @@ class AppModuleModelListWrapper {
         title: '客户管理',
         description: '把握客户，把握机会',
         icon: 'customer.png',
-        onTap: () => Get.toNamed(BAppRoutes.customerList, arguments: false)),
+        onTap: () => Get.toNamed(BAppRoutes.customerList)),
     AppModuleModel(
         title: '数据中心',
         description: '销售统计,清晰明了',

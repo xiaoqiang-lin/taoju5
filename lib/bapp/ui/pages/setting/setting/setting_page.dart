@@ -57,11 +57,11 @@ class SettingPage extends StatelessWidget {
               onTap: () => Get.toNamed(BAppRoutes.appVersion),
             ),
             Divider(),
-            XLabelTile(
-              label: "售后服务",
-              onTap: () => Get.toNamed(BAppRoutes.afterSell),
-            ),
-            Divider(),
+            // XLabelTile(
+            //   label: "售后服务",
+            //   onTap: () => Get.toNamed(BAppRoutes.afterSell),
+            // ),
+            // Divider(),
             XLabelTile(
               label: "我的客服",
               trailing: Text("18968072319"),

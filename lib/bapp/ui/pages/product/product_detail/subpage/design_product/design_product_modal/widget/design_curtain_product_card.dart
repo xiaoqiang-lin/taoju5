@@ -98,34 +98,39 @@ class DesignCurtainProductCard extends StatelessWidget {
               )),
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: BDimens.gap24, bottom: BDimens.gap16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "属性:",
-                  style: TextStyle(
-                      fontSize: BDimens.sp24, fontWeight: FontWeight.w500),
-                ),
-                GestureDetector(
-                  onTap: () => Get.toNamed(
-                      BAppRoutes.modifyCurtainProductAttr + "/${product?.id}/0",
-                      preventDuplicates: false),
-                  child: Row(
-                    children: [
-                      Text(
-                        "修改属性",
-                        style: TextStyle(
-                            fontSize: BDimens.sp24,
-                            color: BColors.lightAccentColor),
-                      ),
-                      Icon(BIcons.next,
-                          size: BDimens.sp28, color: BColors.lightAccentColor)
-                    ],
+          Visibility(
+            visible: !GetUtils.isNullOrBlank(product.attrList),
+            child: Container(
+              margin:
+                  EdgeInsets.only(top: BDimens.gap24, bottom: BDimens.gap16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "属性:",
+                    style: TextStyle(
+                        fontSize: BDimens.sp24, fontWeight: FontWeight.w500),
                   ),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () => Get.toNamed(
+                        BAppRoutes.modifyCurtainProductAttr +
+                            "/${product?.id}/0",
+                        preventDuplicates: false),
+                    child: Row(
+                      children: [
+                        Text(
+                          "修改属性",
+                          style: TextStyle(
+                              fontSize: BDimens.sp24,
+                              color: BColors.lightAccentColor),
+                        ),
+                        Icon(BIcons.next,
+                            size: BDimens.sp28, color: BColors.lightAccentColor)
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           GridView.count(

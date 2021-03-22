@@ -14,10 +14,14 @@ class XStepCounter extends StatefulWidget {
   // 输入框内容改变
   final ValueChanged<String> onValueChange;
   final int initialValue;
+  final double width;
+  final double height;
   const XStepCounter({
     Key key,
     @required this.onValueChange,
     this.initialValue = 1,
+    this.width = 128,
+    this.height = 32,
   }) : super(key: key);
 
   @override
@@ -55,6 +59,7 @@ class _XStepCounterState extends State<XStepCounter> {
   void onChange(String val) {
     if (GetUtils.isNum(val)) {
       value = int.parse(val);
+      onValueChange("$value");
     } else {
       EasyLoading.showInfo("请输入正确的数值哦");
       setState(() {
@@ -72,8 +77,8 @@ class _XStepCounterState extends State<XStepCounter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 32,
-      width: 128,
+      height: widget.height,
+      width: widget.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: BColors.inputBorderColor)),
@@ -100,6 +105,7 @@ class _XStepCounterState extends State<XStepCounter> {
                 child: TextFormField(
                   maxLines: 1,
                   controller: controller,
+                  onChanged: onChange,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(isCollapsed: true),
                 ),

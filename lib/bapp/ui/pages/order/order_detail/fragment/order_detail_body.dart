@@ -11,24 +11,33 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_detail_product_card.dart';
 
-class OrderDetailBody extends GetView<OrderDetailController> {
+class OrderDetailBody extends StatelessWidget {
   const OrderDetailBody({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.separated(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: controller.order.productList.length,
-          separatorBuilder: (BuildContext context, int i) {
-            return Divider(
-              thickness: BDimens.gap16,
-            );
-          },
-          itemBuilder: (BuildContext context, int i) {
-            return OrderDetailProductCard(controller.order.productList[i]);
-          }),
-    );
+    return GetBuilder<OrderDetailController>(builder: (_) {
+      return Container(
+        child: ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: _.order.productList.length,
+            separatorBuilder: (BuildContext context, int i) {
+              return Divider(
+                thickness: BDimens.gap16,
+              );
+            },
+            itemBuilder: (BuildContext context, int i) {
+              return GetBuilder<OrderDetailController>(
+                  id: "${_.order.productList[i].id}",
+                  builder: (_) {
+                    return OrderDetailProductCard(
+                      _.order.productList[i],
+                      orderId: _.order.id,
+                    );
+                  });
+            }),
+      );
+    });
   }
 }

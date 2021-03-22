@@ -57,6 +57,7 @@ class ProductMaterialFunctionInfoModel {
 }
 
 class ProductDetailModel implements AbstractProdductModel {
+  ProductDetailModel();
   int id;
   String name;
   String fullName;
@@ -74,7 +75,7 @@ class ProductDetailModel implements AbstractProdductModel {
   String skuName;
   int defalutSkuId;
   String picture;
-  int picId;
+  var picId;
   int count = 1;
   String cover;
   List<String> detailImgList;
@@ -90,9 +91,13 @@ class ProductDetailModel implements AbstractProdductModel {
   double flowerSize; //花距
   bool hasFlower; // 窗帘是否有拼花
 
+  String materialUsed;
+
   List<ProductSpecModel> specList;
   List<ProductSkuModel> skuList;
   List<ProductMaterialModel> materialList;
+
+  String _currentSpecOptionName;
 
   ProductDetailModel.fromJson(Map json) {
     id = json['goods_id'];
@@ -102,7 +107,7 @@ class ProductDetailModel implements AbstractProdductModel {
     shopId = json['shop_id'];
     isCollect = json['is_collect'];
     type = json['goods_type'];
-    picId = json['pic_id'];
+    picId = json['picture'];
     specList = JsonKit.asList(json["spec_list"])
         .map((e) => ProductSpecModel.fromJson(e))
         .cast<ProductSpecModel>()
@@ -115,7 +120,8 @@ class ProductDetailModel implements AbstractProdductModel {
     price = JsonKit.asDouble(json['price']);
     unit = json["goods_unit"];
     imgList = JsonKit.asList(json['goods_img_list'])
-        .map((e) => JsonKit.getValueByKey(e, 'pic_cover_big').toString())
+        .map((e) => JsonKit.asWebUrl(
+            JsonKit.getValueByKey(e, 'pic_cover_long').toString()))
         .toList();
     cover = JsonKit.getValueByKey(json['picture_info'], 'pic_cover_small') ??
         JsonKit.asWebUrl(json['image'] ?? imgList?.first);
@@ -140,10 +146,23 @@ class ProductDetailModel implements AbstractProdductModel {
 extension ProductDetailModelKit on ProductDetailModel {
   BaseProductType get productType => getProductType(type);
 
-  String get currentSpecOptionName =>
-      specList?.map((e) => e?.currentOption?.name ?? "")?.join(",") ?? "";
+  set currentSpecOptionName(String val) {
+    _currentSpecOptionName = val;
+  }
 
-  String get tip => specList?.map((e) => e?.name)?.join("/");
+  String get currentSpecOptionName =>
+      _currentSpecOptionName ??
+      specList?.map((e) => e?.currentOption?.name ?? "")?.join(",") ??
+      "";
+
+  String get tip {
+    if (productType is SectionalbarProductType) {
+      if (GetUtils.isNullOrBlank(materialUsed)) return "请输入型材用料";
+      return "已选:用料x$materialUsed";
+    }
+    if (GetUtils.isNullOrBlank(specList)) return "已选:数量x$count";
+    return "已选:$currentSpecOptionName 数量x$count";
+  }
 
   int get colorCount {
     String keyword = "颜色";
@@ -175,7 +194,7 @@ extension ProductDetailModelKit on ProductDetailModel {
         "shop_id": shopId,
         "price": price,
         "picture": currentSku?.picId ?? picId,
-        "num": count
+        "num": count,
       };
 }
 
@@ -237,7 +256,7 @@ class ProductSkuModel {
   int id;
   String name;
   String marketPrice;
-  String price;
+  double price;
   String image;
   int picId;
   int productId;
@@ -245,8 +264,9 @@ class ProductSkuModel {
 
   ProductSkuModel.fromJson(Map json) {
     name = json["sku_name"];
-    image = json["image"];
-    price = json["price"];
+    image = JsonKit.asWebUrl(
+        JsonKit.getValueInComplexMap(json, ["sku_img_main", "pic_cover"]));
+    price = JsonKit.asDouble(json["price"]);
     marketPrice = json['market_price'];
     id = json["sku_id"];
     picId = json["picture"];

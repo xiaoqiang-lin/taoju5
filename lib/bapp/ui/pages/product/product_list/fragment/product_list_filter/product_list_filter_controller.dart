@@ -5,6 +5,8 @@
  * @LastEditTime: 2021-01-15 14:31:18
  */
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_filter_tag_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
@@ -62,7 +64,7 @@ class ProductListFilterController extends GetxController {
   ///[return]:
   void selectOption(
       ProductFilterTagModel tag, ProductFilterTagOptionModel option) {
-    if (tag.isMultiple) {
+    if (tag?.isMultiple ?? false) {
       option.isChecked = !option.isChecked;
     } else {
       for (ProductFilterTagOptionModel e in tag.options) {
@@ -106,10 +108,10 @@ class ProductListFilterController extends GetxController {
 
   ///确认
   void confirm() {
-    Get.find<ProductListParentController>()
-        .productListController
-        .refreshData(params: filterParams)
-        .then((value) {
+    Get.find<ProductListParentController>().productListController.refreshData(
+        parameters: {
+          "filter_condition": jsonEncode(filterParams)
+        }).then((value) {
       Get.back();
     });
   }

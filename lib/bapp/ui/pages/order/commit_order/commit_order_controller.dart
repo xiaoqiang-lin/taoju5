@@ -7,6 +7,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
@@ -20,6 +22,13 @@ import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';
 import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/validator/params_validator.dart';
+
+class CommitOrderEvent {
+  List<ProductAdapterModel> productList;
+  OrderType orderType;
+
+  CommitOrderEvent({@required this.productList, @required this.orderType});
+}
 
 ///测量单参数模型
 class OptionalOrderParamsModel {
@@ -95,26 +104,34 @@ class CommitOrderParamsModel extends ParamsValidator {
   bool validate({flag}) {
     return isNullOrBlank(customer?.addressId, message: "收货地址不能为空哦");
   }
+
+  bool isAddressNull() {
+    return isNullOrBlank(customer?.addressId, message: "收货地址不能为空哦");
+  }
+
+  bool isOrderDepositNullOrBlank() {
+    return isNullOrBlank(optionalParams?.deposit, message: "请填写定金");
+  }
 }
 
 class CommitOrderController extends GetxController {
   OrderRepository _repository = OrderRepository();
-  List<ProductAdapterModel> productList =
-      (Get.arguments ?? [])?.cast<ProductAdapterModel>();
+  List<ProductAdapterModel> productList;
 
   CommitOrderParamsModel params;
 
   OrderType orderType;
-  bool isMeasureOrder;
+
+  ScrollController scrollController;
 
   @override
   void onInit() {
-    productList = (Get.arguments ?? [])?.cast<ProductAdapterModel>();
+    CommitOrderEvent event = Get.arguments;
+    productList = event.productList;
+    orderType = event.orderType;
     params = CommitOrderParamsModel(
         optionalParams: OptionalOrderParamsModel(), productList: productList);
-    String orderType = Get.parameters["orderType"];
-    isMeasureOrder = orderType == "2";
-
+    scrollController = ScrollController();
     super.onInit();
   }
 
@@ -130,8 +147,36 @@ class CommitOrderController extends GetxController {
 
   CustomerDetailModel get customer => customerProviderController.customer;
 
+  void scrollToBottom() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      //build完成后的回调
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent, //滚动到底部
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(
+      0, //滚动到底部
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+
   Future submitOrder() {
-    if (!params.validate()) throw Future.value(false);
+    if (!params.isAddressNull()) {
+      scrollToTop();
+      return Future.value(false);
+    }
+    if (!params.isOrderDepositNullOrBlank()) {
+      ///滚动到底部
+      scrollToBottom();
+      return Future.value(false);
+    }
+
     // Map args = {};
     // args.addAll(params?.params ?? {});
     if (isFromShare) {
@@ -139,13 +184,23 @@ class CommitOrderController extends GetxController {
     }
     XLogger.v(params.params);
 
-    return _repository.submitOrder(
-        params: params.params,
-        isMeasureOrder: isMeasureOrder,
-        isWeb: GetPlatform.isWeb);
+    return _repository
+        .submitOrder(
+            params: params.params,
+            isMeasureOrder: orderType == OrderType.measureOrder,
+            isWeb: GetPlatform.isWeb)
+        .then((value) {
+      onSubmitSuceess();
+    });
   }
 
   Future onSubmitSuceess() async {
     return Get.toNamed(BAppRoutes.commitOrderSuccess);
+  }
+
+  @override
+  void onClose() {
+    scrollController?.dispose();
+    super.onClose();
   }
 }

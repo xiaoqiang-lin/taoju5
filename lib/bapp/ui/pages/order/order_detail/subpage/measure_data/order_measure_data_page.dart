@@ -105,13 +105,13 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                             children: [
                               Container(
                                   margin: EdgeInsets.only(right: BDimens.gap16),
-                                  child:
-                                      Text("离地距离(cm):${measureData.deltaY}")),
-                              Visibility(
-                                  visible: !GetUtils.isNullOrBlank(
-                                      measureData?.newDeltaY),
                                   child: Text(
-                                      "(原:${measureData.newDeltaY ?? ''})"))
+                                      "离地距离(cm):${measureData.newDeltaY}")),
+                              Visibility(
+                                  visible: measureData.deltaY !=
+                                      measureData.newDeltaY,
+                                  child:
+                                      Text("(原:${measureData.deltaY ?? ''})"))
                             ],
                           ),
                           IconButton(
@@ -126,11 +126,16 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                     builder: (_) {
                       return Row(
                         children: [
-                          Text("打开方式:${measureData.openModeName}"),
-                          Visibility(
-                              visible: !GetUtils.isNullOrBlank(
-                                  measureData.newOpenMode),
-                              child: Text("(原:${measureData.newOpenMode})")),
+                          Text("打开方式:${measureData.newOpenModeName}"),
+                          Expanded(
+                            child: Visibility(
+                                visible: measureData.newOpenModeName !=
+                                    measureData.openModeName,
+                                child: Text(
+                                  "(原:${measureData.openModeName})",
+                                  maxLines: 2,
+                                )),
+                          ),
                           IconButton(
                               icon: Image.asset("assets/images/edit.png"),
                               onPressed: () => Get.toNamed(

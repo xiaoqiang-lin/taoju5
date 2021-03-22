@@ -22,7 +22,9 @@ class OrderRemindMeasureButton extends StatelessWidget {
       builder: (_) {
         return Visibility(
           child: OutlinedButton(
-              onPressed: _.order.canRefund ? _.openRemindOrderDialog : null,
+              onPressed: _.order.canRefund
+                  ? () => _.openRemindOrderDialog("是否要提醒测量?")
+                  : null,
               child: Text("提醒测量")),
 
           ///商品是窗帘商品 并且处于待审核状态

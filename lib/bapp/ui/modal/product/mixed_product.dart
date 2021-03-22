@@ -15,13 +15,14 @@ Future showMixedProductModal(BuildContext context,
   return showCupertinoModalPopup(
       builder: (BuildContext context) {
         return XBaseModal(
-            onClose: Navigator.of(context).pop,
+            // onClose: Navigator.of(context).pop,
             height: MediaQuery.of(context).size.height * .90,
             builder: (BuildContext context) {
               return Container(
                 child: ProductGridModeSection(
-                  productList: productList,
-                ),
+                    productList: productList,
+                    enablePullDown: false,
+                    enablePullUp: false),
               );
             });
       },

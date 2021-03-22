@@ -6,6 +6,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -21,8 +22,9 @@ class CommitOrderFooter extends GetView<CommitOrderController> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: controller.productList
-          .any((e) => e.productType is CurtainProductType),
+      visible: controller.orderType == OrderType.measureOrder ||
+          controller.productList
+              .any((e) => e.productType is CurtainProductType),
       child: Container(
         margin: EdgeInsets.only(top: BDimens.gap16),
         color: BColors.primaryColor,

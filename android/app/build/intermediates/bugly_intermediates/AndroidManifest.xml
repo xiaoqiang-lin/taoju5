@@ -1,4 +1,4 @@
-<manifest package="com.buyi.taojuwu" android:versionCode="1" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0.0">
+<manifest package="com.buyi.taojuwu" android:versionCode="2021" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.3.0">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29"/>
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -216,6 +216,6 @@
     <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
     <meta-data android:name="JPUSH_APPKEY" android:value="appkey"/>
     <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-    <meta-data android:name="TINKER_ID" android:value="1.0.0.1_0319-14-47-02"/>
+    <meta-data android:name="TINKER_ID" android:value="1.3.0.2021_0322-16-59-08"/>
   </application>
 </manifest>

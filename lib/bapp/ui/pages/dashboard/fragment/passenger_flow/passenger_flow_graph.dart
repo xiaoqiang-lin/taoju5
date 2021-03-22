@@ -49,6 +49,8 @@ class PassengerFlowGraph extends StatelessWidget {
                     primaryYAxis: NumericAxis(
                         axisLine: AxisLine(width: .5),
                         desiredIntervals: 10,
+                        minimum: 0,
+                        maximum: 1000,
                         isVisible: true),
                     primaryXAxis: CategoryAxis(
                         isVisible: true,

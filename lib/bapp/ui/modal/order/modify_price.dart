@@ -34,8 +34,10 @@ class _ModifyOrderPriceModal extends StatelessWidget {
             amount: "${_.order.payAmount}",
             originPrice: "${_.order.originalPrice}");
         return XBaseModal(
+          height: .84 * Get.height,
           builder: (BuildContext context) {
             return Scaffold(
+              resizeToAvoidBottomInset: false,
               backgroundColor: Get.theme.primaryColor,
               body: SizedBox.expand(
                 child: Container(

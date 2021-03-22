@@ -75,7 +75,8 @@ extension OrderDetailProductModelKit on OrderDetailProductModel {
   set refundStatus(RefundStatus status) {
     Map<RefundStatus, int> map = {
       RefundStatus.refundable: 0,
-      RefundStatus.toBeAuthed: 1
+      RefundStatus.toBeAuthed: 1,
+      RefundStatus.succeed: 5,
     };
     this.refundStatusCode = map[status];
   }

@@ -7,11 +7,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/product_action_bar.dart';
-import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 
 class ProductDetailFooter extends StatelessWidget {
   final String tag;
@@ -19,6 +19,9 @@ class ProductDetailFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Container(
+    //   height: kBottomNavigationBarHeight,
+    // );
     return Container(
       height: kBottomNavigationBarHeight,
       width: Get.width,
@@ -30,20 +33,37 @@ class ProductDetailFooter extends StatelessWidget {
           builder: (_) {
             return Row(
               children: [
-                if (!Get.isRegistered<SelectableProductListController>())
-                  Text(
-                      _.priceDelegator?.totalPrice?.toStringAsFixed(2) ?? "总价"),
-                Spacer(
-                  flex: 1,
-                ),
+                if (!_.isForSelect)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "预计:",
+                          style: TextStyle(
+                              fontSize: BDimens.sp24,
+                              color: BColors.greyTextColor),
+                        ),
+                        Text(
+                          "¥${_.priceDelegator?.totalPrice?.toStringAsFixed(2)}",
+                          style: TextStyle(
+                              fontSize: BDimens.sp36,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
                 Expanded(
                   flex: 2,
                   child: Column(
                     children: [
-                      if (Get.isRegistered<SelectableProductListController>())
-                        ElevatedButton(
-                          child: Text("确认选品"),
-                          onPressed: Get.find<OrderDetailController>().select,
+                      if (_.isForSelect)
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: ElevatedButton(
+                            child: Text("确认选品"),
+                            onPressed: Get.find<OrderDetailController>().select,
+                          ),
                         )
                       else
                         GetBuilder<ProductDetailController>(

@@ -12,6 +12,8 @@ class XSwiper extends StatelessWidget {
   final bool loop;
   final Color paginationColor;
   final double viewportFraction;
+  final double itemHeight;
+  final double itemWidth;
   final IndexedWidgetBuilder itemBuilder;
   const XSwiper(
       {Key key,
@@ -19,7 +21,9 @@ class XSwiper extends StatelessWidget {
       this.loop = false,
       this.paginationColor = Colors.black45,
       this.itemBuilder,
-      this.viewportFraction = 1.0})
+      this.viewportFraction = 1.0,
+      this.itemHeight,
+      this.itemWidth})
       : super(key: key);
 
   @override
@@ -29,6 +33,8 @@ class XSwiper extends StatelessWidget {
       itemCount: itemCount,
       viewportFraction: viewportFraction,
       itemBuilder: itemBuilder,
+      itemHeight: itemHeight,
+      itemWidth: itemWidth,
       pagination: new SwiperPagination(
           margin: EdgeInsets.symmetric(horizontal: 5),
           builder: DotSwiperPaginationBuilder(

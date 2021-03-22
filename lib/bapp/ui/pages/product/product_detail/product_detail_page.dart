@@ -6,6 +6,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_banner/product_detail_banner_section_card.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_header/product_detail_header.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
@@ -38,26 +40,31 @@ class ProductDetailPage extends StatelessWidget {
               builder: (BuildContext context) {
                 return Scaffold(
                   body: NestedScrollView(
+                    controller: _.scrollController,
                     headerSliverBuilder:
                         (BuildContext context, bool innerBoxIsScrolled) {
                       return [
                         SliverAppBar(
-                            expandedHeight: 320,
-                            elevation: .5,
-                            floating: true,
-                            pinned: false,
-                            actions: [XCustomerChooseButton()],
-                            flexibleSpace: FlexibleSpaceBar(
-                              background: Container(
-                                margin: EdgeInsets.only(top: 96),
-                                child: ProductDetailBannerCard(
-                                    imageList: _.product.imgList),
-                              ),
-                            ))
+                          elevation: .5,
+                          floating: true,
+                          pinned: false,
+                          actions: [
+                            XCustomerChooseButton(
+                              event: ChooseCustomerEventModel(
+                                  fromUrl: BAppRoutes.productDetail +
+                                      "/${Get.parameters["id"]}"),
+                            )
+                          ],
+                        )
                       ];
                     },
                     body: CustomScrollView(
+                      controller: _.scrollController,
                       slivers: [
+                        SliverToBoxAdapter(
+                          child: ProductDetailBannerCard(
+                              imageList: _.product.imgList),
+                        ),
                         SliverToBoxAdapter(
                           child: ProductDetailHeader(product: _.product),
                         ),

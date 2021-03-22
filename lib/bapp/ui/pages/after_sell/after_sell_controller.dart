@@ -142,6 +142,10 @@ class AfterSellController extends GetxController {
     return asset.name.substring(index + 1);
   }
 
+  void setDescription(String val) {
+    description = val;
+  }
+
   Future submit() {
     ServerContentParamsModel model = ServerContentParamsModel(
         orderId: Get.parameters["id"],
