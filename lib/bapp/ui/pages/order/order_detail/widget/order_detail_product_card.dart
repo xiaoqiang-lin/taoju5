@@ -155,7 +155,7 @@ class _OrderDetailProductActionBar extends StatelessWidget {
                                 product.refundStatus == RefundStatus.refundable,
                             child: OutlinedButton(
                               onPressed: () => _.goToSelect(product),
-                              child: Text(product.hasSelected ? "去选品" : "去选品"),
+                              child: Text(product.hasSelected ? "更换选品" : "去选品"),
                             ),
                           )
                         ],

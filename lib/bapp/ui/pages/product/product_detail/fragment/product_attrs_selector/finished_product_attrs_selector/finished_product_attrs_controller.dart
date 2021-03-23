@@ -31,6 +31,7 @@ class FinishedProductAttrsController extends GetxController {
   String get currentSpecValue => product.currentSpecOptionName;
 
   Future closeModal() async {
+    product.material = product.materialUsed;
     Get.back();
     update();
     if (Get.isRegistered<ProductDetailController>(tag: id)) {
@@ -79,12 +80,13 @@ class FinishedProductAttrsController extends GetxController {
     return modifyCartProductAttr();
   }
 
-  Future _loadData() {
+  Future loadData() {
     loadState = XLoadState.busy;
     update();
     return _repository.productDetail(params: {"goods_id": id}).then(
         (ProductDetailModelWrapper wrapper) {
       product = wrapper.product;
+
       _initWithCartProduct();
       loadState = XLoadState.idle;
     }).catchError((err) {
@@ -105,6 +107,15 @@ class FinishedProductAttrsController extends GetxController {
     update();
   }
 
+  void setMaterialUsed(String val) {
+    if (!GetUtils.isNum(val)) {
+      EasyLoading.showInfo("请输入正确的数值哦");
+    } else {
+      product.materialUsed = val;
+    }
+    update(["header"]);
+  }
+
   @override
   void onInit() {
     if (Get.isRegistered<ProductDetailController>(tag: id)) {
@@ -114,9 +125,14 @@ class FinishedProductAttrsController extends GetxController {
       update();
     }
     if (product == null) {
-      _loadData();
+      loadData();
     }
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   bool checkSpec() {

@@ -21,6 +21,7 @@ import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
@@ -255,6 +256,7 @@ class ProductDetailController extends GetxController {
   }
 
   bool _checkValidSize() {
+    // if (product.productType is RollingCurtainProductType) return true;
     if (!(product.productType is CurtainProductType)) return true;
     if (!Get.isRegistered<SizeSelectorController>(tag: tag) ||
         Get.find<SizeSelectorController>(tag: tag).isSizeNullOrEmpty) {
@@ -292,8 +294,11 @@ class ProductDetailController extends GetxController {
       return Future.value(false);
     }
 
-    return Get.toNamed(BAppRoutes.commitOrder + "/1",
-        arguments: adapt(measureId: "0"), preventDuplicates: false);
+    return Get.toNamed(BAppRoutes.commitOrder,
+        arguments: CommitOrderEvent(
+            productList: adapt(measureId: "0"),
+            orderType: OrderType.selectionOrder),
+        preventDuplicates: false);
   }
 
   Future addToCart() {
@@ -383,13 +388,14 @@ class ProductDetailController extends GetxController {
   }
 
   String get _description {
+    if (product.productType is SectionalbarProductType) {
+      return "用料:${product.material}米";
+    }
     if (product.productType is FinishedProductType) {
       return "${product.currentSpecOptionName}\n数量x${product.count}";
     }
-    if (product.productType is SectionalbarProductType) {
-      // return "用料:${product.widthMStr}米";
-    }
     String description = "";
+
     for (GetxController e in attrControllerList) {
       if (e is RoomAttrSelectorController) {
         description += "${e?.value}、";
@@ -421,6 +427,7 @@ class ProductDetailController extends GetxController {
 
   List<ProductAttrAdapterModel> get _attrList {
     if (product.productType is FinishedProductType) return [];
+    if (product.productType is RollingCurtainProductType) return [];
     List<ProductAttrAdapterModel> list = [];
     for (GetxController e in attrControllerList) {
       if (e is BaseAttrSelectorController &&
@@ -449,8 +456,20 @@ class ProductDetailController extends GetxController {
       "image": product.cover,
       "measure_id": measureId,
       "sku_id": product.skuId,
+      "material": product.material,
       "attribute": jsonEncode(attr?.params)
     };
     return [ProductAdapterModel.fromJson(json)];
+  }
+
+  Future selectProduct() {
+    if (!selectProductEvent.orderProduct.measureData.hasChecked) {
+      EasyLoading.showInfo("请先确认测装数据哦");
+      scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 375), curve: Curves.ease);
+      return Future.value(false);
+    }
+    return Get.find<OrderDetailController>().select(
+        productId: tag, orderProductId: selectProductEvent.orderProduct.id);
   }
 }

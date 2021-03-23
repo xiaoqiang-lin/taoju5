@@ -93,4 +93,8 @@ class ProductAPI {
   ///修改购物车成品属性
   Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>
       XDio().get("/api/goods/modifyCartAccessory", params: params);
+
+  ///软装方案 场景设计加入购物车
+  Future<BaseResponse> addDesignProductToCart({Map params}) =>
+      XDio().get("/api/goods/addCartList", params: params);
 }

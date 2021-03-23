@@ -7,11 +7,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:get/get.dart';
 
-Future<String> showEditDeltaYDialog(BuildContext context,
-    {String initialValue}) {
+Future<String> showEditDeltaYDialog({String initialValue}) {
   return showDialog<String>(
-      context: context,
+      context: Get.context,
       builder: (BuildContext context) {
         return _EditDeltaYDialog(initialValue: initialValue);
       });

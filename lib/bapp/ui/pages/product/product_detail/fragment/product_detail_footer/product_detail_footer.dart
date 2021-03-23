@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/product_action_bar.dart';
 
@@ -62,7 +61,7 @@ class ProductDetailFooter extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
                             child: Text("确认选品"),
-                            onPressed: Get.find<OrderDetailController>().select,
+                            onPressed: _.selectProduct,
                           ),
                         )
                       else

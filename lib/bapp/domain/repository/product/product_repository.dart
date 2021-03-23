@@ -187,4 +187,8 @@ class ProductRepository {
   ///修改购物车成品属性
   Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>
       _api.modifyProuductAttrInCart(params: params);
+
+  ///软装方案 场景设计加入购物车
+  Future<BaseResponse> addDesignProductToCart({Map params}) =>
+      _api.addDesignProductToCart(params: params);
 }

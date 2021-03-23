@@ -187,7 +187,7 @@ class CurtainProductAttrOptionModel implements IXSelectable {
 
 extension CurtainProductAttrOptionModelKit on CurtainProductAttrOptionModel {
   ///是否含有轨道
-  bool get hasTrack => RegExp("GD", caseSensitive: false).hasMatch(name);
+  bool get hasTrack => RegExp("轨道").hasMatch(name);
 
   ///是否为龙马杆
   bool get isDragonHorsePole =>

@@ -20,20 +20,16 @@ class PatternSelectorBar extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print("传递过来的tag---$tag");
     return GetBuilder<WindowPatternSelectorController>(
       tag: tag,
       id: "value",
-      initState: (_) {
-        final controller = Get.find<WindowPatternSelectorController>(tag: tag);
-        controller.product = product;
-        controller.initWithMixinProduct();
-      },
       builder: (_) {
         return Container(
           child: XSelectorTextField(
             label: Text("窗型"),
-            key: ValueKey(_.value),
-            initialValue: _.value,
+            key: ValueKey(_?.value),
+            initialValue: _?.value,
             onFuture: () => showWindowPatternModal(tag: tag, product: product),
           ),
         );

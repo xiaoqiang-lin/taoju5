@@ -7,10 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_mainfest_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SizeSelectorController extends GetxController {
   String width;
@@ -57,10 +59,34 @@ class SizeSelectorController extends GetxController {
 
   @override
   void onClose() {
-    // widthController?.dispose();
-    // heightController?.dispose();
-    // deltaYController?.dispose();
+    widthController?.dispose();
+    heightController?.dispose();
+    deltaYController?.dispose();
     super.onClose();
+  }
+
+  void setValue(String val) {
+    if (!GetUtils.isNum(val)) {
+      EasyLoading.showInfo("请输入正确的数值哦");
+    }
+  }
+
+  void setWH() {
+    width = widthController?.text;
+    height = heightController?.text;
+    Get.back();
+  }
+
+  void setDeltaY() {
+    deltaY = deltaYController?.text;
+  }
+
+  void initWithMeasureData(OrderMeasureDataModel measureData) {
+    width = measureData.width;
+    height = measureData.height;
+    deltaY = measureData.newDeltaY;
+    hasChecked = true;
+    update(["size"]);
   }
 
   void confirm() {

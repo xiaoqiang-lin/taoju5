@@ -839,7 +839,7 @@ packages:
     source: hosted
     version: "1.8.0-nullsafety.2"
   sqflite:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: sqflite
       url: "https://pub.flutter-io.cn"

@@ -174,10 +174,13 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
             ),
           )),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+        height: kBottomNavigationBarHeight,
+        margin: EdgeInsets.symmetric(
+            horizontal: BDimens.gap16, vertical: BDimens.gap16),
         child: XFutureButton(
-          onFuture: null,
+          onFuture: controller.saveData,
           child: Text("确认"),
+          showLoading: false,
         ),
       ),
     );

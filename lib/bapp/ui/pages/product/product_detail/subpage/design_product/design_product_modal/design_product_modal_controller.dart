@@ -78,13 +78,18 @@ class DesignProductModalController extends GetxController {
   void _initWithPreConfig() {
     if (Get.isRegistered<ProductRegisterController>()) {
       tag = Get.find<ProductRegisterController>().tag;
-      ProductDetailController productController =
-          Get.find<ProductDetailController>(tag: tag);
-      designProduct?.productList?.forEach((ProductMixinModel product) {
-        productController?.attrControllerList?.forEach((e) {
-          _parse(product, e);
-        });
-      });
+      print(Get.isRegistered<ProductDetailController>(tag: tag));
+      if (Get.isRegistered<ProductDetailController>(tag: tag)) {
+        ProductDetailController productController =
+            Get.find<ProductDetailController>(tag: tag);
+        if (productController.product.productType is CurtainProductType) {
+          designProduct?.productList?.forEach((ProductMixinModel product) {
+            productController?.attrControllerList?.forEach((e) {
+              _parse(product, e);
+            });
+          });
+        }
+      }
     }
   }
 
@@ -137,8 +142,9 @@ class DesignProductModalController extends GetxController {
     if (!args.validate()) {
       return Future.value(false);
     }
-    XLogger.v(args.params);
-    return Future.value(true);
+    // XLogger.v(args.params);
+    return _repository.addDesignProductToCart(params: args.params);
+    // return Future.value(true);
   }
 
   Future buy() {

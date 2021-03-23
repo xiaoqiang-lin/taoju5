@@ -39,6 +39,7 @@ class ProductAdapterModel {
     skuId = "${json["sku_id"]}";
     type = json["type"];
     attribute = json["attribute"];
+    length = json["material"];
   }
 }
 

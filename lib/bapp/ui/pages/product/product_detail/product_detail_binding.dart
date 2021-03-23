@@ -21,6 +21,7 @@ import 'fragment/product_attrs_selector/base/accessory/accessory_attr_selector_c
 import 'fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
+import 'fragment/product_attrs_selector/rolling_curtain_product_attrs_selector/rolling_curtain_product_attrs_selector_controller.dart';
 
 class ProductDetailBinding extends Bindings {
   @override
@@ -28,7 +29,7 @@ class ProductDetailBinding extends Bindings {
     String id = Get.parameters["id"];
 
     Get.lazyPut(() => ProductDetailController(), tag: id);
-    Get.lazyPut(() => ProductRegisterController());
+    Get.lazyPut(() => ProductRegisterController(tag: id));
 
     ///空间选择器
     Get.lazyPut(() => RoomAttrSelectorController(), tag: id, fenix: true);
@@ -66,6 +67,10 @@ class ProductDetailBinding extends Bindings {
 
     ///成品属性选择
     Get.lazyPut(() => FinishedProductAttrsController(id: id), tag: id);
+
+    ///卷帘属性选择
+    Get.lazyPut(() => RollingCurtainProductAttrsSelectorController(tag: id),
+        tag: id);
 
     Get.lazyPut(() => XLikeController());
 

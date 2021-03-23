@@ -81,9 +81,11 @@ class SearchController extends GetxController {
   }
 
   Future loadData() {
-    if (type != SearchType.customer) return Future.value();
+    if (type != SearchType.product) return Future.value();
     SearchRepository repository = SearchRepository();
-    return repository.search().then((SearchModel value) {
+    return repository
+        .search(params: {"height": Get.parameters["height"] ?? ""}).then(
+            (SearchModel value) {
       keyList = value.data;
     });
   }

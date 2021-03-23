@@ -14,6 +14,7 @@ import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 
 abstract class BaseAttrSelectorController extends GetxController {
@@ -79,7 +80,6 @@ abstract class BaseAttrSelectorController extends GetxController {
       }
     }
 
-    // filter();
     update(["attribute"]);
   }
 
@@ -112,6 +112,12 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   bool get hasBox {
+    if (Get.isRegistered<WindowPatternSelectorController>(tag: tag)) {
+      WindowPatternSelectorController pattern =
+          Get.find<WindowPatternSelectorController>(tag: tag);
+
+      if (pattern.value.contains("有盒")) return true;
+    }
     return false;
   }
 
@@ -140,14 +146,14 @@ abstract class BaseAttrSelectorController extends GetxController {
       options = list;
     }
 
-    ///如果不要需要窗纱
-    if (!hasGauze) {
-      ///不需要窗纱 过滤出单龙马杆
-      options = options.where((e) => e.isSinglePole).toList();
-    } else {
-      ///需要窗纱过滤 双龙马杆
-      options = options.where((e) => !e.isSinglePole).toList();
-    }
+    // ///如果不要需要窗纱
+    // if (!hasGauze) {
+    //   ///不需要窗纱 过滤出单龙马杆
+    //   options = options.where((e) => e.isSinglePole).toList();
+    // } else {
+    //   ///需要窗纱过滤 双龙马杆
+    //   options = options.where((e) => !e.isSinglePole).toList();
+    // }
 
     ///默认选中第一个
     for (int i = 0; i < options?.length; i++) {
@@ -164,21 +170,21 @@ abstract class BaseAttrSelectorController extends GetxController {
         taojuwuController?.sectionalbar?.optionList;
 
     ///作为容器存储
-    List<CurtainProductAttrOptionModel> options = [];
+    List<CurtainProductAttrOptionModel> options = list;
 
     ///如果有盒
-    if (hasBox) {
-      for (CurtainProductAttrOptionModel option in list) {
-        if (option.hasTrack) {
-          options.add(option);
-        }
-      }
-    } else {
-      options = list;
-    }
+    // if (hasBox) {
+    //   for (CurtainProductAttrOptionModel option in list) {
+    //     if (option.hasTrack) {
+    //       options.add(option);
+    //     }
+    //   }
+    // } else {
+    //   options = list;
+    // }
 
     //如果需要打孔
-    if (hasHole) {
+    if (craftController.value.contains("罗马杆")) {
       ///过滤出龙马杆
       options = options.where((e) => e.isDragonHorsePole).toList();
     } else {

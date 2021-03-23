@@ -4,16 +4,11 @@
  * @Date: 2021-01-23 14:15:23
  * @LastEditTime: 2021-01-23 14:18:28
  */
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductRegisterController extends GetxController {
   String tag;
 
-  ProductRegisterController();
-
-  @override
-  void onInit() {
-    tag = Get.parameters["id"];
-    super.onInit();
-  }
+  ProductRegisterController({@required this.tag});
 }

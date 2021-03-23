@@ -40,11 +40,11 @@ class CustomerDetailController extends GetxController {
       CustomerDetailKongoModel(
           image: "assets/images/customer_order.png",
           description: "订单",
-          onTap: () => Get.toNamed(BAppRoutes.orderList + "/$id")),
+          onTap: () => Get.toNamed(BAppRoutes.orderList + "?customerId=$id")),
       CustomerDetailKongoModel(
           image: "assets/images/after_sell_service.png",
           description: "退单/售后",
-          onTap: () => Get.toNamed(BAppRoutes.orderList + "/$id"))
+          onTap: () => Get.toNamed(BAppRoutes.orderList + "?customerId=$id"))
     ];
   }
 

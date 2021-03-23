@@ -47,6 +47,8 @@ class ProductMixinModel {
   String accessory;
   String accessoryId;
 
+  String material;
+
   ///离地距离
   String deltaY;
 
@@ -92,6 +94,7 @@ class ProductMixinModel {
     skuList = JsonKit.asList(json["sku_list"])
         .map((e) => ProductSkuModel.fromJson(e))
         .toList();
+    material = json["material"];
   }
 }
 
@@ -130,8 +133,9 @@ extension ProductMixinModelKit on ProductMixinModel {
   Map get params => {
         "cart_tag": "app",
         "estimated_price": totalPrice,
-        "wc_attr": attribute,
-        "measure_data": productType is CurtainProductType ? measureData : "0",
+        "wc_attr": attribute ?? "",
+        "measure_data":
+            productType is CurtainProductType ? measureData ?? "" : "0",
         "cart_detail": jsonEncode({
           "goods_name": name,
           "sku_id": "${currentSkuModel?.id ?? skuId}",
@@ -139,7 +143,8 @@ extension ProductMixinModelKit on ProductMixinModel {
           "num": "${currentSkuModel?.count ?? 1}",
           "sku_name": "${currentSkuModel?.name ?? skuName}",
           "goods_id": id,
-          "picture": picId
+          "picture": picId,
+          "material": material
         })
       };
   Map toJson() => {

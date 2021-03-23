@@ -46,9 +46,9 @@ class CollectionPage extends StatelessWidget {
                       child: Slidable(
                         key: ValueKey(product.productId),
                         actionPane: SlidableBehindActionPane(),
-                        actions: [
+                        secondaryActions: [
                           IconSlideAction(
-                            caption: '删除',
+                            caption: '取消收藏',
                             color: Colors.red,
                             icon: BIcons.del,
                             onTap: () =>

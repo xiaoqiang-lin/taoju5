@@ -19,11 +19,12 @@ class OrderConfirmSelectButton extends GetView<OrderDetailController> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      child: TextButton(onPressed: () {}, child: Text("确认选品")),
+      child: OutlinedButton(
+          onPressed: controller.openSelectProductDialog, child: Text("确认选品")),
 
       ///商品是窗帘商品 并且处于待审核状态
       visible: controller.order.productType is CurtainProductType &&
-          controller.order.orderStatus == OrderStatus.toBeMeasured,
+          controller.order.orderStatus == OrderStatus.toBeSelected,
     );
   }
 }

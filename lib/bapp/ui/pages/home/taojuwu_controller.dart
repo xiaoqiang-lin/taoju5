@@ -72,7 +72,7 @@ class TaojuwuController extends GetxController {
 
   WindowPatternModel get windowBox => _windowBox.copy();
 
-  Future _loadData() {
+  Future loadData() {
     return _repository.curtainProductAttrs().then((BaseResponse response) {
       if (response.isValid) {
         rootBundle
@@ -103,7 +103,7 @@ class TaojuwuController extends GetxController {
 
   @override
   void onInit() {
-    _loadData();
+    loadData();
     super.onInit();
   }
 }

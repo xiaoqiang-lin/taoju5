@@ -23,6 +23,7 @@ Future showRemoveFromCartDialog(String tag) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                         onPressed: Get.back,

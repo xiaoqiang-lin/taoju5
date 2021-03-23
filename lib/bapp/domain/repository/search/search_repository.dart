@@ -13,7 +13,7 @@ class SearchRepository {
 
   Future<SearchModel> search({Map params}) {
     return _api
-        .search("/api/goods/searchContent")
+        .search("/api/goods/searchContent", params: params)
         .then((BaseResponse response) {
       if (response.isValid) {
         return SearchModel.fromJson(response.data);

@@ -5,6 +5,7 @@
  * @LastEditTime: 2021-02-01 16:04:01
  */
 import 'package:flutter/foundation.dart';
+import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/modal/product/room_attr_selector.dart';
@@ -42,6 +43,13 @@ class RoomAttrSelectorController extends BaseAttrSelectorController {
         Get.find<DesignProductModalController>().update();
       }
     });
+  }
+
+  void initWithMeasureData(OrderMeasureDataModel measureData) {
+    attr?.optionList?.forEach((o) {
+      o.isChecked = o.name == measureData.room;
+    });
+    update();
   }
 
   @override

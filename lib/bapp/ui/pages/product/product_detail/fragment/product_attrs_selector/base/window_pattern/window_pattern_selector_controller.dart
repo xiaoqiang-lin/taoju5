@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/window/window_pattern_model.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 
 class WindowPatternSelectorController extends GetxController {
@@ -39,7 +40,7 @@ class WindowPatternSelectorController extends GetxController {
     facade = taoju5Controller.facade;
     windowBay = taoju5Controller.windowBay;
     windowBox = taoju5Controller.windowBox;
-
+    initWithMixinProduct();
     super.onInit();
   }
 
@@ -80,6 +81,10 @@ class WindowPatternSelectorController extends GetxController {
     }
     Get.back();
     styleController.update();
+    if (Get.isRegistered<CraftAttrSelectorController>(tag: tag)) {
+      final craft = Get.find<CraftAttrSelectorController>(tag: tag);
+      craft.filter();
+    }
     update(["value"]);
   }
 

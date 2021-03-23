@@ -205,4 +205,8 @@ class OrderRepository {
       return Future.error(response.message);
     });
   }
+
+  Future<BaseResponse> submitSelectedProduct({Map params}) {
+    return _api.submitSelectedProduct(params: params);
+  }
 }

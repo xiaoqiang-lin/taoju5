@@ -20,14 +20,19 @@ class SizeSelectorTipBar extends StatelessWidget {
   const SizeSelectorTipBar({Key key, @required this.tag}) : super(key: key);
 
   ///是否为选品
-  bool get isSelect => Get.isRegistered<SelectableProductListController>();
+  bool get isForSelect =>
+      Get.arguments != null && Get.arguments is SelectProductEvent;
 
   _onTap() {
-    if (!isSelect) {
+    if (!isForSelect) {
       return Get.toNamed(BAppRoutes.editMeasureData + "/$tag");
     }
     OrderDetailController controller = Get.find<OrderDetailController>();
-    return Get.toNamed(BAppRoutes.orderMeasureData + "/${controller.order.id}");
+
+    return Get.toNamed(
+        BAppRoutes.orderMeasureData +
+            "?id=${controller.order.id}&productId=$tag",
+        arguments: Get.arguments);
   }
 
   @override
@@ -50,7 +55,7 @@ class SizeSelectorTipBar extends StatelessWidget {
                     Column(
                       children: [
                         Visibility(
-                          visible: !isSelect,
+                          visible: !isForSelect,
                           child: GetBuilder<SizeSelectorController>(
                             tag: tag,
                             id: "size",
@@ -79,13 +84,15 @@ class SizeSelectorTipBar extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: isSelect,
+                          visible: isForSelect,
                           child: GetBuilder<SizeSelectorController>(
                             tag: tag,
                             id: "size",
                             autoRemove: false,
                             builder: (_) {
                               return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text.rich(
                                     TextSpan(
@@ -111,7 +118,7 @@ class SizeSelectorTipBar extends StatelessWidget {
                     ),
                     Spacer(),
                     Visibility(
-                      visible: !isSelect,
+                      visible: !isForSelect,
                       child: Column(
                         children: [
                           GetBuilder<SizeSelectorController>(

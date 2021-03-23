@@ -211,7 +211,7 @@ class BAppPages {
 
     ///测装数据
     GetPage(
-        name: BAppRoutes.orderMeasureData + "/:id",
+        name: BAppRoutes.orderMeasureData,
         page: () => OrderMeasureDataPage(),
         binding: OrderMeasureDataBinding()),
 

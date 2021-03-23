@@ -44,6 +44,7 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
   final isChecked = false.obs;
   RxInt count;
   String categoryType;
+  double price;
   CartPorductModel.fromJson(Map json) {
     id = "${json["cart_id"]}";
     measureId = json["measure_id"];
@@ -57,7 +58,7 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
             json, ["picture_info", "pic_cover"])) ??
         '';
     type = json["goods_type"];
-
+    price = JsonKit.asDouble(json["price"]);
     unit = json["goods_unit"];
     length = json["material"];
     productId = json["goods_id"];
@@ -92,6 +93,7 @@ extension CartPorductModelKit on CartPorductModel {
     model.measureId = measureId;
     model.skuId = "$skuId";
     model.cartId = id;
+    model.length = length;
     return model;
   }
 }

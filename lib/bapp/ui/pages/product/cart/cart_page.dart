@@ -85,7 +85,7 @@ class CartPage extends GetView<CartListParentController> {
                                     (BuildContext context, CartPorductModel e) {
                                   return Slidable(
                                     actionPane: SlidableBehindActionPane(),
-                                    actions: [
+                                    secondaryActions: [
                                       IconSlideAction(
                                         caption: '删除',
                                         color: Colors.red,
@@ -141,7 +141,7 @@ class CartPage extends GetView<CartListParentController> {
                                                             ),
                                                             Spacer(),
                                                             Text(
-                                                              "¥${e.totalPrice}",
+                                                              "¥${e.price.toStringAsFixed(2)}",
                                                               style: TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
@@ -221,7 +221,7 @@ class CartPage extends GetView<CartListParentController> {
                                                                     top: BDimens
                                                                         .gap32),
                                                             child: XStepCounter(
-                                                              width: 108,
+                                                              width: 118,
                                                               height: 28,
                                                               key: ValueKey(e
                                                                   .count.value),
@@ -329,8 +329,7 @@ class CartPage extends GetView<CartListParentController> {
                           key: ValueKey(controller.isCheckedAll),
                           onChanged: (bool flag) {
                             _.isCheckedAll = flag;
-                            _.update(["isCheckedAll"]);
-                            print(controller.isCheckedAll);
+                            _.update(["isCheckedAll", "totalPrice"]);
                           },
                           value: controller.isCheckedAll,
                         ),
@@ -338,11 +337,13 @@ class CartPage extends GetView<CartListParentController> {
                       ],
                     );
                   }),
+
               GetBuilder<CartListParentController>(
                   id: "totalPrice",
                   builder: (_) {
                     return Visibility(
                         visible: !_.isInEditMode,
+                        key: ValueKey(_.totalPrice),
                         child: Text("${_.totalPrice.toStringAsFixed(2)}"));
                   }),
               Spacer(),
@@ -360,7 +361,7 @@ class CartPage extends GetView<CartListParentController> {
                         ),
                         Visibility(
                           visible: _.isInEditMode,
-                          child: OutlineButton(
+                          child: OutlinedButton(
                               onPressed: controller.batchRemove,
                               child: Text("删除所选")),
                         ),

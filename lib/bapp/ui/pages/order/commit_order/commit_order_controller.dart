@@ -171,11 +171,12 @@ class CommitOrderController extends GetxController {
       scrollToTop();
       return Future.value(false);
     }
-    if (!params.isOrderDepositNullOrBlank()) {
-      ///滚动到底部
-      scrollToBottom();
-      return Future.value(false);
-    }
+
+    // if (!params.isOrderDepositNullOrBlank()) {
+    //   ///滚动到底部
+    //   scrollToBottom();
+    //   return Future.value(false);
+    // }
 
     // Map args = {};
     // args.addAll(params?.params ?? {});

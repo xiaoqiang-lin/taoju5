@@ -72,7 +72,7 @@ class CartListParentController extends GetxController
   void tabChangeListener() {
     isCheckedAll = cartListController.isCheckedAll;
     totalPrice = cartListController.totalPrice;
-    update(["action", "isCheckedAll"]);
+    update(["action", "isCheckedAll", "totalPrice"]);
   }
 
   Future loadData() {
@@ -150,13 +150,15 @@ class CartListController extends GetxController {
     return !cartList.any((e) => e.isChecked.value == false);
   }
 
+  CartListParentController parentController =
+      Get.find<CartListParentController>();
+
   void checkItem(CartPorductModel model, bool flag) {
     model.isChecked.value = flag;
-    CartListParentController parentController =
-        Get.find<CartListParentController>();
+
     parentController.totalPrice = totalPrice;
 
-    parentController.update(["totalPrice"]);
+    parentController.update(["totalPrice", "isCheckedAll"]);
   }
 
   List<ProductAdapterModel> get checkedProductList {
@@ -184,8 +186,15 @@ class CartListController extends GetxController {
     } else {
       e.count.value = 1;
     }
-    _repository.modifyProuductCountInCart(
-        params: {"sku_id": e.skuId, "cart_id": e.id, "num": e.count});
+    parentController.totalPrice = totalPrice;
+
+    _repository.modifyProuductCountInCart(params: {
+      "sku_id": e.skuId,
+      "cart_id": e.id,
+      "num": e.count
+    }).then((value) {
+      Get.find<CartListParentController>().update(["totalPrice"]);
+    });
   }
 
   XLoadState loadState = XLoadState.idle;
@@ -243,6 +252,10 @@ class CartListController extends GetxController {
   Future remove({CartPorductModel element, String tag}) {
     if (element != null) {
       checkItem(element, true);
+    }
+    if (GetUtils.isNullOrBlank(checkedCartList)) {
+      EasyLoading.showInfo("当前暂未选中商品哦");
+      return Future.value(false);
     }
     return showRemoveFromCartDialog(tag);
   }

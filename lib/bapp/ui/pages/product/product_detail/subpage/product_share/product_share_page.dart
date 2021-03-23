@@ -16,7 +16,6 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_mat
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_skeleton.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
-import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 
@@ -48,31 +47,36 @@ class ProductSharePage extends StatelessWidget {
             ),
             body: CustomScrollView(
               slivers: [
+                // SliverToBoxAdapter(
+                //   child: Container(
+                //       color: Get.theme.primaryColor,
+                //       child: Column(
+                //         mainAxisSize: MainAxisSize.max,
+                //         children: [
+                //           if (!GetUtils.isNullOrBlank(_.mainImg))
+                //             Container(
+                //               margin: EdgeInsets.symmetric(horizontal: 24),
+                //               height: 396,
+                //               width: Get.width,
+                //               child: XPhotoViewer(
+                //                 url: _.mainImg,
+                //                 fit: BoxFit.fitHeight,
+                //               ),
+                //             )
+                //           else
+                //             SizedBox(
+                //               height: 396,
+                //               width: Get.width,
+                //               child: ProductDetailBannerCard(
+                //                   imageList: _.product.imgList),
+                //             )
+                //         ],
+                //       )),
+                // ),
                 SliverToBoxAdapter(
-                  child: Container(
-                      color: Get.theme.primaryColor,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          if (!GetUtils.isNullOrBlank(_.mainImg))
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 24),
-                              height: 396,
-                              width: Get.width,
-                              child: XPhotoViewer(
-                                url: _.mainImg,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            )
-                          else
-                            SizedBox(
-                              height: 396,
-                              width: Get.width,
-                              child: ProductDetailBannerCard(
-                                  imageList: _.product.imgList),
-                            )
-                        ],
-                      )),
+                  child: ProductDetailBannerCard(
+                    imageList: _.product.imgList,
+                  ),
                 ),
                 SliverToBoxAdapter(
                   child: ProductDetailHeader(

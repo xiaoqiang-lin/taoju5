@@ -61,4 +61,8 @@ class OrderAPI {
   ///订单编辑记录
   Future<BaseResponse> orderLog(String url, {Map params}) =>
       XDio().get(url, params: params);
+
+  ///订单编辑记录
+  Future<BaseResponse> submitSelectedProduct({Map params}) =>
+      XDio().get("/api/order/orderSelectedGoods", params: params);
 }

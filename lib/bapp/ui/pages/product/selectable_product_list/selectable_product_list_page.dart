@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_grid_mode_section.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_grid_mode_skeleton.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_list_mode_section.dart';
@@ -15,7 +14,6 @@ import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_header.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
-import 'package:taoju5/bapp/ui/pages/search/search_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_search_bar.dart';
 
@@ -28,8 +26,7 @@ class SelectableProductListPage
     return Scaffold(
         appBar: XSearchBar(
           preferredSize: Size.fromHeight(72),
-          onTap: () =>
-              Get.toNamed(BAppRoutes.search, arguments: SearchType.product),
+          onTap: controller.search,
         ),
         body: GetBuilder<ProductListParentController>(
             id: "tabview",

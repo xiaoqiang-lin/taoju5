@@ -87,7 +87,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                         margin: EdgeInsets.only(
                                                             top: BDimens.gap20),
                                                         child: Text(
-                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? ""}"),
+                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? ""}${_.product.materialUsed != null ? "米" : ""}"),
                                                           style: TextStyle(
                                                               fontSize:
                                                                   BDimens.sp28,
@@ -149,7 +149,12 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                     Container(
                                                       height: 42,
                                                       width: Get.width / 2.4,
-                                                      child: TextField(
+                                                      child: TextFormField(
+                                                          initialValue: _
+                                                              .product
+                                                              ?.material,
+                                                          onChanged:
+                                                              _.setMaterialUsed,
                                                           scrollPadding:
                                                               EdgeInsets.zero,
                                                           decoration: InputDecoration(

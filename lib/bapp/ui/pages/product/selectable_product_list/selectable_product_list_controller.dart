@@ -12,6 +12,9 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/search/search_controller.dart';
 
 class SelectProductEvent {
   OrderDetailProductModel orderProduct;
@@ -34,4 +37,12 @@ class SelectableProductListController extends GetxController {
   SelectProductEvent get event => Get.arguments;
 
   OrderMeasureDataModel get measureData => event.orderProduct.measureData;
+
+  Future search() {
+    return Get.toNamed(BAppRoutes.search + "?height=${measureData.height}",
+            arguments: SearchType.product)
+        .then((value) {
+      Get.find<ProductListController>(tag: "0").refreshData(keyword: value);
+    });
+  }
 }

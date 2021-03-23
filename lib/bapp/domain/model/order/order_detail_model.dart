@@ -153,6 +153,8 @@ extension OrderDetailModelKit on OrderDetailModel {
   bool get isAllProductCanceled => GetUtils.isNullOrBlank(productList)
       ? true
       : productList.any((e) => e.refundStatus != RefundStatus.refundable);
+
+  int get unselectedCount => productList?.where((e) => !e.hasSelected)?.length;
 }
 
 class OrderMeasureDataModel {
@@ -183,6 +185,8 @@ class OrderMeasureDataModel {
   String deltaY;
 
   List<String> pictures;
+
+  bool hasChecked = false;
 
   OrderMeasureDataModel.fromJson(Map json) {
     XLogger.v(json);

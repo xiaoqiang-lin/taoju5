@@ -92,6 +92,7 @@ class ProductDetailModel implements AbstractProdductModel {
   bool hasFlower; // 窗帘是否有拼花
 
   String materialUsed;
+  String material;
 
   List<ProductSpecModel> specList;
   List<ProductSkuModel> skuList;
@@ -140,6 +141,7 @@ class ProductDetailModel implements AbstractProdductModel {
     flowerSize = (JsonKit.asDouble(json['flower_distance']) / 100);
 
     hasFlower = json['is_flower'] == 1;
+    materialUsed = json["material"];
   }
 }
 
@@ -158,7 +160,7 @@ extension ProductDetailModelKit on ProductDetailModel {
   String get tip {
     if (productType is SectionalbarProductType) {
       if (GetUtils.isNullOrBlank(materialUsed)) return "请输入型材用料";
-      return "已选:用料x$materialUsed";
+      return "已选:用料$materialUsed米";
     }
     if (GetUtils.isNullOrBlank(specList)) return "已选:数量x$count";
     return "已选:$currentSpecOptionName 数量x$count";
@@ -195,6 +197,7 @@ extension ProductDetailModelKit on ProductDetailModel {
         "price": price,
         "picture": currentSku?.picId ?? picId,
         "num": count,
+        "material": material
       };
 }
 

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/ui/dialog/order/edit_deltaY.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 
@@ -11,9 +13,10 @@ class OrderMeasureDataController extends GetxController {
 
   OrderMeasureDataModel get measureData => product.measureData;
   String get id => Get.parameters["id"];
+  String get tag => Get.parameters["productId"];
 
   Future openEditDeltaYDialog() {
-    return showEditDeltaYDialog(Get.context, initialValue: measureData.deltaY)
+    return showEditDeltaYDialog(initialValue: measureData.deltaY)
         .then((String val) {
       measureData.newDeltaY = val;
       update(["deltaY"]);
@@ -27,6 +30,17 @@ class OrderMeasureDataController extends GetxController {
     measureData.openMode = controller.currentOpenModeOption.name;
     update(["openMode"]);
     Get.back();
+  }
+
+  Future saveData() {
+    Get.find<RoomAttrSelectorController>(tag: tag)
+        .initWithMeasureData(measureData);
+
+    Get.find<SizeSelectorController>(tag: tag).initWithMeasureData(measureData);
+
+    Get.back();
+    measureData.hasChecked = true;
+    return Future.value();
   }
 
   @override

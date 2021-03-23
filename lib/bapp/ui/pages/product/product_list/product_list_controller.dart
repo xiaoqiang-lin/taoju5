@@ -179,11 +179,16 @@ class ProductListController extends GetxController {
   final String type;
 
   int pageIndex = 1;
+  String keyword = "";
 
   ProductListController({@required this.type});
 
   Map get args {
-    Map map = {"category_type": type, "page_index": pageIndex};
+    Map map = {
+      "category_type": type,
+      "page_index": pageIndex,
+      "keyword": keyword
+    };
     if (Get.arguments != null && Get.arguments is SelectProductEvent) {
       SelectProductEvent event = Get.arguments;
       OrderDetailProductModel orderProduct = event.orderProduct;
@@ -191,10 +196,12 @@ class ProductListController extends GetxController {
       map.addAll(
           {"order_goods_id": orderProduct.id, "height": measureData.height});
     }
+    // String keyword = Get.parameters["keyword"];
+    // if (!GetUtils.isNullOrBlank(keyword)) {
+    //   map.addAll({"keyword": keyword});
+    // }
     return map;
   }
-
-  void assignArgs() {}
 
   Future loadData({Map params}) {
     loadState = XLoadState.busy;
@@ -232,9 +239,10 @@ class ProductListController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future refreshData({Map parameters}) {
+  Future refreshData({Map parameters, String keyword}) {
     pageIndex = 1;
     Map map = {};
+    this.keyword = keyword;
     map.addAll(args);
     map.addAll(parameters ?? {});
 

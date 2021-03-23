@@ -13,6 +13,7 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/bapp/ui/dialog/search/clear_search_history.dart';
 import 'package:taoju5/bapp/ui/pages/search/search_controller.dart';
+import 'package:taoju5/bapp/ui/pages/search/widget/search_item_tag.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_search_bar.dart';
 
 class SearchPage extends GetView<SearchController> {
@@ -111,18 +112,8 @@ class SearchPage extends GetView<SearchController> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 for (String str in _.visibleKeyList)
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.all(BDimens.gap24),
-                                          child: Text(str)),
-                                      Divider(
-                                        indent: BDimens.gap24,
-                                        endIndent: BDimens.gap24,
-                                      )
-                                    ],
+                                  SearchItemTag(
+                                    keyword: str,
                                   ),
                                 Expanded(
                                   child: SingleChildScrollView(
@@ -133,20 +124,9 @@ class SearchPage extends GetView<SearchController> {
                                           children: [
                                             for (String str
                                                 in _.unvisibleKeyList)
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.all(
-                                                          BDimens.gap24),
-                                                      child: Text(str)),
-                                                  Divider(
-                                                    indent: BDimens.gap24,
-                                                    endIndent: BDimens.gap24,
-                                                  )
-                                                ],
-                                              ),
+                                              SearchItemTag(
+                                                keyword: str,
+                                              )
                                           ],
                                         ),
                                         // ListView.separated(

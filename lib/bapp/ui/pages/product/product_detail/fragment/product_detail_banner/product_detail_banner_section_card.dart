@@ -33,7 +33,7 @@ class ProductDetailBannerCard extends StatelessWidget {
               fadeInDuration: const Duration(milliseconds: 75),
               closedShape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fitHeight,
               url: imageList[index]);
         },
       ),

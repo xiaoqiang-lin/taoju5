@@ -20,7 +20,9 @@ import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/order/cancel_order.dart';
 import 'package:taoju5/bapp/ui/dialog/order/cancel_product.dart';
 import 'package:taoju5/bapp/ui/dialog/order/order_remind.dart';
+import 'package:taoju5/bapp/ui/dialog/order/select_product.dart';
 import 'package:taoju5/bapp/ui/modal/order/modify_price.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_list/order_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
@@ -136,12 +138,10 @@ class OrderDetailController extends GetxController {
 
   OrderDetailModel order;
   XLoadState loadState = XLoadState.busy;
-
-  SelectProductParamsModel selectProductArgs;
+  final id = Get.parameters["id"];
 
   ///加载数据
-  Future<OrderDetailModelWrapper> _loadData() {
-    final id = Get.parameters["id"];
+  Future<OrderDetailModelWrapper> loadData() {
     loadState = XLoadState.busy;
     update();
     return _repository.orderDetail(params: {"order_id": id}).then((value) {
@@ -165,7 +165,13 @@ class OrderDetailController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future select() {
+  Future select({
+    @required String productId,
+    @required int orderProductId,
+  }) {
+    SelectProductParamsModel selectProductArgs = SelectProductParamsModel(
+        orderProductId: orderProductId, productId: productId);
+
     XLogger.v(selectProductArgs?.params);
     return _repository
         .selectProduct(params: selectProductArgs?.params)
@@ -173,7 +179,22 @@ class OrderDetailController extends GetxController {
         .whenComplete(() {
       Get.until(
           (route) => RegExp(BAppRoutes.orderDetail).hasMatch(Get.currentRoute));
-      _loadData();
+      loadData();
+    });
+  }
+
+  Future openSelectProductDialog() {
+    if (order.unselectedCount > 0) {
+      return showSelectProductDialog();
+    }
+    return submitSelectedProduct();
+  }
+
+  Future submitSelectedProduct() {
+    return _repository
+        .submitSelectedProduct(params: {"order_id": id}).then((value) {
+      Get.find<OrderListController>(tag: "${order.orderStatusCode}")
+          .refreshData();
     });
   }
 
@@ -246,7 +267,7 @@ class OrderDetailController extends GetxController {
 
   @override
   void onInit() {
-    _loadData();
+    loadData();
 
     super.onInit();
   }

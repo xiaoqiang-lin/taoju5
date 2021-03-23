@@ -154,6 +154,8 @@ class OrderListController extends GetxController {
   String time;
   int currentPage = 1;
 
+  String get customerId => Get.parameters["customerId"] ?? "";
+
   refreshData() {
     loadState = XLoadState.busy;
     currentPage = 1;
@@ -161,7 +163,8 @@ class OrderListController extends GetxController {
     _repository.orderList(params: {
       "status": status,
       "page": currentPage,
-      "order_time": time
+      "order_time": time,
+      "client_uid": customerId
     }).then((value) {
       orderList = value.orderModelList;
       if (GetUtils.isNullOrBlank(orderList)) {
@@ -183,7 +186,8 @@ class OrderListController extends GetxController {
     _repository.orderList(params: {
       "status": status,
       "page": currentPage,
-      "order_time": time
+      "order_time": time,
+      "client_uid": customerId
     }).then((value) {
       orderList.addAll(value.orderModelList);
       loadState = XLoadState.idle;
@@ -202,7 +206,8 @@ class OrderListController extends GetxController {
   OrderListController({@required this.status});
   Future<OrderModelListWrapper> _loadData() {
     loadState = XLoadState.busy;
-    return _repository.orderList(params: {"status": status}).then((value) {
+    return _repository.orderList(
+        params: {"status": status, "client_uid": customerId}).then((value) {
       orderList = value.orderModelList;
 
       if (GetUtils.isNullOrBlank(orderList)) {

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_cancel_button.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_confirm_select_button.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_remind_audit_button.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_remind_install_button.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_remind_measure_button.dart';
@@ -29,6 +30,7 @@ class OrderDetailBottomActionBar extends GetView<OrderDetailController> {
             margin: EdgeInsets.only(left: BDimens.gap24),
             child: Row(
               children: [
+                OrderConfirmSelectButton(),
                 OrderRemindAuditButton(),
                 OrderRemindMeasureButton(),
                 OrderRemindInstallButton(),

@@ -26,7 +26,8 @@ class SectionalbarAttrSelectorBar extends StatelessWidget {
             key: ValueKey(_.value),
             initialValue: _.value,
             onFuture: () => showCurtainAttrSelectorModal<
-                SectionalbarAttrSelectorController>(title: "型材更换", tag: tag),
+                    SectionalbarAttrSelectorController>(title: "型材更换", tag: tag)
+                .whenComplete(_.filter),
           ),
         );
       },
