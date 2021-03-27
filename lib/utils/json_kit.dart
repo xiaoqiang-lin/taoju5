@@ -44,7 +44,7 @@ abstract class JsonKit {
 
   static bool asBool(dynamic value) {
     if (GetUtils.isNullOrBlank(value)) return false;
-
+    if (value is bool) return value;
     if (value is num) return value > 0;
 
     return true;

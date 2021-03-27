@@ -20,10 +20,10 @@ class PatternSelectorBar extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("传递过来的tag---$tag");
     return GetBuilder<WindowPatternSelectorController>(
       tag: tag,
       id: "value",
+      autoRemove: false,
       builder: (_) {
         return Container(
           child: XSelectorTextField(

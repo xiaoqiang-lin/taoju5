@@ -15,7 +15,7 @@ import 'app_controller.dart';
 class TaojuwuBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(AppController());
+    Get.lazyPut(() => AppController());
     Get.put(TaojuwuController());
     Get.put(HomeController());
     Get.put(CustomerProviderController(), permanent: true);

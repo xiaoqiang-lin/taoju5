@@ -4,7 +4,7 @@
  * @Date: 2021-01-04 15:46:09
  * @LastEditTime: 2021-01-12 14:33:42
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/order/order_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
@@ -36,7 +36,7 @@ class _SelectOrderCard extends StatelessWidget {
                   height: 180.h,
                   child: AspectRatio(
                     aspectRatio: 1.0,
-                    child: CachedNetworkImage(imageUrl: product.image),
+                    child: XCachedNetworkImage(imageUrl: product.image),
                   ),
                 ),
                 Expanded(
@@ -171,7 +171,7 @@ class _UnMeasuredOrderCard extends StatelessWidget {
                   height: 180.h,
                   child: AspectRatio(
                     aspectRatio: 1.0,
-                    child: CachedNetworkImage(imageUrl: product.image),
+                    child: XCachedNetworkImage(imageUrl: product.image),
                   ),
                 ),
                 Expanded(
@@ -302,7 +302,7 @@ class _MeasuredOrderCard extends StatelessWidget {
                   height: 180.h,
                   child: AspectRatio(
                     aspectRatio: 1.0,
-                    child: CachedNetworkImage(imageUrl: product.image),
+                    child: XCachedNetworkImage(imageUrl: product.image),
                   ),
                 ),
                 Expanded(

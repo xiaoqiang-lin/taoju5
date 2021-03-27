@@ -5,6 +5,8 @@
  * @LastEditTime: 2021-01-11 17:31:08
  */
 
+import 'package:taoju5/utils/json_kit.dart';
+
 class AppInfoModel {
   int id;
   String system;
@@ -12,7 +14,8 @@ class AppInfoModel {
   String title;
   String downloadUrl;
   String log;
-  int updateTime;
+  String createAt;
+  bool isForceUpdate;
   AppInfoModel.fromJson(Map json) {
     id = json['id'];
     system = json['app_type'];
@@ -20,6 +23,7 @@ class AppInfoModel {
     title = json['title'];
     downloadUrl = json['download_address'];
     log = json['update_log'];
-    updateTime = json['updateTime'];
+    isForceUpdate = JsonKit.asBool(json["is_force_update"]);
+    createAt = JsonKit.formatDateTimeFromMillseconds(json["create_time"]);
   }
 }

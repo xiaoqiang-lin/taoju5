@@ -6,6 +6,7 @@
  */
 
 import 'package:flutter/foundation.dart';
+import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
 
@@ -14,6 +15,7 @@ import 'product_type.dart';
 class ProductModelListWrapper {
   List<ProductModel> list;
   int totalCount;
+  int targetCategoryType;
 
   ProductModelListWrapper.fromJson(Map json) {
     totalCount =
@@ -22,6 +24,7 @@ class ProductModelListWrapper {
             JsonKit.getValueInComplexMap(json, ["goods_list", "data"]))
         .map((e) => ProductModel.fromJson(e))
         .toList();
+    targetCategoryType = JsonKit.asInt(json["category_type"]);
   }
 }
 
@@ -36,6 +39,14 @@ class CurtainProductAttrAdapterModel {
       @required this.value,
       @required this.key,
       @required this.type});
+
+  ProductAttrAdapterModel adapt() {
+    ProductAttrAdapterModel e = ProductAttrAdapterModel();
+    e.type = int.parse(type);
+    e.key = key;
+    e.value = value;
+    return e;
+  }
 }
 
 ///[ProductModel]商品列表页 商品数据模型
@@ -59,10 +70,13 @@ class ProductModel {
   String skuId;
   String count = "1";
   String skuName;
+
+  int categoryType;
+
   ProductModel.fromJson(Map json) {
     id = json['goods_id'];
     name = json['goods_name'];
-    thumbnail = json['pic_cover_small'] ?? "";
+    thumbnail = JsonKit.asWebUrl(json['pic_cover_small'] ?? "");
     image = JsonKit.asWebUrl(
         (json['pic_cover_mid'] ?? json['image'] ?? json['picture']));
     code = json["goods_type"];
@@ -75,6 +89,7 @@ class ProductModel {
         (json['price'] ?? json['display_price'] ?? json['market_price']));
     skuId = json["sku_id"];
     skuName = json["sku_name"];
+    categoryType = JsonKit.asInt(json["category_type"]);
   }
 }
 

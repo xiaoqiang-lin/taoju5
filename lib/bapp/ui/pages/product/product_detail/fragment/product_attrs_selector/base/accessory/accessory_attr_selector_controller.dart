@@ -10,15 +10,16 @@ import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart
 import '../base_attr_selector_controller.dart';
 
 class AccessoryAttrSelectorController extends BaseAttrSelectorController {
-  CurtainProductAttrModel accessory;
+  CurtainProductAttrModel attr;
 
   @override
   void onInit() {
-    accessory = taojuwuController.accessory ?? CurtainProductAttrModel();
-
+    attr = taojuwuController.accessory ?? CurtainProductAttrModel();
+    attr.isMultiple = true;
+    initCheckState();
     super.onInit();
   }
 
   @override
-  String get value => accessory.currentOptionName;
+  String get value => attr.currentOptionName;
 }

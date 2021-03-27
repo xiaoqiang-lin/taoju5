@@ -31,6 +31,7 @@ class OrderDetailPage extends StatelessWidget {
         return XLoadStateBuilder(
           loadState: _.loadState,
           retry: _.loadData,
+          ifErrorBack: true,
           loadingWidget: OrderDetailSkeleton(),
           builder: (BuildContext context) {
             return Scaffold(

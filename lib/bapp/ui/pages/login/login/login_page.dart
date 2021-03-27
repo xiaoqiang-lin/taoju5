@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/login/login/login_controller.dart';
 
 import 'widget/loge_indicator.dart';
@@ -50,7 +51,10 @@ class LoginPage extends StatelessWidget {
                         IndexedStack(
                           index: _.loginMode == LoginMode.password ? 1 : 0,
                           children: [
-                            XSmsTextField(onChanged: _.setSms),
+                            XSmsTextField(
+                              onChanged: _.setSms,
+                              fetchSMS: _.getSms,
+                            ),
                             TextFormField(
                               obscureText: true,
                               autovalidateMode:
@@ -64,6 +68,15 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Container(
+                    width: Get.width,
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                        onPressed: () => Get.toNamed(BAppRoutes.forgetPassword),
+                        child: Text(
+                          "忘记密码?",
+                          style: TextStyle(color: BColors.greyTextColor),
+                        ))),
                 Container(
                     padding: EdgeInsets.symmetric(
                         vertical: BDimens.gap48, horizontal: BDimens.gap16),

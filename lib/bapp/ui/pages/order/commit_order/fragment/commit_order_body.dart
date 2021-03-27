@@ -4,7 +4,7 @@
  * @Date: 2021-01-07 22:14:53
  * @LastEditTime: 2021-02-01 17:46:27
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
@@ -52,7 +52,7 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                         width: 180.w,
                         child: AspectRatio(
                           aspectRatio: 1.0,
-                          child: CachedNetworkImage(imageUrl: product.image),
+                          child: XCachedNetworkImage(imageUrl: product.image),
                         ),
                       ),
                       Expanded(

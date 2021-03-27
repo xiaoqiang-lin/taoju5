@@ -107,7 +107,10 @@ class _XStepCounterState extends State<XStepCounter> {
                   controller: controller,
                   onChanged: onChange,
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(isCollapsed: true),
+                  decoration: InputDecoration(
+                      isCollapsed: true,
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none),
                 ),
               )),
           // XSizedTextField(

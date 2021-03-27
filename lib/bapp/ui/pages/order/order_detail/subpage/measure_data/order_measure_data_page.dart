@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/subpage/measure_data/order_measure_data_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_photo_gallery.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -163,7 +164,16 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                               width: 180.h,
                               child: AspectRatio(
                                   aspectRatio: 1,
-                                  child: XPhotoViewer(url: src)),
+                                  child: XPhotoViewer(
+                                    url: src,
+                                    openBuilder: (BuildContext context, _) {
+                                      return XPhotoGallery(
+                                        imageList: measureData.pictures,
+                                        currentIndex:
+                                            measureData.pictures.indexOf(src),
+                                      );
+                                    },
+                                  )),
                             ),
                           )
                       ],

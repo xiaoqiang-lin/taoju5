@@ -5,7 +5,7 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,10 +55,8 @@ class DesignCurtainProductCard extends StatelessWidget {
                               fontSize: BDimens.sp28),
                         )),
                     GestureDetector(
-                      onTap: () => Get.toNamed(
-                          BAppRoutes.editMeasureData + "/$tag",
-                          arguments: product,
-                          preventDuplicates: false),
+                      onTap: () => Get.find<DesignProductModalController>()
+                          .modifyMeasureData(product),
                       child: Row(
                         children: [
                           Text(
@@ -112,10 +110,8 @@ class DesignCurtainProductCard extends StatelessWidget {
                         fontSize: BDimens.sp24, fontWeight: FontWeight.w500),
                   ),
                   GestureDetector(
-                    onTap: () => Get.toNamed(
-                        BAppRoutes.modifyCurtainProductAttr +
-                            "/${product?.id}/0",
-                        preventDuplicates: false),
+                    onTap: () => Get.find<DesignProductModalController>()
+                        .modifyAttribute(product),
                     child: Row(
                       children: [
                         Text(

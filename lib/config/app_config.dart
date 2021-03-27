@@ -27,6 +27,9 @@ class AppConfig {
   static const buglyAndroidAppId = '0da7f235c9';
   static const buglyIosAppId = '9e3d92e673';
 
+  ///腾讯地图key
+  static const tencentMapKey = "IXSBZ-7VZWU-CCJV4-2224N-7H47F-XJBYC";
+
   /// 微信分享相关
   static const weChatAppId = 'wx1dda23b1cd57b8c2';
   static const weCharShareUniversalLink = 'https://ii1vy.share2dlink.com/';
@@ -48,8 +51,8 @@ class AppConfig {
   }
 
   static void setEnv({@required AppEnv appEnv, @required AppMode appMode}) {
-    AppConfig.env = env;
-    AppConfig.mode = mode;
+    AppConfig.env = appEnv;
+    AppConfig.mode = appMode;
     SharedPreferences.getInstance().then((SharedPreferences sp) {
       sp.setBool("isDebug", env == AppEnv.$b);
       sp.setBool("isBEnd", mode == AppMode.debug);

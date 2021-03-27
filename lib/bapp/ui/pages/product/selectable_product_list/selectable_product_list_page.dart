@@ -7,9 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_grid_mode_section.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_grid_mode_skeleton.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_list_mode_section.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_tab_view.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_filter/product_list_filter_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_header.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_controller.dart';
@@ -51,25 +50,35 @@ class SelectableProductListPage
                               tag: "0",
                               autoRemove: false,
                               builder: (_) {
-                                return parentController.isGridMode
-                                    ? ProductGridModeSection(
-                                        productList: _.productList,
-                                        scrollController: _.scrollController,
-                                        refreshController: _.refreshController,
-                                        onLoading: _.loadMore,
-                                        onRefresh: _.refreshData,
-                                        enablePullDown: true,
-                                        enablePullUp: true,
-                                      )
-                                    : ProductListModeSection(
-                                        productList: _.productList,
-                                        scrollController: _.scrollController,
-                                        refreshController: _.refreshController,
-                                        onLoading: _.loadMore,
-                                        onRefresh: _.refreshData,
-                                        enablePullDown: true,
-                                        enablePullUp: true,
-                                      );
+                                return ProductTabView(
+                                  productList: _.productList,
+                                  scrollController: _.scrollController,
+                                  refreshController: _.refreshController,
+                                  onLoading: _.loadMore,
+                                  onRefresh: _.refreshData,
+                                  enablePullDown: true,
+                                  enablePullUp: true,
+                                  mode: parentController.mode,
+                                );
+                                // return parentController.isGridMode
+                                //     ? ProductGridModeSection(
+                                //         productList: _.productList,
+                                //         scrollController: _.scrollController,
+                                //         refreshController: _.refreshController,
+                                //         onLoading: _.loadMore,
+                                //         onRefresh: _.refreshData,
+                                //         enablePullDown: true,
+                                //         enablePullUp: true,
+                                //       )
+                                //     : ProductListModeSection(
+                                //         productList: _.productList,
+                                //         scrollController: _.scrollController,
+                                //         refreshController: _.refreshController,
+                                //         onLoading: _.loadMore,
+                                //         onRefresh: _.refreshData,
+                                //         enablePullDown: true,
+                                //         enablePullUp: true,
+                                //       );
                               },
                             );
                           },

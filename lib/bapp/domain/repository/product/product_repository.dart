@@ -11,7 +11,9 @@ import 'package:taoju5/bapp/domain/model/product/product_collection_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_filter_tag_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/provider/product/product_api.dart';
+import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
 class ProductRepository {
@@ -183,6 +185,15 @@ class ProductRepository {
   ///修改购物车商品数量
   Future<BaseResponse> modifyProuductCountInCart({Map params}) =>
       _api.modifyProuductCountInCart(params: params);
+
+  ///获取购物车分类
+  Future<List<ProductTabModel>> cartCategory({Map params}) =>
+      _api.cartCategory(params: params).then((BaseResponse response) {
+        return JsonKit.asList(response.data)
+            .map((e) => ProductTabModel.fromJson(e))
+            .toList()
+            .cast<ProductTabModel>();
+      });
 
   ///修改购物车成品属性
   Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>

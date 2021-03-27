@@ -24,8 +24,8 @@ class RibouxAttrSelectorBar extends StatelessWidget {
         return Container(
           child: XSelectorTextField(
             label: Text("里布"),
-            key: ValueKey(_.value),
-            initialValue: _.value,
+            key: ValueKey(_.description),
+            initialValue: _.description,
             onFuture: () =>
                 showCurtainAttrSelectorModal<RibouxAttrSelectorController>(
                         title: "里布选择", tag: tag)

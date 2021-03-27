@@ -37,16 +37,23 @@ Future showRoomAttrSelectorModal(
                       child: Column(
                         children: [
                           Wrap(
+                            alignment: WrapAlignment.start,
                             // crossAxisAlignment: ,
-                            spacing: BDimens.gap24,
+                            // spacing: BDimens.gap24,
+
                             runSpacing: BDimens.gap32,
                             children: [
                               for (CurtainProductAttrOptionModel o
                                   in _.attr.optionList)
-                                XCheckButton(
-                                    isChecked: o.isChecked,
-                                    onPresss: () => _.select(_.attr, o),
-                                    child: Text(o.name))
+                                Container(
+                                  margin: EdgeInsets.only(left: BDimens.gap16),
+                                  child: XCheckButton(
+                                      isChecked: o.isChecked,
+                                      constraints: BoxConstraints(
+                                          minWidth: 64, minHeight: 32),
+                                      onPresss: () => _.select(_.attr, o),
+                                      child: Text(o.name)),
+                                )
                             ],
                           ),
                         ],

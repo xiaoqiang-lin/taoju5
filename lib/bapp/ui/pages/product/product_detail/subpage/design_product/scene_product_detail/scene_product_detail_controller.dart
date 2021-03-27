@@ -8,13 +8,13 @@
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
-
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 
 import '../design_product_detail_controller.dart';
 
 class SceneProductDetailController extends DesignProductDetailController {
-  final id = Get.parameters["id"];
+  String id = Get.parameters["id"];
+  String tag = Get.parameters["fromId"];
   List<DesignProductModel> sceneList;
   XLoadState loadState = XLoadState.idle;
   Future loadData() {

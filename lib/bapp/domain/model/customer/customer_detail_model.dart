@@ -44,9 +44,15 @@ class CustomerDetailModel {
         icon: "customer_cart.png", title: "退款/售后", onTap: () {}),
   ];
   CustomerDetailModel(
-      {this.id, this.name, this.address, this.tel, this.gender}) {
+      {this.id,
+      this.name,
+      this.address,
+      this.tel,
+      this.gender,
+      this.enterTime}) {
     gender ??= XGender.male;
     address ??= CustomerAddressModel();
+    enterTime ??= DateTime.now();
   }
 
   CustomerDetailModel.fromJson(Map json) {

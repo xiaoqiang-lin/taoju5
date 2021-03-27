@@ -3,6 +3,7 @@ import 'package:scan/scan.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/xdio/x_dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ScanQRCodeController extends GetxController {
   ScanController scanController;
@@ -27,12 +28,15 @@ class ScanQRCodeController extends GetxController {
         (BaseResponse response) {
       String id;
       if (response?.data is Map) {
-        id = response.data["goods_id"];
+        id = "${response.data["goods_id"]}";
       }
       if (response.data is int || response.data is String) {
         id = "${response.data}";
       }
-      Get.toNamed(BAppRoutes.productDetail + "/$id");
+      Get.offAndToNamed(BAppRoutes.productDetail + "/$id");
+    }).catchError((err) {
+      EasyLoading.showInfo("二维码无效");
+      Get.back();
     });
   }
 

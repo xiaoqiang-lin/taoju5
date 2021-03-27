@@ -6,14 +6,15 @@
  */
 
 import 'package:animations/animations.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class XPhotoViewer extends StatelessWidget {
+class XPhotoViewer<T> extends StatelessWidget {
   final String url;
   final String bigImageUrl;
   final BoxFit fit;
@@ -22,6 +23,10 @@ class XPhotoViewer extends StatelessWidget {
   final ShapeBorder closedShape;
   final Duration fadeInDuration;
   final Duration fadeOutDuration;
+  final OpenContainerBuilder<T> openBuilder;
+  final PlaceholderWidgetBuilder placeholder;
+  final Duration placeholderFadeInDuration;
+  final String thumbnail;
   const XPhotoViewer(
       {Key key,
       @required this.url,
@@ -31,8 +36,12 @@ class XPhotoViewer extends StatelessWidget {
       this.width,
       this.closedShape = const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(4))),
+      this.fadeOutDuration,
       this.fadeInDuration = const Duration(milliseconds: 375),
-      this.fadeOutDuration = const Duration(milliseconds: 500)})
+      this.openBuilder,
+      this.placeholder,
+      this.placeholderFadeInDuration,
+      this.thumbnail})
       : super(key: key);
 
   @override
@@ -41,26 +50,32 @@ class XPhotoViewer extends StatelessWidget {
         closedElevation: 0,
         closedShape: closedShape,
         closedBuilder: (BuildContext context, _) {
-          return CachedNetworkImage(
+          return XCachedNetworkImage(
             fit: fit,
             imageUrl: url,
             width: width,
             height: height,
             fadeOutDuration: fadeOutDuration,
             fadeInDuration: fadeInDuration,
+            placeholder: placeholder,
+            placeholderFadeInDuration: placeholderFadeInDuration,
           );
         },
-        openBuilder: (BuildContext context, _) {
-          return XInteractivePhotoViewer(
-            imageUrl: bigImageUrl ?? url,
-          );
-        });
+        openBuilder: openBuilder ??
+            (BuildContext context, _) {
+              return XInteractivePhotoViewer(
+                imageUrl: bigImageUrl ?? url,
+                thumbnail: thumbnail ?? url,
+              );
+            });
   }
 }
 
 class XInteractivePhotoViewer extends StatefulWidget {
   final String imageUrl;
-  const XInteractivePhotoViewer({Key key, this.imageUrl}) : super(key: key);
+  final String thumbnail;
+  const XInteractivePhotoViewer({Key key, this.imageUrl, this.thumbnail})
+      : super(key: key);
 
   @override
   _XInteractivePhotoViewerState createState() =>
@@ -85,9 +100,8 @@ class _XInteractivePhotoViewerState extends State<XInteractivePhotoViewer> {
               left: 10,
               right: 10,
               child: PhotoView(
-                loadingBuilder: (context, _) => CupertinoActivityIndicator(
-                  radius: 24,
-                ),
+                loadingBuilder: (context, _) =>
+                    CupertinoActivityIndicator(radius: 24),
                 imageProvider: NetworkImage(widget.imageUrl),
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.
 import 'package:get/get.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_photo_gallery.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 class OrderManualScriptCard extends GetView<OrderDetailController> {
@@ -35,7 +36,19 @@ class OrderManualScriptCard extends GetView<OrderDetailController> {
                     child: Container(
                         height: 180.h,
                         child: AspectRatio(
-                            aspectRatio: 1, child: XPhotoViewer(url: src))),
+                            aspectRatio: 1,
+                            child: XPhotoViewer(
+                              url: src,
+                              openBuilder: (BuildContext context, _) {
+                                return XPhotoGallery(
+                                  imageList:
+                                      controller.order.manualscriptPictureList,
+                                  currentIndex: controller
+                                      .order.manualscriptPictureList
+                                      .indexOf(src),
+                                );
+                              },
+                            ))),
                   )
               ],
             )

@@ -18,7 +18,15 @@ class LoginAPI {
   Future<BaseResponse> getSms(String url, {Map params}) =>
       XDio().post(url, formData: params);
 
+  ///校验验证码
+  Future<BaseResponse> checkSms(String url, {Map params}) =>
+      XDio().post(url, formData: params);
+
   ///重置密码
   Future<BaseResponse> resetPassword(String url, {Map params}) =>
       XDio().post(url, formData: params);
+
+  ///修改密码
+  Future<BaseResponse> setPassword({Map params}) =>
+      XDio().post("/api/login/passwordReset", formData: params);
 }

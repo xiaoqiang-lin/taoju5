@@ -5,7 +5,6 @@
  * @LastEditTime: 2021-02-01 14:36:08
  */
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/domain/model/customer/customer_category_model.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_table_model.dart';
 import 'package:taoju5/bapp/domain/repository/customer/customer_repository.dart';
@@ -17,8 +16,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CustomerTableController extends GetxController {
   CustomerRepository _repository = CustomerRepository();
-
-  CustomerCategoryModel category = Get.arguments.category;
 
   List<CustomerModel> customerList = [];
 
@@ -32,9 +29,9 @@ class CustomerTableController extends GetxController {
     loadState = XLoadState.busy;
     update();
 
-    return _repository
-        .categoryCustomerList(params: {"client_type": category?.type}).then(
-            (CustomerTableModel data) {
+    return _repository.categoryCustomerList(params: {
+      "client_type": Get.parameters["type"]
+    }).then((CustomerTableModel data) {
       customerList = data.customerList;
       if (GetUtils.isNullOrBlank(customerList)) {
         loadState = XLoadState.empty;
@@ -67,6 +64,7 @@ class CustomerTableController extends GetxController {
   void onInit() {
     super.onInit();
     loadData();
+
     refreshController = RefreshController();
   }
 

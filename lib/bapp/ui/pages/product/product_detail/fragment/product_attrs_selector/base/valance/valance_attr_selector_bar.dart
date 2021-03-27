@@ -23,8 +23,8 @@ class ValanceAttrSelectorBar extends StatelessWidget {
         return Container(
           child: XSelectorTextField(
             label: Text("幔头"),
-            key: ValueKey(_.value),
-            initialValue: _.value,
+            key: ValueKey(_.description),
+            initialValue: _.description,
             onFuture: () =>
                 showCurtainAttrSelectorModal<ValanceAttrSelectorController>(
                         title: "幔头选择", tag: tag)

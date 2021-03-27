@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_controller.dart';
@@ -28,9 +27,7 @@ class SoftProductDetailPage extends StatelessWidget {
         title: Text("软装方案"),
         actions: [
           XCustomerChooseButton(
-            event: ChooseCustomerEventModel(
-                fromUrl: BAppRoutes.softProductDetail +
-                    "/${Get.parameters["productId"]}/${Get.parameters["id"]}"),
+            event: ChooseCustomerEventModel(fromUrl: Get.currentRoute),
           )
         ],
       ),
@@ -71,8 +68,8 @@ class SoftProductDetailPage extends StatelessWidget {
                                     color: BColors.highLightColor),
                               ),
                               ElevatedButton(
-                                  onPressed: () =>
-                                      showDesignProductModal(id: _.id),
+                                  onPressed: () => showDesignProductModal(
+                                      id: _.id, fromId: _.productId),
                                   child: Text("立即购买"))
                             ],
                           ),

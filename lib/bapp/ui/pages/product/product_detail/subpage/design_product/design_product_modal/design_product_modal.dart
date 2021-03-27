@@ -17,13 +17,14 @@ import 'widget/design_finished_product_card.dart';
 
 class DesignProductModal extends StatelessWidget {
   final String id;
-  const DesignProductModal({Key key, @required this.id}) : super(key: key);
+  final String fromId;
+  const DesignProductModal({Key key, @required this.id, @required this.fromId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DesignProductModalController>(
-        init: DesignProductModalController(id: id),
-        autoRemove: true,
+        init: DesignProductModalController(id: id, fromId: fromId),
         builder: (_) {
           return XBaseModal(
             height: Get.height * 0.84,
@@ -58,7 +59,7 @@ class DesignProductModal extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _.designProduct.name,
+                                              _.designProduct?.name ?? "",
                                               style: TextStyle(
                                                   fontSize: BDimens.sp32,
                                                   fontWeight: FontWeight.w500),
@@ -68,7 +69,8 @@ class DesignProductModal extends StatelessWidget {
                                                 padding: EdgeInsets.symmetric(
                                                     vertical: BDimens.gap8),
                                                 child: Text(
-                                                  _.designProduct.fullName,
+                                                  _.designProduct?.fullName ??
+                                                      "",
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -82,7 +84,7 @@ class DesignProductModal extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "¥${_.designProduct.totalPrice.toStringAsFixed(2)}",
+                                                  "¥${_.designProduct.totalPrice.toStringAsFixed(2) ?? ""}",
                                                   style: TextStyle(
                                                       color: BColors
                                                           .highLightColor,
@@ -92,7 +94,7 @@ class DesignProductModal extends StatelessWidget {
                                                   margin: EdgeInsets.only(
                                                       left: BDimens.gap16),
                                                   child: Text(
-                                                    "¥${_.designProduct.marketPrice.toStringAsFixed(2)}",
+                                                    "¥${_.designProduct.marketPrice.toStringAsFixed(2) ?? ""}",
                                                     style: TextStyle(
                                                         color: BColors
                                                             .tipTextColor,

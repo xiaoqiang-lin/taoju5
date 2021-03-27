@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/user/user_info_model.dart';
 import 'package:taoju5/bapp/domain/repository/login/login_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/utils/x_logger.dart';
@@ -60,6 +61,7 @@ class LoginController extends GetxController {
       ///刷新dio中的token
       XDio().refreshToken(model.token);
       save(model);
+      Get.find<TaojuwuController>().loadData();
 
       ///页面跳转
       Get.offNamed(BAppRoutes.home);
@@ -85,7 +87,10 @@ class LoginController extends GetxController {
   ///[params]: [mobile]手机号码  [type]验证码类型  2 登录
   ///[return]:
   Future getSms() {
-    return _repository.getSms(params: params);
+    if (args.validate()) {
+      return _repository.getSms(params: params);
+    }
+    return Future.error(false);
   }
 
   void switchMode({@required LoginMode mode, @required double startx}) {
@@ -127,7 +132,7 @@ class LoginParamModel extends ParamsValidator {
     }
     if (flag == LoginMode.sms) {
       bool isValidTel = isNullOrBlank(mobile, message: "请输入正确的手机号");
-      bool isValidPassword = isPassword(password, message: "密码不能为空哦");
+      bool isValidPassword = isPassword(code, message: "验证码不能为空哦");
       return isValidTel && isValidPassword;
     }
     return true;

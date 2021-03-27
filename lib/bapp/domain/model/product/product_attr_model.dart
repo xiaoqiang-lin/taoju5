@@ -13,6 +13,7 @@ class ProductAttrAdapterModel {
   String value;
   double totalPrice;
 
+  ProductAttrAdapterModel();
   ProductAttrAdapterModel.fromJson(Map json) {
     type = json["type"];
     key = json["attr_category"];

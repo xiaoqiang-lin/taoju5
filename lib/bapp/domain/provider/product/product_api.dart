@@ -90,6 +90,10 @@ class ProductAPI {
   Future<BaseResponse> modifyProuductCountInCart({Map params}) =>
       XDio().get("/api/goods/modifyCartNum", params: params);
 
+  ///获取购物车分类列表
+  Future<BaseResponse> cartCategory({Map params}) =>
+      XDio().get("/api/goods/cartCategoryList", params: params);
+
   ///修改购物车成品属性
   Future<BaseResponse> modifyProuductAttrInCart({Map params}) =>
       XDio().get("/api/goods/modifyCartAccessory", params: params);

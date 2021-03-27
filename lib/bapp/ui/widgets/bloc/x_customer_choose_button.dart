@@ -44,8 +44,8 @@ class _XCustomerChooseButtonState extends State<XCustomerChooseButton> {
 
           ///传递一个bool参数 表示是否展示 “选择已有客户” 的按钮
           onPressed: enabled
-              ? () => Get.toNamed(BAppRoutes.customerEdit + "/1",
-                  arguments: widget.event)
+              ? () =>
+                  Get.toNamed(BAppRoutes.customerEdit, arguments: widget.event)
               : null,
           icon: Image.asset(
             "assets/images/" + "customer_badge.png",

@@ -25,14 +25,15 @@ class XLoadStateBuilder extends StatelessWidget {
   final WidgetBuilder builder;
   final TransitionAnimationType animationType;
   final Function retry;
-
+  final bool ifErrorBack;
   XLoadStateBuilder(
       {Key key,
       this.loadingWidget = const XLoadingWidget(),
       @required this.builder,
       this.loadState = XLoadState.busy,
       this.retry,
-      this.animationType = TransitionAnimationType.none})
+      this.animationType = TransitionAnimationType.none,
+      this.ifErrorBack = false})
       : errorWidget = XErrorWidget(onTap: retry),
         emptyWidget = XEmptyWidget(onTap: retry),
         netoffWidget = XNetoffWidget(onTap: retry),
@@ -77,6 +78,14 @@ class XLoadStateBuilder extends StatelessWidget {
       return loadingWidget;
     }
     if (loadState == XLoadState.error) {
+      if (ifErrorBack) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("返回上一页"),
+          ),
+          body: errorWidget,
+        );
+      }
       return errorWidget;
     }
     if (loadState == XLoadState.empty) {

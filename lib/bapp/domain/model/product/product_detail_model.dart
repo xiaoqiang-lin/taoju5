@@ -10,9 +10,11 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/interface/i_xselectable.dart';
 import 'package:taoju5/utils/json_kit.dart';
+import 'package:taoju5/utils/x_logger.dart';
 
 import 'abstract_product_model.dart';
 import 'design_product_model.dart';
+import 'product_image_model.dart';
 
 class ProductDetailModelWrapper {
   ProductDetailModel product;
@@ -71,6 +73,8 @@ class ProductDetailModel implements AbstractProdductModel {
 
   String unit;
   List<String> imgList;
+
+  List<ProductImageModel> imageList;
   String skuId;
   String skuName;
   int defalutSkuId;
@@ -120,9 +124,14 @@ class ProductDetailModel implements AbstractProdductModel {
     marketPrice = JsonKit.asDouble(json['market_price']);
     price = JsonKit.asDouble(json['price']);
     unit = json["goods_unit"];
+    XLogger.v(json['goods_img_list']);
     imgList = JsonKit.asList(json['goods_img_list'])
         .map((e) => JsonKit.asWebUrl(
             JsonKit.getValueByKey(e, 'pic_cover_long').toString()))
+        .toList();
+
+    imageList = JsonKit.asList(json["goods_img_list"])
+        .map((e) => ProductImageModel.fromJson(e))
         .toList();
     cover = JsonKit.getValueByKey(json['picture_info'], 'pic_cover_small') ??
         JsonKit.asWebUrl(json['image'] ?? imgList?.first);

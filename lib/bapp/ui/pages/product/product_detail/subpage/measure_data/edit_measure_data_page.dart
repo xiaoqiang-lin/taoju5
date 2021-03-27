@@ -24,13 +24,19 @@ class EditMeasureDataPage extends StatelessWidget {
 
   String get tag => Get.parameters["id"];
 
+  Map get measureData {
+    EditMeasureDataParamsModel args = EditMeasureDataParamsModel(tag: tag);
+    return args.params;
+  }
+
   void confirm() {
     Get.find<WindowStyleSelectorController>(tag: tag).confirm();
     Get.find<SizeSelectorController>(tag: tag).confirm();
 
     ///更新总价
-    Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
-    Get.back();
+    Get.find<ProductDetailController>(tag: tag)
+        .update(["totalPrice", "attributeCard"]);
+    Get.back(result: measureData);
   }
 
   @override

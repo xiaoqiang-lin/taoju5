@@ -139,6 +139,14 @@ class CommitOrderController extends GetxController {
 
   UserProviderController get userProviderController =>
       Get.find<UserProviderController>();
+  double get totalPrice {
+    if (GetUtils.isNullOrBlank(productList)) return 0;
+    double total = 0;
+    for (ProductAdapterModel prodcut in productList) {
+      total += prodcut.totalPrice;
+    }
+    return total;
+  }
 
   UserInfoModel get user => userProviderController.user;
 
@@ -172,11 +180,13 @@ class CommitOrderController extends GetxController {
       return Future.value(false);
     }
 
-    // if (!params.isOrderDepositNullOrBlank()) {
-    //   ///滚动到底部
-    //   scrollToBottom();
-    //   return Future.value(false);
-    // }
+    if (productList.any((e) => e.productType is CurtainProductType)) {
+      if (!params.isOrderDepositNullOrBlank()) {
+        ///滚动到底部
+        scrollToBottom();
+        return Future.value(false);
+      }
+    }
 
     // Map args = {};
     // args.addAll(params?.params ?? {});

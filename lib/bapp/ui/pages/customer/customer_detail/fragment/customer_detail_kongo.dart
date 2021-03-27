@@ -10,7 +10,9 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/customer_detail_controller.dart';
 
 class CustomerDetailKongo extends StatelessWidget {
-  const CustomerDetailKongo({Key key}) : super(key: key);
+  final Color backgroundColor;
+  const CustomerDetailKongo({Key key, this.backgroundColor = Colors.white})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,9 @@ class CustomerDetailKongo extends StatelessWidget {
       builder: (_) {
         return Container(
           margin: EdgeInsets.symmetric(
-              horizontal: BDimens.gap32, vertical: BDimens.gap48),
+              horizontal: BDimens.gap32, vertical: BDimens.gap32),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: backgroundColor,
               borderRadius: BorderRadius.all(Radius.circular(5)),
               boxShadow: [
                 BoxShadow(

@@ -13,6 +13,7 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/product/collect/remove_from_collection.dart';
+import 'package:taoju5/bapp/ui/pages/product/collection/collection_skeleton.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 
 import 'collection_controller.dart';
@@ -34,6 +35,7 @@ class CollectionPage extends StatelessWidget {
           return XLoadStateBuilder(
               loadState: _.loadState,
               retry: _.loadData,
+              loadingWidget: CollectionSkeleton(),
               builder: (BuildContext context) {
                 return AutoList(
                   duration: const Duration(milliseconds: 375),

@@ -24,4 +24,7 @@ class TaojuwuAPI {
 
   Future<BaseResponse> userProtocol({Map params}) =>
       XDio().get("/api/login/registerAgreement", params: params);
+
+  Future<BaseResponse> locate({Map params}) =>
+      XDio().get("https://apis.map.qq.com/ws/geocoder/v1/", params: params);
 }

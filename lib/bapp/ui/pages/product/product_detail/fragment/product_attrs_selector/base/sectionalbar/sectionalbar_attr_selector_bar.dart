@@ -19,15 +19,16 @@ class SectionalbarAttrSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SectionalbarAttrSelectorController>(
       tag: tag,
+      id: "attribute",
       builder: (_) {
         return Container(
           child: XSelectorTextField(
             label: Text("型材"),
-            key: ValueKey(_.value),
-            initialValue: _.value,
+            key: ValueKey(_.description),
+            initialValue: _.description,
             onFuture: () => showCurtainAttrSelectorModal<
                     SectionalbarAttrSelectorController>(title: "型材更换", tag: tag)
-                .whenComplete(_.filter),
+                .whenComplete(_.update),
           ),
         );
       },

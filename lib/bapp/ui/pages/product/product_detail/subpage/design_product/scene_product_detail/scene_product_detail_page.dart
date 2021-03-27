@@ -13,7 +13,6 @@ import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
-import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_skeleton.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';
@@ -22,7 +21,7 @@ import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_thumbnail_card.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'scene_product_detail_controller.dart';
 import 'widget/x_tag_chip.dart';
 
@@ -36,9 +35,7 @@ class SceneProductDetailPage extends StatelessWidget {
         title: Text("相关场景"),
         actions: [
           XCustomerChooseButton(
-            event: ChooseCustomerEventModel(
-                fromUrl:
-                    BAppRoutes.sceneProductDetail + "/${Get.parameters["id"]}"),
+            event: ChooseCustomerEventModel(fromUrl: Get.currentRoute),
           )
         ],
       ),
@@ -107,7 +104,7 @@ class SceneProductDetailPage extends StatelessWidget {
                               ),
                               ElevatedButton(
                                   onPressed: () =>
-                                      showDesignProductModal(id: _.id),
+                                      _.openDesignProductModal(fromId: _.tag),
                                   child: Text("立即购买"))
                             ],
                           ),
@@ -136,7 +133,8 @@ class SceneProductDetailPage extends StatelessWidget {
                             DesignProductModel e = _.sceneList[i];
                             return GestureDetector(
                               onTap: () => Get.toNamed(
-                                  BAppRoutes.sceneProductDetail + "/${e.id}"),
+                                  BAppRoutes.sceneProductDetail +
+                                      "?id=${e.id}&fromId=${_.fromId}"),
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -153,7 +151,7 @@ class SceneProductDetailPage extends StatelessWidget {
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(5),
                                             topRight: Radius.circular(5)),
-                                        child: CachedNetworkImage(
+                                        child: XCachedNetworkImage(
                                           imageUrl: e.image,
                                           fit: BoxFit.cover,
                                         ),

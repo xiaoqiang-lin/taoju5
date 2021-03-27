@@ -4,7 +4,7 @@
  * @Date: 2021-01-15 20:21:16
  * @LastEditTime: 2021-01-15 21:17:50
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
@@ -43,7 +43,7 @@ class CurtainProductCartCard extends StatelessWidget {
                     margin: EdgeInsets.only(right: BDimens.gap20),
                     child: AspectRatio(
                       aspectRatio: 1.0,
-                      child: CachedNetworkImage(
+                      child: XCachedNetworkImage(
                         imageUrl: product.image,
                       ),
                     ),

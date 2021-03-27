@@ -75,7 +75,7 @@ class ProductSharePage extends StatelessWidget {
                 // ),
                 SliverToBoxAdapter(
                   child: ProductDetailBannerCard(
-                    imageList: _.product.imgList,
+                    imageList: _.product.imageList,
                   ),
                 ),
                 SliverToBoxAdapter(

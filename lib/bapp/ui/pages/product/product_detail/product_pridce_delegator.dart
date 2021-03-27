@@ -8,7 +8,6 @@
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_bar.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
@@ -16,6 +15,8 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/valance/valance_attr_selector_controller.dart';
 
 import 'package:taoju5/utils/common_kit.dart';
+
+import 'fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
 
 class BasePoductPriceDelegatorController extends GetxController {
   @override
@@ -69,7 +70,7 @@ abstract class BaseCurtainProuctPriceDelegator
 
   ///窗纱的价格
   double get gauzePrice {
-    if (Get.isRegistered<GauzeAttrSelectorBar>(tag: tag)) {
+    if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
       GauzeAttrSelectorController controller =
           Get.find<GauzeAttrSelectorController>(tag: tag);
       return controller.attr.currentOptionPrice;
@@ -79,11 +80,11 @@ abstract class BaseCurtainProuctPriceDelegator
 
   ///配饰的价格
   double get accessoryPrice {
-    // if (Get.isRegistered<AccessoryAttrSelectorController>(tag: tag)) {
-    //   AccessoryAttrSelectorController controller =
-    //       Get.find<AccessoryAttrSelectorController>(tag: tag);
-    //   return controller.attr.currentOptionPrice;
-    // }
+    if (Get.isRegistered<AccessoryAttrSelectorController>(tag: tag)) {
+      AccessoryAttrSelectorController controller =
+          Get.find<AccessoryAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
     return 0.0;
   }
 

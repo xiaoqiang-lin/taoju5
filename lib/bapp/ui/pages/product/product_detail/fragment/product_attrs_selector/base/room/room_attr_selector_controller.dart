@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 class RoomAttrSelectorController extends BaseAttrSelectorController {
   CurtainProductAttrModel attr;
 
+  @override
   void onInit() {
     attr = taojuwuController.room;
     initCheckState();
@@ -50,10 +51,5 @@ class RoomAttrSelectorController extends BaseAttrSelectorController {
       o.isChecked = o.name == measureData.room;
     });
     update();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

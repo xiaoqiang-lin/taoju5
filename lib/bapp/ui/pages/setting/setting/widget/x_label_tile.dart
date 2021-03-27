@@ -28,7 +28,15 @@ class XLabelTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         color: Theme.of(context).primaryColor,
         child: Row(
-          children: [Text(label), Spacer(), trailing, Icon(BIcons.next)],
+          children: [
+            Text(
+              label,
+              style: labelTextStyle,
+            ),
+            Spacer(),
+            trailing,
+            Icon(BIcons.next)
+          ],
         ),
       ),
     );

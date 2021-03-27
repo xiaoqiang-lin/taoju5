@@ -118,7 +118,10 @@ class ProductListFilterController extends GetxController {
 
   @override
   void onInit() {
-    loadData();
+    loadData(params: {
+      "category_type":
+          Get.find<ProductListParentController>().currentTabModel.id
+    });
     super.onInit();
   }
 }

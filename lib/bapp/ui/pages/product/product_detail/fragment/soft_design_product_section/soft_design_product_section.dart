@@ -17,9 +17,9 @@ import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 class SoftDesignProductSection extends StatelessWidget {
   final List<DesignProductModel> productList;
-  final int fromProductId;
+  final String fromId;
   const SoftDesignProductSection(
-      {Key key, this.productList, @required this.fromProductId})
+      {Key key, this.productList, @required this.fromId})
       : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class SoftDesignProductSection extends StatelessWidget {
                     DesignProductModel product = productList[i];
                     return GestureDetector(
                       onTap: () => Get.toNamed(BAppRoutes.softProductDetail +
-                          "/$fromProductId/${product.id}"),
+                          "?fromId=$fromId&id=${product.id}"),
                       child: Container(
                         margin: EdgeInsets.only(top: 4, bottom: 32),
                         decoration: BoxDecoration(
@@ -65,7 +65,10 @@ class SoftDesignProductSection extends StatelessWidget {
                           children: [
                             AspectRatio(
                                 aspectRatio: 1,
-                                child: XPhotoViewer(url: product.image)),
+                                child: XPhotoViewer(
+                                  url: product.image,
+                                  fit: BoxFit.fitHeight,
+                                )),
                             Expanded(
                                 flex: 3,
                                 child: Container(
@@ -122,7 +125,8 @@ class SoftDesignProductSection extends StatelessWidget {
                                           GestureDetector(
                                               onTap: () =>
                                                   showDesignProductModal(
-                                                      id: "${product.id}"),
+                                                      id: "${product.id}",
+                                                      fromId: fromId),
                                               child: Text(
                                                 "立即购买",
                                                 style: TextStyle(

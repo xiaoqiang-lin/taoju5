@@ -638,10 +638,6 @@
     <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="image">image</string>
-    <string name="jg_channel_name_p_default">NORMAL</string>
-    <string name="jg_channel_name_p_high">HIGH</string>
-    <string name="jg_channel_name_p_low">LOW</string>
-    <string name="jg_channel_name_p_min">LOW</string>
     <string name="library_zxingandroidembedded_author" translatable="false">JourneyApps</string>
     <string name="library_zxingandroidembedded_authorWebsite" translatable="false">https://journeyapps.com/</string>
     <string name="library_zxingandroidembedded_isOpenSource" translatable="false">true</string>
@@ -2156,16 +2152,6 @@
         <!-- Show a splash screen on the activity. Automatically removed when
              Flutter draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
-    </style>
-    <style name="MyDialogStyle">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:backgroundDimEnabled">true</item>
     </style>
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>

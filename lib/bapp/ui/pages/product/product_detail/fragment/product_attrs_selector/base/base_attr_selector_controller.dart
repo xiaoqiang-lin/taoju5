@@ -9,13 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product_attr/modify_curtain_product_attr_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
+import 'package:taoju5/utils/common_kit.dart';
 
 abstract class BaseAttrSelectorController extends GetxController {
   TaojuwuController taojuwuController = Get.find<TaojuwuController>();
@@ -23,6 +26,9 @@ abstract class BaseAttrSelectorController extends GetxController {
   CurtainProductAttrModel attr;
 
   String get value => attr?.currentOptionName;
+
+  String get description =>
+      "${attr?.currentOptionName ?? ""} ${CommonKit.isNullOrZero(attr?.currentOptionPrice) ? "" : "¥" + attr?.currentOptionPrice?.toStringAsFixed(2)}";
 
   String get valueId => attr?.currentOptionId;
 
@@ -32,9 +38,13 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   @override
   void onInit() {
-    initFromCartPorductModel();
-
+    _init();
     super.onInit();
+  }
+
+  void _init() {
+    _initFromCartPorductModel();
+    _initFromMixinProductModel();
   }
 
   void initCheckState() {
@@ -53,19 +63,40 @@ abstract class BaseAttrSelectorController extends GetxController {
     }
   }
 
-  void initFromCartPorductModel() {
+  void _initFromCartPorductModel() {
     if (Get.isRegistered<CartListParentController>()) {
-      CartPorductModel e = Get.arguments;
-      e?.attrsList?.forEach((el) {
-        if (el?.type == attr?.type) {
+      if (Get.arguments != null &&
+          Get.arguments is ModifyCurtainProductAttrEvent) {
+        ModifyCurtainProductAttrEvent event = Get.arguments;
+        CartPorductModel e = event.cart;
+        e?.attrsList?.forEach((el) {
+          if (el?.type == attr?.type) {
+            attr?.optionList?.forEach((o) {
+              o?.isChecked =
+                  o.name.contains(el?.value) || el.value.contains(o.name);
+              o?.hasConfirmed = o?.isChecked;
+            });
+          }
+        });
+      }
+
+      update(["attribute"]);
+    }
+  }
+
+  void _initFromMixinProductModel() {
+    if (Get.arguments != null &&
+        Get.arguments is ModifyCurtainProductAttrEvent) {
+      ModifyCurtainProductAttrEvent event = Get.arguments;
+      if (GetUtils.isNullOrBlank(event.attrList)) return;
+      event.attrList?.forEach((el) {
+        if (el.type == "${attr?.type}") {
           attr?.optionList?.forEach((o) {
-            o?.isChecked =
-                o.name.contains(el?.value) || el.value.contains(o.name);
+            o?.isChecked = el.id == "${o.id}";
             o?.hasConfirmed = o?.isChecked;
           });
         }
       });
-      update(["attribute"]);
     }
   }
 
@@ -79,8 +110,10 @@ abstract class BaseAttrSelectorController extends GetxController {
         o.isChecked = o.id == option.id;
       }
     }
-
     update(["attribute"]);
+    if (Get.isRegistered<ProductDetailController>(tag: tag)) {
+      Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
+    }
   }
 
   String get tag => Get.parameters["id"];
@@ -124,7 +157,7 @@ abstract class BaseAttrSelectorController extends GetxController {
   ///过滤逻辑
   void filter() {
     _filterCraft();
-    _filterSectionalbar();
+    filterSectionalbar();
   }
 
   ///筛选工艺
@@ -158,6 +191,7 @@ abstract class BaseAttrSelectorController extends GetxController {
     ///默认选中第一个
     for (int i = 0; i < options?.length; i++) {
       options[i].isChecked = i == 0;
+      options[i].hasConfirmed = options[i].isChecked;
     }
 
     ///更新型材选项
@@ -165,7 +199,7 @@ abstract class BaseAttrSelectorController extends GetxController {
     craftController?.update();
   }
 
-  void _filterSectionalbar() {
+  void filterSectionalbar() {
     List<CurtainProductAttrOptionModel> list =
         taojuwuController?.sectionalbar?.optionList;
 
@@ -194,6 +228,7 @@ abstract class BaseAttrSelectorController extends GetxController {
     ///默认选中第一个
     for (int i = 0; i < options?.length; i++) {
       options[i].isChecked = i == 0;
+      options[i].hasConfirmed = options[i].isChecked;
     }
 
     sectionalbarController?.attr?.optionList = options;
@@ -211,15 +246,23 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   void confirm() {
-    attr?.currentSelectedOptionList?.forEach((e) {
-      e.hasConfirmed = true;
+    attr?.optionList?.forEach((e) {
+      e.hasConfirmed = e.isChecked;
       update(["value"]);
     });
 
-    if (Get.isRegistered<ProductDetailController>()) {
-      Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
-    }
+    // if (Get.isRegistered<ProductDetailController>()) {
+    //   Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
+    // }
 
     Get.back();
+  }
+
+  CurtainProductAttrAdapterModel adapt() {
+    return CurtainProductAttrAdapterModel(
+        id: attr?.currentOptionId,
+        value: attr?.currentOptionName,
+        key: attr?.typeName,
+        type: "${attr?.type}");
   }
 }

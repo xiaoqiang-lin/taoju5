@@ -32,6 +32,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/product_pridce_deleg
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
+import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
 import 'fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
@@ -61,7 +62,7 @@ class EditMeasureDataParamsModel<T> {
     height = "${sizeSelectorController?.heightCM}";
     deltaY = sizeSelectorController?.deltaY;
     RoomAttrSelectorController roomController =
-        find<RoomAttrSelectorController>();
+        find<RoomAttrSelectorController>(tag: tag);
     roomId = roomController?.id;
 
     WindowStyleSelectorController styleController =
@@ -77,10 +78,12 @@ class EditMeasureDataParamsModel<T> {
     } else {
       Map map = {};
       for (WindowSubopenModeModel e in currentOpenModeOption?.suboptionList) {
-        map[e?.title] = e?.optionList
-            ?.firstWhere((element) => element.isChecked,
-                orElse: () => e.optionList?.first)
-            ?.name;
+        map[e?.title] = [
+          e?.optionList
+              ?.firstWhere((element) => element.isChecked,
+                  orElse: () => e.optionList?.first)
+              ?.name
+        ];
       }
       openMode = {openModeName: map};
     }
@@ -100,9 +103,14 @@ class EditMeasureDataParamsModel<T> {
         "vertical_ground_height": deltaY,
         "goods_id": tag,
         "install_room": roomId,
-        "$dataId": jsonEncode({
-          "name": windowPattern,
-          "selected": {"安装选项": installMode, "打开方式": openMode}
+        "data": jsonEncode({
+          "$dataId": {
+            "name": windowPattern,
+            "install_room": roomId,
+            "w": width,
+            "height": height,
+            "selected": {"安装选项": installMode, "打开方式": openMode}
+          }
         })
       };
 }
@@ -139,7 +147,7 @@ class AddToCartParamsModel {
       "wc_attr": jsonEncode(attribute),
       "cart_detail": jsonEncode(description),
       "measure_id": measureId,
-      "estimated_price": totalPrice
+      "estimated_price": totalPrice,
     };
   }
 }
@@ -158,7 +166,7 @@ class CurtainProductAtrrParamsModel<T> {
         _find<ValanceAttrSelectorController>(tag: tag),
         _find<AccessoryAttrSelectorController>(tag: tag),
         _find<SizeSelectorController>(tag: tag)
-      ].where((e) => e != null).toList();
+      ];
 
   T _find<T>({@required String tag}) {
     if (Get.isRegistered<T>(tag: tag)) {
@@ -267,8 +275,12 @@ class ProductDetailController extends GetxController {
   }
 
   Future<BaseResponse> addMeasureData() {
-    if (!_isValidInfo()) return Future.error(null);
+    if (!_isValidInfo()) {
+      scrollToTop();
+      return Future.error(null);
+    }
     EditMeasureDataParamsModel args = EditMeasureDataParamsModel(tag: tag);
+    XLogger.v(args.params);
     return _repository.addMeasureData(params: args.params);
   }
 
@@ -276,6 +288,11 @@ class ProductDetailController extends GetxController {
     if (product.productType is FinishedProductType)
       return _checkValidCustomer();
     return _checkValidCustomer() && _checkValidSize();
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 200), curve: Curves.ease);
   }
 
   Future buy() {
@@ -289,8 +306,7 @@ class ProductDetailController extends GetxController {
       });
     }
     if (!_isValidInfo()) {
-      scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 200), curve: Curves.ease);
+      scrollToTop();
       return Future.value(false);
     }
 
@@ -305,19 +321,23 @@ class ProductDetailController extends GetxController {
     AddToCartParamsModel args = AddToCartParamsModel(
         tag: tag, product: product, totalPrice: "${priceDelegator.totalPrice}");
     if (product.productType is CurtainProductType) {
-      addMeasureData().then((BaseResponse response) {
+      return addMeasureData().then((BaseResponse response) {
         // if (response == null) return;
         String measureId = "${response.data}";
         args.measureId = measureId;
+        _sendAddToCartRequest(args);
       });
     }
     if (!_isValidInfo()) {
-      scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 200), curve: Curves.ease);
+      scrollToTop();
       return Future.value(false);
     }
+    return _sendAddToCartRequest(args);
+  }
+
+  Future _sendAddToCartRequest(AddToCartParamsModel arg) {
     return _repository
-        .addToCart(params: args.params)
+        .addToCart(params: arg.params)
         .then((BaseResponse response) {
       CustomerProviderController customerController =
           Get.find<CustomerProviderController>();
@@ -327,7 +347,7 @@ class ProductDetailController extends GetxController {
 
   @override
   void onInit() {
-    tag ??= Get.parameters["id"];
+    tag = Get.parameters["id"];
     if (Get.arguments != null && Get.arguments is SelectProductEvent) {
       selectProductEvent = Get.arguments;
       CustomerModel customer = selectProductEvent.customer;

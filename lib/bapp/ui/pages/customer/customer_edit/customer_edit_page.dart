@@ -36,7 +36,7 @@ class CustomerEditPage extends GetView<CustomerEditController> {
                 : "添加客户"),
         actions: [
           Visibility(
-            visible: Get.parameters["canChoose"] == "1",
+            visible: controller.canChoose,
             child: TextButton(
                 onPressed: () => Get.toNamed(BAppRoutes.customerList,
                     arguments:
@@ -144,10 +144,21 @@ class CustomerEditPage extends GetView<CustomerEditController> {
                           );
                         },
                         onFuture: () => showDatePicker(
-                            context: context,
+                            context: Get.context,
                             lastDate: DateTime.now(),
                             firstDate: DateTime(1970),
-                            initialDate: _.target.enterTime ?? DateTime.now()),
+                            initialDate: _.target.enterTime ?? DateTime.now(),
+                            builder: (BuildContext context, Widget child) {
+                              return Theme(
+                                  data: ThemeData(
+                                      cardColor: Colors.black,
+                                      brightness: Brightness.dark),
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 32),
+                                    child: child,
+                                  ));
+                            }),
                       ),
                       XSelectorTextField<AddressModel>(
                           label: Text("区域地址"),
@@ -164,7 +175,7 @@ class CustomerEditPage extends GetView<CustomerEditController> {
                         key: ValueKey(_.target.address.detailAddress),
                         initialValue: _.target.address.detailAddress,
                         onChanged: (String str) {
-                          _.target.wx = str;
+                          _.target.address.detailAddress = str;
                         },
                       ),
                     ],

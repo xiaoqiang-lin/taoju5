@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/dialog/order/deposit.dart';
 import 'package:taoju5/bapp/ui/dialog/order/note.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_count_picker.dart';
@@ -74,7 +75,7 @@ class CommitOrderFooter extends GetView<CommitOrderController> {
             XSelectorTextField<String>(
                 label: Expanded(
                     child: Text(
-                  "窗数",
+                  "测量窗数",
                   textAlign: TextAlign.end,
                 )),
                 onValueChange: (String val) {
@@ -98,6 +99,19 @@ class CommitOrderFooter extends GetView<CommitOrderController> {
             // ),
             XSelectorTextField<String>(
               onValueChange: (String value) {
+                controller.params.optionalParams.deposit = value;
+              },
+              hintText: "请填写定金",
+              onFuture: () => showDepositDialog(context,
+                  initialValue: controller.params.optionalParams.note),
+              label: Expanded(
+                  child: Text(
+                "首款定金",
+                textAlign: TextAlign.end,
+              )),
+            ),
+            XSelectorTextField<String>(
+              onValueChange: (String value) {
                 controller.params.optionalParams.note = value;
               },
               hintText: "请填写备注",
@@ -105,7 +119,7 @@ class CommitOrderFooter extends GetView<CommitOrderController> {
                   initialValue: controller.params.optionalParams.note),
               label: Expanded(
                   child: Text(
-                "备注",
+                "订单备注",
                 textAlign: TextAlign.end,
               )),
             ),

@@ -9,6 +9,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/home/app_controller.dart';
 import 'package:taoju5/bapp/ui/pages/setting/setting/setting_controller.dart';
 
 import 'fragment/setting_header.dart';
@@ -30,7 +31,10 @@ class SettingPage extends StatelessWidget {
             SettingHeader(),
             XLabelTile(
               label: "清除缓存",
-              trailing: Text(_.cacheSize),
+              trailing: Text(
+                _.cacheSize,
+                style: TextStyle(color: BColors.greyTextColor),
+              ),
               onTap: _.clearCache,
             ),
             Divider(),
@@ -51,20 +55,65 @@ class SettingPage extends StatelessWidget {
               onTap: () => Get.toNamed(BAppRoutes.userProtocol),
             ),
             Divider(),
-            XLabelTile(
-              label: "关于淘居屋",
-              trailing: Text(_.versionCode),
-              onTap: () => Get.toNamed(BAppRoutes.appVersion),
-            ),
+            GetBuilder<AppController>(
+                init: AppController(),
+                builder: (_) {
+                  return XLabelTile(
+                      label: "关于淘居屋",
+                      trailing: Row(
+                        children: [
+                          Visibility(
+                              visible: !_.hasNewVersion,
+                              child: Text(
+                                "当前已是最新版本",
+                                style: TextStyle(
+                                    color: BColors.greyTextColor,
+                                    fontWeight: FontWeight.w400),
+                              )),
+                          Visibility(
+                            visible: _.hasNewVersion,
+                            child: Container(
+                              margin: EdgeInsets.only(left: BDimens.gap16),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 4,
+                                    backgroundColor: BColors.badgeColor,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5),
+                                    child: Visibility(
+                                      visible: _.hasNewVersion,
+                                      child: Text(
+                                        "最新版本:${_.lasestVersion}",
+                                        style: TextStyle(
+                                            color: BColors.greyTextColor,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      onTap: () => Get.toNamed(BAppRoutes.appVersion));
+                }),
             Divider(),
             // XLabelTile(
-            //   label: "售后服务",
-            //   onTap: () => Get.toNamed(BAppRoutes.afterSell),
+            //   label: "忘记密码",
+            //   onTap: () => Get.toNamed(BAppRoutes.forgetPassword),
             // ),
             // Divider(),
+
+            Divider(),
             XLabelTile(
               label: "我的客服",
-              trailing: Text("18968072319"),
+              trailing: Text(
+                "18968072319",
+                style: TextStyle(color: BColors.greyTextColor),
+              ),
             ),
             Container(
                 margin: EdgeInsets.only(top: BDimens.gap16),

@@ -14,7 +14,7 @@ class SoftProductDetailController extends GetxController {
   ProductRepository _repository = ProductRepository();
 
   String get id => Get.parameters["id"];
-  String get productId => Get.parameters["productId"];
+  String get productId => Get.parameters["fromId"];
   XLoadState loadState = XLoadState.idle;
 
   List<DesignProductModel> productList = [];
@@ -38,6 +38,7 @@ class SoftProductDetailController extends GetxController {
   @override
   void onInit() {
     loadData();
+
     super.onInit();
   }
 }

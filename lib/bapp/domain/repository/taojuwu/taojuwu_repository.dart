@@ -28,6 +28,10 @@ class TaojuwuRepository {
     });
   }
 
+  Future<BaseResponse> locate(Map params) {
+    return _api.locate(params: params);
+  }
+
   Future<BaseResponse> feedback(Map params) {
     return _api.feedback("/api/goods/addGoodsConsult", params: params);
   }

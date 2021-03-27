@@ -16,13 +16,19 @@ import 'package:taoju5/bapp/ui/pages/customer/customer_edit/customer_edit_bindin
 import 'package:taoju5/bapp/ui/pages/customer/customer_edit/customer_edit_page.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_binding.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_page.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_refund/customer_refund_binding.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_refund/customer_refund_page.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_table/customer_table_binding.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_table/customer_table_page.dart';
 import 'package:taoju5/bapp/ui/pages/dashboard/data_dash_board_binding.dart';
 import 'package:taoju5/bapp/ui/pages/dashboard/data_dash_board_page.dart';
 import 'package:taoju5/bapp/ui/pages/home/home_page.dart';
+import 'package:taoju5/bapp/ui/pages/login/forget_pwd/forget_password_binding.dart';
+import 'package:taoju5/bapp/ui/pages/login/forget_pwd/forget_password_page.dart';
 import 'package:taoju5/bapp/ui/pages/login/login/login_binding.dart';
 import 'package:taoju5/bapp/ui/pages/login/login/login_page.dart';
+import 'package:taoju5/bapp/ui/pages/login/modify_pwd/modify_password_binding.dart';
+import 'package:taoju5/bapp/ui/pages/login/modify_pwd/modify_pwd_page.dart';
 import 'package:taoju5/bapp/ui/pages/login/reset_pwd/reset_pwd_binding.dart';
 import 'package:taoju5/bapp/ui/pages/login/reset_pwd/reset_pwd_page.dart';
 import 'package:taoju5/bapp/ui/pages/not_found_404/not_found_404_page.dart';
@@ -53,6 +59,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_produ
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_page.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/measure_data/edit_measure_data_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/measure_data/edit_measure_data_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_page.dart';
@@ -65,6 +72,10 @@ import 'package:taoju5/bapp/ui/pages/scan_qrcode/scan_qrcode_binding.dart';
 import 'package:taoju5/bapp/ui/pages/scan_qrcode/scan_qrcode_page.dart';
 import 'package:taoju5/bapp/ui/pages/search/search_binding.dart';
 import 'package:taoju5/bapp/ui/pages/search/search_page.dart';
+import 'package:taoju5/bapp/ui/pages/search/subpage/customer_search/customer_search_binding.dart';
+import 'package:taoju5/bapp/ui/pages/search/subpage/customer_search/customer_search_page.dart';
+import 'package:taoju5/bapp/ui/pages/search/subpage/order_search/order_search_binding.dart';
+import 'package:taoju5/bapp/ui/pages/search/subpage/order_search/order_search_page.dart';
 import 'package:taoju5/bapp/ui/pages/setting/app_version/app_version_page.dart';
 import 'package:taoju5/bapp/ui/pages/setting/feed_back/feed_back_binding.dart';
 import 'package:taoju5/bapp/ui/pages/setting/feed_back/feed_back_page.dart';
@@ -109,6 +120,16 @@ class BAppPages {
         page: () => ResetPwdPage(),
         binding: ResetPwdBinding()),
 
+    GetPage(
+        name: BAppRoutes.forgetPassword,
+        page: () => ForgetPasswrdPage(),
+        binding: ForgetPasswordBinding()),
+
+    GetPage(
+        name: BAppRoutes.modifyPassword,
+        page: () => ModifyPasswordPage(),
+        binding: ModifyPasswordBinding()),
+
     ///商品相关
     GetPage(
         name: BAppRoutes.productList,
@@ -132,13 +153,13 @@ class BAppPages {
 
     ///场景
     GetPage(
-        name: BAppRoutes.sceneProductDetail + "/:id",
+        name: BAppRoutes.sceneProductDetail,
         page: () => SceneProductDetailPage(),
         binding: SceneProductDetailBinding()),
 
     ///软装方案
     GetPage(
-        name: BAppRoutes.softProductDetail + "/:productId/:id",
+        name: BAppRoutes.softProductDetail,
         page: () => SoftProductDetailPage(),
         binding: SoftProductDetailBinding()),
 
@@ -150,15 +171,15 @@ class BAppPages {
 
     ///修改购物车里面的商品属性
     GetPage(
-        name: BAppRoutes.modifyCurtainProductAttr + "/:id/:tab",
+        name: BAppRoutes.modifyCurtainProductAttr,
         page: () => ModifyCurtainProductAttrPage(),
         binding: ModifyCurtainProductAttrBinding()),
 
     ///填写测装数据
     GetPage(
-      name: BAppRoutes.editMeasureData + "/:id",
-      page: () => EditMeasureDataPage(),
-    ),
+        name: BAppRoutes.editMeasureData + "/:id",
+        page: () => EditMeasureDataPage(),
+        binding: EditMeasureDataBinding()),
 
     ///客户相关
     GetPage(
@@ -166,7 +187,7 @@ class BAppPages {
         page: () => CustomerListPage(),
         binding: CustomerListBinding()),
     GetPage(
-        name: BAppRoutes.categoryCustomerList + "/:category",
+        name: BAppRoutes.categoryCustomerList,
         page: () => CustomerTablePage(),
         binding: CustomerTableBinding()),
     GetPage(
@@ -174,7 +195,7 @@ class BAppPages {
         page: () => CustomerDetailPage(),
         binding: CustomerDetailBinding()),
     GetPage(
-        name: BAppRoutes.customerEdit + "/:canChoose",
+        name: BAppRoutes.customerEdit,
         page: () => CustomerEditPage(),
         binding: CustomerEditBinding()),
 
@@ -281,6 +302,24 @@ class BAppPages {
     GetPage(
         name: BAppRoutes.scanQRCode,
         page: () => ScanQRCodePage(),
-        binding: ScanQRCodeBinding())
+        binding: ScanQRCodeBinding()),
+
+    ///客户退单
+    GetPage(
+        name: BAppRoutes.customerRefund,
+        page: () => CustomerRefundPage(),
+        binding: CustomerRefundBinding()),
+
+    /// 搜索客户
+    GetPage(
+        name: BAppRoutes.searchCustomer,
+        page: () => CustomerSearchPage(),
+        binding: CustomerSearchBinding()),
+
+    /// 搜索订单
+    GetPage(
+        name: BAppRoutes.searchOrder,
+        page: () => OrderSearchPage(),
+        binding: OrderSearchBinding())
   ];
 }

@@ -52,7 +52,17 @@ class LoginRepository {
     });
   }
 
+  ////类型(短信类型:2=登录,3=忘记密码)
+
+  Future<BaseResponse> checkSms({Map params}) {
+    return _api.checkSms("/api/login/checkPhoneCode", params: params);
+  }
+
   Future resetPassword({Map params}) {
     return _api.resetPassword("/api/member/modifyPassword", params: params);
+  }
+
+  Future setPassword({Map params}) {
+    return _api.setPassword(params: params);
   }
 }

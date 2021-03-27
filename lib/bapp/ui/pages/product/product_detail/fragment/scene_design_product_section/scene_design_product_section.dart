@@ -4,7 +4,7 @@
  * @Date: 2021-01-08 17:25:08
  * @LastEditTime: 2021-02-02 13:33:17
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
@@ -19,8 +19,10 @@ import 'package:taoju5/bapp/ui/widgets/bloc/x_thumbnail_card.dart';
 import 'dart:math';
 
 class SceneDesignProductSection extends StatelessWidget {
+  final String tag;
   final List<DesignProductModel> productList;
-  const SceneDesignProductSection({Key key, this.productList = const []})
+  const SceneDesignProductSection(
+      {Key key, this.productList = const [], @required this.tag})
       : super(key: key);
 
   @override
@@ -42,7 +44,10 @@ class SceneDesignProductSection extends StatelessWidget {
                   itemCount: productList.length,
                   viewportFraction: 1,
                   itemBuilder: (BuildContext context, int i) {
-                    return _SceneDesignProductCard(product: productList[i]);
+                    return _SceneDesignProductCard(
+                      product: productList[i],
+                      fromId: tag,
+                    );
                   },
                 ),
               ),
@@ -56,7 +61,9 @@ class SceneDesignProductSection extends StatelessWidget {
 
 class _SceneDesignProductCard extends StatelessWidget {
   final DesignProductModel product;
-  const _SceneDesignProductCard({Key key, @required this.product})
+  final String fromId;
+  const _SceneDesignProductCard(
+      {Key key, @required this.product, @required this.fromId})
       : super(key: key);
 
   @override
@@ -70,48 +77,50 @@ class _SceneDesignProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () =>
-                  Get.toNamed(BAppRoutes.sceneProductDetail + "/${product.id}"),
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(6)),
-                    child: Container(
-                      alignment: Alignment.topCenter,
-                      height: Get.width * .6,
-                      child: CachedNetworkImage(
-                        // height: Get.width,
-                        width: Get.width,
-                        fit: BoxFit.fitWidth,
-                        imageUrl: product.image,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        child: Image.asset(
-                          "assets/images/shadow_mask.png",
+              onTap: () => Get.toNamed(BAppRoutes.sceneProductDetail +
+                  "?fromId=$fromId&id=${product.id}"),
+              child: ClipRRect(
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        height: Get.width * .6,
+                        child: XCachedNetworkImage(
+                          // height: Get.width,
                           width: Get.width,
                           fit: BoxFit.fitWidth,
+                          imageUrl: product.image,
                         ),
-                      )),
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: EdgeInsets.all(BDimens.gap32),
-                        child: Text("${product.tag}",
-                            style: TextStyle(
-                                color: BColors.whiteColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: BDimens.sp28)),
-                      ))
-                ],
+                      ),
+                    ),
+                    Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          child: Image.asset(
+                            "assets/images/shadow_mask.png",
+                            width: Get.width,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        )),
+                    Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Padding(
+                          padding: EdgeInsets.all(BDimens.gap32),
+                          child: Text("${product.tag}",
+                              style: TextStyle(
+                                  color: BColors.whiteColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: BDimens.sp28)),
+                        ))
+                  ],
+                ),
               ),
             ),
             AspectRatio(

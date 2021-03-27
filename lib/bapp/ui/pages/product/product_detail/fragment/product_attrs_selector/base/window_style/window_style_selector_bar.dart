@@ -19,6 +19,7 @@ class WindowStyleSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<WindowStyleSelectorController>(
       tag: tag,
+      autoRemove: false,
       builder: (_) {
         return Column(
           children: [

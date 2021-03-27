@@ -29,24 +29,6 @@ class ProductMixinModel {
   String room;
   String roomId;
 
-  String gauze;
-  String gauzeId;
-
-  String craft;
-  String craftId;
-
-  String sectionalBar;
-  String sectionalBarId;
-
-  String valance;
-  String valanceId;
-
-  String riboux;
-  String ribouxId;
-
-  String accessory;
-  String accessoryId;
-
   String material;
 
   ///离地距离
@@ -72,6 +54,9 @@ class ProductMixinModel {
 
   String windowPattern;
 
+  double defaultWidth;
+  double defaultHeight;
+
   ProductMixinModel.fromJson(Map json) {
     id = json['goods_id'];
     name = json['goods_name'];
@@ -86,7 +71,12 @@ class ProductMixinModel {
         (json['price'] ?? json['display_price'] ?? json['market_price']));
     width = JsonKit.asDouble(json['width']);
     height = JsonKit.asDouble(json['height']);
-    skuId = json["sku_id"];
+
+    Map<String, dynamic> sku = json['sku_list']?.first ?? {};
+
+    skuName = json['sku_name'] ?? sku['sku_name'];
+    // defalutSkuId = sku['sku_id'];
+    skuId = "${json["sku_id"] ?? sku["sku_id"]}";
     skuName = json["sku_name"];
     specList = JsonKit.asList(json["spec_list"])
         .map((e) => ProductSpecModel.fromJson(e))
@@ -95,11 +85,17 @@ class ProductMixinModel {
         .map((e) => ProductSkuModel.fromJson(e))
         .toList();
     material = json["material"];
+
+    defaultWidth = json["default_width"] ?? 350;
+    defaultHeight = json["default_width"] ?? 265;
   }
 }
 
 extension ProductMixinModelKit on ProductMixinModel {
   BaseProductType get productType => getProductType(code);
+
+  bool get isUseDefaultMeasureData =>
+      width == defaultWidth && height == defaultHeight;
 
   String get currentSkuDescription {
     if (GetUtils.isNullOrBlank(specList)) return "";
@@ -153,7 +149,7 @@ extension ProductMixinModelKit on ProductMixinModel {
         "room": room,
         "price": price,
         "description": "",
-        "attr_list": attrList,
+        "attr_list": attrList.map((e) => e.adapt()).toList(),
         "image": image,
         "total_price": totalPrice,
         "measure_id": measureId,

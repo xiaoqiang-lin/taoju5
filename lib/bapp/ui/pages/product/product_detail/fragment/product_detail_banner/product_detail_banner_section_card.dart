@@ -7,12 +7,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/product_image_model.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_swiper.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_photo_gallery.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 class ProductDetailBannerCard extends StatelessWidget {
-  final List<String> imageList;
+  final List<ProductImageModel> imageList;
   const ProductDetailBannerCard({Key key, @required this.imageList})
       : super(key: key);
 
@@ -30,11 +32,27 @@ class ProductDetailBannerCard extends StatelessWidget {
         itemHeight: .8 * Get.width,
         itemBuilder: (BuildContext context, int index) {
           return XPhotoViewer(
-              fadeInDuration: const Duration(milliseconds: 75),
-              closedShape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              fit: BoxFit.fitHeight,
-              url: imageList[index]);
+            placeholderFadeInDuration: const Duration(milliseconds: 0),
+            fadeInDuration: const Duration(milliseconds: 0),
+            thumbnail: imageList[index].thumbnail,
+            fadeOutDuration: const Duration(milliseconds: 375),
+            placeholder: (BuildContext context, _) {
+              return Image.network(
+                imageList[index].thumbnail,
+                fit: imageList[index].fit,
+              );
+            },
+            closedShape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            fit: imageList[index].fit,
+            url: imageList[index].imageUrl,
+            openBuilder: (BuildContext context, _) {
+              return XPhotoGallery(
+                imageList: imageList.map((e) => e.imageUrl).toList(),
+                currentIndex: index,
+              );
+            },
+          );
         },
       ),
     );

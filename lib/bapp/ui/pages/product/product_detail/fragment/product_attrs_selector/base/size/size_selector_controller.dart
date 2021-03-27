@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_mainfest_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,6 +20,8 @@ class SizeSelectorController extends GetxController {
   String width;
   String height;
   String deltaY;
+
+  String tag;
 
   double get widthCM => CommonKit.asDouble(width);
   double get heightCM => CommonKit.asDouble(height);
@@ -39,6 +43,10 @@ class SizeSelectorController extends GetxController {
   ///测装数据是否已确认
   bool hasChecked = false;
 
+  static const double MAX_HEIGHT = 350.0;
+
+  static const double MAX_WIDTH = 9.9e8;
+
   TextEditingController widthController;
   TextEditingController heightController;
   TextEditingController deltaYController;
@@ -48,6 +56,7 @@ class SizeSelectorController extends GetxController {
     widthController = TextEditingController();
     heightController = TextEditingController();
     deltaYController = TextEditingController();
+    tag = Get.parameters["id"];
     if (Get.arguments != null && Get.arguments is ProductMainfestModel) {
       ProductMixinModel product = Get.arguments;
       width = "${product.width}";
@@ -59,22 +68,77 @@ class SizeSelectorController extends GetxController {
 
   @override
   void onClose() {
-    widthController?.dispose();
-    heightController?.dispose();
-    deltaYController?.dispose();
+    // widthController.dispose();
+    // heightController.dispose();
+    // deltaYController.dispose();
     super.onClose();
   }
 
-  void setValue(String val) {
+  bool isFixedProduct() {
+    if (!Get.isRegistered<ProductDetailController>(tag: tag)) return true;
+    ProductDetailModel product =
+        Get.find<ProductDetailController>(tag: tag).product;
+    return product.isFixedHeight ?? true;
+  }
+
+  bool validateWidth(String val) {
     if (!GetUtils.isNum(val)) {
       EasyLoading.showInfo("请输入正确的数值哦");
+      return false;
+    }
+    if (CommonKit.asDouble(val) > MAX_WIDTH) {
+      EasyLoading.showInfo("宽度不在有效单位内,请输入合法的宽度哦");
+      return false;
+    }
+    return true;
+  }
+
+  bool validateHeight(String val) {
+    if (GetUtils.isNullOrBlank(val)) {
+      EasyLoading.showInfo("高度不能为空哦");
+      return false;
+    }
+    if (!GetUtils.isNum(val)) {
+      EasyLoading.showInfo("请输入正确的数值哦");
+      return false;
+    }
+
+    if (isFixedProduct() && CommonKit.asDouble(val) > MAX_HEIGHT) {
+      EasyLoading.showInfo("该商品暂不支持3.5m以上定制哦");
+      return false;
+    }
+    return true;
+  }
+
+  void setValue(String val) {
+    if (GetUtils.isNullOrBlank(val)) {
+      EasyLoading.showInfo("高度不能为空哦");
     }
   }
 
+  void setW(String val) {
+    CommonKit.debounce(() {
+      validateWidth(val);
+    })();
+  }
+
+  void setH(String val) {
+    CommonKit.debounce(
+      () {
+        validateHeight(val);
+      },
+    )();
+  }
+
   void setWH() {
-    width = widthController?.text;
-    height = heightController?.text;
-    Get.back();
+    if (!validateWidth(widthController?.text) ||
+        !validateHeight(heightController?.text)) {
+      throw false;
+    } else {
+      width = widthController?.text;
+      height = heightController?.text;
+      hasChecked = false;
+    }
   }
 
   void setDeltaY() {
@@ -90,11 +154,7 @@ class SizeSelectorController extends GetxController {
   }
 
   void confirm() {
-    width = widthController?.text;
-    height = heightController?.text;
-    deltaY = deltaYController?.text;
-    hasChecked = true;
-    print(Get.arguments != null && Get.arguments is ProductMixinModel);
+    setWH();
     if (Get.arguments != null && Get.arguments is ProductMixinModel) {
       ProductMixinModel product = Get.arguments;
       product.width = widthCM;

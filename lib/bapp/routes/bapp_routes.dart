@@ -15,7 +15,14 @@ abstract class BAppRoutes {
 
   static const login = '/login';
 
+  ///重置密码
   static const resetPassword = '/login/resetPassword';
+
+  ///忘记密码
+  static const forgetPassword = '/login/forgetPassword';
+
+  ///设置密码
+  static const modifyPassword = '/login/modifyPassword';
 
   static const productList = '/productList';
 
@@ -85,5 +92,13 @@ abstract class BAppRoutes {
 
   static const scanQRCode = '/scanQRCode';
 
+  static const customerRefund = "/customerRefund";
+
   static const unkonw = "/404";
+
+  static const searchCustomer = "/customer/search";
+
+  static const searchOrder = "/order/search";
+
+  static const searchProduct = "/product/search";
 }

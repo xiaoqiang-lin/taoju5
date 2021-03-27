@@ -15,6 +15,7 @@ Future showMixedProductModal(BuildContext context,
   return showCupertinoModalPopup(
       builder: (BuildContext context) {
         return XBaseModal(
+            header: Text("搭配精选"),
             // onClose: Navigator.of(context).pop,
             height: MediaQuery.of(context).size.height * .90,
             builder: (BuildContext context) {

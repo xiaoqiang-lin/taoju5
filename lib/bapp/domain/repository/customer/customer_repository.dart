@@ -15,8 +15,10 @@ import 'package:taoju5/xdio/x_dio.dart';
 class CustomerRepository {
   CustomerAPI _api = CustomerAPI();
 
-  Future<CustomerModelListWrapper> customerList() {
-    return _api.customerList("/api/client/lists").then((BaseResponse response) {
+  Future<CustomerModelListWrapper> customerList({Map params}) {
+    return _api
+        .customerList("/api/client/lists", params: params)
+        .then((BaseResponse response) {
       if (response.isValid)
         return CustomerModelListWrapper.fromJson(response.data);
       throw EasyLoading.showError(response.message);

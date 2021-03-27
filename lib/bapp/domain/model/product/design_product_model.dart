@@ -32,8 +32,8 @@ class DesignProductModel {
     name = json["scenes_name"];
     tag = json["name"];
 
-    defaultWidth = json["default_width"] ?? "3.5";
-    defaultHeight = json["default_height"] ?? "2.65";
+    defaultWidth = json["default_width"] ?? "350";
+    defaultHeight = json["default_height"] ?? "265";
     width = json["width"] ?? defaultWidth;
     height = json["height"] ?? defaultHeight;
     style = json["style"];

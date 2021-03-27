@@ -4,7 +4,7 @@
  * @Date: 2021-01-12 09:50:13
  * @LastEditTime: 2021-02-02 14:15:03
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
@@ -47,7 +47,7 @@ class HomePageHeader extends GetView<UserProviderController> {
                 aspectRatio: 1.36,
                 child: GestureDetector(
                   onTap: () => Get.toNamed(BAppRoutes.productList),
-                  child: CachedNetworkImage(
+                  child: XCachedNetworkImage(
                       fit: BoxFit.cover,
                       imageUrl: CommonKit.asWebUrl("upload/master.jpg")),
                 ),

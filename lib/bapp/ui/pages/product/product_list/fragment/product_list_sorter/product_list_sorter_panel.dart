@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_controller.dart';
 
@@ -42,7 +43,9 @@ class ProductListSorterPanel extends StatelessWidget {
                           ),
                           Icon(
                             BIcons.check,
-                            color: model.isChecked ? null : Colors.transparent,
+                            color: model.isChecked
+                                ? BColors.textColor
+                                : Colors.transparent,
                           )
                         ],
                       ),

@@ -7,6 +7,7 @@
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/order/refund_status.dart';
+import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/utils/json_kit.dart';
 
 import 'order_detail_model.dart';
@@ -15,6 +16,7 @@ class OrderDetailProductModel {
   int id;
   int orderId;
   int prodcutId;
+  int productTypeCode;
   String name;
   String image;
   String description;
@@ -41,6 +43,7 @@ class OrderDetailProductModel {
     image = JsonKit.asWebUrl(
         JsonKit.getValueInComplexMap(json, ["picture_info", "pic_cover"]));
     description = json["goods_attr_str"];
+    productTypeCode = JsonKit.asInt(json["goods_type"]);
     totalPrice = json["estimated_price"];
     hasSelected = JsonKit.asBool(json["is_selected_goods"]);
     orderStatusName = json["status_name"];
@@ -54,6 +57,7 @@ extension OrderDetailProductModelKit on OrderDetailProductModel {
   OrderStatus get orderStatus => getOrderStaus(orderStatusCode);
   OrderType get orderType => getOrderType(typeCode, orderStatus);
   RefundStatus get refundStatus => getRefundStatus(refundStatusCode);
+  BaseProductType get productType => getProductType(productTypeCode);
 
   bool get canCancel =>
       (orderStatus != OrderStatus.canceled &&

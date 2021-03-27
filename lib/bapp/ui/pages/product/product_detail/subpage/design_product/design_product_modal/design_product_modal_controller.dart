@@ -1,21 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/dialog/product/design_product/design_product_measure_data_confirm.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
+import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product_attr/modify_curtain_product_attr_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/base_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/product_register_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/utils/common_kit.dart';
-import 'package:taoju5/utils/x_logger.dart';
+
 import 'package:taoju5/validator/params_validator.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -29,7 +35,7 @@ class DesignProductAddToCartParamsModel extends ParamsValidator {
 
   Map get params => {
         "client_uid": clientId,
-        "cart_list": productList.map((e) => e.params).toList()
+        "cart_list": jsonEncode(productList.map((e) => e.params).toList())
       };
 
   @override
@@ -48,9 +54,10 @@ class DesignProductModalController extends GetxController {
   DesignProductModel designProduct;
 
   final String id;
+  final String fromId;
 
-  String tag = "";
-  DesignProductModalController({@required this.id});
+  String get tag => fromId;
+  DesignProductModalController({@required this.fromId, @required this.id});
 
   XLoadState loadState = XLoadState.idle;
 
@@ -76,20 +83,24 @@ class DesignProductModalController extends GetxController {
   }
 
   void _initWithPreConfig() {
-    if (Get.isRegistered<ProductRegisterController>()) {
-      tag = Get.find<ProductRegisterController>().tag;
-      print(Get.isRegistered<ProductDetailController>(tag: tag));
-      if (Get.isRegistered<ProductDetailController>(tag: tag)) {
-        ProductDetailController productController =
-            Get.find<ProductDetailController>(tag: tag);
-        if (productController.product.productType is CurtainProductType) {
-          designProduct?.productList?.forEach((ProductMixinModel product) {
-            productController?.attrControllerList?.forEach((e) {
-              _parse(product, e);
-            });
+    if (Get.isRegistered<ProductDetailController>(tag: tag)) {
+      ProductDetailController productController =
+          Get.find<ProductDetailController>(tag: tag);
+      if (productController.product.productType is CurtainProductType) {
+        designProduct?.productList?.forEach((ProductMixinModel product) {
+          EditMeasureDataParamsModel measureDataArgs =
+              EditMeasureDataParamsModel(tag: tag);
+          CurtainProductAtrrParamsModel attributeArgs =
+              CurtainProductAtrrParamsModel(tag: tag);
+          product.measureData = measureDataArgs.params;
+          product.attribute = jsonEncode(attributeArgs.params);
+          productController?.attrControllerList?.forEach((e) {
+            _parse(product, e);
           });
-        }
+        });
       }
+    } else {
+      designProduct?.productList?.forEach((ProductMixinModel product) {});
     }
   }
 
@@ -111,15 +122,15 @@ class DesignProductModalController extends GetxController {
       product?.roomId = e?.valueId;
     }
     if (e is SizeSelectorController) {
-      product?.width = e?.widthM;
-      product?.height = e?.heightM;
+      // designProduct?.width = CommonKit.isNullOrZero(e?.width)
+      //     ? designProduct?.width
+      //     : "${e?.width}";
+      // designProduct?.height = CommonKit.isNullOrZero(e?.height)
+      //     ? designProduct?.height
+      //     : "${e?.height}";
+      product?.width = CommonKit.asDouble(e?.width ?? 350);
+      product?.height = CommonKit.asDouble(e?.height ?? 265);
       product?.deltaY = e?.deltaY;
-      designProduct?.width = CommonKit.isNullOrZero(e?.widthM)
-          ? designProduct?.width
-          : "${e?.widthM}";
-      designProduct?.height = CommonKit.isNullOrZero(e?.heightM)
-          ? designProduct?.height
-          : "${e?.heightM}";
     }
     if (e is WindowStyleSelectorController) {
       product?.installData = e?.data;
@@ -148,15 +159,73 @@ class DesignProductModalController extends GetxController {
   }
 
   Future buy() {
-    return Future.value(false);
+    int count = designProduct?.productList
+            ?.where((e) => e.isUseDefaultMeasureData)
+            ?.length ??
+        0;
+    if (count > 0) {
+      return showDesignProductMeasureDataConfirmDialog(
+        count: count,
+      ).then((value) {
+        if (value == true) {
+          return _buy();
+        }
+      });
+    }
+    return _buy();
   }
 
-  Future getMeasureIdList() async {
-    designProduct?.productList?.forEach((e) {
+  Future _buy() {
+    return Future.wait(getMeasureIdList()).then((value) {
+      Get.toNamed(BAppRoutes.commitOrder,
+          preventDuplicates: false,
+          arguments: CommitOrderEvent(
+              productList:
+                  designProduct.productList.map((e) => e.adapt()).toList(),
+              orderType: OrderType.selectionOrder));
+    });
+  }
+
+  List<Future> getMeasureIdList() {
+    return designProduct?.productList?.map((e) {
       if (e.productType is CurtainProductType) {
-        _repository.addMeasureData().then((BaseResponse response) {
+        return _repository
+            .addMeasureData(params: e.measureData)
+            .then((BaseResponse response) {
           e.measureId = "${response.data}";
+          return true;
+        }).catchError((err) {
+          return false;
+          // return Future.error(err);
         });
+      } else {
+        Future.value().then((value) => e.measureId = "0");
+      }
+    })?.toList();
+  }
+
+  Future modifyMeasureData(ProductMixinModel product) {
+    return Get.toNamed(BAppRoutes.editMeasureData + "/${product.id}",
+            arguments: product, preventDuplicates: false)
+        .then((value) {
+      if (value != null && value is ModifyCurtainProductAttributeResult) {
+        product.measureData = value.measureData ?? product.measureData;
+      }
+    });
+  }
+
+  Future modifyAttribute(ProductMixinModel product) {
+    return Get.toNamed(BAppRoutes.modifyCurtainProductAttr,
+            arguments: ModifyCurtainProductAttrEvent(
+                tag: "${product.id}",
+                isFromCart: false,
+                attrList: product.attrList),
+            preventDuplicates: false)
+        .then((value) {
+      if (value != null && value is ModifyCurtainProductAttributeResult) {
+        product.attrList = value.attrList;
+        product.attribute = jsonEncode(value.attribute);
+        update();
       }
     });
   }

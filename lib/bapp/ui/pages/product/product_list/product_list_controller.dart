@@ -14,9 +14,12 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_sort_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_tab_view.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_filter/product_list_filter_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_sorter/product_list_sorter_panel.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/search/search_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/ui/widgets/common/modal/x_popdown_modal.dart';
 import 'package:taoju5/xdio/x_dio.dart';
@@ -41,8 +44,14 @@ class ProductListParentController extends GetxController
 
   String get sortName => sortList.firstWhere((e) => e.isChecked).name;
 
+  String keyword;
+
   ///是否为网格视图
+
   bool isGridMode = true;
+
+  ProductViewMode get mode =>
+      isGridMode ? ProductViewMode.grid : ProductViewMode.list;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TabController tabController;
@@ -59,6 +68,15 @@ class ProductListParentController extends GetxController
         update(["tab"]);
       }
     });
+  }
+
+  Future<bool> back() {
+    if (GetUtils.hasMatch(Get.previousRoute, BAppRoutes.commitOrderSuccess)) {
+      Get.until((route) => Get.currentRoute == BAppRoutes.home);
+    } else {
+      Get.back();
+    }
+    return Future.value(true);
   }
 
   void switchViewMode() {
@@ -99,7 +117,15 @@ class ProductListParentController extends GetxController
   void onClose() {
     tabController?.removeListener(_onTabChanged);
     tabController?.dispose();
+    _onClose();
     super.onClose();
+  }
+
+  void _onClose() {
+    for (ProductTabModel tab in tabList) {
+      Get.delete<ProductListController>(tag: "${tab.id}", force: true);
+    }
+    print("史昂资源");
   }
 
   void triggerSortAction(ProductSortModel model) {
@@ -162,6 +188,37 @@ class ProductListParentController extends GetxController
       scaffoldKey?.currentState?.openEndDrawer();
     }
   }
+
+  Future seacrhProduct(String keyword) {
+    if (GetUtils.isNullOrBlank(keyword)) return Future.value(null);
+    this.keyword = keyword;
+    update();
+    return _repository.productList(params: {"keyword": keyword}).then(
+        (ProductModelListWrapper wrapper) {
+      List<ProductModel> productList = wrapper.list;
+      if (GetUtils.isNull(productList)) return;
+
+      int targetIndex = wrapper?.targetCategoryType;
+      Get.find<ProductListController>(tag: tag).refreshData(keyword: keyword);
+      // productListController.refreshData(keyword: keyword);
+      if (tabController.index != targetIndex) {
+        tabController.animateTo(targetIndex);
+        productListController.refreshData(keyword: keyword);
+      }
+    }).whenComplete(() {
+      update(["tabview"]);
+    });
+  }
+
+  Future search() {
+    return Get.toNamed(BAppRoutes.search +
+            "?searchType=${SearchType.product.index}&keyword=$keyword")
+        .then((value) {
+      return value;
+    }).then((value) {
+      seacrhProduct(value);
+    });
+  }
 }
 
 class ProductListController extends GetxController {
@@ -179,7 +236,7 @@ class ProductListController extends GetxController {
   final String type;
 
   int pageIndex = 1;
-  String keyword = "";
+  String get keyword => Get.find<ProductListParentController>().keyword;
 
   ProductListController({@required this.type});
 
@@ -209,7 +266,7 @@ class ProductListController extends GetxController {
     return _repository
         .productList(params: params)
         .then((ProductModelListWrapper wrapper) {
-      productList = wrapper.list;
+      this.productList = wrapper.list;
       if (GetUtils.isNullOrBlank(productList)) {
         loadState = XLoadState.empty;
       } else {
@@ -242,7 +299,6 @@ class ProductListController extends GetxController {
   Future refreshData({Map parameters, String keyword}) {
     pageIndex = 1;
     Map map = {};
-    this.keyword = keyword;
     map.addAll(args);
     map.addAll(parameters ?? {});
 
@@ -252,7 +308,7 @@ class ProductListController extends GetxController {
         .productList(params: map)
         .then((ProductModelListWrapper wrapper) {
       refreshController.refreshCompleted();
-      productList = wrapper.list;
+      this.productList = wrapper.list;
       if (GetUtils.isNullOrBlank(productList)) {
         loadState = XLoadState.empty;
       } else {

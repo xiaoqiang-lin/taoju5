@@ -25,7 +25,7 @@ class CustomerDetailController extends GetxController {
 
   CustomerDetailModel customer;
 
-  String get id => Get.parameters["id"];
+  String id;
 
   List<CustomerDetailKongoModel> get kongoList {
     return [
@@ -44,7 +44,8 @@ class CustomerDetailController extends GetxController {
       CustomerDetailKongoModel(
           image: "assets/images/after_sell_service.png",
           description: "退单/售后",
-          onTap: () => Get.toNamed(BAppRoutes.orderList + "?customerId=$id"))
+          onTap: () =>
+              Get.toNamed(BAppRoutes.customerRefund + "?customerId=$id"))
     ];
   }
 
@@ -62,6 +63,7 @@ class CustomerDetailController extends GetxController {
 
   @override
   void onInit() {
+    id = Get.parameters["id"];
     loadData();
     super.onInit();
   }

@@ -11,6 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:taoju5/bapp/domain/model/order/order_model.dart';
 import 'package:taoju5/bapp/domain/repository/order/order_repository.dart';
 import 'package:taoju5/bapp/interface/i_xselectable.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_list/fragement/order_filter_page.dart';
 
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
@@ -58,6 +59,15 @@ class OrderListParentController extends GetxController
   TabController tabController;
 
   bool showFilterPanel = false;
+
+  Future<bool> back() {
+    if (GetUtils.hasMatch(Get.previousRoute, BAppRoutes.commitOrderSuccess)) {
+      Get.until((route) => Get.currentRoute == BAppRoutes.home);
+    } else {
+      Get.back();
+    }
+    return Future.value(true);
+  }
 
   ///获取tag
   String get tag => tabList[tabController?.index ?? 0].name;

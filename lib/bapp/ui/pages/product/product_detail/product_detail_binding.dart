@@ -13,7 +13,6 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/finished_product_attrs_selector/finished_product_attrs_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/product_register_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 
@@ -29,7 +28,6 @@ class ProductDetailBinding extends Bindings {
     String id = Get.parameters["id"];
 
     Get.lazyPut(() => ProductDetailController(), tag: id);
-    Get.lazyPut(() => ProductRegisterController(tag: id));
 
     ///空间选择器
     Get.lazyPut(() => RoomAttrSelectorController(), tag: id, fenix: true);

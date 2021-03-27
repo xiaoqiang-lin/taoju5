@@ -35,6 +35,7 @@ class $BApp extends StatelessWidget {
         complete: Text('刷新成功', style: TextStyle(color: Colors.grey)),
         failed: Text('刷新失败', style: TextStyle(color: Colors.grey)),
       ),
+      footerTriggerDistance: 56,
       footerBuilder: () => ClassicFooter(
         loadingText: '正在加载',
         noDataText: '我也是有底线的哦',
@@ -59,7 +60,7 @@ class $BApp extends StatelessWidget {
       // Configure d// Configure the defau
       child: GetMaterialApp(
         key: ValueKey(AppEnv.$b),
-        title: AppConfig.appName ?? "test",
+        title: AppConfig.appName,
         unknownRoute: BAppPages.unkonw,
         getPages: BAppPages.pages,
         theme: BTheme.lightTheme,
@@ -69,8 +70,8 @@ class $BApp extends StatelessWidget {
         defaultTransition: Transition.cupertino,
         popGesture: false,
         // defaultTransition: Transition,
-        debugShowCheckedModeBanner: AppConfig.isDebug,
-
+        // debugShowCheckedModeBanner: AppConfig.isDebug,
+        debugShowCheckedModeBanner: true,
         localizationsDelegates: [
           // CupertinoLocalizationDelegate.delegate,
           GlobalMaterialLocalizations.delegate, // 指定本地化的字符串和一些其他的值

@@ -45,6 +45,8 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
   RxInt count;
   String categoryType;
   double price;
+
+  bool hasDeleted = false;
   CartPorductModel.fromJson(Map json) {
     id = "${json["cart_id"]}";
     measureId = json["measure_id"];

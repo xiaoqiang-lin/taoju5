@@ -4,7 +4,7 @@
  * @Date: 2021-01-18 14:21:06
  * @LastEditTime: 2021-01-18 15:01:45
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -22,7 +22,7 @@ class CurtainProductAttrOptionCard extends StatelessWidget {
         children: [
           XBorderFrame(
             visible: option.isChecked,
-            child: CachedNetworkImage(
+            child: XCachedNetworkImage(
               imageUrl: option.picture,
             ),
           ),

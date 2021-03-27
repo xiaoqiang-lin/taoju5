@@ -38,10 +38,13 @@ class SelectableProductListController extends GetxController {
 
   OrderMeasureDataModel get measureData => event.orderProduct.measureData;
 
+  String keyword;
+
   Future search() {
-    return Get.toNamed(BAppRoutes.search + "?height=${measureData.height}",
-            arguments: SearchType.product)
+    return Get.toNamed(BAppRoutes.search +
+            "?height=${measureData.height}&searchType=${SearchType.product.index}&keyword=$keyword")
         .then((value) {
+      keyword = value;
       Get.find<ProductListController>(tag: "0").refreshData(keyword: value);
     });
   }

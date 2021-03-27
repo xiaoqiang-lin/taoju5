@@ -21,12 +21,13 @@ class AccessoryAttrSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AccessoryAttrSelectorController>(
       tag: tag,
+      id: "attribute",
       builder: (_) {
         return Container(
           child: XSelectorTextField(
             label: Text("配饰"),
-            key: ValueKey(_.value),
-            initialValue: _.value,
+            key: ValueKey(_?.description),
+            initialValue: _?.description,
             onFuture: () =>
                 showCurtainAttrSelectorModal<AccessoryAttrSelectorController>(
                         title: "配饰选择", tag: tag)

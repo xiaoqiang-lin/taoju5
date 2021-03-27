@@ -18,6 +18,7 @@ class SizeSelectorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SizeSelectorController>(
         tag: tag,
+        autoRemove: false,
         builder: (_) {
           return Container(
             margin: EdgeInsets.only(top: BDimens.gap20),

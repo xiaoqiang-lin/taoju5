@@ -9,10 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal.dart';
 
-Future showDesignProductModal({@required String id}) {
+Future showDesignProductModal({@required String id, @required String fromId}) {
   return showCupertinoModalPopup(
       context: Get.context,
       builder: (BuildContext context) {
-        return DesignProductModal(id: id);
+        return DesignProductModal(
+          id: id,
+          fromId: fromId,
+        );
       });
 }

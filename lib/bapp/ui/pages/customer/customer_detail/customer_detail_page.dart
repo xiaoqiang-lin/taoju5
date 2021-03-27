@@ -15,6 +15,7 @@ import 'package:taoju5/bapp/ui/pages/customer/customer_detail/fragment/customer_
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 
+import 'customer_detail_skeleton.dart';
 import 'fragment/customer_detail_body.dart';
 
 class CustomerDetailPage extends StatelessWidget {
@@ -31,9 +32,9 @@ class CustomerDetailPage extends StatelessWidget {
               onPressed: () {
                 CustomerDetailController controller =
                     Get.find<CustomerDetailController>();
-                Get.toNamed(BAppRoutes.customerEdit + "/0",
+                Get.toNamed(BAppRoutes.customerEdit,
                     arguments: ChooseCustomerEventModel(
-                        customer: controller.customer));
+                        customer: controller.customer, canChoose: false));
               },
               child: Text("编辑"))
         ],
@@ -53,6 +54,8 @@ class CustomerDetailPage extends StatelessWidget {
               );
             },
             loadState: _.loadState,
+            // loadState: XLoadState.busy,
+            loadingWidget: CustomerDetailSkeleton(),
           );
         },
       ),

@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_table/customer_table_controller.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_table/customer_table_skeleton.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
@@ -20,7 +21,7 @@ class CustomerTablePage extends GetView<CustomerTableController> {
     return Scaffold(
         backgroundColor: Get.theme.primaryColor,
         appBar: AppBar(
-          title: Text(controller.category.name),
+          title: Text("客户"),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.min,
@@ -45,8 +46,11 @@ class CustomerTablePage extends GetView<CustomerTableController> {
                       return SmartRefresher(
                         controller: _.refreshController,
                         onRefresh: _.loadData,
-                        child: ListView.builder(
+                        child: ListView.separated(
                           shrinkWrap: true,
+                          separatorBuilder: (BuildContext context, int i) {
+                            return Divider();
+                          },
                           itemCount: _.customerList.length,
                           itemBuilder: (BuildContext context, int index) {
                             CustomerModel customer = _.customerList[index];
@@ -57,20 +61,50 @@ class CustomerTablePage extends GetView<CustomerTableController> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(child: Text(customer.name)),
-                                        Expanded(child: Text(customer.gender)),
-                                        Expanded(
-                                            child: Text("${customer.age}")),
-                                        Expanded(child: Text(customer.wanted)),
-                                        Expanded(
-                                            child: Text(customer.enterTime))
-                                      ],
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: BDimens.gap8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              customer.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: BDimens.sp28,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                              child: Text(customer.gender)),
+                                          Expanded(
+                                              child: Text("${customer.age}")),
+                                          Expanded(
+                                              child: Text(
+                                            GetUtils.isNullOrBlank(
+                                                    customer.wanted)
+                                                ? "--"
+                                                : customer.wanted,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: BDimens.sp28,
+                                            ),
+                                          )),
+                                          Expanded(
+                                              child: Text(
+                                            customer.enterTime,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: BDimens.sp28,
+                                            ),
+                                          ))
+                                        ],
+                                      ),
                                     ),
-                                    Divider()
                                   ],
                                 ),
                               ),

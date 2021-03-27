@@ -6,7 +6,6 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_banner/product_detail_banner_section_card.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_header/product_detail_header.dart';
@@ -35,6 +34,7 @@ class ProductDetailPage extends StatelessWidget {
         builder: (_) {
           return XLoadStateBuilder(
               loadState: _.loadState,
+              ifErrorBack: true,
               animationType: TransitionAnimationType.none,
               loadingWidget: ProductDetailSkeleton(),
               builder: (BuildContext context) {
@@ -51,8 +51,7 @@ class ProductDetailPage extends StatelessWidget {
                           actions: [
                             XCustomerChooseButton(
                               event: ChooseCustomerEventModel(
-                                  fromUrl: BAppRoutes.productDetail +
-                                      "/${Get.parameters["id"]}"),
+                                  fromUrl: Get.currentRoute),
                             )
                           ],
                         )
@@ -63,15 +62,20 @@ class ProductDetailPage extends StatelessWidget {
                       slivers: [
                         SliverToBoxAdapter(
                           child: ProductDetailBannerCard(
-                              imageList: _.product.imgList),
+                              imageList: _.product.imageList),
                         ),
                         SliverToBoxAdapter(
                           child: ProductDetailHeader(product: _.product),
                         ),
                         SliverToBoxAdapter(
-                          child: ProductAttrsSelectorCard(
-                              tag: "${_.id}",
-                              productType: _.product.productType),
+                          child: GetBuilder<ProductDetailController>(
+                              id: "attributeCard",
+                              tag: Get.parameters["id"],
+                              builder: (_) {
+                                return ProductAttrsSelectorCard(
+                                    tag: "${_.id}",
+                                    productType: _.product.productType);
+                              }),
                         ),
                         SliverToBoxAdapter(
                           child: ProductMixSection(
@@ -80,11 +84,11 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SliverToBoxAdapter(
                           child: SceneDesignProductSection(
-                              productList: _.sceneDesignProductList),
+                              tag: _.id, productList: _.sceneDesignProductList),
                         ),
                         SliverToBoxAdapter(
                           child: SoftDesignProductSection(
-                              fromProductId: _.product.id,
+                              fromId: _.id,
                               productList: _.softDesignProductList),
                         ),
                         SliverToBoxAdapter(

@@ -9,6 +9,7 @@ import 'package:taoju5/bapp/ui/widgets/common/x_animation_image.dart';
 
 class XNetoffWidget extends StatelessWidget {
   final Function onTap;
+
   const XNetoffWidget({Key key, this.onTap}) : super(key: key);
 
   @override

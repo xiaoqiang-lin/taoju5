@@ -11,6 +11,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/fragment/commit_order_body.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
@@ -32,7 +33,11 @@ class CommitOrderPage extends GetView<CommitOrderController> {
             "${controller.orderType == OrderType.measureOrder ? '预约测量' : '提交订单'}"),
         actions: [
           Visibility(
-              visible: !controller.isFromShare, child: XCustomerChooseButton())
+              visible: !controller.isFromShare,
+              child: XCustomerChooseButton(
+                event: ChooseCustomerEventModel(
+                    canChoose: true, fromUrl: Get.currentRoute),
+              ))
         ],
       ),
       body: GetBuilder<CommitOrderController>(
@@ -55,10 +60,44 @@ class CommitOrderPage extends GetView<CommitOrderController> {
         color: BColors.primaryColor,
         padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
         alignment: Alignment.centerRight,
-        child: XFutureButton(
-          onFuture: controller.submitOrder,
-          // onSuccess: controller.onSubmitSuceess,
-          child: Text("提交订单"),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Visibility(
+              visible: controller.orderType != OrderType.measureOrder,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "共${controller.productList.length}件",
+                    style: TextStyle(fontSize: BDimens.sp24),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "¥${controller.totalPrice.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            color: BColors.highLightColor,
+                            fontSize: BDimens.sp36,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "(具体金额以门店为准)",
+                        style: TextStyle(
+                            fontSize: BDimens.sp20,
+                            color: BColors.greyTextColor),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            XFutureButton(
+              onFuture: controller.submitOrder,
+              // onSuccess: controller.onSubmitSuceess,
+              child: Text("提交订单"),
+            ),
+          ],
         ),
       ),
     );

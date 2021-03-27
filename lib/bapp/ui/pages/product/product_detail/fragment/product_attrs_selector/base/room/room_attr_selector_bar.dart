@@ -22,6 +22,7 @@ class RoomAttrSelectorBar extends StatelessWidget {
     return GetBuilder<RoomAttrSelectorController>(
       tag: tag,
       id: "value",
+      autoRemove: false,
       builder: (_) {
         return Container(
           child: XSelectorTextField(

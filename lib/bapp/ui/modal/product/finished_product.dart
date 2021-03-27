@@ -5,7 +5,7 @@
  * @Date: 2021-01-15 22:59:59
  * @LastEditTime: 2021-01-19 13:52:28
  */
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,7 +59,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                   width: 180.w,
                                                   child: AspectRatio(
                                                     aspectRatio: 1.0,
-                                                    child: CachedNetworkImage(
+                                                    child: XCachedNetworkImage(
                                                         imageUrl: _
                                                                 .product
                                                                 .currentSku

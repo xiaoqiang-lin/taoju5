@@ -5,6 +5,8 @@
  * @LastEditTime: 2021-02-10 10:55:46
  */
 
+import 'dart:async';
+
 import 'package:get/get_utils/get_utils.dart';
 import 'package:taoju5/extensions/datetime_kit.dart';
 import 'package:taoju5/config/net_config.dart';
@@ -35,5 +37,21 @@ abstract class CommonKit {
     if (GetUtils.isNum(n)) return double.tryParse(n);
     if (GetUtils.isNullOrBlank(n)) return 0.0;
     return n;
+  }
+
+  static Function debounce(
+    Function func, [
+    Duration delay = const Duration(milliseconds: 800),
+  ]) {
+    Timer timer;
+    Function target = () {
+      if (timer?.isActive ?? false) {
+        timer?.cancel();
+      }
+      timer = Timer(delay, () {
+        func?.call();
+      });
+    };
+    return target;
   }
 }

@@ -23,7 +23,10 @@ class XDio {
   Dio dio;
 
   ///白名单里面的api不需要错误提示
-  List<String> whiteList = ["/api/Config/getAppUpgradeInfo"];
+  List<String> whiteList = [
+    "/api/Config/getAppUpgradeInfo",
+    "/api/goods/wcAttr"
+  ];
 
   bool _isInWhiteList(String url) {
     return whiteList.any((e) => url.contains(e));
@@ -68,6 +71,10 @@ class XDio {
 
           if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
             throw EasyLoading.showInfo(baseResponse.message);
+          }
+          if (baseResponse.data == null ||
+              baseResponse.data == null.toString()) {
+            throw baseResponse.message;
           }
           response.data = baseResponse;
           // if (baseResponse.data is Map) {

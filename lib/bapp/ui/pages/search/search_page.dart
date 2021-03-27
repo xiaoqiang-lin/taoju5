@@ -26,11 +26,12 @@ class SearchPage extends GetView<SearchController> {
         // resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         appBar: XSearchBar(
-          onSearch: controller.addSearchItem,
-          hintText: controller.hintText,
+          onSearch: controller.onSearch,
+          value: controller?.keyword,
+          hintText: controller?.keyword ?? controller.hintText,
+          onChanged: controller.onChanged,
           preferredSize: Size.fromHeight(kToolbarHeight),
           onTap: () {
-            print("简爱卖家寄");
             controller.isHistoryVisible = false;
             controller.update(["container"]);
           },
@@ -51,7 +52,8 @@ class SearchPage extends GetView<SearchController> {
                   child: child,
                 );
               },
-              child: _.isHistoryVisible
+              child: _.isHistoryVisible &&
+                      !GetUtils.isNullOrBlank(_.historyList)
                   ? GetBuilder<SearchController>(
                       id: "history",
                       builder: (_) {
@@ -82,17 +84,20 @@ class SearchPage extends GetView<SearchController> {
                                 Wrap(
                                   children: [
                                     for (String e in _.historyList)
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: BDimens.gap16),
-                                        child: Chip(
-                                            deleteIconColor:
-                                                BColors.greyTextColor,
-                                            backgroundColor:
-                                                BColors.scaffoldBgColor,
-                                            label: Text(e),
-                                            onDeleted: () =>
-                                                _.removeSearchItem(e)),
+                                      GestureDetector(
+                                        onTap: () => Get.back(result: e),
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              right: BDimens.gap16),
+                                          child: Chip(
+                                              deleteIconColor:
+                                                  BColors.greyTextColor,
+                                              backgroundColor:
+                                                  BColors.scaffoldBgColor,
+                                              label: Text(e),
+                                              onDeleted: () =>
+                                                  _.removeSearchItem(e)),
+                                        ),
                                       )
                                   ],
                                 ),
@@ -105,53 +110,62 @@ class SearchPage extends GetView<SearchController> {
                   : GetBuilder<SearchController>(
                       id: "keyword",
                       builder: (_) {
-                        return Container(
-                          color: Get.theme.primaryColor,
+                        return Visibility(
+                          visible: _.keyOptions.length > 0,
                           child: Container(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                for (String str in _.visibleKeyList)
-                                  SearchItemTag(
-                                    keyword: str,
-                                  ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: ExpansionTile(
-                                      title: Text("查看更多"),
-                                      children: [
-                                        Column(
+                            color: Get.theme.primaryColor,
+                            child: Container(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  for (List<String> option
+                                      in _.visibleKeyOptionList)
+                                    SearchItemTag(
+                                      option: option,
+                                      keyword: _.keyword,
+                                    ),
+                                  Expanded(
+                                    child: Visibility(
+                                      visible: _.keyOptions.length > 5,
+                                      child: SingleChildScrollView(
+                                        child: ExpansionTile(
+                                          title: Text("查看更多"),
                                           children: [
-                                            for (String str
-                                                in _.unvisibleKeyList)
-                                              SearchItemTag(
-                                                keyword: str,
-                                              )
+                                            Column(
+                                              children: [
+                                                for (List<String> option
+                                                    in _.unvisibleKeyOptionList)
+                                                  SearchItemTag(
+                                                    keyword: _.keyword,
+                                                    option: option,
+                                                  )
+                                              ],
+                                            ),
+                                            // ListView.separated(
+                                            //     shrinkWrap: true,
+                                            //     separatorBuilder:
+                                            //         (BuildContext context, int i) {
+                                            //       return Divider(
+                                            //         indent: BDimens.gap24,
+                                            //         endIndent: BDimens.gap24,
+                                            //       );
+                                            //     },
+                                            //     itemCount: _.unvisibleKeyList.length,
+                                            //     itemBuilder:
+                                            //         (BuildContext context, int i) {
+                                            //       return Container(
+                                            //           margin:
+                                            //               EdgeInsets.all(BDimens.gap24),
+                                            //           child:
+                                            //               Text(_.unvisibleKeyList[i]));
+                                            //     }),
                                           ],
                                         ),
-                                        // ListView.separated(
-                                        //     shrinkWrap: true,
-                                        //     separatorBuilder:
-                                        //         (BuildContext context, int i) {
-                                        //       return Divider(
-                                        //         indent: BDimens.gap24,
-                                        //         endIndent: BDimens.gap24,
-                                        //       );
-                                        //     },
-                                        //     itemCount: _.unvisibleKeyList.length,
-                                        //     itemBuilder:
-                                        //         (BuildContext context, int i) {
-                                        //       return Container(
-                                        //           margin:
-                                        //               EdgeInsets.all(BDimens.gap24),
-                                        //           child:
-                                        //               Text(_.unvisibleKeyList[i]));
-                                        //     }),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );

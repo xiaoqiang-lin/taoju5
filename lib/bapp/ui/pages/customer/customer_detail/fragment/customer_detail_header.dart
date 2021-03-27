@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/constants/x_gender.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_detail/customer_detail_controller.dart';
@@ -19,13 +19,17 @@ class CustomerDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<CustomerDetailController>(builder: (_) {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
+        // padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
         child: Row(
           children: [
-            CircleAvatar(
-              foregroundColor: Get.theme.primaryColor,
-              radius: 72.sp,
-              child: Image.asset("assets/images/customer_avatar.png"),
+            Container(
+              margin: EdgeInsets.only(left: BDimens.gap32),
+              child: Image.asset(
+                "assets/images/customer_avatar.png",
+                fit: BoxFit.fitWidth,
+                width: 80,
+                // width: 120,
+              ),
             ),
             Expanded(
                 child: Padding(
@@ -37,27 +41,52 @@ class CustomerDetailHeader extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(right: BDimens.gap32),
-                        child: Text("${_.customer.name}"),
+                        child: Text(
+                          "${_.customer.name}",
+                          style: TextStyle(
+                              fontSize: BDimens.sp36,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
-                      Text(_.customer.type)
+                      Text(
+                        _.customer.type,
+                        style: TextStyle(
+                            color: BColors.greyTextColor,
+                            fontSize: BDimens.sp24,
+                            fontWeight: FontWeight.w400),
+                      )
                     ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: _.customer.gender != XGender.unknown,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: BDimens.gap32),
+                            child: Text(getGenderName(_.customer.gender)),
+                          ),
+                        ),
+                        Text("${_.customer.age}岁"),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: BDimens.gap32),
-                        child: Text(getGenderName(_.customer.gender)),
+                      // Padding(
+                      //   padding: EdgeInsets.only(right: BDimens.gap32),
+                      //   child: Icon(
+                      //     BIcons.add,
+                      //     size: 16,
+                      //   ),
+                      // ),
+                      Text(
+                        _.customer.concreteAddress,
+                        style: TextStyle(
+                            fontSize: BDimens.sp26,
+                            color: BColors.greyTextColor),
                       ),
-                      Text(_.customer.age),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: BDimens.gap32),
-                        child: Text(getGenderName(_.customer.gender)),
-                      ),
-                      Text(_.customer.concreteAddress),
                     ],
                   )
                 ],

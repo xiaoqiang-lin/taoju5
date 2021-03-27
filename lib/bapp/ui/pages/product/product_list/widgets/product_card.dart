@@ -11,7 +11,7 @@ import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/product/widgets/product_onsale_tag.dart';
 
@@ -33,7 +33,7 @@ class ProductGridCard extends StatelessWidget {
               SizedBox(
                 width: 320.w,
                 height: 320.w,
-                child: CachedNetworkImage(
+                child: XCachedNetworkImage(
                   imageUrl: product.image,
                   placeholder: (BuildContext context, String desc) {
                     return Image.network(product.thumbnail);

@@ -7,6 +7,7 @@
 
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/app/app_module_model.dart';
+import 'package:taoju5/bapp/ui/pages/home/app_controller.dart';
 
 class HomeController extends GetxController {
   List<AppModuleModel> moduleList;
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
   void onInit() {
     AppModuleModelListWrapper wrapper = AppModuleModelListWrapper();
     moduleList = wrapper.appModuleList;
+    Get.find<AppController>().upgradeApp();
     super.onInit();
   }
 }

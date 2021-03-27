@@ -12,9 +12,10 @@ import 'package:get/get.dart';
 // import 'package:install_plugin/install_plugin.dart';
 // import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info/package_info.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:taoju5/bapp/domain/model/app/app_info_model.dart';
 import 'package:taoju5/bapp/domain/repository/app/app_repository.dart';
+import 'package:taoju5/bapp/ui/dialog/app/app_upgrade_dialog.dart';
+import 'package:dio/dio.dart';
 
 class AppController extends GetxController {
   AppRepository _repository = AppRepository();
@@ -23,6 +24,49 @@ class AppController extends GetxController {
   AppInfoModel appInfoModel;
 
   Future<AppUpgradeInfo> appUpgradeInfo;
+
+  double progress = 0;
+
+  bool hasNewVersion = false;
+  String lasestVersion = "1.0.0";
+
+  DownloadStatus downloadStatus = DownloadStatus.none;
+
+  downloadApk() async {
+    String path = await FlutterUpgrade.apkDownloadPath;
+    path += apkName;
+    if (downloadStatus == DownloadStatus.start ||
+        downloadStatus == DownloadStatus.downloading ||
+        downloadStatus == DownloadStatus.done) {
+      print('当前下载状态：$downloadStatus,不能重复下载。');
+      return;
+    }
+    _updateDownloadStatus(DownloadStatus.start);
+    try {
+      var dio = Dio();
+      await dio.download(appInfoModel.downloadUrl, path,
+          onReceiveProgress: (int count, int total) {
+        if (total == -1) {
+          progress = 0.01;
+        } else {
+          progress = count / total.toDouble();
+        }
+        update();
+        if (progress == 1) {
+          Get.back();
+          //下载完成，跳转到程序安装界面
+          _updateDownloadStatus(DownloadStatus.done);
+
+          FlutterUpgrade.installAppForAndroid(path);
+        }
+      });
+    } catch (err) {}
+  }
+
+  _updateDownloadStatus(DownloadStatus downloadStatus) {
+    downloadStatus = downloadStatus;
+    update();
+  }
 
   ///获取最新的app信息
   Future<String> _getLatestAppInfo() {
@@ -46,29 +90,21 @@ class AppController extends GetxController {
     String localVersion = packageInfo.version;
 
     String remoteVersion = await _getLatestAppInfo();
-
-    return remoteVersion.compareTo(localVersion) == 1;
+    lasestVersion = remoteVersion;
+    hasNewVersion = remoteVersion.compareTo(localVersion) == 1;
+    update();
+    return hasNewVersion;
   }
 
-  Future<String> _getApkPath() async {
-    final directory = await getExternalStorageDirectory();
-    return directory.path;
-  }
+  // Future<String> _getApkPath() async {
+  //   final directory = await getExternalStorageDirectory();
+  //   return directory.path;
+  // }
 
-  Future<Null> _installApk() async {
-    try {
-      _getApkPath();
-      // String path = await _getApkPath();
-
-      // InstallPlugin.installApk(path + apkName, 'com.buyi.taoju5')
-      //     .then((_) {})
-      //     .catchError((err) => err);
-    } on Error catch (_) {}
-  }
-
-  Future _upgradeApp() async {
+  Future upgradeApp({WidgetBuilder builder}) async {
     bool hasNewVersion = await _hasNewAppVersion();
-    if (!hasNewVersion) {
+
+    if (hasNewVersion) {
       AppUpgrade.appUpgrade(
         Get.context,
         Future.value(AppUpgradeInfo(
@@ -85,6 +121,11 @@ class AppController extends GetxController {
 
         // appMarketInfo: AppMarket.tencent,
         borderRadius: 16.0,
+        builder: (BuildContext context) {
+          return AppUpgradeDialogBuilder(
+            appInfo: appInfoModel,
+          );
+        },
         onCancel: () {
           // print('onCancel');
         },
@@ -92,20 +133,18 @@ class AppController extends GetxController {
           // print('onOk');
         },
         downloadProgress: (count, total) {
+          progress = count / total;
+          _updateDownloadStatus(DownloadStatus.downloading);
           // print('count:$count,total:$total');
         },
-        downloadStatusChange: (DownloadStatus status, {dynamic error}) {
-          if (status == DownloadStatus.done) {
-            _installApk();
-          }
-        },
+        downloadStatusChange: (DownloadStatus status, {dynamic error}) {},
       );
     }
   }
 
   @override
   void onInit() {
-    _upgradeApp();
+    _hasNewAppVersion();
     super.onInit();
   }
 }

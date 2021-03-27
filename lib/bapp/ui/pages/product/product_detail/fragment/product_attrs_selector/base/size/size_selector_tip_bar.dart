@@ -130,7 +130,8 @@ class SizeSelectorTipBar extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text("宽:${_.widthM}米 高:${_.heightM}米"),
+                                    Text(
+                                        "宽:${_.widthM?.toStringAsFixed(2)}米 高:${_.heightM?.toStringAsFixed(2)}米"),
                                     GetBuilder<RoomAttrSelectorController>(
                                       tag: tag,
                                       builder: (_) {

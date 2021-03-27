@@ -19,7 +19,13 @@ class ChooseCustomerEventModel {
   String fromUrl;
   CustomerDetailModel customer;
   CustomerCategoryModel category;
-  ChooseCustomerEventModel({this.customer, this.fromUrl, this.category});
+  bool canChoose;
+  ChooseCustomerEventModel({
+    this.customer,
+    this.fromUrl,
+    this.category,
+    this.canChoose = true,
+  });
 }
 
 class CustomerListController extends GetxController {
@@ -37,6 +43,11 @@ class CustomerListController extends GetxController {
   ];
 
   ScrollController scrollController;
+
+  void onCategoryTap(CustomerCategoryModel e) {
+    Get.toNamed(BAppRoutes.categoryCustomerList + "?type=${e?.type}",
+        arguments: Get.arguments);
+  }
 
   ///更新数量
   void updateCount(List<int> list) {
