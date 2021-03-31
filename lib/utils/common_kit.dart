@@ -14,7 +14,7 @@ import 'package:taoju5/config/net_config.dart';
 abstract class CommonKit {
   static bool isNullOrZero(dynamic value) {
     if (value == null) return true;
-    if (value is String) return value == "0";
+    if (value is String) return value == "0" || value == "0.00";
     return value == 0;
   }
 
@@ -53,5 +53,11 @@ abstract class CommonKit {
       });
     };
     return target;
+  }
+
+  static bool isMobileNumber(String val) {
+    return RegExp(
+            '^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$')
+        .hasMatch(val);
   }
 }

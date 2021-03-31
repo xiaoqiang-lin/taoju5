@@ -10,6 +10,7 @@ import 'package:taoju5/config/sdk_manager/sdk/jpush_sdk.dart';
 import 'package:taoju5/config/sdk_manager/sdk/wechat_sdk.dart';
 
 import 'i_sdk_initializer.dart';
+import 'sdk/amap_sdk.dart';
 
 class SdkManager implements ISdkInitializer {
   @override
@@ -22,7 +23,12 @@ class SdkManager implements ISdkInitializer {
   SdkManager._();
 
   /// 初始化器列表
-  List<ISdkInitializer> _sdkList = [BuglySdk(), WeChatSdk(), JPushSdk()];
+  List<ISdkInitializer> _sdkList = [
+    BuglySdk(),
+    WeChatSdk(),
+    JPushSdk(),
+    AmapSdk()
+  ];
   @override
   void init() {
     for (ISdkInitializer initialzer in _sdkList) {

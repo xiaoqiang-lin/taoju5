@@ -16,7 +16,10 @@ class HomeController extends GetxController {
   void onInit() {
     AppModuleModelListWrapper wrapper = AppModuleModelListWrapper();
     moduleList = wrapper.appModuleList;
-    Get.find<AppController>().upgradeApp();
+    AppController appController = Get.find<AppController>();
+    appController.requestPermission().then((value) {
+      appController.upgradeApp();
+    });
     super.onInit();
   }
 }

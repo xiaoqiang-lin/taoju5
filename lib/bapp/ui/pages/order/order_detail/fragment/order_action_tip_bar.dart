@@ -59,7 +59,7 @@ class OrderActionTipBar extends GetView<OrderDetailController> {
                     Text("安装预约时间"),
                     Spacer(),
                     Text(
-                      controller.order.measureTime,
+                      controller.order.installTime,
                       style: TextStyle(color: BColors.subTitleColor),
                     ),
                     Visibility(

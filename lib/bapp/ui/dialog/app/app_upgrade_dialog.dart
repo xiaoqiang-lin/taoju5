@@ -124,7 +124,7 @@ class AppUpgradeDialogBuilder extends StatelessWidget {
                                         onTap: Get.back,
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 4),
+                                              horizontal: 12, vertical: 6),
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: Color(0xFFfecd7b),
@@ -143,7 +143,7 @@ class AppUpgradeDialogBuilder extends StatelessWidget {
                                         onTap: _.downloadApk,
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 4),
+                                              horizontal: 12, vertical: 6),
                                           decoration: BoxDecoration(
                                               color: Color(0xFFfecd7b),
                                               border: Border.all(

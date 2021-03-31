@@ -30,18 +30,25 @@ class SizeSelectorCard extends StatelessWidget {
                       child: Container(
                         child: Text("宽(cm)"),
                       ),
-                      flex: 1,
+                      flex: 2,
                     ),
                     Expanded(
-                      flex: 2,
-                      child: XSizedTextField(
-                        initialValue: _.width,
-                        controller: _.widthController,
+                      flex: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          // border:
+                          //     Border.all(color: BColors.inputBorderColor)
+                        ),
+                        child: XSizedTextField(
+                          height: 36,
+                          initialValue: _.width,
+                          controller: _.widthController,
+                          hintText: "请输入宽度(cm)",
+                        ),
                       ),
                     ),
-                    Spacer(
-                      flex: 2,
-                    )
+                    Spacer(flex: 2)
                   ],
                 ),
                 Container(
@@ -52,13 +59,22 @@ class SizeSelectorCard extends StatelessWidget {
                         child: Container(
                           child: Text("高(cm)"),
                         ),
-                        flex: 1,
+                        flex: 2,
                       ),
                       Expanded(
-                        flex: 2,
-                        child: XSizedTextField(
-                          initialValue: _.height,
-                          controller: _.heightController,
+                        flex: 4,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            // border:
+                            //     Border.all(color: BColors.inputBorderColor)
+                          ),
+                          child: XSizedTextField(
+                            height: 36,
+                            initialValue: _.height,
+                            controller: _.heightController,
+                            hintText: "请输入高度(cm)",
+                          ),
                         ),
                       ),
                       Spacer(
@@ -73,13 +89,22 @@ class SizeSelectorCard extends StatelessWidget {
                       child: Container(
                         child: Text("离地距离"),
                       ),
-                      flex: 1,
+                      flex: 2,
                     ),
                     Expanded(
-                      flex: 2,
-                      child: XSizedTextField(
-                        initialValue: _.deltaY,
-                        controller: _.deltaYController,
+                      flex: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          // border:
+                          //     Border.all(color: BColors.inputBorderColor)
+                        ),
+                        child: XSizedTextField(
+                          height: 36,
+                          initialValue: _.deltaY,
+                          controller: _.deltaYController,
+                          hintText: "请输入离地距离(cm)",
+                        ),
                       ),
                     ),
                     Spacer(

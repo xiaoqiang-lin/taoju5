@@ -10,6 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/config/app_config.dart';
+import 'package:taoju5/config/app_manager.dart';
 
 import 'package:taoju5/config/sdk_manager/sdk_manager.dart';
 import 'package:taoju5/storage/storage_manager.dart';
@@ -31,10 +32,9 @@ abstract class AppInitializer {
 
   static void _initApp() async {
     await _initWidgetBinding();
-
+    await _initStorage();
     await _initSDK();
 
-    await _initStorage();
     await _initAppConfig();
     _initSystemUI();
     _initEasyloading();
@@ -69,6 +69,7 @@ abstract class AppInitializer {
 
   static Future _initAppConfig() async {
     await AppConfig.syncConfig();
+    await AppManager.getAppInfo();
   }
 
   static Future _initWidgetBinding() async {

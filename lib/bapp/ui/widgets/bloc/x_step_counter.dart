@@ -84,48 +84,42 @@ class _XStepCounterState extends State<XStepCounter> {
           border: Border.all(color: BColors.inputBorderColor)),
       child: Row(
         children: [
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: onSubstract,
-              child: Container(
-                child: Image.asset("assets/images/substract.png"),
-              ),
+          GestureDetector(
+            onTap: onSubstract,
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              width: .25 * widget.width,
+              height: widget.height,
+              child: Image.asset("assets/images/substract.png"),
             ),
           ),
-          Expanded(
-              flex: 2,
-              child: Container(
-                alignment: Alignment.center,
-                height: 36,
-                decoration: BoxDecoration(
-                    border: Border(
-                        right: BorderSide(color: BColors.inputBorderColor),
-                        left: BorderSide(color: BColors.inputBorderColor))),
-                child: TextFormField(
-                  maxLines: 1,
-                  controller: controller,
-                  onChanged: onChange,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                      isCollapsed: true,
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none),
-                ),
-              )),
-          // XSizedTextField(
-          //   // width: 96,
-          //   width: 56,
-          //   onChanged: onChange,
-          // ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-                onTap: onPlus,
-                child: Container(
-                  child: Image.asset("assets/images/plus.png"),
-                )),
+          Container(
+            alignment: Alignment.center,
+            width: .48 * widget.width,
+            height: widget.height,
+            decoration: BoxDecoration(
+                border: Border(
+                    right: BorderSide(color: BColors.inputBorderColor),
+                    left: BorderSide(color: BColors.inputBorderColor))),
+            child: TextFormField(
+              maxLines: 1,
+              controller: controller,
+              onChanged: onChange,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                  isCollapsed: true,
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none),
+            ),
           ),
+          GestureDetector(
+              onTap: onPlus,
+              behavior: HitTestBehavior.opaque,
+              child: Container(
+                width: .25 * widget.width,
+                height: widget.height,
+                child: Image.asset("assets/images/plus.png"),
+              ))
         ],
       ),
     );

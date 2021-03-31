@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_model.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_list/order_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_list/widgets/order_card_sheet.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_list/widgets/order_product_card.dart';
 
 class OrderCard extends StatelessWidget {
@@ -20,14 +22,24 @@ class OrderCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(
         BAppRoutes.orderDetail + "/${order?.id}",
-      ),
+      ).then((value) {
+        if (value == true) {
+          OrderListParentController parentController =
+              Get.find<OrderListParentController>();
+          parentController.refreshData();
+          Get.find<OrderListController>(tag: parentController.tag)
+              .refreshData();
+        }
+      }),
       child: Container(
+        color: Get.theme.primaryColor,
         child: Column(
           children: [
             ListBody(
               children: [
                 for (OrderProductModel e in order.productList)
-                  OrderProductCard(product: e, order: order)
+                  OrderProductCard(product: e, order: order),
+                OrderCardSheet(order: order)
               ],
             )
           ],

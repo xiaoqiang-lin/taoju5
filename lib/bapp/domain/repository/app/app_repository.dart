@@ -13,9 +13,7 @@ class AppRepository {
   AppAPI _api = AppAPI();
 
   Future<AppInfoModel> appInfo({Map params}) {
-    return _api
-        .appInfo("/api/Config/getAppUpgradeInfo", params: params)
-        .then((BaseResponse response) {
+    return _api.appInfo(params: params).then((BaseResponse response) {
       if (response.isValid) return AppInfoModel.fromJson(response.data);
       throw Future.error(response.message);
     }).catchError((err) {

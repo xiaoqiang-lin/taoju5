@@ -31,6 +31,8 @@ class OrderDetailProductModel {
   bool hasSelected;
   OrderMeasureDataModel measureData;
 
+  String room;
+
   OrderDetailProductModel.fromJson(Map json) {
     id = json["order_goods_id"];
     orderId = json["order_id"];
@@ -41,12 +43,14 @@ class OrderDetailProductModel {
     orderStatusCode = json["order_status"];
     refundStatusCode = json["refund_status"];
     image = JsonKit.asWebUrl(
-        JsonKit.getValueInComplexMap(json, ["picture_info", "pic_cover"]));
+        JsonKit.getValueInComplexMap(json, ["picture_info", "pic_cover_mid"]));
     description = json["goods_attr_str"];
     productTypeCode = JsonKit.asInt(json["goods_type"]);
     totalPrice = json["estimated_price"];
     hasSelected = JsonKit.asBool(json["is_selected_goods"]);
     orderStatusName = json["status_name"];
+    room =
+        JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"]).toString();
 
     measureData =
         OrderMeasureDataModel.fromJson(json["order_goods_measure"] ?? {});

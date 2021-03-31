@@ -18,7 +18,10 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 class _SelectOrderCard extends StatelessWidget {
   final OrderModel order;
   final OrderProductModel product;
-  const _SelectOrderCard({Key key, this.order, this.product}) : super(key: key);
+  final String lastOrderNo;
+  const _SelectOrderCard(
+      {Key key, this.order, this.product, this.lastOrderNo = ""})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,42 +106,6 @@ class _SelectOrderCard extends StatelessWidget {
                     ),
                   ),
                 ))
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: BDimens.gap32, horizontal: BDimens.gap32),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "应收定金:",
-                      style: TextStyle(
-                          fontSize: BDimens.sp24,
-                          color: BColors.weightGreyTextColor),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: BDimens.gap4),
-                      child: Text(
-                        "¥${order.prepayment.toStringAsFixed(2)}",
-                        style: TextStyle(fontSize: BDimens.sp28),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: BDimens.gap8),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "创建时间:${order.createTime}",
-                    style: TextStyle(
-                        fontSize: BDimens.sp26,
-                        color: BColors.weightGreyTextColor),
-                  ),
-                )
               ],
             ),
           ),
@@ -240,50 +207,18 @@ class _UnMeasuredOrderCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: BDimens.gap32, horizontal: BDimens.gap32),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "应收定金:",
-                      style: TextStyle(
-                          fontSize: BDimens.sp24,
-                          color: BColors.weightGreyTextColor),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: BDimens.gap4),
-                      child: Text(
-                        "¥${order.prepayment.toStringAsFixed(2)}",
-                        style: TextStyle(fontSize: BDimens.sp28),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: BDimens.gap8),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "创建时间:${order.createTime}",
-                  ),
-                )
-              ],
-            ),
-          ),
         ],
       ),
     );
   }
 }
 
-///测量完成的测量单
-class _MeasuredOrderCard extends StatelessWidget {
+///已经选品但没有确认的订单
+class _SeletedMeasureOrderCard extends StatelessWidget {
   final OrderModel order;
   final OrderProductModel product;
-  const _MeasuredOrderCard({Key key, this.order, this.product})
+  const _SeletedMeasureOrderCard(
+      {Key key, @required this.order, @required this.product})
       : super(key: key);
 
   @override
@@ -317,6 +252,7 @@ class _MeasuredOrderCard extends StatelessWidget {
                         Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 mainAxisAlignment:
@@ -342,30 +278,58 @@ class _MeasuredOrderCard extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     vertical: BDimens.gap8),
                                 child: Text(
-                                    "¥${product.price.toStringAsFixed(2)}"),
-                              )
+                                  "¥${product.price.toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                      fontSize: BDimens.sp28,
+                                      color: BColors.textColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                // padding: EdgeInsets.symmetric(
+                                //     vertical: BDimens.gap8),
+                                child: Text(
+                                  "空间:${product.room}",
+                                  style: TextStyle(
+                                      fontSize: BDimens.sp24,
+                                      color: BColors.tipTextColor),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: BDimens.gap8),
+                                child: Text(
+                                  "宽:${product.width}米 高:${product.height}",
+                                  style: TextStyle(
+                                      fontSize: BDimens.sp24,
+                                      color: BColors.tipTextColor),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        DefaultTextStyle(
-                            style: TextStyle(
-                                fontSize: BDimens.sp24,
-                                color: BColors.tipTextColor),
-                            child: Container(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("空间:${product.room}"),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.only(bottom: BDimens.gap4),
-                                      child: Text(
-                                          "宽:${product.width}米 高:${product.height}"))
-                                ],
-                              ),
-                            ))
+
+                        // DefaultTextStyle(
+                        //     style: TextStyle(
+                        //         fontSize: BDimens.sp24,
+                        //         color: BColors.tipTextColor),
+                        //     child: Container(
+                        //       child: Column(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                        //         children: [
+                        //           Text("空间:${product.room}"),
+                        //           Padding(
+                        //               padding:
+                        //                   EdgeInsets.only(bottom: BDimens.gap4),
+                        //               child: Text(
+                        //                   "宽:${product.width}米 高:${product.height}"))
+                        //         ],
+                        //       ),
+                        //     ))
                       ],
                     ),
                   ),
@@ -373,36 +337,116 @@ class _MeasuredOrderCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: BDimens.gap32, horizontal: BDimens.gap32),
-            child: Column(
+        ],
+      ),
+    );
+  }
+}
+
+///测量完成的测量单
+class _UnselectedOrderCard extends StatelessWidget {
+  final OrderModel order;
+  final OrderProductModel product;
+  const _UnselectedOrderCard({Key key, this.order, this.product})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(BDimens.gap32),
+            color: BColors.primaryColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "应收定金:",
-                      style: TextStyle(
-                          fontSize: BDimens.sp24,
-                          color: BColors.weightGreyTextColor),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: BDimens.gap4),
-                      child: Text(
-                        "¥${order.prepayment.toStringAsFixed(2)}",
-                        style: TextStyle(fontSize: BDimens.sp28),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: BDimens.gap8),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "创建时间:${order.createTime}",
+                SizedBox(
+                  height: 180.h,
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: XCachedNetworkImage(imageUrl: product.image),
                   ),
-                )
+                ),
+                Expanded(
+                    child: SizedBox(
+                  height: 180.h,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: BDimens.gap32),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    product.room,
+                                    style: TextStyle(
+                                        fontSize: BDimens.sp28,
+                                        color: BColors.textColor,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    product.statusName,
+                                    style: TextStyle(
+                                        fontSize: BDimens.sp26,
+                                        color: BColors.pinkColor),
+                                  )
+                                ],
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: BDimens.gap8),
+                                child: Text(
+                                  "宽:${product.width}米 高:${product.height}",
+                                  style: TextStyle(
+                                      fontSize: BDimens.sp28,
+                                      color: BColors.textColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              Text(
+                                "${product.style}",
+                                style: TextStyle(
+                                    fontSize: BDimens.sp24,
+                                    color: BColors.tipTextColor),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // DefaultTextStyle(
+                        //     style: TextStyle(
+                        //         fontSize: BDimens.sp24,
+                        //         color: BColors.tipTextColor),
+                        //     child: Container(
+                        //       child: Column(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                        //         children: [
+                        //           Text("空间:${product.room}"),
+                        //           Padding(
+                        //               padding:
+                        //                   EdgeInsets.only(bottom: BDimens.gap4),
+                        //               child: Text(
+                        //                   "宽:${product.width}米 高:${product.height}"))
+                        //         ],
+                        //       ),
+                        //     ))
+                      ],
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
@@ -447,7 +491,14 @@ class OrderProductCard extends StatelessWidget {
                 ///测量完成
                 Visibility(
                   visible: order.orderStatus > OrderStatus.toBeMeasured,
-                  child: _MeasuredOrderCard(order: order, product: product),
+                  child: Column(
+                    children: [
+                      if (product.hasSelected)
+                        _SeletedMeasureOrderCard(order: order, product: product)
+                      else
+                        _UnselectedOrderCard(order: order, product: product)
+                    ],
+                  ),
                 ),
               ],
             ),

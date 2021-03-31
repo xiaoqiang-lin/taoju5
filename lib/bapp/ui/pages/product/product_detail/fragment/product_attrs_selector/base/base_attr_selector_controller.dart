@@ -27,10 +27,14 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   String get value => attr?.currentOptionName;
 
+  String get typeName => attr?.typeName;
+
   String get description =>
       "${attr?.currentOptionName ?? ""} ${CommonKit.isNullOrZero(attr?.currentOptionPrice) ? "" : "¥" + attr?.currentOptionPrice?.toStringAsFixed(2)}";
 
   String get valueId => attr?.currentOptionId;
+
+  double get price => attr?.currentOptionPrice;
 
   String get key => attr?.typeName;
 
@@ -48,6 +52,7 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   void initCheckState() {
+    if (GetUtils.isNullOrBlank(attr?.optionList)) return;
     attr?.optionList?.first?.isChecked = true;
     attr?.optionList?.first?.hasConfirmed = true;
   }
@@ -85,6 +90,7 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   void _initFromMixinProductModel() {
+    print(Get.arguments);
     if (Get.arguments != null &&
         Get.arguments is ModifyCurtainProductAttrEvent) {
       ModifyCurtainProductAttrEvent event = Get.arguments;
@@ -260,9 +266,12 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   CurtainProductAttrAdapterModel adapt() {
     return CurtainProductAttrAdapterModel(
-        id: attr?.currentOptionId,
-        value: attr?.currentOptionName,
-        key: attr?.typeName,
-        type: "${attr?.type}");
+      id: attr?.currentOptionId,
+      value: attr?.currentOptionName,
+      key: attr?.typeName,
+      price: attr?.currentOptionPrice,
+      type: "${attr?.type}",
+      typeName: attr?.typeName,
+    );
   }
 }

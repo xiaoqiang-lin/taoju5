@@ -4,6 +4,7 @@
  * @Date: 2021-01-11 17:32:04
  * @LastEditTime: 2021-02-01 11:10:25
  */
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -96,6 +97,18 @@ class AppController extends GetxController {
     return hasNewVersion;
   }
 
+  Future requestPermission() async {
+    // bool isGranted = await PermissionKit.isGranted(Permission.storage);
+    // if (!isGranted) {
+    //   return showAppPermissionRequestDialog("淘居屋暂时没有存储权限哦").then((value) async {
+    //     if (value == true) {
+    //       isGranted = await PermissionKit.requestPerssion(Permission.storage);
+    //     }
+    //     return isGranted;
+    //   });
+    // }
+  }
+
   // Future<String> _getApkPath() async {
   //   final directory = await getExternalStorageDirectory();
   //   return directory.path;
@@ -144,7 +157,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() {
-    _hasNewAppVersion();
+    // _hasNewAppVersion();
     super.onInit();
   }
 }

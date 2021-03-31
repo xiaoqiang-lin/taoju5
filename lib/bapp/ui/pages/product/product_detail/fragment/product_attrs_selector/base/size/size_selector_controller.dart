@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
-import 'package:taoju5/bapp/domain/model/order/order_mainfest_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
@@ -57,12 +56,13 @@ class SizeSelectorController extends GetxController {
     heightController = TextEditingController();
     deltaYController = TextEditingController();
     tag = Get.parameters["id"];
-    if (Get.arguments != null && Get.arguments is ProductMainfestModel) {
+    if (Get.arguments != null && Get.arguments is ProductMixinModel) {
       ProductMixinModel product = Get.arguments;
       width = "${product.width}";
       height = "${product.height}";
       deltaY = product.deltaY;
     }
+
     super.onInit();
   }
 
@@ -150,6 +150,7 @@ class SizeSelectorController extends GetxController {
     height = measureData.height;
     deltaY = measureData.newDeltaY;
     hasChecked = true;
+    Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
     update(["size"]);
   }
 

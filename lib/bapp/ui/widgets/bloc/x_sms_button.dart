@@ -16,7 +16,7 @@ enum ButtonState { idle, busy, succeed, failed }
 
 class XSmsController extends GetxController {
   ButtonState buttonState = ButtonState.idle;
-  static const int maxCount = 10;
+  static const int maxCount = 60;
   final countDown = maxCount.obs;
   void changeState(ButtonState state) {
     buttonState = state;
@@ -72,11 +72,8 @@ class XSmsButton extends StatelessWidget {
           if (_.buttonState == ButtonState.busy) {
             return ElevatedButton(
                 onPressed: () {},
-                child: Stack(
-                  children: [
-                    Text("获取验证码"),
-                    CupertinoActivityIndicator(),
-                  ],
+                child: Text(
+                  "获取验证码",
                 ));
           }
           if (_.buttonState == ButtonState.succeed) {
@@ -100,7 +97,9 @@ class XCountDownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-        () => Text("${countDown.value}", key: ValueKey(countDown.value)));
+    return Obx(() => ElevatedButton(
+        onPressed: () {},
+        child:
+            Text("${countDown.value}秒后重新发送", key: ValueKey(countDown.value))));
   }
 }

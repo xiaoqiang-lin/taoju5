@@ -10,8 +10,6 @@ import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/interface/i_xcountalbe.dart';
 import 'package:taoju5/utils/json_kit.dart';
-
-import 'abstract_product_model.dart';
 import 'product_adapter_model.dart';
 
 class CartPorductModelListWrapper {
@@ -24,7 +22,7 @@ class CartPorductModelListWrapper {
   }
 }
 
-class CartPorductModel implements IXCountable, AbstractProdductModel {
+class CartPorductModel implements IXCountable {
   String id;
   int skuId;
   String productName;
@@ -57,7 +55,7 @@ class CartPorductModel implements IXCountable, AbstractProdductModel {
 
     room = "${JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"])}";
     image = JsonKit.asWebUrl(JsonKit.getValueInComplexMap(
-            json, ["picture_info", "pic_cover"])) ??
+            json, ["picture_info", "pic_cover_mid"])) ??
         '';
     type = json["goods_type"];
     price = JsonKit.asDouble(json["price"]);
@@ -96,6 +94,7 @@ extension CartPorductModelKit on CartPorductModel {
     model.skuId = "$skuId";
     model.cartId = id;
     model.length = length;
+    model.count = count.value;
     return model;
   }
 }

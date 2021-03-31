@@ -11,9 +11,12 @@ import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/x_title_bar.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_swiper.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SoftDesignProductSection extends StatelessWidget {
   final List<DesignProductModel> productList;
@@ -21,6 +24,15 @@ class SoftDesignProductSection extends StatelessWidget {
   const SoftDesignProductSection(
       {Key key, this.productList, @required this.fromId})
       : super(key: key);
+
+  Future openDesignProductModal(int productId) {
+    if (Get.find<CustomerProviderController>().isCustomerNull) {
+      EasyLoading.showInfo("请先选择客户哦");
+      return Get.toNamed(BAppRoutes.customerEdit,
+          arguments: ChooseCustomerEventModel(fromUrl: Get.currentRoute));
+    }
+    return showDesignProductModal(id: "$productId", fromId: fromId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,9 +136,8 @@ class SoftDesignProductSection extends StatelessWidget {
                                           Spacer(),
                                           GestureDetector(
                                               onTap: () =>
-                                                  showDesignProductModal(
-                                                      id: "${product.id}",
-                                                      fromId: fromId),
+                                                  openDesignProductModal(
+                                                      product.id),
                                               child: Text(
                                                 "立即购买",
                                                 style: TextStyle(

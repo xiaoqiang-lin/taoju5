@@ -22,7 +22,7 @@ Future showCancelProductDialog({@required OrderDetailProductModel product}) {
             );
             return AlertDialog(
               title: Text(
-                "你确定要取消改商品吗?",
+                "你确定要取消该商品吗?",
                 textAlign: TextAlign.center,
               ),
               content: Column(

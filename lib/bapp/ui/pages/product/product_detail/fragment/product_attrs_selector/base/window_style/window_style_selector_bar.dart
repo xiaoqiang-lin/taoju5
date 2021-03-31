@@ -29,9 +29,9 @@ class WindowStyleSelectorBar extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(flex: 1, child: Container(child: Text("安装方式"))),
+                      Expanded(flex: 2, child: Container(child: Text("安装方式"))),
                       Expanded(
-                          flex: 3,
+                          flex: 6,
                           child: Row(
                             children: [
                               for (WindowInstallModeOptionModel o
@@ -58,9 +58,9 @@ class WindowStyleSelectorBar extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(child: Container(child: Text("打开方式")), flex: 1),
+                Expanded(child: Container(child: Text("打开方式")), flex: 2),
                 Expanded(
-                    flex: 3,
+                    flex: 6,
                     child: Row(
                       children: [
                         for (WindowOpenModeOptionModel o
@@ -88,10 +88,10 @@ class WindowStyleSelectorBar extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(e.title),
-                        flex: 1,
+                        flex: 2,
                       ),
                       Expanded(
-                          flex: 3,
+                          flex: 6,
                           child: Row(
                             children: [
                               for (WindowSubopenModeOptionModel o

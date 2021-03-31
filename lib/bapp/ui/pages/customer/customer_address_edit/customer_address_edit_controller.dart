@@ -49,7 +49,7 @@ class CustomerEditAddressParamsModel extends ParamsValidator {
   @override
   bool validate({flag}) => [
         isPhoneNumber(customer?.tel),
-        isGenderNull(genderId),
+        // isGenderNull(genderId),
         isNullOrBlank(customer?.address?.detailAddress, message: "门牌号不能为空哦")
       ].reduce((a, b) => a && b);
 }
@@ -61,7 +61,7 @@ class CustomerAddressEditController extends GetxController {
 
   final customerProviderController = Get.find<CustomerProviderController>();
 
-  String get customerId => Get.parameters["id"];
+  String customerId = Get.parameters["id"];
 
   bool get isCustomerIdNull {
     String id = Get.parameters["id"];
@@ -83,10 +83,9 @@ class CustomerAddressEditController extends GetxController {
   ];
 
   Future _loadData() {
-    customer = customerProviderController.customer ?? CustomerDetailModel();
-    genderOptions.forEach((e) {
-      e.isChecked = e.gender == customer.gender;
-    });
+    customer = customerProviderController.customer ??
+        CustomerDetailModel(gender: XGender.female);
+
     if (isCustomerIdNull) return Future.value(0);
     if (!isAddressIdNull) return Future.value(0);
 
@@ -94,6 +93,9 @@ class CustomerAddressEditController extends GetxController {
         (CustomerDetailModel value) {
       customer = value;
       customerProviderController.customer = customer;
+      if (customer.gender == XGender.unknown) {
+        customer.gender = XGender.female;
+      }
       genderOptions.forEach((e) {
         e.isChecked = e.gender == customer.gender;
       });
@@ -104,6 +106,7 @@ class CustomerAddressEditController extends GetxController {
   Future submit() {
     CustomerEditAddressParamsModel params =
         CustomerEditAddressParamsModel(customer: customer);
+
     if (!params.validate()) throw Future.value(false);
     if (isFromShare) {
       return _syncSubmit(params);

@@ -49,7 +49,7 @@ int getProvinceIdByName(String name) {
   List<Map> list = quertProviceList();
   for (int i = 0; i < list.length; i++) {
     Map el = list[i];
-    if (RegExp(name).hasMatch(el["provicne_name"])) {
+    if (RegExp(name).hasMatch(el["province_name"] ?? "")) {
       return el["province_id"];
     }
   }
@@ -60,7 +60,7 @@ int getCityIdByName(int provinceId, String name) {
   List<Map> list = queryCityList(provinceId);
   for (int i = 0; i < list.length; i++) {
     Map el = list[i];
-    if (RegExp(name).hasMatch(el["city_name"])) {
+    if (RegExp(name).hasMatch(el["city_name"] ?? "")) {
       return el["city_id"];
     }
   }
@@ -71,7 +71,7 @@ int getDistrictIdByName(int cityId, String name) {
   List<Map> list = queryDistrictList(cityId);
   for (int i = 0; i < list.length; i++) {
     Map el = list[i];
-    if (RegExp(name).hasMatch(el["district_name"])) {
+    if (RegExp(name).hasMatch(el["district_name"] ?? "")) {
       return el["district_id"];
     }
   }
@@ -199,7 +199,7 @@ class AddressModel {
     int districtId = getDistrictIdByName(cityId, districtName);
 
     provicne = ProvicneEntity(id: provinceId, name: provinceName);
-    city = CityEntity(id: cityId, name: getProvinceNameById(cityId));
+    city = CityEntity(id: cityId, name: getCityNameById(provinceId, cityId));
     district = DistrictEntity(
         id: districtId,
         name: getDistrictNameById(provinceId, cityId, districtId));

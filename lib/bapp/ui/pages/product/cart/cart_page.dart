@@ -96,261 +96,252 @@ class CartPage extends GetView<CartListParentController> {
                                       duration: Duration(milliseconds: 400),
                                       itemBuilder: (BuildContext context,
                                           CartPorductModel e) {
-                                        return Slidable(
-                                          key: ObjectKey(e),
-                                          actionPane:
-                                              SlidableBehindActionPane(),
-                                          secondaryActions: [
-                                            IconSlideAction(
-                                              caption: '删除',
-                                              color: Colors.red,
-                                              icon: BIcons.del,
-                                              onTap: () => _.remove(
-                                                  element: e, tag: "${tab.id}"),
-                                            ),
-                                          ],
-                                          child: Container(
-                                            key: ValueKey(e.skuId),
-                                            color: BColors.primaryColor,
-                                            padding:
-                                                EdgeInsets.all(BDimens.gap16),
-                                            child: Column(
-                                              children: [
-                                                Obx(() => Row(
-                                                      children: [
-                                                        Checkbox(
-                                                            // key: ObjectKey(e.id),
-                                                            value: e.isChecked
-                                                                .value,
-                                                            onChanged:
-                                                                (bool flag) =>
-                                                                    _.checkItem(
-                                                                        e,
-                                                                        flag)),
-                                                        Container(
-                                                          width: 180.w,
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  right: BDimens
-                                                                      .gap20),
-                                                          child: AspectRatio(
-                                                            aspectRatio: 1.0,
-                                                            child:
-                                                                XCachedNetworkImage(
-                                                              imageUrl: e.image,
-                                                            ),
-                                                          ),
+                                        return GetBuilder<CartListController>(
+                                            tag: "${tab.id}",
+                                            id: "${e.id}",
+                                            builder: (_) {
+                                              return Slidable(
+                                                key: ObjectKey(e),
+                                                actionPane:
+                                                    SlidableBehindActionPane(),
+                                                secondaryActions: [
+                                                  IconSlideAction(
+                                                    caption: '删除',
+                                                    color: Colors.red,
+                                                    icon: BIcons.del,
+                                                    onTap: () => _.remove(
+                                                        element: e,
+                                                        tag: "${tab.id}"),
+                                                  ),
+                                                ],
+                                                child: Container(
+                                                  key: ValueKey(e.skuId),
+                                                  color: BColors.primaryColor,
+                                                  padding: EdgeInsets.all(
+                                                      BDimens.gap16),
+                                                  child: Column(
+                                                    children: [
+                                                      Obx(() => Row(
+                                                            children: [
+                                                              Checkbox(
+                                                                  // key: ObjectKey(e.id),
+                                                                  value: e
+                                                                      .isChecked
+                                                                      .value,
+                                                                  onChanged: (bool
+                                                                          flag) =>
+                                                                      _.checkItem(
+                                                                          e,
+                                                                          flag)),
+                                                              Container(
+                                                                width: 180.w,
+                                                                margin: EdgeInsets.only(
+                                                                    right: BDimens
+                                                                        .gap20),
+                                                                child:
+                                                                    AspectRatio(
+                                                                  aspectRatio:
+                                                                      1.0,
+                                                                  child:
+                                                                      XCachedNetworkImage(
+                                                                    imageUrl:
+                                                                        e.image,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          "${e.productName}",
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.w500,
+                                                                              fontSize: BDimens.sp28),
+                                                                        ),
+                                                                        Spacer(),
+                                                                        Text(
+                                                                          "¥${e.price.toStringAsFixed(2)}",
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.w400,
+                                                                              fontSize: BDimens.sp28),
+                                                                        ),
+                                                                        Text(
+                                                                            "${e.unit ?? ""}"),
+                                                                      ],
+                                                                    ),
+                                                                    Visibility(
+                                                                      visible: e
+                                                                              .productType
+                                                                          is CurtainProductType,
+                                                                      child:
+                                                                          Container(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                BDimens.gap20),
+                                                                        child:
+                                                                            Text(
+                                                                          "${e.description}",
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                          maxLines:
+                                                                              5,
+                                                                          style: TextStyle(
+                                                                              fontSize: BDimens.sp24,
+                                                                              color: BColors.descriptionTextColor),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Visibility(
+                                                                      visible: e
+                                                                              .productType
+                                                                          is FinishedProductType,
+                                                                      child: Container(
+                                                                          padding: EdgeInsets.symmetric(horizontal: 4),
+                                                                          decoration: BoxDecoration(color: BColors.scaffoldBgColor, borderRadius: BorderRadius.circular(5)),
+
+                                                                          // padding: EdgeInsets.zero,
+                                                                          // margin: EdgeInsets.only(
+                                                                          //     top: BDimens.gap20),
+                                                                          child: XRotationArrow(key: ValueKey(e.description), label: "${e.description}", labelStyle: TextStyle(fontSize: BDimens.sp24, color: BColors.descriptionTextColor, height: .5), onTap: () => showFinishedProductAttrModal(context, id: "${e.productId}", cartProduct: e, onConfirm: e.productType is SectionalbarProductType ? () => _.modifySectionalbarLength(e) : null))),
+                                                                    ),
+                                                                    Visibility(
+                                                                      child:
+                                                                          Container(
+                                                                        alignment:
+                                                                            Alignment.centerRight,
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                BDimens.gap32),
+                                                                        child:
+                                                                            XStepCounter(
+                                                                          width:
+                                                                              118,
+                                                                          height:
+                                                                              28,
+                                                                          key: ValueKey(e
+                                                                              .count
+                                                                              .value),
+                                                                          initialValue: e
+                                                                              .count
+                                                                              .value,
+                                                                          onValueChange:
+                                                                              (String val) {
+                                                                            _.onProductCountChange(e,
+                                                                                val);
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      visible: (e.productType
+                                                                              is FinishedProductType &&
+                                                                          !(e.productType
+                                                                              is SectionalbarProductType)),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                      Visibility(
+                                                        visible: !GetUtils
+                                                            .isNullOrBlank(
+                                                                e.attrsList),
+                                                        child: GestureDetector(
+                                                          onTap: () => Get.toNamed(
+                                                              BAppRoutes
+                                                                      .modifyCurtainProductAttr +
+                                                                  "?id=${e.id}&category=${e.categoryType}",
+                                                              arguments:
+                                                                  ModifyCurtainProductAttrEvent(
+                                                                      tag: e.id,
+                                                                      cart: e,
+                                                                      isFromCart:
+                                                                          true,
+                                                                      category:
+                                                                          "${tab.id}")),
+                                                          child: Container(
+                                                              padding: EdgeInsets.symmetric(
+                                                                  vertical:
+                                                                      BDimens
+                                                                          .gap16,
+                                                                  horizontal:
+                                                                      BDimens
+                                                                          .gap24),
+                                                              color: BColors
+                                                                  .scaffoldBgColor,
+                                                              margin: EdgeInsets.only(
+                                                                  left: 42,
+                                                                  top: 20,
+                                                                  bottom: BDimens
+                                                                      .gap36),
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    child:
+                                                                        ProductAttrCard(
+                                                                      attrList:
+                                                                          e.attrsList,
+                                                                    ),
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    child: Icon(
+                                                                        BIcons
+                                                                            .next),
+                                                                    onTap:
+                                                                        () {},
+                                                                  )
+                                                                ],
+                                                              )),
                                                         ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                      ),
+                                                      Visibility(
+                                                        visible: e.productType
+                                                            is CurtainProductType,
+                                                        child: Container(
+                                                          width: Get.width,
+                                                          alignment: Alignment
+                                                              .centerRight,
+                                                          child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .start,
+                                                                    .end,
                                                             children: [
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    "${e.productName}",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize:
-                                                                            BDimens.sp28),
-                                                                  ),
-                                                                  Spacer(),
-                                                                  Text(
-                                                                    "¥${e.price.toStringAsFixed(2)}",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w400,
-                                                                        fontSize:
-                                                                            BDimens.sp28),
-                                                                  ),
-                                                                  Text(
-                                                                      "${e.unit ?? ""}"),
-                                                                ],
+                                                              Text(
+                                                                "预计总金额:",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        BDimens
+                                                                            .sp26,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
                                                               ),
-                                                              Visibility(
-                                                                visible: e
-                                                                        .productType
-                                                                    is CurtainProductType,
-                                                                child:
-                                                                    Container(
-                                                                  margin: EdgeInsets.only(
-                                                                      top: BDimens
-                                                                          .gap20),
-                                                                  child: Text(
-                                                                    "${e.description}",
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 5,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            BDimens
-                                                                                .sp24,
-                                                                        color: BColors
-                                                                            .descriptionTextColor),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Visibility(
-                                                                visible: e
-                                                                        .productType
-                                                                    is FinishedProductType,
-                                                                child:
-                                                                    Container(
-                                                                        padding: EdgeInsets.symmetric(
-                                                                            horizontal:
-                                                                                4),
-                                                                        decoration: BoxDecoration(
-                                                                            color: BColors
-                                                                                .scaffoldBgColor,
-                                                                            borderRadius: BorderRadius.circular(
-                                                                                4)),
-
-                                                                        // padding: EdgeInsets.zero,
-                                                                        // margin: EdgeInsets.only(
-                                                                        //     top: BDimens.gap20),
-                                                                        child: XRotationArrow(
-                                                                            key: ValueKey(e
-                                                                                .description),
-                                                                            label:
-                                                                                "${e.description}",
-                                                                            labelStyle:
-                                                                                TextStyle(fontSize: BDimens.sp24, color: BColors.descriptionTextColor),
-                                                                            onTap: () => showFinishedProductAttrModal(context, id: "${e.productId}", cartProduct: e))),
-                                                              ),
-                                                              Visibility(
-                                                                child:
-                                                                    Container(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerRight,
-                                                                  margin: EdgeInsets.only(
-                                                                      top: BDimens
-                                                                          .gap32),
-                                                                  child:
-                                                                      XStepCounter(
-                                                                    width: 118,
-                                                                    height: 28,
-                                                                    key: ValueKey(e
-                                                                        .count
-                                                                        .value),
-                                                                    initialValue: e
-                                                                        .count
-                                                                        .value,
-                                                                    onValueChange:
-                                                                        (String
-                                                                            val) {
-                                                                      _.onProductCountChange(
-                                                                          e,
-                                                                          val);
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                                visible: e
-                                                                        .productType
-                                                                    is FinishedProductType,
-                                                              ),
+                                                              Text(
+                                                                "¥${e.totalPrice.toStringAsFixed(2)}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        BDimens
+                                                                            .sp32),
+                                                              )
                                                             ],
                                                           ),
                                                         ),
-                                                      ],
-                                                    )),
-                                                Visibility(
-                                                  visible:
-                                                      !GetUtils.isNullOrBlank(
-                                                          e.attrsList),
-                                                  child: GestureDetector(
-                                                    onTap: () => Get.toNamed(
-                                                        BAppRoutes
-                                                                .modifyCurtainProductAttr +
-                                                            "?id=${e.id}&category=${e.categoryType}",
-                                                        arguments:
-                                                            ModifyCurtainProductAttrEvent(
-                                                                tag: e.id,
-                                                                cart: e,
-                                                                isFromCart:
-                                                                    true,
-                                                                category:
-                                                                    "${tab.id}")),
-                                                    child: Container(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical:
-                                                                    BDimens
-                                                                        .gap16,
-                                                                horizontal:
-                                                                    BDimens
-                                                                        .gap24),
-                                                        color: BColors
-                                                            .scaffoldBgColor,
-                                                        margin: EdgeInsets.only(
-                                                            left: 42,
-                                                            top: 20,
-                                                            bottom:
-                                                                BDimens.gap36),
-                                                        child: Row(
-                                                          children: [
-                                                            Expanded(
-                                                              child:
-                                                                  ProductAttrCard(
-                                                                attrList:
-                                                                    e.attrsList,
-                                                              ),
-                                                            ),
-                                                            GestureDetector(
-                                                              child: Icon(
-                                                                  BIcons.next),
-                                                              onTap: () {},
-                                                            )
-                                                          ],
-                                                        )),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                                Visibility(
-                                                  visible: e.productType
-                                                      is CurtainProductType,
-                                                  child: Container(
-                                                    width: Get.width,
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        Text(
-                                                          "预计总金额:",
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  BDimens.sp26,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                        ),
-                                                        Text(
-                                                          "¥${e.totalPrice.toStringAsFixed(2)}",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontSize:
-                                                                  BDimens.sp32),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
+                                              );
+                                            });
                                       });
                                 });
                           })

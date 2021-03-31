@@ -100,6 +100,7 @@ class _XInteractivePhotoViewerState extends State<XInteractivePhotoViewer> {
               left: 10,
               right: 10,
               child: PhotoView(
+                enableRotation: false,
                 loadingBuilder: (context, _) =>
                     CupertinoActivityIndicator(radius: 24),
                 imageProvider: NetworkImage(widget.imageUrl),

@@ -40,6 +40,7 @@ class ProductAdapterModel {
     type = json["type"];
     attribute = json["attribute"];
     length = json["material"];
+    count = json["count"];
   }
 }
 

@@ -22,6 +22,7 @@ import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';
 import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/validator/params_validator.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CommitOrderEvent {
   List<ProductAdapterModel> productList;
@@ -177,14 +178,15 @@ class CommitOrderController extends GetxController {
   Future submitOrder() {
     if (!params.isAddressNull()) {
       scrollToTop();
-      return Future.value(false);
+      throw Future.value(false);
     }
 
-    if (productList.any((e) => e.productType is CurtainProductType)) {
+    if (productList.any((e) => e.productType is CurtainProductType) ||
+        orderType == OrderType.measureOrder) {
       if (!params.isOrderDepositNullOrBlank()) {
         ///滚动到底部
         scrollToBottom();
-        return Future.value(false);
+        throw Future.value(false);
       }
     }
 
@@ -213,5 +215,14 @@ class CommitOrderController extends GetxController {
   void onClose() {
     scrollController?.dispose();
     super.onClose();
+  }
+
+  Future editAddress() {
+    if (GetUtils.isNullOrBlank(customer?.id)) {
+      EasyLoading.showInfo("请先选择客户哦");
+      return Future.error(false);
+    }
+    return Get.toNamed(BAppRoutes.customerAddressEdit + "/${customer?.id}",
+        arguments: customer);
   }
 }

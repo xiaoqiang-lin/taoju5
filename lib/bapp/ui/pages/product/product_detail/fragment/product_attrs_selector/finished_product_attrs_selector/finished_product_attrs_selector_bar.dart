@@ -24,10 +24,11 @@ class FinishedProductAttrsSelectorBar extends StatelessWidget {
         tag: tag,
         builder: (_) {
           return GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () => _.openFinishedProductAttrModal(context,
                 product: _.product, id: tag, onConfirm: _.closeModal),
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: BDimens.gap20),
+              padding: EdgeInsets.symmetric(vertical: BDimens.gap24),
               child: Column(
                 children: [
                   Container(

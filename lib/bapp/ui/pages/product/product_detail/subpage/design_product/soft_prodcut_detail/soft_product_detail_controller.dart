@@ -8,13 +8,13 @@
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 
-class SoftProductDetailController extends GetxController {
+class SoftProductDetailController extends DesignProductDetailController {
   ProductRepository _repository = ProductRepository();
 
-  String get id => Get.parameters["id"];
-  String get productId => Get.parameters["fromId"];
+  String productId;
   XLoadState loadState = XLoadState.idle;
 
   List<DesignProductModel> productList = [];
@@ -37,8 +37,8 @@ class SoftProductDetailController extends GetxController {
 
   @override
   void onInit() {
-    loadData();
-
     super.onInit();
+    productId = Get.parameters["fromId"];
+    loadData();
   }
 }

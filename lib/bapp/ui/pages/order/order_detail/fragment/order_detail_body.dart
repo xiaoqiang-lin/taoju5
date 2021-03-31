@@ -33,7 +33,7 @@ class OrderDetailBody extends StatelessWidget {
                   builder: (_) {
                     return OrderDetailProductCard(
                       _.order.productList[i],
-                      orderId: _.order.id,
+                      order: _.order,
                     );
                   });
             }),

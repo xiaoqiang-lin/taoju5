@@ -20,7 +20,9 @@ class CustomerRefundController extends GetxController {
     update();
     return _repository.orderList(params: {
       "client_uid": customerId,
-      "order_status": "10,11,-1,-2"
+      "status": "10,11,-1,-2",
+      "page": 1,
+      "page_size": 10,
     }).then((OrderModelListWrapper wrapper) {
       orderList = wrapper.orderModelList;
       if (GetUtils.isNullOrBlank(wrapper.orderModelList)) {

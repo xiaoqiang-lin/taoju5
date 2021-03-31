@@ -79,7 +79,7 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                     margin: EdgeInsets.only(bottom: BDimens.gap20),
                     child: Row(
                       children: [
-                        Text("宽(cm):${measureData.height}"),
+                        Text("高(cm):${measureData.height}"),
                         Visibility(
                             visible:
                                 !GetUtils.isNullOrBlank(measureData.heightNote),
@@ -190,7 +190,6 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
         child: XFutureButton(
           onFuture: controller.saveData,
           child: Text("确认"),
-          showLoading: false,
         ),
       ),
     );

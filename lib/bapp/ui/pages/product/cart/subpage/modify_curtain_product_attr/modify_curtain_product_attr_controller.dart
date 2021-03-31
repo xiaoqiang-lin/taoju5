@@ -19,9 +19,15 @@ class ModifyCurtainProductAttributeResult {
   List<CurtainProductAttrAdapterModel> attrList;
   Map attribute;
   Map measureData;
+  double width;
+  double height;
 
   ModifyCurtainProductAttributeResult(
-      {this.attrList, this.attribute, this.measureData});
+      {this.attrList,
+      this.attribute,
+      this.measureData,
+      this.width,
+      this.height});
 }
 
 class ModifyCurtainProductAttrEvent {
@@ -100,7 +106,7 @@ class ModifyCurtainProductAttrController<T extends BaseAttrSelectorController>
   @override
   void onInit() {
     event = Get.arguments;
-    tag = event.tag;
+    tag = event?.tag;
     category = Get.parameters["category"];
     super.onInit();
   }

@@ -33,7 +33,6 @@ Future showRemoveFromCartDialog(String tag) {
                         margin: EdgeInsets.only(left: BDimens.gap24),
                         child: XFutureButton(
                             onFuture: _.removeFromCart,
-                            showLoading: false,
                             onSuccess: Get.back,
                             child: Text("确定")),
                       ),

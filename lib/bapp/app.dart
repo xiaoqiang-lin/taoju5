@@ -64,14 +64,15 @@ class $BApp extends StatelessWidget {
         unknownRoute: BAppPages.unkonw,
         getPages: BAppPages.pages,
         theme: BTheme.lightTheme,
+        // themeMode: ThemeMode.dark,
         initialRoute: BAppPages.initial,
         initialBinding: TaojuwuBinding(),
         builder: EasyLoading.init(),
         defaultTransition: Transition.cupertino,
         popGesture: false,
         // defaultTransition: Transition,
-        // debugShowCheckedModeBanner: AppConfig.isDebug,
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: AppConfig.isDebug,
+        // debugShowCheckedModeBanner: true,
         localizationsDelegates: [
           // CupertinoLocalizationDelegate.delegate,
           GlobalMaterialLocalizations.delegate, // 指定本地化的字符串和一些其他的值

@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
+import 'package:taoju5/storage/storage_manager.dart';
 
 class CustomerProviderController extends GetxController {
   CustomerDetailModel _customer;
@@ -65,6 +66,7 @@ class CustomerProviderController extends GetxController {
   clear() {
     _customer = null;
     update();
+    StorageManager().clear();
     // refreshData();
   }
 

@@ -40,7 +40,9 @@ class XSwiper extends StatelessWidget {
           builder: DotSwiperPaginationBuilder(
               size: 8.0,
               activeSize: 8.0,
-              activeColor: itemCount > 0 ? Colors.transparent : Colors.black,
+              activeColor: itemCount < 2
+                  ? Colors.transparent
+                  : Colors.black.withOpacity(.8),
               color: Colors.black.withOpacity(.3))),
     );
   }

@@ -7,7 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
+// import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 class ProductDetailImageSectionView extends StatelessWidget {
   final List<String> imageList;
@@ -24,10 +25,12 @@ class ProductDetailImageSectionView extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int i) {
-            return XPhotoViewer(
-                closedShape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                url: imageList[i]);
+            return XCachedNetworkImage(
+                key: ValueKey(imageList[i]), imageUrl: imageList[i]);
+            // return XPhotoViewer(
+            //     closedShape:
+            //         RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            //     url: imageList[i]);
           },
           itemCount: imageList.length,
         ),

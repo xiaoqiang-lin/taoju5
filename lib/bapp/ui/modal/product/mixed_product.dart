@@ -6,7 +6,9 @@
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/modal/base/x_base_modal.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_list/fragment/product_list_body/product_grid_mode_section.dart';
 
@@ -15,7 +17,18 @@ Future showMixedProductModal(BuildContext context,
   return showCupertinoModalPopup(
       builder: (BuildContext context) {
         return XBaseModal(
-            header: Text("搭配精选"),
+            header: Padding(
+              padding: EdgeInsets.only(top: 16, bottom: BDimens.gap32),
+              child: Text(
+                "搭配精选",
+                style: TextStyle(
+                    fontSize: BDimens.sp32, fontWeight: FontWeight.w500),
+              ),
+            ),
+            divider: Divider(
+              height: .5,
+              thickness: .5,
+            ),
             // onClose: Navigator.of(context).pop,
             height: MediaQuery.of(context).size.height * .90,
             builder: (BuildContext context) {

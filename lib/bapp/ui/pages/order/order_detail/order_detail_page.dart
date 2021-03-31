@@ -38,6 +38,7 @@ class OrderDetailPage extends StatelessWidget {
               appBar: AppBar(
                 title: Text("订单详情"),
               ),
+              backgroundColor: Get.theme.primaryColor,
               body: SingleChildScrollView(
                 child: Column(
                   children: [

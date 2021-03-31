@@ -12,8 +12,8 @@ class OrderMeasureDataController extends GetxController {
   OrderDetailProductModel product;
 
   OrderMeasureDataModel get measureData => product.measureData;
-  String get id => Get.parameters["id"];
-  String get tag => Get.parameters["productId"];
+  String id = Get.parameters["id"];
+  String tag = Get.parameters["productId"];
 
   Future openEditDeltaYDialog() {
     return showEditDeltaYDialog(initialValue: measureData.deltaY)
@@ -33,11 +33,14 @@ class OrderMeasureDataController extends GetxController {
   }
 
   Future saveData() {
-    Get.find<RoomAttrSelectorController>(tag: tag)
-        .initWithMeasureData(measureData);
-
-    Get.find<SizeSelectorController>(tag: tag).initWithMeasureData(measureData);
-
+    if (Get.isRegistered<RoomAttrSelectorController>(tag: tag)) {
+      Get.find<RoomAttrSelectorController>(tag: tag)
+          .initWithMeasureData(measureData);
+    }
+    if (Get.isRegistered<SizeSelectorController>(tag: tag)) {
+      Get.find<SizeSelectorController>(tag: tag)
+          .initWithMeasureData(measureData);
+    }
     Get.back();
     measureData.hasChecked = true;
     return Future.value();
@@ -50,6 +53,8 @@ class OrderMeasureDataController extends GetxController {
       event = Get.arguments;
       product = event.orderProduct;
     }
+    // id = Get.parameters["id"];
+    // tag = Get.parameters["productId"];
     // controller?.selectProductArgs?.productId = "$id";
     // controller?.selectProductArgs?.deltaY =
     //     measureData?.newDeltaY ?? measureData?.deltaY;

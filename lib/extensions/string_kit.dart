@@ -8,7 +8,7 @@ extension StringKit on String {
 
   ///字符串解码
   String stringDecode() {
-    var list = List<int>();
+    List<int> list = [];
 
     ///字符串解码
     jsonDecode(this).forEach(list.add);

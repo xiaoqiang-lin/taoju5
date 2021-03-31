@@ -8,6 +8,7 @@
 import 'package:taoju5/utils/json_kit.dart';
 
 import 'product_mixin_model.dart';
+import 'package:get/get.dart';
 
 class DesignProductModel {
   int id;
@@ -47,12 +48,24 @@ class DesignProductModel {
 }
 
 extension DesignProductModelKit on DesignProductModel {
-  double get totalPrice =>
-      productList.map((e) => e.price).reduce((a, b) => a + b);
+  double get totalPrice {
+    if (GetUtils.isNullOrBlank(productList)) {
+      return 0.0;
+    }
+    return productList.map((e) => e.price).reduce((a, b) => a + b);
+  }
 
-  double get marketPrice =>
-      productList.map((e) => e.marketPrice).reduce((a, b) => a + b);
+  double get marketPrice {
+    if (GetUtils.isNullOrBlank(productList)) {
+      return 0.0;
+    }
+    return productList.map((e) => e.marketPrice).reduce((a, b) => a + b);
+  }
 
-  String get fullName =>
-      productList.map((e) => e.name).reduce((a, b) => "$a+" + b);
+  String get fullName {
+    if (GetUtils.isNullOrBlank(productList)) {
+      return "";
+    }
+    return productList.map((e) => e.name).reduce((a, b) => "$a+" + b);
+  }
 }

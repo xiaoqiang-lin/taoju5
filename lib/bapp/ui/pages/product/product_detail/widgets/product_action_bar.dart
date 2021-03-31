@@ -52,13 +52,13 @@ class ProductActionBar extends StatelessWidget {
                 buttonMode: ButtonMode.outline,
                 successTip: "加入购物车成功",
                 failTip: "加入购物车失败",
+                showSuccessTip: true,
                 child: Text("加入购物车"),
               ),
             ),
             Expanded(
               child: XFutureButton(
                 onFuture: onBuy,
-                showLoading: false,
                 child: Text("立即购买"),
               ),
             )

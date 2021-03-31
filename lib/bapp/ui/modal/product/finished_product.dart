@@ -5,7 +5,6 @@
  * @Date: 2021-01-15 22:59:59
  * @LastEditTime: 2021-01-19 13:52:28
  */
-import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +21,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_step_counter.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_check_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/button/x_submit_button.dart';
+import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
 Future showFinishedProductAttrModal(BuildContext context,
     {ProductDetailModel product,
@@ -59,12 +59,22 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                   width: 180.w,
                                                   child: AspectRatio(
                                                     aspectRatio: 1.0,
-                                                    child: XCachedNetworkImage(
-                                                        imageUrl: _
-                                                                .product
-                                                                .currentSku
-                                                                ?.image ??
-                                                            _.product.cover),
+                                                    child: XPhotoViewer(
+                                                      url: _.product.currentSku
+                                                              ?.image ??
+                                                          _.product.cover,
+                                                      bigImageUrl: _
+                                                              .product
+                                                              .currentSku
+                                                              ?.bigImage ??
+                                                          _.product.cover,
+                                                      // child: XCachedNetworkImage(
+                                                      //     imageUrl: _
+                                                      //             .product
+                                                      //             .currentSku
+                                                      //             ?.image ??
+                                                      //         _.product.cover),
+                                                    ),
                                                   ),
                                                 ),
                                                 Column(
@@ -87,7 +97,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                         margin: EdgeInsets.only(
                                                             top: BDimens.gap20),
                                                         child: Text(
-                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? ""}${_.product.materialUsed != null ? "米" : ""}"),
+                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? cartProduct?.length ?? ""}${(_.product.materialUsed != null || cartProduct?.length != null) ? "米" : ""}"),
                                                           style: TextStyle(
                                                               fontSize:
                                                                   BDimens.sp28,
@@ -151,8 +161,10 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                       width: Get.width / 2.4,
                                                       child: TextFormField(
                                                           initialValue: _
-                                                              .product
-                                                              ?.material,
+                                                                  .product
+                                                                  ?.material ??
+                                                              cartProduct
+                                                                  ?.length,
                                                           onChanged:
                                                               _.setMaterialUsed,
                                                           scrollPadding:
@@ -203,7 +215,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                               ),
                                             ),
                                             for (ProductSpecModel spec
-                                                in _.product.specList)
+                                                in _?.product?.specList)
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -227,7 +239,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                     runSpacing: BDimens.gap32,
                                                     children: [
                                                       for (ProductSpecOptionModel option
-                                                          in spec.optionList)
+                                                          in spec?.optionList)
                                                         XCheckButton(
                                                             isChecked: option
                                                                 .isChecked,

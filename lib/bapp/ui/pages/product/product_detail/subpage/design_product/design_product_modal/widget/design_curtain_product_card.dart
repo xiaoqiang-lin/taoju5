@@ -41,10 +41,24 @@ class DesignCurtainProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product.name,
-                      style: TextStyle(
-                          fontSize: BDimens.sp28, fontWeight: FontWeight.w500),
+                    Row(
+                      children: [
+                        Text(
+                          product.name,
+                          style: TextStyle(
+                              fontSize: BDimens.sp28,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: BDimens.gap16),
+                          child: Text(
+                            "¥${product.totalPrice.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                color: BColors.highLightColor,
+                                fontSize: BDimens.sp28),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                         margin: EdgeInsets.symmetric(vertical: BDimens.gap8),
@@ -138,7 +152,7 @@ class DesignCurtainProductCard extends StatelessWidget {
             children: [
               for (CurtainProductAttrAdapterModel attr in product.attrList)
                 Text(
-                  "${attr?.key}: ${attr?.value}",
+                  "${attr?.typeName}: ${attr?.value}",
                   style: TextStyle(
                       fontSize: BDimens.sp24, color: BColors.greyTextColor),
                 )

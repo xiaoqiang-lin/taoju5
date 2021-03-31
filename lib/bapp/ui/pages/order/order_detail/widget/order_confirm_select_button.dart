@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
-import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
@@ -20,11 +19,13 @@ class OrderConfirmSelectButton extends GetView<OrderDetailController> {
   Widget build(BuildContext context) {
     return Visibility(
       child: OutlinedButton(
-          onPressed: controller.openSelectProductDialog, child: Text("确认选品")),
+          onPressed: controller.order.canRefund
+              ? controller.openSelectProductDialog
+              : null,
+          child: Text("确定")),
 
       ///商品是窗帘商品 并且处于待审核状态
-      visible: controller.order.productType is CurtainProductType &&
-          controller.order.orderStatus == OrderStatus.toBeSelected,
+      visible: controller.order.orderStatus == OrderStatus.toBeSelected,
     );
   }
 }

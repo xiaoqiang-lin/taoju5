@@ -109,7 +109,7 @@ class CustomerAddressEditPage extends GetView<CustomerAddressEditController> {
       bottomNavigationBar: XSubmitButton(
         child: Text("保存并使用"),
         onFuture: controller.submit,
-        showLoading: !controller.isFromShare,
+        showLoading: false,
         onSuccess: Get.back,
       ),
     );

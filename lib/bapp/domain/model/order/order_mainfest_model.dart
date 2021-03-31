@@ -1,4 +1,5 @@
 import 'package:taoju5/utils/json_kit.dart';
+import 'package:get/get.dart';
 
 class OrderMainfestModel {
   String clientName;
@@ -17,8 +18,14 @@ class OrderMainfestModel {
 extension OrderMainfestModelKit on OrderMainfestModel {
   int get totalCount => productList?.length ?? 0;
 
-  double get totalPrice =>
-      productList.map((e) => JsonKit.asDouble(e.price)).reduce((a, b) => a + b);
+  double get totalPrice {
+    if (GetUtils.isNullOrBlank(productList)) {
+      return 0.0;
+    }
+    return productList
+        .map((e) => JsonKit.asDouble(e.price))
+        .reduce((a, b) => a + b);
+  }
 }
 
 class ProductMainfestModel {

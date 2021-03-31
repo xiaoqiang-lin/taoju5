@@ -25,7 +25,7 @@ class _XStepCounterState extends State<XStepCounter> {
           GestureDetector(
             onTap: () {
               setState(() {
-                widget.target.count -= 1;
+                widget.target.count.value -= 1;
               });
             },
             child: Text("减"),
@@ -42,7 +42,7 @@ class _XStepCounterState extends State<XStepCounter> {
           GestureDetector(
             onTap: () {
               setState(() {
-                widget.target.count += 1;
+                widget.target.count.value += 1;
               });
             },
             child: Text("加"),

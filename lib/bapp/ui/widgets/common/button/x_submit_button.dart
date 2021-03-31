@@ -37,7 +37,6 @@ class XSubmitButton extends StatelessWidget {
         onComplete: onComplete,
         onError: onError,
         onSuccess: onSuccess,
-        showLoading: showLoading,
         child: child,
       ),
     );

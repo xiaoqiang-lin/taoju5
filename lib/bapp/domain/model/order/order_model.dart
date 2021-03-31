@@ -8,6 +8,7 @@ import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/utils/json_kit.dart';
 
 import 'order_type.dart';
+import 'package:get/get.dart';
 
 class OrderModelListWrapper {
   List<OrderModel> orderModelList;
@@ -80,6 +81,11 @@ class OrderModel {
 extension OrderModelKit on OrderModel {
   OrderStatus get orderStatus => getOrderStaus(statusCode);
   OrderType get orderType => getOrderType(typeCode, orderStatus);
+
+  int get selectedCount {
+    if (GetUtils.isNullOrBlank(productList)) return 0;
+    return productList.where((e) => e.hasSelected).length;
+  }
 }
 
 class OrderProductModel {
@@ -97,13 +103,16 @@ class OrderProductModel {
   String unit;
 
   String room;
-
+  String style;
   OrderProductModel.fromJsom(Map json) {
     name = json['goods_name'];
     statusName = json['status_name'];
     price = JsonKit.asDouble(json['price']);
     room =
         JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"]).toString();
+
+    style =
+        JsonKit.getValueInComplexMap(json, ["wc_attr", "2", "name"]).toString();
     hasSelected = JsonKit.asBool(json['is_selected_goods']);
     image = JsonKit.asWebUrl(
         JsonKit.getValueInComplexMap(json, ["picture", "pic_cover_small"]));

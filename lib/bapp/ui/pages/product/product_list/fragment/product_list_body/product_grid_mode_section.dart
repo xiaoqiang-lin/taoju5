@@ -58,6 +58,7 @@ class _ProductGridModeSectionState extends State<ProductGridModeSection> {
       onRefresh: widget.onRefresh,
       enablePullDown: widget.enablePullDown,
       enablePullUp: widget.enablePullUp,
+      cacheExtent: 480,
       child: GridView.builder(
           shrinkWrap: widget.shrinkWrap,
           controller: widget.scrollController,

@@ -8,8 +8,8 @@
 import 'package:taoju5/xdio/x_dio.dart';
 
 class AppAPI {
-  Future<BaseResponse> appInfo(String url, {Map params}) =>
-      XDio().get(url, params: params);
+  Future<BaseResponse> appInfo({Map params}) =>
+      XDio().get("/api/Config/getAppUpgradeInfo", params: params);
 
   Future<BaseResponse> upgradeApp(String url, {Map params}) =>
       XDio().get(url, params: params);

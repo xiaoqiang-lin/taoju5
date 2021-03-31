@@ -8,7 +8,6 @@
 import 'dart:convert';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
@@ -35,9 +34,17 @@ class XDio {
   XDio._internal() {
     netConfig = NetConfig(headers: {});
     String token = StorageManager().sharedPreferences?.getString("token");
+    String deviceInfo =
+        StorageManager().sharedPreferences?.getString("device_info");
+    Map<String, String> headers = {
+      'ACCEPT': 'application/json',
+      'equipment': deviceInfo
+    };
+
     dio = Dio()
       ..options = BaseOptions(
           baseUrl: NetConfig.baseUrl,
+          headers: headers,
           queryParameters: {"token": token},
           connectTimeout: netConfig.timeout,
           receiveTimeout: netConfig.timeout)
@@ -84,9 +91,9 @@ class XDio {
 
           return response;
         },
-      ))
-      ..interceptors.add(
-          DioCacheManager(CacheConfig(baseUrl: NetConfig.baseUrl)).interceptor);
+      ));
+    // ..interceptors.add(
+    //     DioCacheManager(CacheConfig(baseUrl: NetConfig.baseUrl)).interceptor);
   }
   static XDio _singleton = XDio._internal();
   factory XDio() => _singleton;

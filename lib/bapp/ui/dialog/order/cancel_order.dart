@@ -31,6 +31,7 @@ Future showCancelOrderDialog(BuildContext context) {
                 children: [
                   XSizedTextField(
                     autoFocus: true,
+                    hintText: "情概述您需要取消订单的理由(选填)",
                     onChanged: (String text) {
                       params.reason = text;
                     },

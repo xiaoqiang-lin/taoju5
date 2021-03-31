@@ -47,18 +47,29 @@ class CommitOrderSuccessPage extends GetView<CustomerProviderController> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: BDimens.gap16),
+                        margin: EdgeInsets.only(top: BDimens.gap32),
                         child: OutlinedButton(
                           onPressed: () => Get.toNamed(BAppRoutes.productList),
-                          child: Text("继续挑选"),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: BDimens.gap16),
+                            child: Text("继续挑选"),
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: BDimens.gap16),
                         child: ElevatedButton(
                           onPressed: () => Get.toNamed(BAppRoutes.orderList +
-                              "?customerId=${Get.parameters["customerId"]}"),
-                          child: Text("查看订单"),
+                                  "?customerId=${controller.id}")
+                              .then((value) {
+                            controller.clear();
+                          }),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: BDimens.gap16),
+                            child: Text("查看订单"),
+                          ),
                         ),
                       ),
                     ],

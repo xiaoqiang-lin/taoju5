@@ -73,8 +73,6 @@ class SearchController extends GetxController {
   String get type => Get.parameters["searchType"];
   String get hintText => _searchTip[type];
   List<String> get historyList {
-    print(type);
-    print(_searchHistory[type]);
     return _searchHistory[type] ?? [];
   }
 
@@ -101,12 +99,8 @@ class SearchController extends GetxController {
   }
 
   void addSearchItem(String data) {
-    print(data);
-    print(historyList);
     historyList.add(data);
-    print("+++___");
-    print(historyList);
-    print("添加搜索记录");
+
     _persist();
 
     ///刷新搜索记录
@@ -134,7 +128,6 @@ class SearchController extends GetxController {
   ///同步数据到内存中
   void _sync() {
     _searchHistory[type] = _sp.getStringList(type.toString());
-    print(_searchHistory[type]);
 
     ///刷新搜索记录
     update(["history"]);
@@ -182,7 +175,6 @@ class SearchController extends GetxController {
   void onChanged(String val) {
     CommonKit.debounce(() {
       keyword = val;
-      print(keyOptions);
 
       update(["keyword"]);
     }, Duration(milliseconds: 375))();

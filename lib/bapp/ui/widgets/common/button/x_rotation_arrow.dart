@@ -79,10 +79,7 @@ class _XRotationArrowState extends State<XRotationArrow>
         children: [
           widget.label == null
               ? SizedBox.shrink()
-              : Text(
-                  widget.label,
-                  style: widget.labelStyle,
-                ),
+              : Text(widget.label, style: widget.labelStyle),
           RotationTransition(
             turns: _iconTurns,
             child: widget?.child,

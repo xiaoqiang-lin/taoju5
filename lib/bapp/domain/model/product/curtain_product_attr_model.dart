@@ -9,6 +9,8 @@ import 'package:taoju5/bapp/interface/i_xselectable.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:get/utils.dart';
 
+import 'product_model.dart';
+
 const Map _dict = {
   1: '空间',
   2: '窗型',
@@ -77,8 +79,22 @@ class CurtainProductAttrModel {
 
 extension CurtainProductAttrModelKit on CurtainProductAttrModel {
   ///当前选中的[option]
-  List<CurtainProductAttrOptionModel> get currentSelectedOptionList =>
-      optionList?.where((e) => e.isChecked)?.toList();
+  List<CurtainProductAttrOptionModel> get currentSelectedOptionList {
+    if (GetUtils.isNullOrBlank(optionList)) return [];
+    print(optionList);
+    List<CurtainProductAttrOptionModel> list = [];
+    for (int i = 0; i < optionList.length; i++) {
+      CurtainProductAttrOptionModel item = optionList[i];
+      if (item.isChecked) {
+        list.add(item);
+      }
+    }
+    if (GetUtils.isNullOrBlank(list)) {
+      optionList?.first?.isChecked = true;
+      list.add(optionList?.first);
+    }
+    return list;
+  }
 
   String get currentOptionId =>
       currentSelectedOptionList?.map((e) => e.id)?.join(",");
@@ -86,8 +102,14 @@ extension CurtainProductAttrModelKit on CurtainProductAttrModel {
   String get currentOptionName =>
       currentSelectedOptionList.map((e) => e.name).join("/");
 
-  double get currentOptionPrice =>
-      currentSelectedOptionList?.map((e) => e.price)?.reduce((a, b) => a + b);
+  double get currentOptionPrice {
+    if (GetUtils.isNullOrBlank(currentSelectedOptionList)) {
+      return 0.0;
+    }
+    return currentSelectedOptionList
+        ?.map((e) => e.price)
+        ?.reduce((a, b) => a + b);
+  }
 
   Map toArgs() => {type: currentSelectedOptionList.map((e) => e.toJson())};
 
@@ -104,6 +126,16 @@ extension CurtainProductAttrModelKit on CurtainProductAttrModel {
     ProductAdapterModel model = ProductAdapterModel();
     // model.id = id;
     return model;
+  }
+
+  CurtainProductAttrAdapterModel attrAdapt() {
+    return CurtainProductAttrAdapterModel(
+        id: currentOptionId,
+        key: currentOptionName,
+        price: currentOptionPrice,
+        type: "$type",
+        value: currentOptionName,
+        typeName: typeName);
   }
 
   Map get params =>

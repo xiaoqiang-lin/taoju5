@@ -103,8 +103,8 @@ class SceneProductDetailPage extends StatelessWidget {
                                 ),
                               ),
                               ElevatedButton(
-                                  onPressed: () =>
-                                      _.openDesignProductModal(fromId: _.tag),
+                                  onPressed: () => _.openDesignProductModal(
+                                      fromId: _.fromId),
                                   child: Text("立即购买"))
                             ],
                           ),

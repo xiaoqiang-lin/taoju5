@@ -1,16 +1,21 @@
 <manifest package="com.buyi.taojuwu" android:versionCode="2021" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.3.1">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29"/>
-  <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
   <uses-permission android:name="android.permission.READ_LOGS"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-feature android:name="android.hardware.camera" android:required="false"/>
@@ -19,7 +24,7 @@
   <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
   <uses-feature android:name="android.hardware.screen.landscape" android:required="false"/>
   <uses-feature android:name="android.hardware.wifi" android:required="false"/>
-  <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
+  <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
     <activity android:name="com.buyi.taojuwu.MainActivity" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:windowSoftInputMode="adjustResize">
       <meta-data android:name="io.flutter.app.android.SplashScreenUntilFirstFrame" android:value="true"/>
       <meta-data android:name="io.flutter.embedding.android.SplashScreenDrawable" android:resource="@drawable/launch_background"/>
@@ -54,6 +59,8 @@
     <provider android:name="com.jarvan.fluwx.FluwxFileProvider" android:authorities="com.buyi.taojuwu.fluwxprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/fluwx_file_provider_paths"/>
     </provider>
+    <meta-data android:name="com.amap.api.v2.apikey" android:value="c861bca41e4014c514a13ba71cce758a"/>
+    <service android:name="com.amap.api.location.APSService"/>
     <provider android:name="com.sangcomz.fishbun.FishBunFileProvider" android:authorities="com.buyi.taojuwu.fishbunfileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
     </provider>
@@ -66,8 +73,7 @@
     <service android:name="com.tencent.tinker.lib.service.DefaultTinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
     <activity android:name="com.tencent.bugly.beta.ui.BetaActiveAlertActivity"/>
     <service android:name="com.tencent.bugly.beta.tinker.TinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <activity android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+    <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_00"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_01"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_02"/>
@@ -121,7 +127,6 @@
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_01_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_02_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="tinker_version" android:value="1.9.14.10"/>
-    <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
-    <meta-data android:name="TINKER_ID" android:value="1.3.1.2021_0326-22-11-28"/>
+    <meta-data android:name="TINKER_ID" android:value="1.3.1.2021_0331-18-03-20"/>
   </application>
 </manifest>

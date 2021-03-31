@@ -13,7 +13,7 @@ import 'package:taoju5/bapp/res/b_dimens.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
-import 'package:taoju5/bapp/routes/bapp_pages.dart';
+// import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 
@@ -35,9 +35,7 @@ class CommitOrderHeader extends GetView<CommitOrderController> {
                   id: "customer",
                   builder: (_) {
                     return GestureDetector(
-                      onTap: () => Get.toNamed(
-                          BAppRoutes.customerAddressEdit + "/${_.customer?.id}",
-                          arguments: controller.customer),
+                      onTap: controller.editAddress,
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: BDimens.gap24),
                         child: Row(
@@ -229,29 +227,32 @@ class CommitOrderHeader extends GetView<CommitOrderController> {
             ],
           ),
         ),
-        Container(
-          color: BColors.lightBlueColor,
-          padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
-                child: Text(
-                  "·",
+        Visibility(
+          visible: GetPlatform.isWeb,
+          child: Container(
+            color: BColors.lightBlueColor,
+            padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+                  child: Text(
+                    "·",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: BColors.blueTextColor,
+                        fontSize: 24),
+                  ),
+                ),
+                Text(
+                  "提交订单后请联系销售顾问",
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: BColors.blueTextColor,
-                      fontSize: 24),
+                    color: BColors.blueTextColor,
+                    fontSize: BDimens.sp24,
+                  ),
                 ),
-              ),
-              Text(
-                "提交订单后请联系销售顾问",
-                style: TextStyle(
-                  color: BColors.blueTextColor,
-                  fontSize: BDimens.sp24,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

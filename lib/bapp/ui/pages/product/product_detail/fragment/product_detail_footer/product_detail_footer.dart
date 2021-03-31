@@ -11,6 +11,7 @@ import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/product_action_bar.dart';
+import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
 
 class ProductDetailFooter extends StatelessWidget {
   final String tag;
@@ -32,26 +33,26 @@ class ProductDetailFooter extends StatelessWidget {
           builder: (_) {
             return Row(
               children: [
-                if (!_.isForSelect)
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "预计:",
-                          style: TextStyle(
-                              fontSize: BDimens.sp24,
-                              color: BColors.greyTextColor),
-                        ),
-                        Text(
-                          "¥${_.priceDelegator?.totalPrice?.toStringAsFixed(2)}",
-                          style: TextStyle(
-                              fontSize: BDimens.sp36,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                // if (!_.isForSelect)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "预计:",
+                        style: TextStyle(
+                            fontSize: BDimens.sp24,
+                            color: BColors.greyTextColor),
+                      ),
+                      Text(
+                        "¥${_.priceDelegator?.totalPrice?.toStringAsFixed(2)}",
+                        style: TextStyle(
+                            fontSize: BDimens.sp36,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
                   ),
+                ),
                 Expanded(
                   flex: 2,
                   child: Column(
@@ -59,9 +60,10 @@ class ProductDetailFooter extends StatelessWidget {
                       if (_.isForSelect)
                         Container(
                           alignment: Alignment.centerRight,
-                          child: ElevatedButton(
+                          child: XFutureButton(
                             child: Text("确认选品"),
-                            onPressed: _.selectProduct,
+                            onFuture: _.selectProduct,
+                            showSuccessTip: true,
                           ),
                         )
                       else

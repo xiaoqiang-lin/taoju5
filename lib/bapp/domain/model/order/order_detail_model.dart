@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/order/refund_status.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
+import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
 
@@ -63,6 +64,8 @@ class OrderDetailModel {
   String station;
   String arriveAt;
 
+  int orderFlow;
+
   List<String> manualscriptPictureList;
 
   OrderDetailModel.fromJson(Map json) {
@@ -71,6 +74,7 @@ class OrderDetailModel {
     title = json["order_title"];
     description = json["order_desc"];
     typeCode = json['order_type'];
+    orderFlow = JsonKit.asInt(json["order_flow"]);
     orderStatusCode = json['order_status'];
     refundStatusCode = json["refund_status"];
     receiverAddress = json['address'];
@@ -117,7 +121,12 @@ class OrderDetailModel {
 
 extension OrderDetailModelKit on OrderDetailModel {
   OrderStatus get orderStatus => getOrderStaus(orderStatusCode);
-  OrderType get orderType => getOrderType(typeCode, orderStatus);
+  OrderType get orderType {
+    if (productList.any((e) => !(e.productType is CurtainProductType)))
+      return OrderType.endProductOrder;
+    return getOrderType(typeCode, orderStatus);
+  }
+
   BaseProductType get productType => getProductType(productTypeCode);
 
   RefundStatus get refundStatus {
@@ -148,7 +157,7 @@ extension OrderDetailModelKit on OrderDetailModel {
       orderStatus != OrderStatus.canceled &&
       orderStatus < OrderStatus.producing;
 
-  bool get isPriceModified => !GetUtils.isNullOrBlank(deltaPrice);
+  bool get isPriceModified => !CommonKit.isNullOrZero(deltaPrice);
 
   bool get isAllProductCanceled => GetUtils.isNullOrBlank(productList)
       ? true

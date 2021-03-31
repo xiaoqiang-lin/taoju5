@@ -32,7 +32,6 @@ Future showRemoveFromCollection({ProductCollectionModel product}) {
                         child: XFutureButton(
                             onFuture: () =>
                                 _.removeFromCollection(product: product),
-                            showLoading: false,
                             onSuccess: Get.back,
                             child: Text("确定")),
                       ),

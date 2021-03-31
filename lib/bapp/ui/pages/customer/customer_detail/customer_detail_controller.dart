@@ -25,7 +25,7 @@ class CustomerDetailController extends GetxController {
 
   CustomerDetailModel customer;
 
-  String id;
+  String id = Get.parameters["id"];
 
   List<CustomerDetailKongoModel> get kongoList {
     return [
@@ -63,7 +63,6 @@ class CustomerDetailController extends GetxController {
 
   @override
   void onInit() {
-    id = Get.parameters["id"];
     loadData();
     super.onInit();
   }

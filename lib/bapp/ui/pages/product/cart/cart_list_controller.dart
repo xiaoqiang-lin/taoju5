@@ -75,7 +75,7 @@ class CartListParentController extends GetxController
     update(["action", "isCheckedAll", "totalPrice"]);
   }
 
-  Future loadData({bool reInitTabController = false}) {
+  Future loadData({bool reInitTabController}) {
     ProductRepository _repository = ProductRepository();
     loadState = XLoadState.busy;
     update();
@@ -198,10 +198,26 @@ class CartListController extends GetxController {
     });
   }
 
+  Future modifySectionalbarLength(CartPorductModel e) {
+    return _repository.modifyProuductCountInCart(params: {
+      "sku_id": e.skuId,
+      "cart_id": e.id,
+      "num": e.count,
+      "material": e.length,
+      "type": 2
+    }).then((value) {
+      e.description = "用料:${e.length}米";
+      update(["${e.id}"]);
+      Get.back();
+    });
+  }
+
   XLoadState loadState = XLoadState.idle;
-  Future loadData() {
+  Future loadData({bool shouldRefreshUI = true}) {
     loadState = XLoadState.busy;
-    update();
+    if (shouldRefreshUI) {
+      update();
+    }
 
     return _repository
         .cartList(params: {"client_uid": clientId, "category_id": type}).then(

@@ -9,6 +9,8 @@ import 'dart:io';
 
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:device_info/device_info.dart';
+import 'package:taoju5/storage/storage_manager.dart';
 
 abstract class AppManager {
   ///递归方式删除目录
@@ -76,5 +78,31 @@ abstract class AppManager {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     return version;
+  }
+
+  static Future<String> getAppInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    List<String> list = [];
+
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo appInfo = await deviceInfo.androidInfo;
+
+      list.add('Android');
+      list.add(version);
+      list.add('${appInfo.model}');
+      list.add(appInfo.version.release);
+    }
+    if (Platform.isIOS) {
+      IosDeviceInfo appInfo = await deviceInfo.iosInfo;
+      list.add('IOS');
+      list.add(version);
+      list.add('${appInfo.utsname.machine}');
+      list.add(appInfo.systemVersion);
+    }
+    String desc = list.join(',');
+    StorageManager().sharedPreferences.setString('device_info', desc);
+    return desc;
   }
 }

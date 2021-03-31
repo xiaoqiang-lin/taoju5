@@ -25,8 +25,8 @@ class CraftAttrSelectorBar extends StatelessWidget {
         return Container(
           child: XSelectorTextField(
             label: Text("工艺方式"),
-            key: ValueKey(_.description),
-            initialValue: _.description,
+            key: ValueKey(_?.description),
+            initialValue: _?.description,
             onFuture: () =>
                 showCurtainAttrSelectorModal<CraftAttrSelectorController>(
                         title: "工艺选择", tag: tag)

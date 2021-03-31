@@ -57,7 +57,8 @@ class FinishedProductAttrsController extends GetxController {
     return _repository.modifyProuductAttrInCart(params: {
       "sku_id": product?.currentSku?.id,
       "num": product?.count,
-      "cart_id": cartProduct?.id
+      "cart_id": cartProduct?.id,
+      "material": cartProduct?.length
     }).then((value) {
       _refreshDataAfterModify();
     });
@@ -112,6 +113,7 @@ class FinishedProductAttrsController extends GetxController {
       EasyLoading.showInfo("请输入正确的数值哦");
     } else {
       product.materialUsed = val;
+      cartProduct?.length = val;
     }
     update(["header"]);
   }
@@ -183,7 +185,7 @@ class FinishedProductAttrsController extends GetxController {
     return showFinishedProductAttrModal(context,
             product: product, id: id, onConfirm: onConfirm)
         .then((value) {
-      Get.find<ProductDetailController>(tag: id).update(["unitPrice"]);
+      Get.find<ProductDetailController>(tag: id).update();
     });
   }
 }

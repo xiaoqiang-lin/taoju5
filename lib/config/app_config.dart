@@ -27,8 +27,8 @@ class AppConfig {
   static const buglyAndroidAppId = '0da7f235c9';
   static const buglyIosAppId = '9e3d92e673';
 
-  ///腾讯地图key
-  static const tencentMapKey = "IXSBZ-7VZWU-CCJV4-2224N-7H47F-XJBYC";
+  ///高德地图key
+  static const String amapAndroidKey = "c861bca41e4014c514a13ba71cce758a";
 
   /// 微信分享相关
   static const weChatAppId = 'wx1dda23b1cd57b8c2';

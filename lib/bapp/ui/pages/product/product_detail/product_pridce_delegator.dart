@@ -6,17 +6,9 @@
  */
 
 import 'package:get/get.dart';
-import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
-import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/valance/valance_attr_selector_controller.dart';
+import 'package:taoju5/bapp/domain/model/product/abstract_product_model.dart';
 
 import 'package:taoju5/utils/common_kit.dart';
-
-import 'fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
 
 class BasePoductPriceDelegatorController extends GetxController {
   @override
@@ -27,7 +19,7 @@ class BasePoductPriceDelegatorController extends GetxController {
 
 ///对于成品只需要商品模型即可
 abstract class BasePoductPriceDelegator {
-  ProductDetailModel product;
+  AbstractProdductModel product;
   BasePoductPriceDelegator(this.product);
 
   ///[unitPrice]商品单价
@@ -42,17 +34,14 @@ abstract class BasePoductPriceDelegator {
 ///对于窗帘 还需要商品属性 商品宽高
 abstract class BaseCurtainProuctPriceDelegator
     extends BasePoductPriceDelegator {
-  BaseCurtainProuctPriceDelegator(ProductDetailModel product) : super(product);
+  BaseCurtainProuctPriceDelegator(AbstractProdductModel product)
+      : super(product);
 
-  SizeSelectorController get sizeController =>
-      Get.find<SizeSelectorController>(tag: "${product.id}");
+  double get widthM => product.widthM;
 
-  double get widthM => sizeController.widthM;
+  double get heightM => product.heightM;
 
-  double get heightM => sizeController.heightM;
-
-  double get heightCM => sizeController.heightCM;
-
+  double get heightCM => product.heightCM;
   double get area {
     double _area = widthM * heightM;
     return _area > 0
@@ -69,69 +58,27 @@ abstract class BaseCurtainProuctPriceDelegator
   double foldingFactor = 2.0;
 
   ///窗纱的价格
-  double get gauzePrice {
-    if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
-      GauzeAttrSelectorController controller =
-          Get.find<GauzeAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
-    }
-    return 0.0;
-  }
+  double get gauzePrice => product.gauzePrice;
 
   ///配饰的价格
-  double get accessoryPrice {
-    if (Get.isRegistered<AccessoryAttrSelectorController>(tag: tag)) {
-      AccessoryAttrSelectorController controller =
-          Get.find<AccessoryAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
-    }
-    return 0.0;
-  }
+  double get accessoryPrice => product.accessoryPrice;
 
   ///型材的价格
-  double get sectionalBarPrice {
-    if (Get.isRegistered<SectionalbarAttrSelectorController>(tag: tag)) {
-      SectionalbarAttrSelectorController controller =
-          Get.find<SectionalbarAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
-    }
-    return 0.0;
-  }
+  double get sectionalBarPrice => product.sectionalBarPrice;
 
   ///里布的价格
-  double get ribouxPrice {
-    if (Get.isRegistered<RibouxAttrSelectorController>(tag: tag)) {
-      RibouxAttrSelectorController controller =
-          Get.find<RibouxAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
-    }
-    return 0.0;
-  }
+  double get ribouxPrice => product.ribouxPrice;
 
   ///幔头的价格
-  double get valancePrice {
-    if (Get.isRegistered<ValanceAttrSelectorController>(tag: tag)) {
-      ValanceAttrSelectorController controller =
-          Get.find<ValanceAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
-    }
-    return 0.0;
-  }
+  double get valancePrice => product.valancePrice;
 
-  bool get hasGauze {
-    if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
-      ValanceAttrSelectorController controller =
-          Get.find<ValanceAttrSelectorController>(tag: tag);
-      return RegExp("不要").hasMatch(controller.attr?.currentOptionName);
-    }
-    return false;
-  }
+  bool get hasGauze => product.hasGauze;
 }
 
 ///布艺帘价格计算
 class FabricCurtainProductPriceDelegator
     extends BaseCurtainProuctPriceDelegator {
-  FabricCurtainProductPriceDelegator(ProductDetailModel product)
+  FabricCurtainProductPriceDelegator(AbstractProdductModel product)
       : super(product);
 
 //窗帘主布高度因子
@@ -205,7 +152,7 @@ class FabricCurtainProductPriceDelegator
 
 class RollingCurtainProductPriceDelegator
     extends BaseCurtainProuctPriceDelegator {
-  RollingCurtainProductPriceDelegator(ProductDetailModel product)
+  RollingCurtainProductPriceDelegator(AbstractProdductModel product)
       : super(product);
 
   @override
@@ -214,7 +161,7 @@ class RollingCurtainProductPriceDelegator
 
 class GauzeCurtainProductPriceDelegator
     extends BaseCurtainProuctPriceDelegator {
-  GauzeCurtainProductPriceDelegator(ProductDetailModel product)
+  GauzeCurtainProductPriceDelegator(AbstractProdductModel product)
       : super(product);
 
   @override
@@ -228,17 +175,17 @@ class GauzeCurtainProductPriceDelegator
       if (!product.isFixedHeight) {
         mainHeightFactor = (widthM + heightM - 2.65) / widthM;
       }
-      tmp = unitPrice * widthM * mainHeightFactor * foldingFactor +
-          gauzePrice * foldingFactor * widthM * heightFactor +
-          sectionalBarPrice * widthM +
-          accessoryPrice;
     }
+    tmp = unitPrice * widthM * mainHeightFactor * foldingFactor +
+        gauzePrice * foldingFactor * widthM * heightFactor +
+        sectionalBarPrice * widthM +
+        accessoryPrice;
     return tmp;
   }
 }
 
 class FinishedProductPriceDelegator extends BasePoductPriceDelegator {
-  FinishedProductPriceDelegator(ProductDetailModel product) : super(product);
+  FinishedProductPriceDelegator(AbstractProdductModel product) : super(product);
 
   ///数量
   int get count => product?.count;
@@ -248,4 +195,18 @@ class FinishedProductPriceDelegator extends BasePoductPriceDelegator {
 
   ///总价
   double get totalPrice => unitPrice * count;
+}
+
+class SectionalbarProductPriceDelegator extends BasePoductPriceDelegator {
+  SectionalbarProductPriceDelegator(AbstractProdductModel product)
+      : super(product);
+
+  ///数量
+  int get count => product?.count;
+
+  @override
+  double get unitPrice => (product?.currentSku?.price ?? product?.price ?? 0);
+
+  ///总价
+  double get totalPrice => (unitPrice * product.widthM);
 }

@@ -90,7 +90,10 @@ extension PassengerFlowModelKit on PassengerFlowModel {
     ];
   }
 
-  int get totalCount => list.reduce((a, b) => a + b) ?? 0;
+  int get totalCount {
+    if (GetUtils.isNullOrBlank(list)) return 0;
+    return list.reduce((a, b) => a + b) ?? 0;
+  }
 
   int get turnoverCount => list?.last ?? 0;
 

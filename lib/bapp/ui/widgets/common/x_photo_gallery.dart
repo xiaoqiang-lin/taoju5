@@ -56,7 +56,7 @@ class _XPhotoGalleryState extends State<XPhotoGallery> {
               },
               itemCount: images.length,
               backgroundDecoration: null,
-              enableRotation: true,
+              enableRotation: false,
               onPageChanged: (index) {
                 setState(() {
                   currentIndex = index;

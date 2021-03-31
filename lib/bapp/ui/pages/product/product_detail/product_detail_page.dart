@@ -70,10 +70,10 @@ class ProductDetailPage extends StatelessWidget {
                         SliverToBoxAdapter(
                           child: GetBuilder<ProductDetailController>(
                               id: "attributeCard",
-                              tag: Get.parameters["id"],
+                              tag: "${_.product.id}",
                               builder: (_) {
                                 return ProductAttrsSelectorCard(
-                                    tag: "${_.id}",
+                                    tag: "${_.product.id}",
                                     productType: _.product.productType);
                               }),
                         ),

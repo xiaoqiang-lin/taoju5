@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
-import 'package:taoju5/bapp/ui/modal/product/design_product/design_product_modal.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
+import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_customer_choose_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 
@@ -67,9 +67,17 @@ class SoftProductDetailPage extends StatelessWidget {
                                     fontSize: BDimens.sp36,
                                     color: BColors.highLightColor),
                               ),
+                              Spacer(),
+                              Container(
+                                margin: EdgeInsets.only(right: BDimens.gap36),
+                                child: XCartButton(
+                                  imageUrl: "assets/images/" +
+                                      "product_detail_cart.png",
+                                ),
+                              ),
                               ElevatedButton(
-                                  onPressed: () => showDesignProductModal(
-                                      id: _.id, fromId: _.productId),
+                                  onPressed: () => _.openDesignProductModal(
+                                      fromId: _.fromId),
                                   child: Text("立即购买"))
                             ],
                           ),

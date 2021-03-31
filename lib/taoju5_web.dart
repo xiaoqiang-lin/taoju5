@@ -14,7 +14,7 @@ class Taoju5Web {
     final MethodChannel channel = MethodChannel(
       'taoju5',
       const StandardMethodCodec(),
-      registrar.messenger,
+      // registrar.messenger,
     );
 
     final pluginInstance = Taoju5Web();

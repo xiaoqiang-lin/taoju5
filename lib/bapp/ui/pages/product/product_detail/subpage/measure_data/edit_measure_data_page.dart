@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product_attr/modify_curtain_product_attr_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_bar.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_card.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
@@ -20,7 +21,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 
 class EditMeasureDataPage extends StatelessWidget {
-  const EditMeasureDataPage({Key key}) : super(key: key);
+  const EditMeasureDataPage({Key key, String tag}) : super(key: key);
 
   String get tag => Get.parameters["id"];
 
@@ -31,12 +32,22 @@ class EditMeasureDataPage extends StatelessWidget {
 
   void confirm() {
     Get.find<WindowStyleSelectorController>(tag: tag).confirm();
-    Get.find<SizeSelectorController>(tag: tag).confirm();
 
-    ///更新总价
-    Get.find<ProductDetailController>(tag: tag)
-        .update(["totalPrice", "attributeCard"]);
-    Get.back(result: measureData);
+    SizeSelectorController sizeSelectorController =
+        Get.find<SizeSelectorController>(tag: tag);
+    sizeSelectorController.confirm();
+
+    if (Get.isRegistered<ProductDetailController>(tag: tag)) {
+      ///更新总价
+      Get.find<ProductDetailController>(tag: tag)
+          .update(["totalPrice", "attributeCard"]);
+    }
+
+    Get.back(
+        result: ModifyCurtainProductAttributeResult(
+            measureData: measureData,
+            width: sizeSelectorController.widthCM,
+            height: sizeSelectorController.heightCM));
   }
 
   @override

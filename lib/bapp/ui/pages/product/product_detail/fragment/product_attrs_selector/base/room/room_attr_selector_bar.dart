@@ -29,8 +29,8 @@ class RoomAttrSelectorBar extends StatelessWidget {
             label: Text("空间"),
             key: ValueKey(_?.value),
             initialValue: _?.value,
-            onFuture: () => _.openRoomAttrSelectorModal(
-                tag: tag, onConfirm: _.confirm, product: product),
+            onFuture: () => _?.openRoomAttrSelectorModal(
+                tag: tag, onConfirm: _?.confirm, product: product),
             // onFuture: () =>
             //     showRoomAttrSelectorModal(tag: tag, onConfirm: _.confirm)
             //         .then((value) {

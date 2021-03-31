@@ -11,6 +11,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_styles.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:taoju5/utils/permission_kit.dart';
 
 enum ServerType {
   order, //订单错误
@@ -87,6 +88,7 @@ class AfterSellController extends GetxController {
   ///选择图片
   selectImage() async {
     try {
+      // bool isGranted =await PermissionKit.requestPerssion(Permission.);
       uploadImageList = await MultiImagePicker.pickImages(
           maxImages: 9,
           enableCamera: true,

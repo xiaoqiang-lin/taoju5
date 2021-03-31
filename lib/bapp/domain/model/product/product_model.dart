@@ -6,6 +6,7 @@
  */
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
@@ -33,18 +34,29 @@ class CurtainProductAttrAdapterModel {
   String key;
   String value;
   String type;
+  double price;
+  String typeName;
 
   CurtainProductAttrAdapterModel(
       {@required this.id,
       @required this.value,
       @required this.key,
-      @required this.type});
+      @required this.type,
+      @required this.price,
+      @required this.typeName});
+
+  Map get params {
+    return {
+      "$type": {"id": id, "name": key, "value": value, "price": price}
+    };
+  }
 
   ProductAttrAdapterModel adapt() {
     ProductAttrAdapterModel e = ProductAttrAdapterModel();
     e.type = int.parse(type);
-    e.key = key;
+    e.key = typeName;
     e.value = value;
+    e.totalPrice = price;
     return e;
   }
 }
@@ -97,5 +109,5 @@ extension ProductModelKit on ProductModel {
   BaseProductType get productType => getProductType(code);
 
   bool get isOnsale =>
-      CommonKit.isNullOrZero(marketPrice) && marketPrice != displayPrice;
+      !CommonKit.isNullOrZero(marketPrice) && marketPrice > displayPrice;
 }

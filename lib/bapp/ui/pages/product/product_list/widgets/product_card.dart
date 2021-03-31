@@ -25,6 +25,42 @@ class ProductGridCard extends StatelessWidget {
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       child: GestureDetector(
+        // onTap: () {
+        //   if (Get.currentRoute.contains(BAppRoutes.productDetail)) {
+        //     String history = Get.parameters["history"];
+        //     if (history == null || history == null.toString()) {
+        //       history = "${Get.parameters["id"]}o";
+        //     }
+
+        //     history += "${product.id}o";
+
+        //     List<String> list = history
+        //         .split("o")
+        //         ?.where((e) => !GetUtils.isNullOrBlank(e))
+        //         ?.toList();
+
+        //     print(list);
+        //     if (!GetUtils.isNullOrBlank(list) && list.length > 2) {
+        //       String popId = list.removeAt(0);
+
+        //       Get.offNamed(BAppRoutes.productDetail +
+        //           "?id=$popId&history=${popId + 'o'}");
+
+        //       print("删除一些页面");
+        //     }
+
+        //     // List<String> list = path.split("#");
+        //     // if (list.length > 4) {
+        //     //   Get.offNamed(BAppRoutes.productDetail);
+        //     // }
+
+        //     print(BAppRoutes.productDetail +
+        //         "?id=${product.id}&history=$history");
+        //     return Get.toNamed(BAppRoutes.productDetail +
+        //         "?id=${product.id}&history=$history");
+        //   }
+        //   return Get.toNamed(BAppRoutes.productDetail + "?id=${product.id}");
+        // },
         onTap: () => Get.toNamed(BAppRoutes.productDetail + "/${product.id}",
             arguments: Get.arguments),
         child: Container(

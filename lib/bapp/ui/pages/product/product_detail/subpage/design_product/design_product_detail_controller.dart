@@ -28,6 +28,8 @@ abstract class DesignProductDetailController extends GetxController {
 
   @override
   void onInit() {
+    id = Get.parameters["id"];
+    fromId = Get.parameters["fromId"];
     loadData();
     super.onInit();
   }

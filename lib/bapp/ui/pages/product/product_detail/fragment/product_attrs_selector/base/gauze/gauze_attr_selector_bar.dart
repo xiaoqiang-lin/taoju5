@@ -24,8 +24,8 @@ class GauzeAttrSelectorBar extends StatelessWidget {
         return Container(
           child: XSelectorTextField(
             label: Text("窗纱"),
-            key: ValueKey(_.description),
-            initialValue: _.description,
+            key: ValueKey(_?.description),
+            initialValue: _?.description ?? '',
             onFuture: () =>
                 showCurtainAttrSelectorModal<GauzeAttrSelectorController>(
                         title: "选择窗纱", tag: tag)

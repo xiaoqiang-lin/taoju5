@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
-import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/order/refund_status.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -22,8 +21,9 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 
 class OrderDetailProductCard extends StatelessWidget {
   final OrderDetailProductModel product;
-  final int orderId;
-  const OrderDetailProductCard(this.product, {Key key, @required this.orderId})
+  final OrderDetailModel order;
+
+  const OrderDetailProductCard(this.product, {Key key, @required this.order})
       : super(key: key);
 
   @override
@@ -57,7 +57,9 @@ class OrderDetailProductCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  product.name,
+                                  product.hasSelected
+                                      ? product.name
+                                      : product.room,
                                   style: TextStyle(
                                       fontSize: BDimens.sp30,
                                       fontWeight: FontWeight.w500),
@@ -70,9 +72,12 @@ class OrderDetailProductCard extends StatelessWidget {
                                 )
                               ],
                             ),
-                            Text(
-                              "¥${product.price}",
-                              style: TextStyle(fontSize: BDimens.sp28),
+                            Visibility(
+                              visible: product.hasSelected,
+                              child: Text(
+                                "¥${product.price}",
+                                style: TextStyle(fontSize: BDimens.sp28),
+                              ),
                             ),
                             Text(product.description,
                                 style: TextStyle(
@@ -136,20 +141,19 @@ class _OrderDetailProductActionBar extends StatelessWidget {
                     visible: (_.order.orderStatus < OrderStatus.producing &&
                         product.refundStatus == RefundStatus.refundable)),
                 Visibility(
-                    visible: (_.order.orderType == OrderType.measureOrder &&
-                        _.order.orderStatus == OrderStatus.toBeSelected),
+                    visible: (_.order.orderStatus == OrderStatus.toBeSelected),
                     child: Container(
                       margin: EdgeInsets.only(left: BDimens.gap24),
                       child: Row(
                         children: [
-                          Visibility(
-                            visible:
-                                product.refundStatus != RefundStatus.refundable,
-                            child: OutlineButton(
-                              onPressed: null,
-                              child: Text("去选品"),
-                            ),
-                          ),
+                          // Visibility(
+                          //   visible:
+                          //       product.refundStatus != RefundStatus.refundable,
+                          //   child: OutlinedButton(
+                          //     onPressed: null,
+                          //     child: Text("去选品"),
+                          //   ),
+                          // ),
                           Visibility(
                             visible:
                                 product.refundStatus == RefundStatus.refundable,
@@ -164,14 +168,14 @@ class _OrderDetailProductActionBar extends StatelessWidget {
               ],
             ),
             Visibility(
-                child: OutlineButton(
+                child: OutlinedButton(
                   onPressed: null,
                   child: Text("取消待审核"),
                 ),
                 visible: (_.order.orderStatus < OrderStatus.producing &&
                     product.refundStatus == RefundStatus.toBeAuthed)),
             Visibility(
-                child: OutlineButton(
+                child: OutlinedButton(
                   onPressed: null,
                   child: Text("商品已取消"),
                 ),
@@ -180,7 +184,7 @@ class _OrderDetailProductActionBar extends StatelessWidget {
 
             ///进入生产环节的商品不可取消
             Visibility(
-                child: OutlineButton(
+                child: OutlinedButton(
                   onPressed: () =>
                       Get.toNamed(BAppRoutes.afterSell + "/${_.order.id}"),
                   child: Text("售后维权"),

@@ -9,12 +9,22 @@ import 'package:get/utils.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/interface/i_xselectable.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/valance/valance_attr_selector_controller.dart';
+import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
 
 import 'abstract_product_model.dart';
 import 'design_product_model.dart';
 import 'product_image_model.dart';
+
+import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
 
 class ProductDetailModelWrapper {
   ProductDetailModel product;
@@ -152,6 +162,100 @@ class ProductDetailModel implements AbstractProdductModel {
     hasFlower = json['is_flower'] == 1;
     materialUsed = json["material"];
   }
+
+  SizeSelectorController get sizeController =>
+      Get.find<SizeSelectorController>(tag: "$id");
+
+  String get tag => "$id";
+
+  @override
+  double get accessoryPrice {
+    if (Get.isRegistered<AccessoryAttrSelectorController>(tag: tag)) {
+      AccessoryAttrSelectorController controller =
+          Get.find<AccessoryAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
+    return 0.0;
+  }
+
+  @override
+  double get gauzePrice {
+    if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
+      GauzeAttrSelectorController controller =
+          Get.find<GauzeAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
+    return 0.0;
+  }
+
+  @override
+  bool get hasGauze {
+    if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
+      ValanceAttrSelectorController controller =
+          Get.find<ValanceAttrSelectorController>(tag: tag);
+      return RegExp("不要").hasMatch(controller.attr?.currentOptionName);
+    }
+    return false;
+  }
+
+  @override
+  double get heightCM => sizeController.heightCM;
+
+  @override
+  double get heightM => sizeController.heightM;
+
+  @override
+  double get ribouxPrice {
+    if (Get.isRegistered<RibouxAttrSelectorController>(tag: tag)) {
+      RibouxAttrSelectorController controller =
+          Get.find<RibouxAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
+    return 0.0;
+  }
+
+  @override
+  double get sectionalBarPrice {
+    if (Get.isRegistered<SectionalbarAttrSelectorController>(tag: tag)) {
+      SectionalbarAttrSelectorController controller =
+          Get.find<SectionalbarAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
+    return 0.0;
+  }
+
+  @override
+  double get valancePrice {
+    if (Get.isRegistered<ValanceAttrSelectorController>(tag: tag)) {
+      ValanceAttrSelectorController controller =
+          Get.find<ValanceAttrSelectorController>(tag: tag);
+      return controller.attr.currentOptionPrice;
+    }
+    return 0.0;
+  }
+
+  @override
+  double get widthM {
+    if (productType is SectionalbarProductType) {
+      return CommonKit.asDouble(materialUsed);
+    }
+    return sizeController.widthM;
+  }
+
+  ProductSkuModel get currentSku {
+    List<String> list = [];
+    for (ProductSpecModel spec in specList) {
+      for (ProductSpecOptionModel option in spec.optionList) {
+        if (option.isChecked) {
+          list.add(option.name);
+        }
+      }
+    }
+    String key = list.join(" ");
+    return skuList?.firstWhere(
+        (e) => e.name.contains(key) || key.contains(e.name),
+        orElse: () => null);
+  }
 }
 
 extension ProductDetailModelKit on ProductDetailModel {
@@ -181,21 +285,6 @@ extension ProductDetailModelKit on ProductDetailModel {
         (e) => e.name.contains(keyword) || keyword.contains(e.name),
         orElse: () => null);
     return color?.optionList?.length ?? 0;
-  }
-
-  ProductSkuModel get currentSku {
-    List<String> list = [];
-    for (ProductSpecModel spec in specList) {
-      for (ProductSpecOptionModel option in spec.optionList) {
-        if (option.isChecked) {
-          list.add(option.name);
-        }
-      }
-    }
-    String key = list.join(" ");
-    return skuList?.firstWhere(
-        (e) => e.name.contains(key) || key.contains(e.name),
-        orElse: () => null);
   }
 
   Map toJson() => {
@@ -270,6 +359,7 @@ class ProductSkuModel {
   String marketPrice;
   double price;
   String image;
+  String bigImage;
   int picId;
   int productId;
   int count;
@@ -277,7 +367,9 @@ class ProductSkuModel {
   ProductSkuModel.fromJson(Map json) {
     name = json["sku_name"];
     image = JsonKit.asWebUrl(
-        JsonKit.getValueInComplexMap(json, ["sku_img_main", "pic_cover"]));
+        JsonKit.getValueInComplexMap(json, ["sku_img_main", "pic_cover_mid"]));
+    bigImage = JsonKit.asWebUrl(
+        JsonKit.getValueInComplexMap(json, ["sku_img_main", "pic_cover_long"]));
     price = JsonKit.asDouble(json["price"]);
     marketPrice = json['market_price'];
     id = json["sku_id"];

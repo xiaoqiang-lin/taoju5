@@ -14,25 +14,23 @@ import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.
 import 'package:taoju5/bapp/ui/widgets/common/button/x_submit_button.dart';
 import 'package:taoju5/bapp/ui/widgets/common/textfield/x_sized_text_field.dart';
 
-Future showModifyPriceModal() {
+Future showModifyPriceModal(ModifyPriceParamsModel params) {
   return showCupertinoModalPopup<String>(
       context: Get.context,
       builder: (BuildContext context) {
-        return _ModifyOrderPriceModal();
+        return _ModifyOrderPriceModal(params: params);
       });
 }
 
 class _ModifyOrderPriceModal extends StatelessWidget {
-  const _ModifyOrderPriceModal({Key key}) : super(key: key);
+  final ModifyPriceParamsModel params;
+  const _ModifyOrderPriceModal({Key key, @required this.params})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OrderDetailController>(
       builder: (_) {
-        ModifyPriceParamsModel params = ModifyPriceParamsModel(
-            orderId: "${_.order.id}",
-            amount: "${_.order.payAmount}",
-            originPrice: "${_.order.originalPrice}");
         return XBaseModal(
           height: .84 * Get.height,
           builder: (BuildContext context) {

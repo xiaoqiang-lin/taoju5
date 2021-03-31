@@ -154,14 +154,15 @@ class CustomerEditPage extends GetView<CustomerEditController> {
                                       cardColor: Colors.black,
                                       brightness: Brightness.dark),
                                   child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 32),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 32, vertical: 56),
                                     child: child,
                                   ));
                             }),
                       ),
                       XSelectorTextField<AddressModel>(
                           label: Text("区域地址"),
+                          key: ValueKey(_.target.address?.address),
                           onValueChange: (AddressModel result) {
                             _.target.address.address = result;
                           },
@@ -189,7 +190,8 @@ class CustomerEditPage extends GetView<CustomerEditController> {
       bottomNavigationBar: XSubmitButton(
         child: Text("保存并添加"),
         onFuture: controller.edit,
-        onSuccess: controller.confirm,
+        showLoading: false,
+        // onSuccess: controller.confirm,
       ),
     );
   }

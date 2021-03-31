@@ -25,6 +25,7 @@ class RoomAttrSelectorController extends BaseAttrSelectorController {
 
   String get value => attr?.currentOptionName;
   String get id => attr?.currentOptionId;
+  String get typeName => attr?.typeName;
 
   void select(
       CurtainProductAttrModel attr, CurtainProductAttrOptionModel option) {

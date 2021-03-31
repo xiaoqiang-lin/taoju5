@@ -92,15 +92,15 @@ class DesignProductModalController extends GetxController {
               EditMeasureDataParamsModel(tag: tag);
           CurtainProductAtrrParamsModel attributeArgs =
               CurtainProductAtrrParamsModel(tag: tag);
+
           product.measureData = measureDataArgs.params;
           product.attribute = jsonEncode(attributeArgs.params);
+          product.attrList = [];
           productController?.attrControllerList?.forEach((e) {
             _parse(product, e);
           });
         });
       }
-    } else {
-      designProduct?.productList?.forEach((ProductMixinModel product) {});
     }
   }
 
@@ -110,9 +110,15 @@ class DesignProductModalController extends GetxController {
     //       Get.find<ProductDetailController>(tag: tag);
 
     // }
+
     if (e is BaseAttrSelectorController && !(e is RoomAttrSelectorController)) {
       CurtainProductAttrAdapterModel attr = CurtainProductAttrAdapterModel(
-          id: e?.valueId, value: e?.value, key: e?.key, type: e?.type);
+          id: e?.valueId,
+          value: e?.value,
+          key: e?.value,
+          type: e?.type,
+          price: e?.price,
+          typeName: e?.typeName);
       if (!(product.attrList.any((e) => e.key == attr.key))) {
         product?.attrList?.add(attr);
       }
@@ -122,12 +128,6 @@ class DesignProductModalController extends GetxController {
       product?.roomId = e?.valueId;
     }
     if (e is SizeSelectorController) {
-      // designProduct?.width = CommonKit.isNullOrZero(e?.width)
-      //     ? designProduct?.width
-      //     : "${e?.width}";
-      // designProduct?.height = CommonKit.isNullOrZero(e?.height)
-      //     ? designProduct?.height
-      //     : "${e?.height}";
       product?.width = CommonKit.asDouble(e?.width ?? 350);
       product?.height = CommonKit.asDouble(e?.height ?? 265);
       product?.deltaY = e?.deltaY;
@@ -151,57 +151,64 @@ class DesignProductModalController extends GetxController {
     DesignProductAddToCartParamsModel args = DesignProductAddToCartParamsModel(
         productList: designProduct.productList);
     if (!args.validate()) {
-      return Future.value(false);
+      throw Future.value(false);
     }
     // XLogger.v(args.params);
-    return _repository.addDesignProductToCart(params: args.params);
+    return _repository
+        .addDesignProductToCart(params: args.params)
+        .then((BaseResponse response) {
+      CustomerProviderController customerProviderController = Get.find();
+      String value = "${response.data}";
+      customerProviderController.updateCartCount(value);
+    });
     // return Future.value(true);
   }
 
   Future buy() {
     int count = designProduct?.productList
-            ?.where((e) => e.isUseDefaultMeasureData)
+            ?.where((e) => (e.productType is CurtainProductType &&
+                e.isUseDefaultMeasureData))
             ?.length ??
         0;
     if (count > 0) {
-      return showDesignProductMeasureDataConfirmDialog(
-        count: count,
-      ).then((value) {
-        if (value == true) {
-          return _buy();
-        }
+      return Future.value().then((value) {
+        showDesignProductMeasureDataConfirmDialog(
+          count: count,
+        ).then((value) {
+          if (value == true) {
+            return _buy();
+          }
+        });
       });
     }
     return _buy();
   }
 
-  Future _buy() {
-    return Future.wait(getMeasureIdList()).then((value) {
+  Future _buy() async {
+    return getMeasureIdList().then((value) {
       Get.toNamed(BAppRoutes.commitOrder,
           preventDuplicates: false,
           arguments: CommitOrderEvent(
               productList:
                   designProduct.productList.map((e) => e.adapt()).toList(),
               orderType: OrderType.selectionOrder));
-    });
+    }).catchError((err) {});
   }
 
-  List<Future> getMeasureIdList() {
-    return designProduct?.productList?.map((e) {
+  Future getMeasureIdList() {
+    return Future.wait(designProduct?.productList?.map((e) {
       if (e.productType is CurtainProductType) {
         return _repository
             .addMeasureData(params: e.measureData)
             .then((BaseResponse response) {
           e.measureId = "${response.data}";
-          return true;
         }).catchError((err) {
-          return false;
           // return Future.error(err);
         });
       } else {
-        Future.value().then((value) => e.measureId = "0");
+        return Future.value().then((value) => e.measureId = "0");
       }
-    })?.toList();
+    })?.toList());
   }
 
   Future modifyMeasureData(ProductMixinModel product) {
@@ -210,6 +217,8 @@ class DesignProductModalController extends GetxController {
         .then((value) {
       if (value != null && value is ModifyCurtainProductAttributeResult) {
         product.measureData = value.measureData ?? product.measureData;
+        product.width = value.width ?? product.width;
+        product.height = value.height ?? product.height;
       }
     });
   }
@@ -225,6 +234,8 @@ class DesignProductModalController extends GetxController {
       if (value != null && value is ModifyCurtainProductAttributeResult) {
         product.attrList = value.attrList;
         product.attribute = jsonEncode(value.attribute);
+        product.width = value.width ?? product.defaultWidth;
+        product.height = value.height ?? product.defaultHeight;
         update();
       }
     });

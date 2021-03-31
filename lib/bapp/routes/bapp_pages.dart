@@ -90,10 +90,13 @@ import 'package:taoju5/storage/storage_manager.dart';
 part 'bapp_routes.dart';
 
 class BAppPages {
-  static get initial => GetUtils.isNullOrBlank(
-          StorageManager().sharedPreferences?.getString("token"))
-      ? BAppRoutes.login
-      : BAppRoutes.home;
+  static get initial {
+    print(StorageManager().sharedPreferences.getString("token"));
+    return !GetUtils.isNullOrBlank(
+            StorageManager().sharedPreferences.getString("token"))
+        ? BAppRoutes.home
+        : BAppRoutes.login;
+  }
 
   static final unkonw =
       GetPage(name: BAppRoutes.unkonw, page: () => NotFound404Page());

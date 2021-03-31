@@ -198,7 +198,7 @@ class ProductDetailController extends GetxController {
   ProductDetailModelWrapper wrapper;
 
   ///选品事件
-  SelectProductEvent selectProductEvent;
+  SelectProductEvent selectProductEvent = Get.arguments;
 
   ProductDetailModel product = ProductDetailModel();
 
@@ -216,6 +216,10 @@ class ProductDetailController extends GetxController {
     if (product.productType is GauzeCurtainProductType) {
       return GauzeCurtainProductPriceDelegator(product);
     }
+    if (product.productType is SectionalbarProductType) {
+      return SectionalbarProductPriceDelegator(product);
+    }
+
     if (product.productType is FinishedProductType) {
       return FinishedProductPriceDelegator(product);
     }
@@ -250,15 +254,19 @@ class ProductDetailController extends GetxController {
       softDesignProductList = wrapper.softDesignProductList;
       recomendProductList = wrapper.recommendedProductList;
       scrollController = ScrollController();
+      product.detailImgList.forEach((e) {
+        precacheImage(NetworkImage(e), Get.context);
+      });
     }).catchError((err) {
       loadState = XLoadState.error;
     }).whenComplete(update);
   }
 
   bool _checkValidCustomer() {
+    print(Get.find<CustomerProviderController>().isCustomerNull);
     if (Get.find<CustomerProviderController>().isCustomerNull) {
       EasyLoading.showInfo("请先选择客户哦");
-      return false;
+      throw false;
     }
     return true;
   }
@@ -285,8 +293,9 @@ class ProductDetailController extends GetxController {
   }
 
   bool _isValidInfo() {
-    if (product.productType is FinishedProductType)
+    if (product.productType is FinishedProductType) {
       return _checkValidCustomer();
+    }
     return _checkValidCustomer() && _checkValidSize();
   }
 
@@ -296,6 +305,10 @@ class ProductDetailController extends GetxController {
   }
 
   Future buy() {
+    if (!_isValidInfo()) {
+      scrollToTop();
+      throw Future.error(false);
+    }
     if (product.productType is CurtainProductType) {
       return addMeasureData().then((BaseResponse response) {
         Get.toNamed(BAppRoutes.commitOrder,
@@ -305,16 +318,14 @@ class ProductDetailController extends GetxController {
             preventDuplicates: false);
       });
     }
-    if (!_isValidInfo()) {
-      scrollToTop();
-      return Future.value(false);
-    }
 
-    return Get.toNamed(BAppRoutes.commitOrder,
-        arguments: CommitOrderEvent(
-            productList: adapt(measureId: "0"),
-            orderType: OrderType.selectionOrder),
-        preventDuplicates: false);
+    return Future.value().then((value) {
+      Get.toNamed(BAppRoutes.commitOrder,
+          arguments: CommitOrderEvent(
+              productList: adapt(measureId: "0"),
+              orderType: OrderType.selectionOrder),
+          preventDuplicates: false);
+    });
   }
 
   Future addToCart() {
@@ -347,14 +358,11 @@ class ProductDetailController extends GetxController {
 
   @override
   void onInit() {
-    tag = Get.parameters["id"];
-    if (Get.arguments != null && Get.arguments is SelectProductEvent) {
-      selectProductEvent = Get.arguments;
+    if (selectProductEvent != null) {
       CustomerModel customer = selectProductEvent.customer;
       Get.find<CustomerProviderController>().setCustomer(customer);
     }
     loadData();
-
     super.onInit();
   }
 
@@ -365,10 +373,10 @@ class ProductDetailController extends GetxController {
     super.onClose();
   }
 
-  String get id => Get.parameters["id"];
+  String id = Get.parameters["id"];
   bool get isForSelect => selectProductEvent != null;
   String get flag => isForSelect ? '1' : '0';
-  String tag;
+  String tag = Get.parameters["id"];
   List<GetxController> get attrControllerList => [
         Get.find<RoomAttrSelectorController>(tag: tag),
         Get.find<GauzeAttrSelectorController>(tag: tag),
@@ -477,6 +485,7 @@ class ProductDetailController extends GetxController {
       "measure_id": measureId,
       "sku_id": product.skuId,
       "material": product.material,
+      "count": product.count,
       "attribute": jsonEncode(attr?.params)
     };
     return [ProductAdapterModel.fromJson(json)];
@@ -487,7 +496,7 @@ class ProductDetailController extends GetxController {
       EasyLoading.showInfo("请先确认测装数据哦");
       scrollController.animateTo(0,
           duration: const Duration(milliseconds: 375), curve: Curves.ease);
-      return Future.value(false);
+      throw Future.value(false);
     }
     return Get.find<OrderDetailController>().select(
         productId: tag, orderProductId: selectProductEvent.orderProduct.id);

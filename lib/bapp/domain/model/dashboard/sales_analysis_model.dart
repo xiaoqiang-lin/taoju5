@@ -77,7 +77,8 @@ class SalesAnalysisModel {
     }
 
     List<num> ageList = JsonKit.asList(json["sex"]).cast<num>();
-    num total = ageList.reduce((a, b) => a + b);
+    num total =
+        GetUtils.isNullOrBlank(ageList) ? 0 : ageList.reduce((a, b) => a + b);
     if (total == 0) {
       ageData = [
         CustomerAgeAnalysisModel(

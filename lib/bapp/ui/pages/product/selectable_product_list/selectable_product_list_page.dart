@@ -60,25 +60,6 @@ class SelectableProductListPage
                                   enablePullUp: true,
                                   mode: parentController.mode,
                                 );
-                                // return parentController.isGridMode
-                                //     ? ProductGridModeSection(
-                                //         productList: _.productList,
-                                //         scrollController: _.scrollController,
-                                //         refreshController: _.refreshController,
-                                //         onLoading: _.loadMore,
-                                //         onRefresh: _.refreshData,
-                                //         enablePullDown: true,
-                                //         enablePullUp: true,
-                                //       )
-                                //     : ProductListModeSection(
-                                //         productList: _.productList,
-                                //         scrollController: _.scrollController,
-                                //         refreshController: _.refreshController,
-                                //         onLoading: _.loadMore,
-                                //         onRefresh: _.refreshData,
-                                //         enablePullDown: true,
-                                //         enablePullUp: true,
-                                //       );
                               },
                             );
                           },

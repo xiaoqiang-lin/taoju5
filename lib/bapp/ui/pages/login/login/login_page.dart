@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/login/login/login_controller.dart';
+import 'package:taoju5/bapp/ui/widgets/common/button/x_future_button.dart';
 
 import 'widget/loge_indicator.dart';
 import 'widget/x_sms_input_field.dart';
@@ -88,8 +89,8 @@ class LoginPage extends StatelessWidget {
                                     BColors.buttonColor),
                                 minimumSize:
                                     MaterialStateProperty.all(Size(172, 56)))),
-                        child: ElevatedButton(
-                            onPressed: _.login, child: Text("登录"))))
+                        child: XFutureButton(
+                            onFuture: _.login, child: Text("登录"))))
               ],
             );
           },

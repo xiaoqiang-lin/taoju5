@@ -16,11 +16,13 @@ class BTheme {
   bool isDarkMode = false;
 
   static ThemeData lightTheme = ThemeData(
-      cursorColor: BColors.foregroundColor,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: BColors.foregroundColor,
+      ),
       backgroundColor: BColors.foregroundColor,
       accentColor: BColors.foregroundColor,
       primaryColor: BColors.primaryColor,
-      // primaryColor: Colors.red,
+      // primaryColor: Colors.yellow,
       buttonColor: BColors.buttonColor,
       primaryColorDark: BColors.primaryColor,
       primaryColorLight: BColors.foregroundColor,
@@ -72,17 +74,33 @@ class BTheme {
               // foregroundColor: MaterialStateProperty.all(BColors.buttonColor),
               // overlayColor: MaterialStateProperty.all(BColors.buttonColor),
               minimumSize: MaterialStateProperty.all(
-                  Size(BDimens.minW156, BDimens.minH56)))),
+                  Size(BDimens.minW156, BDimens.min32)))),
       disabledColor: Colors.grey,
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(BColors.textColor),
+              foregroundColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return BColors.disabledColor;
+                }
+                return BColors.textColor;
+              }),
               minimumSize: MaterialStateProperty.all(
-                  Size(BDimens.minW156, BDimens.minH56)),
-              textStyle: MaterialStateProperty.all(
-                  TextStyle(fontSize: BDimens.sp28, color: BColors.textColor)),
-              side: MaterialStateProperty.all(
-                  BorderSide(color: BColors.outlineBorderColor, width: 1)))),
+                  Size(BDimens.minW156, BDimens.min32)),
+              textStyle: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return TextStyle(
+                      fontSize: BDimens.sp28, color: BColors.textColor);
+                }
+
+                return TextStyle(
+                    fontSize: BDimens.sp28, color: BColors.textColor);
+              }),
+              side: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return BorderSide(color: BColors.disabledColor, width: 1);
+                }
+                return BorderSide(color: BColors.outlineBorderColor, width: 1);
+              }))),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(BColors.textColor),

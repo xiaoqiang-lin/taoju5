@@ -10,6 +10,13 @@ class ModifyCurtainProductAttrBinding extends Bindings {
   @override
   void dependencies() {
     String tag = Get.parameters["id"];
+    if (GetUtils.isNullOrBlank(tag)) {
+      if (Get.arguments != null &&
+          Get.arguments is ModifyCurtainProductAttrEvent) {
+        ModifyCurtainProductAttrEvent event = Get.arguments;
+        tag = event.tag;
+      }
+    }
     Get.lazyPut(() => ModifyCurtainProductAttrController());
     Get.lazyPut(() => GauzeAttrSelectorController(), tag: tag);
     Get.lazyPut(() => SectionalbarAttrSelectorController(), tag: tag);

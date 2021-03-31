@@ -4,7 +4,6 @@
  * @Date: 2021-01-08 17:25:08
  * @LastEditTime: 2021-02-02 13:33:17
  */
-import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
@@ -87,11 +86,11 @@ class _SceneDesignProductCard extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.topCenter,
                         height: Get.width * .6,
-                        child: XCachedNetworkImage(
+                        child: Image.network(
                           // height: Get.width,
+                          product.image,
                           width: Get.width,
                           fit: BoxFit.fitWidth,
-                          imageUrl: product.image,
                         ),
                       ),
                     ),

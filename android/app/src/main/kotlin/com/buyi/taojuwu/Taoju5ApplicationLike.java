@@ -55,39 +55,39 @@ public class Taoju5ApplicationLike extends DefaultApplicationLike {
         Beta.betaPatchListener = new BetaPatchListener() {
             @Override
             public void onPatchReceived(String patchFile) {
-                // Toast.makeText(getApplication(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDownloadReceived(long savedLength, long totalLength) {
-                // Toast.makeText(getApplication(),
-                //         String.format(Locale.getDefault(), "%s %d%%",
-                //                 Beta.strNotificationDownloading,
-                //                 (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
-                //         Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(),
+                //          String.format(Locale.getDefault(), "%s %d%%",
+                //                  Beta.strNotificationDownloading,
+                //                  (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
+                //          Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDownloadSuccess(String msg) {
-                // Toast.makeText(getApplication(), "补丁下载成功", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(), "补丁下载成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDownloadFailure(String msg) {
-                // Toast.makeText(getApplication(), "补丁下载失败", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(), "补丁下载失败", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onApplySuccess(String msg) {
-                // Toast.makeText(getApplication(), "补丁应用成功", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(), "补丁应用成功", Toast.LENGTH_SHORT).show();
 //                hook(getApplication());
                 FlutterPatch.hook(getApplication());
             }
 
             @Override
             public void onApplyFailure(String msg) {
-                // Toast.makeText(getApplication(), "补丁应用失败", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplication(), "补丁应用失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override

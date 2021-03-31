@@ -54,12 +54,13 @@ class __DepositDialogState extends State<_DepositDialog> {
               },
               decoration: InputDecoration(
                   filled: true,
-                  hintText: '元',
+                  hintText: '请输入定金(元)',
                   fillColor: const Color(0xFFF2F2F2),
                   contentPadding: EdgeInsets.all(10)),
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton(
                 onPressed: () => Navigator.of(context).pop(),

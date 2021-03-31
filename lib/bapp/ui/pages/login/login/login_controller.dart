@@ -6,6 +6,7 @@
  */
 
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -14,8 +15,6 @@ import 'package:taoju5/bapp/domain/repository/login/login_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
-import 'package:taoju5/storage/storage_manager.dart';
-import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/validator/params_validator.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
@@ -53,8 +52,6 @@ class LoginController extends GetxController {
   ///[_currentStrategy]当前登录策略
   ILoginStrategy get _currentStrategy => _strategyDict[loginMode];
   Future login() {
-    XLogger.v(params);
-
     ///参数校验
     if (!args.validate(flag: loginMode)) return Future.error(false);
     return _currentStrategy.login(params: params).then((UserInfoModel model) {
@@ -70,13 +67,26 @@ class LoginController extends GetxController {
 
   save(UserInfoModel model) {
     ///存储token到sp中
-    final storageManager = StorageManager();
 
-    storageManager.sharedPreferences
-        .setString("userInfo", jsonEncode(model.toJson()));
+    SharedPreferences.getInstance().then((sp) {
+      sp.setString("userInfo", jsonEncode(model.toJson()));
+      print(model.token);
 
-    ///保存token
-    storageManager.sharedPreferences?.setString("token", model.token);
+      sp.setString("token", model.token);
+      print(sp.getString("token"));
+      print("+++++");
+    });
+
+    // storageManager.sharedPreferences
+    //     .setString("userInfo", jsonEncode(model.toJson()));
+
+    // ///保存token
+    // storageManager.sharedPreferences
+    //     .setString("token", model.token)
+    //     .then((value) {
+    //   print(storageManager.sharedPreferences.getString("token"));
+    //   print("token");
+    // });
 
     ///保存到controller中
     final userProviderController = Get.find<UserProviderController>();

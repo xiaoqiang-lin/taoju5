@@ -25,6 +25,7 @@ class SizeSelectorTipBar extends StatelessWidget {
 
   _onTap() {
     if (!isForSelect) {
+      print(tag);
       return Get.toNamed(BAppRoutes.editMeasureData + "/$tag");
     }
     OrderDetailController controller = Get.find<OrderDetailController>();
@@ -117,34 +118,31 @@ class SizeSelectorTipBar extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    Visibility(
-                      visible: !isForSelect,
-                      child: Column(
-                        children: [
-                          GetBuilder<SizeSelectorController>(
-                            tag: tag,
-                            id: "size",
-                            builder: (_) {
-                              return Visibility(
-                                visible: !_.isSizeNullOrEmpty,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                        "宽:${_.widthM?.toStringAsFixed(2)}米 高:${_.heightM?.toStringAsFixed(2)}米"),
-                                    GetBuilder<RoomAttrSelectorController>(
-                                      tag: tag,
-                                      builder: (_) {
-                                        return Text("${_.value}");
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        GetBuilder<SizeSelectorController>(
+                          tag: tag,
+                          id: "size",
+                          builder: (_) {
+                            return Visibility(
+                              visible: !_.isSizeNullOrEmpty,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                      "宽:${_.widthM?.toStringAsFixed(2)}米 高:${_.heightM?.toStringAsFixed(2)}米"),
+                                  GetBuilder<RoomAttrSelectorController>(
+                                    tag: tag,
+                                    builder: (_) {
+                                      return Text("${_.value}");
+                                    },
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     Icon(BIcons.next)
                   ],
