@@ -59,7 +59,7 @@ class OrderDetailProductCard extends StatelessWidget {
                                 Text(
                                   product.hasSelected
                                       ? product.name
-                                      : product.room,
+                                      : product.room ?? product.name,
                                   style: TextStyle(
                                       fontSize: BDimens.sp30,
                                       fontWeight: FontWeight.w500),

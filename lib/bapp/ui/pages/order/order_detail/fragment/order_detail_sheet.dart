@@ -8,7 +8,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
+import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/res/b_icons.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/fragment/base_sheet/finished_product_order_sheet.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/fragment/base_sheet/measure_order_sheet.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
@@ -183,29 +186,28 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
           //             ),
           //           ),
           //         ),
-          //       GestureDetector(
-          //         onTap: () => Get.toNamed(
-          //             BAppRoutes.orderMainfest + "/${controller.order.id}"),
-          //         child: Container(
-          //           padding: EdgeInsets.symmetric(vertical: BDimens.gap16),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.end,
-          //             children: [
-          //               Text(
-          //                 "共${controller.order?.productList?.length ?? 1}件,",
-          //                 style: TextStyle(
-          //                     fontSize: BDimens.sp26,
-          //                     color: BColors.tipColor),
-          //               ),
-          //               Text(
-          //                 "查看商品清单",
-          //                 style: TextStyle(fontSize: BDimens.sp26),
-          //               ),
-          //               Icon(BIcons.next)
-          //             ],
-          //           ),
-          //         ),
-          //       ),
+          GestureDetector(
+            onTap: () => Get.toNamed(
+                BAppRoutes.orderMainfest + "/${controller.order.id}"),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "共${controller.order?.productList?.length ?? 1}件,",
+                    style: TextStyle(
+                        fontSize: BDimens.sp26, color: BColors.tipColor),
+                  ),
+                  Text(
+                    "查看商品清单",
+                    style: TextStyle(fontSize: BDimens.sp26),
+                  ),
+                  Icon(BIcons.next)
+                ],
+              ),
+            ),
+          ),
           //     ],
           //   ),
           // )

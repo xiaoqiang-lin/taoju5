@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product_attr/modify_curtain_product_attr_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/accessory/accessory_attr_selector_bar.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_bar.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_bar.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_bar.dart';
@@ -23,14 +24,21 @@ class ModifyCurtainProductAttrPage
       body: Container(
         color: Get.theme.primaryColor,
         padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
-        child: Column(
-          children: [
-            GauzeAttrSelectorBar(tag: controller.tag),
-            SectionalbarAttrSelectorBar(tag: controller.tag),
-            ValanceAttrSelectorBar(tag: controller.tag),
-            RibouxAttrSelectorBar(tag: controller.tag),
-            AccessoryAttrSelectorBar(tag: controller.tag)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GauzeAttrSelectorBar(tag: controller.tag),
+              SectionalbarAttrSelectorBar(tag: controller.tag),
+              ValanceAttrSelectorBar(tag: controller.tag),
+              RibouxAttrSelectorBar(tag: controller.tag),
+              AccessoryAttrSelectorBar(tag: controller.tag),
+              AbsorbPointer(
+                child: Opacity(
+                    opacity: .00001,
+                    child: CraftAttrSelectorBar(tag: controller.tag)),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(

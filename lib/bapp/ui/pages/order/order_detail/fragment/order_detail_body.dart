@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/widget/order_detail_product_card.dart';
 
@@ -31,9 +32,14 @@ class OrderDetailBody extends StatelessWidget {
               return GetBuilder<OrderDetailController>(
                   id: "${_.order.productList[i].id}",
                   builder: (_) {
-                    return OrderDetailProductCard(
-                      _.order.productList[i],
-                      order: _.order,
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => Get.toNamed(
+                          BAppRoutes.orderMainfest + "/${_.order.id}"),
+                      child: OrderDetailProductCard(
+                        _.order.productList[i],
+                        order: _.order,
+                      ),
                     );
                   });
             }),

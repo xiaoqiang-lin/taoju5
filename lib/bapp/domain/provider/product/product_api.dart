@@ -100,5 +100,5 @@ class ProductAPI {
 
   ///软装方案 场景设计加入购物车
   Future<BaseResponse> addDesignProductToCart({Map params}) =>
-      XDio().get("/api/goods/addCartList", params: params);
+      XDio().post("/api/goods/addCartList", formData: params);
 }

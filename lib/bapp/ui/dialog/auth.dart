@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/dialog/reauth.dart';
+import 'package:taoju5/bapp/ui/pages/home/app_controller.dart';
 
 Future showAuthDialog(BuildContext context) {
   return showDialog(
@@ -60,14 +62,20 @@ Future showAuthDialog(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      showReauthDialog(context);
+                    },
                     child: Text("不同意"),
                   ),
                   SizedBox(
                     width: BDimens.gap56,
                   ),
                   ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Get.find<AppController>().auth();
+                    },
                     child: Text("  同意  "),
                   ),
                 ],

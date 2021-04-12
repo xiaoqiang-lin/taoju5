@@ -21,16 +21,19 @@ import 'fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controlle
 import 'fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 import 'fragment/product_attrs_selector/rolling_curtain_product_attrs_selector/rolling_curtain_product_attrs_selector_controller.dart';
+import 'product_register_controller.dart';
 
 class ProductDetailBinding extends Bindings {
   @override
   void dependencies() {
     String id = Get.parameters["id"];
 
+    Get.lazyPut(() => ProductRegisterController());
+
     Get.lazyPut(() => ProductDetailController(), tag: id);
 
     ///空间选择器
-    Get.lazyPut(() => RoomAttrSelectorController(), tag: id, fenix: true);
+    Get.put(RoomAttrSelectorController(), tag: id, permanent: true);
 
     ///配饰选择器
     Get.lazyPut(() => AccessoryAttrSelectorController(), tag: id, fenix: true);
@@ -52,14 +55,12 @@ class ProductDetailBinding extends Bindings {
     Get.lazyPut(() => ValanceAttrSelectorController(), tag: id, fenix: true);
 
     ///窗型
-    Get.lazyPut(() => WindowPatternSelectorController(tag: id),
-        tag: id, fenix: true);
+    Get.put(WindowPatternSelectorController(tag: id), tag: id, permanent: true);
 
     ///尺寸大小
     Get.lazyPut(() => SizeSelectorController(), tag: id, fenix: true);
 
-    Get.lazyPut(() => WindowStyleSelectorController(tag: id),
-        tag: id, fenix: true);
+    Get.put(WindowStyleSelectorController(tag: id), tag: id, permanent: true);
 
     // Get.lazyPut(() => ProductDetailController(), tag: id);
 

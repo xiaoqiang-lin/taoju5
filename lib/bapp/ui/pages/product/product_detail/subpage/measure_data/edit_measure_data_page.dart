@@ -21,7 +21,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 
 class EditMeasureDataPage extends StatelessWidget {
-  const EditMeasureDataPage({Key key, String tag}) : super(key: key);
+  const EditMeasureDataPage({Key key}) : super(key: key);
 
   String get tag => Get.parameters["id"];
 
@@ -31,11 +31,15 @@ class EditMeasureDataPage extends StatelessWidget {
   }
 
   void confirm() {
-    Get.find<WindowStyleSelectorController>(tag: tag).confirm();
-
+    if (Get.isRegistered<WindowStyleSelectorController>(tag: tag)) {
+      Get.find<WindowStyleSelectorController>(tag: tag).confirm();
+    }
     SizeSelectorController sizeSelectorController =
         Get.find<SizeSelectorController>(tag: tag);
-    sizeSelectorController.confirm();
+    if (Get.isRegistered<SizeSelectorController>(tag: tag)) {
+      sizeSelectorController = Get.find<SizeSelectorController>(tag: tag);
+      sizeSelectorController.confirm();
+    }
 
     if (Get.isRegistered<ProductDetailController>(tag: tag)) {
       ///更新总价
@@ -43,11 +47,15 @@ class EditMeasureDataPage extends StatelessWidget {
           .update(["totalPrice", "attributeCard"]);
     }
 
+    CurtainProductAtrrParamsModel attributeArgs =
+        CurtainProductAtrrParamsModel(tag: tag);
+
     Get.back(
         result: ModifyCurtainProductAttributeResult(
             measureData: measureData,
-            width: sizeSelectorController.widthCM,
-            height: sizeSelectorController.heightCM));
+            attribute: attributeArgs.params,
+            width: sizeSelectorController?.widthCM,
+            height: sizeSelectorController?.heightCM));
   }
 
   @override

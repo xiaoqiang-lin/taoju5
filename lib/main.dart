@@ -18,16 +18,16 @@ void main() {
   _main();
 }
 
-void _main() async {
+void _main() {
   if (GetPlatform.isWeb) {
-    _webmain();
+    return _webmain();
   }
-  await _appMain();
+  return _appMain();
 }
 
-Future _appMain() async {
+void _appMain() async {
   await AppInitializer.init();
-  FlutterBugly.postCatchedException(() {
+  return FlutterBugly.postCatchedException(() {
     startApp();
   });
 }
@@ -43,7 +43,7 @@ void startApp() {
   runApp(TaojuwuApp());
 }
 
-void _webmain() async {
-  await AppInitializer.init();
+void _webmain() {
+  AppInitializer.init();
   startApp();
 }

@@ -128,15 +128,14 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                       return Row(
                         children: [
                           Text("打开方式:${measureData.newOpenModeName}"),
-                          Expanded(
-                            child: Visibility(
-                                visible: measureData.newOpenModeName !=
-                                    measureData.openModeName,
-                                child: Text(
-                                  "(原:${measureData.openModeName})",
-                                  maxLines: 2,
-                                )),
-                          ),
+                          Visibility(
+                              visible: measureData.newOpenModeName !=
+                                  measureData.openModeName,
+                              child: Text(
+                                "(原:${measureData.openModeName})",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              )),
                           IconButton(
                               icon: Image.asset("assets/images/edit.png"),
                               onPressed: () => Get.toNamed(

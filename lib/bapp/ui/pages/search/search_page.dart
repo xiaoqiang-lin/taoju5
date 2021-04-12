@@ -26,9 +26,10 @@ class SearchPage extends GetView<SearchController> {
         // resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         appBar: XSearchBar(
+          key: ValueKey("searchPage"),
           onSearch: controller.onSearch,
           value: controller?.keyword,
-          hintText: controller?.keyword ?? controller.hintText,
+          hintText: controller?.hintText,
           onChanged: controller.onChanged,
           preferredSize: Size.fromHeight(kToolbarHeight),
           onTap: () {
@@ -38,6 +39,7 @@ class SearchPage extends GetView<SearchController> {
         ),
         body: GetBuilder<SearchController>(
           id: "container",
+          autoRemove: true,
           builder: (_) {
             return PageTransitionSwitcher(
               duration: Duration(milliseconds: 500),

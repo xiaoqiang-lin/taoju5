@@ -35,6 +35,7 @@ class SceneProductDetailController extends DesignProductDetailController {
   void onInit() {
     id = Get.parameters["id"];
     tag = Get.parameters["fromId"];
+    loadData();
     super.onInit();
   }
 }

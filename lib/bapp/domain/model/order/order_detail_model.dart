@@ -12,7 +12,6 @@ import 'package:taoju5/bapp/domain/model/order/refund_status.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
-import 'package:taoju5/utils/x_logger.dart';
 
 import 'order_detail_product_model.dart';
 
@@ -196,9 +195,8 @@ class OrderMeasureDataModel {
   List<String> pictures;
 
   bool hasChecked = false;
-
+  Map data = {};
   OrderMeasureDataModel.fromJson(Map json) {
-    XLogger.v(json);
     id = json["id"];
     orderId = json["order_id"];
     productId = json["goods_id"];
@@ -207,6 +205,7 @@ class OrderMeasureDataModel {
     room = json["install_room"];
     windowType = json["window_measure_type"];
     windowPattern = json["window_type"];
+
     pictures = '${json["picture"]}'
         .split(",")
         .map((e) => JsonKit.asWebUrl(e))
@@ -231,5 +230,5 @@ class OrderMeasureDataModel {
 
 extension OrderMeasureDataModelKit on OrderMeasureDataModel {
   String get openModeName =>
-      RegExp(".*[a-zA-Z]+.*").hasMatch(openMode ?? "") ? "分墙面打开" : openMode;
+      RegExp(".*[a-zA-Z]+.*").hasMatch(openMode ?? "") ? "分墙体打开" : openMode;
 }

@@ -19,8 +19,9 @@ class BasePoductPriceDelegatorController extends GetxController {
 
 ///对于成品只需要商品模型即可
 abstract class BasePoductPriceDelegator {
-  AbstractProdductModel product;
   BasePoductPriceDelegator(this.product);
+
+  AbstractProdductModel product;
 
   ///[unitPrice]商品单价
   double get unitPrice => product?.price;
@@ -37,11 +38,22 @@ abstract class BaseCurtainProuctPriceDelegator
   BaseCurtainProuctPriceDelegator(AbstractProdductModel product)
       : super(product);
 
+  ///[foldingFactor]褶皱系数:至于什么是褶皱系数 我也不知道
+  double foldingFactor = 2.0;
+
   double get widthM => product.widthM;
 
   double get heightM => product.heightM;
 
   double get heightCM => product.heightCM;
+
+  double get maxHeightM {
+    if (product.isCustomSize) {
+      return 2.7;
+    }
+    return 2.76;
+  }
+
   double get area {
     double _area = widthM * heightM;
     return _area > 0
@@ -50,12 +62,6 @@ abstract class BaseCurtainProuctPriceDelegator
             : _area
         : 0;
   }
-
-  ///定高情况下最高为276
-  double maxHeight = 276;
-
-  ///[foldingFactor]褶皱系数:至于什么是褶皱系数 我也不知道
-  double foldingFactor = 2.0;
 
   ///窗纱的价格
   double get gauzePrice => product.gauzePrice;
@@ -81,11 +87,36 @@ class FabricCurtainProductPriceDelegator
   FabricCurtainProductPriceDelegator(AbstractProdductModel product)
       : super(product);
 
+  @override
+  double get totalPrice {
+    double tmp = unitPrice;
+
+    ///如果有窗纱
+    if (hasGauze) {
+      tmp = mainCurtainClothPrice +
+          (ribouxPrice + gauzePrice) * foldingFactor * widthM * heightFactor +
+          valancePrice * widthM +
+          sectionalBarPrice * widthM * foldingFactor +
+          accessoryPrice;
+    }
+
+    ///没有窗纱
+    else {
+      tmp = mainCurtainClothPrice +
+          (ribouxPrice + gauzePrice) * foldingFactor * widthM * heightFactor +
+          valancePrice * widthM +
+          sectionalBarPrice * widthM +
+          accessoryPrice;
+    }
+
+    return tmp;
+  }
+
 //窗帘主布高度因子
   double get mainHeightFactor {
     double factor = 1.0;
     if (CommonKit.isNullOrZero(heightCM)) return factor;
-    if (heightCM > maxHeight && product.isCustomSize) {
+    if (heightM > maxHeightM && product.isCustomSize) {
       factor = (widthM + heightM - 2.65) / widthM;
     }
     return factor;
@@ -94,7 +125,7 @@ class FabricCurtainProductPriceDelegator
   // 窗帘高度因子2
   double get heightFactor {
     if (CommonKit.isNullOrZero(heightCM)) return 1.0;
-    return heightCM > maxHeight ? 1.5 : 1.0;
+    return heightM > maxHeightM ? 1.5 : 1.0;
   }
 
   ///[mainCurtainClothPrice]窗帘主布价格
@@ -123,31 +154,6 @@ class FabricCurtainProductPriceDelegator
     ///自定义宽高
     return widthM * foldingFactor * mainHeightFactor * unitPrice;
   }
-
-  @override
-  double get totalPrice {
-    double tmp = unitPrice;
-
-    ///如果有窗纱
-    if (hasGauze) {
-      tmp = mainCurtainClothPrice +
-          (ribouxPrice + gauzePrice) * foldingFactor * widthM * heightFactor +
-          valancePrice * widthM +
-          sectionalBarPrice * widthM * foldingFactor +
-          accessoryPrice;
-    }
-
-    ///没有窗纱
-    else {
-      tmp = mainCurtainClothPrice +
-          (ribouxPrice + gauzePrice) * foldingFactor * widthM * heightFactor +
-          valancePrice * widthM +
-          sectionalBarPrice * widthM +
-          accessoryPrice;
-    }
-
-    return tmp;
-  }
 }
 
 class RollingCurtainProductPriceDelegator
@@ -168,16 +174,17 @@ class GauzeCurtainProductPriceDelegator
   double get totalPrice {
     double tmp = unitPrice;
     double heightFactor = 1.0;
-    double mainHeightFactor = 1.0;
 
-    if (heightCM != null && heightCM > 270) {
+    if (heightM == null) return tmp;
+    if (heightM > maxHeightM) {
       heightFactor = 1.5;
+
       if (!product.isFixedHeight) {
-        mainHeightFactor = (widthM + heightM - 2.65) / widthM;
+        heightFactor = (widthM + heightM - 2.65) / widthM;
+        // mainHeightFactor = (widthM + heightM - 2.7) / widthM;
       }
     }
-    tmp = unitPrice * widthM * mainHeightFactor * foldingFactor +
-        gauzePrice * foldingFactor * widthM * heightFactor +
+    tmp = unitPrice * widthM * heightFactor * foldingFactor +
         sectionalBarPrice * widthM +
         accessoryPrice;
     return tmp;
@@ -187,11 +194,11 @@ class GauzeCurtainProductPriceDelegator
 class FinishedProductPriceDelegator extends BasePoductPriceDelegator {
   FinishedProductPriceDelegator(AbstractProdductModel product) : super(product);
 
-  ///数量
-  int get count => product?.count;
-
   @override
   double get unitPrice => (product?.currentSku?.price ?? product?.price ?? 0);
+
+  ///数量
+  int get count => product?.count;
 
   ///总价
   double get totalPrice => unitPrice * count;
@@ -201,11 +208,11 @@ class SectionalbarProductPriceDelegator extends BasePoductPriceDelegator {
   SectionalbarProductPriceDelegator(AbstractProdductModel product)
       : super(product);
 
-  ///数量
-  int get count => product?.count;
-
   @override
   double get unitPrice => (product?.currentSku?.price ?? product?.price ?? 0);
+
+  ///数量
+  int get count => product?.count;
 
   ///总价
   double get totalPrice => (unitPrice * product.widthM);

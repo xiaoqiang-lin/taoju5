@@ -45,23 +45,20 @@ class ProductListFilterPage extends StatelessWidget {
                                     vertical: BDimens.gap16),
                                 child: Text(tag.title),
                               ),
-                              GetBuilder<ProductListFilterController>(
-                                id: tag.key,
-                                builder: (_) {
-                                  return Wrap(
-                                    runSpacing: BDimens.gap16,
-                                    spacing: BDimens.gap32,
-                                    children: [
-                                      for (ProductFilterTagOptionModel option
-                                          in tag.options)
-                                        XCheckButton(
-                                            isChecked: option.isChecked,
-                                            onPresss: () =>
-                                                _.selectOption(tag, option),
-                                            child: Text(option.name))
-                                    ],
-                                  );
-                                },
+                              Wrap(
+                                key: ValueKey(tag.key),
+                                runSpacing: BDimens.gap16,
+                                spacing: BDimens.gap16,
+                                children: [
+                                  for (ProductFilterTagOptionModel option
+                                      in tag.options)
+                                    XCheckButton(
+                                        key: ValueKey(option.name),
+                                        isChecked: option.isChecked,
+                                        onPresss: () =>
+                                            _.selectOption(tag, option),
+                                        child: Text(option.name))
+                                ],
                               )
                             ],
                           );
@@ -71,6 +68,7 @@ class ProductListFilterPage extends StatelessWidget {
                   });
             }),
         bottomNavigationBar: Container(
+          color: Get.theme.primaryColor,
           padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
           child: Row(
             children: [

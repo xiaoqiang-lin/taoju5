@@ -12,7 +12,7 @@ import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 class CollectionController extends GetxController {
   ProductRepository _repository = ProductRepository();
 
-  String get id => Get.parameters["id"];
+  String id = Get.parameters["id"];
 
   List<ProductCollectionModel> collectionList = [];
 
@@ -41,6 +41,9 @@ class CollectionController extends GetxController {
       "fav_id": product.productId
     }).then((value) {
       collectionList.remove(product);
+      if (GetUtils.isNullOrBlank(collectionList)) {
+        loadState = XLoadState.empty;
+      }
       update();
     });
   }

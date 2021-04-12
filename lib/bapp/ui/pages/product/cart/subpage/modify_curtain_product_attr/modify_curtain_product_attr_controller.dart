@@ -8,6 +8,7 @@ import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/base_attr_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/craft/craft_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/gauze/gauze_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/riboux/riboux_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/sectionalbar/sectionalbar_attr_selector_controller.dart';
@@ -35,6 +36,7 @@ class ModifyCurtainProductAttrEvent {
   String tag;
   List<CurtainProductAttrAdapterModel> attrList;
   bool isFromCart;
+  int productTagId;
   String category;
 
   ModifyCurtainProductAttrEvent(
@@ -42,7 +44,8 @@ class ModifyCurtainProductAttrEvent {
       @required this.tag,
       this.isFromCart = true,
       this.category,
-      this.cart});
+      this.cart,
+      this.productTagId});
 }
 
 class ModifyCurtainProductAttrController<T extends BaseAttrSelectorController>
@@ -54,6 +57,8 @@ class ModifyCurtainProductAttrController<T extends BaseAttrSelectorController>
   String category;
 
   bool isFromCart;
+
+  int tagId;
 
   Future confirm() {
     if (event.isFromCart) {
@@ -76,9 +81,15 @@ class ModifyCurtainProductAttrController<T extends BaseAttrSelectorController>
       "cart_id": tag,
       "wc_attr": jsonEncode(args.params)
     }).then((BaseResponse response) {
-      Get.find<CartListController>(tag: category).loadData().then((_) {
-        Get.back();
-      });
+      if (Get.isRegistered<CartListController>(tag: category)) {
+        CartListController listController =
+            Get.find<CartListController>(tag: category);
+        listController.loadData().then((value) {
+          CartListParentController parentController = Get.find();
+          parentController.isCheckedAll = false;
+        });
+      }
+      Get.back();
     }).catchError((err) {});
   }
 
@@ -97,16 +108,22 @@ class ModifyCurtainProductAttrController<T extends BaseAttrSelectorController>
       _find<ValanceAttrSelectorController>(tag),
       _find<RibouxAttrSelectorController>(tag),
       _find<AccessoryAttrSelectorController>(tag),
+      _find<CraftAttrSelectorController>(tag)
     ]
         .map((e) => e?.adapt())
-        ?.where((e) => !GetUtils.isNullOrBlank(e.id))
+        ?.where((e) => !GetUtils.isNullOrBlank(e?.id))
         ?.toList();
   }
 
   @override
   void onInit() {
-    event = Get.arguments;
-    tag = event?.tag;
+    if (Get.arguments != null &&
+        Get.arguments is ModifyCurtainProductAttrEvent) {
+      event = Get.arguments;
+      tag = event?.tag;
+      tagId = event?.productTagId;
+    }
+
     category = Get.parameters["category"];
     super.onInit();
   }

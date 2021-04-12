@@ -18,17 +18,18 @@ class ProductGridModeSection extends StatefulWidget {
   final Function onRefresh;
   final bool enablePullDown;
   final bool enablePullUp;
-  const ProductGridModeSection(
-      {Key key,
-      @required this.productList,
-      this.shrinkWrap = true,
-      this.refreshController,
-      this.scrollController,
-      this.onLoading,
-      this.onRefresh,
-      this.enablePullDown = true,
-      this.enablePullUp = true})
-      : super(key: key);
+
+  const ProductGridModeSection({
+    Key key,
+    @required this.productList,
+    this.shrinkWrap = true,
+    this.refreshController,
+    this.scrollController,
+    this.onLoading,
+    this.onRefresh,
+    this.enablePullDown = true,
+    this.enablePullUp = true,
+  }) : super(key: key);
 
   @override
   _ProductGridModeSectionState createState() => _ProductGridModeSectionState();
@@ -36,7 +37,6 @@ class ProductGridModeSection extends StatefulWidget {
 
 class _ProductGridModeSectionState extends State<ProductGridModeSection> {
   RefreshController refreshController;
-
   @override
   void initState() {
     refreshController = RefreshController();

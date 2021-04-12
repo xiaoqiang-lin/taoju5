@@ -36,7 +36,9 @@ class StorageManager {
   }
 
   clear() {
-    sharedPreferences.clear();
+    // String token = sharedPreferences.getString("token");
+    // sharedPreferences.setString("token", token);
+    // sharedPreferences.clear();
     // localStorage.clear();
   }
 }

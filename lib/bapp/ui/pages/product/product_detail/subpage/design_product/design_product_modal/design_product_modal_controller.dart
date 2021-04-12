@@ -17,6 +17,7 @@ import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/base_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
@@ -53,13 +54,13 @@ class DesignProductModalController extends GetxController {
 
   DesignProductModel designProduct;
 
-  final String id;
+  String id;
   final String fromId;
 
   String get tag => fromId;
   DesignProductModalController({@required this.fromId, @required this.id});
 
-  XLoadState loadState = XLoadState.idle;
+  XLoadState loadState = XLoadState.busy;
 
   Future loadData() {
     loadState = XLoadState.busy;
@@ -86,21 +87,25 @@ class DesignProductModalController extends GetxController {
     if (Get.isRegistered<ProductDetailController>(tag: tag)) {
       ProductDetailController productController =
           Get.find<ProductDetailController>(tag: tag);
-      if (productController.product.productType is CurtainProductType) {
-        designProduct?.productList?.forEach((ProductMixinModel product) {
-          EditMeasureDataParamsModel measureDataArgs =
-              EditMeasureDataParamsModel(tag: tag);
-          CurtainProductAtrrParamsModel attributeArgs =
-              CurtainProductAtrrParamsModel(tag: tag);
+      EditMeasureDataParamsModel measureDataArgs = EditMeasureDataParamsModel(
+          tag: tag,
+          defaultWidth: designProduct.defaultWidth,
+          defaultHeight: designProduct.defaultHeight);
 
-          product.measureData = measureDataArgs.params;
-          product.attribute = jsonEncode(attributeArgs.params);
-          product.attrList = [];
-          productController?.attrControllerList?.forEach((e) {
-            _parse(product, e);
-          });
+      CurtainProductAtrrParamsModel attributeArgs =
+          CurtainProductAtrrParamsModel(tag: tag);
+
+      designProduct?.productList?.forEach((ProductMixinModel product) {
+        product.measureData = measureDataArgs.params;
+        product.attribute = product.productType is CurtainProductType
+            ? jsonEncode(attributeArgs.params)
+            : '';
+        product.attrList = [];
+
+        productController?.attrControllerList?.forEach((e) {
+          _parse(product, e);
         });
-      }
+      });
     }
   }
 
@@ -134,6 +139,8 @@ class DesignProductModalController extends GetxController {
     }
     if (e is WindowStyleSelectorController) {
       product?.installData = e?.data;
+      product?.installInfo =
+          "${e?.style?.name}、${e?.currentInstallModeOption?.name}、${e.openModeName}";
     }
   }
 
@@ -147,7 +154,11 @@ class DesignProductModalController extends GetxController {
     update([id]);
   }
 
-  Future addToCart() {
+  Future addToCart() async {
+    return _addToCart();
+  }
+
+  Future _addToCart() {
     DesignProductAddToCartParamsModel args = DesignProductAddToCartParamsModel(
         productList: designProduct.productList);
     if (!args.validate()) {
@@ -219,6 +230,9 @@ class DesignProductModalController extends GetxController {
         product.measureData = value.measureData ?? product.measureData;
         product.width = value.width ?? product.width;
         product.height = value.height ?? product.height;
+
+        product.attribute = jsonEncode(value.attribute);
+        update();
       }
     });
   }
@@ -228,16 +242,36 @@ class DesignProductModalController extends GetxController {
             arguments: ModifyCurtainProductAttrEvent(
                 tag: "${product.id}",
                 isFromCart: false,
+                productTagId: product.tagId,
                 attrList: product.attrList),
             preventDuplicates: false)
         .then((value) {
       if (value != null && value is ModifyCurtainProductAttributeResult) {
         product.attrList = value.attrList;
         product.attribute = jsonEncode(value.attribute);
-        product.width = value.width ?? product.defaultWidth;
-        product.height = value.height ?? product.defaultHeight;
+        // product.width = value.width ?? product.defaultWidth;
+        // product.height = value.height ?? product.defaultHeight;
         update();
       }
     });
+  }
+
+  _del<T>(String tag) {
+    if (Get.isRegistered<T>(tag: tag)) {
+      Get.delete<T>(tag: tag, force: true);
+    }
+  }
+
+  @override
+  void onClose() {
+    designProduct?.productList?.forEach((e) {
+      if (e.productType is CurtainProductType) {
+        _del<RoomAttrSelectorController>("${e.id}");
+        _del<WindowPatternSelectorController>("${e.id}");
+        _del<WindowStyleSelectorController>("${e.id}");
+        _del<SizeSelectorController>("${e.id}");
+      }
+    });
+    super.onClose();
   }
 }

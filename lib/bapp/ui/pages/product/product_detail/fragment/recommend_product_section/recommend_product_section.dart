@@ -23,29 +23,36 @@ class RecommendProductSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: !GetUtils.isNullOrBlank(productList),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: BDimens.gap16),
-              child: XTitleBar(title: "为你推荐")),
-          Flexible(
-              child: GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  itemCount: productList.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  // controller: scrollController,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.84,
-                  ),
-                  itemBuilder: (BuildContext context, int i) {
-                    return ProductGridCard(
-                      product: productList[i],
-                    );
-                  }))
-        ],
+      child: Container(
+        color: Get.theme.primaryColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+                margin: EdgeInsets.only(top: BDimens.gap16),
+                padding: EdgeInsets.symmetric(horizontal: BDimens.gap16),
+                child: XTitleBar(
+                  title: "为你推荐",
+                  trailing: SizedBox.shrink(),
+                )),
+            Flexible(
+                child: GridView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemCount: productList.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    // controller: scrollController,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.84,
+                    ),
+                    itemBuilder: (BuildContext context, int i) {
+                      return ProductGridCard(
+                        product: productList[i],
+                      );
+                    }))
+          ],
+        ),
       ),
     );
   }

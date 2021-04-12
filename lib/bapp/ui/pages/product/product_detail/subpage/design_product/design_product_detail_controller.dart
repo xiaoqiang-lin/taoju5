@@ -30,11 +30,12 @@ abstract class DesignProductDetailController extends GetxController {
   void onInit() {
     id = Get.parameters["id"];
     fromId = Get.parameters["fromId"];
-    loadData();
+
     super.onInit();
   }
 
-  Future openDesignProductModal({@required String fromId}) {
+  Future openDesignProductModal(
+      {@required String id, @required String fromId}) {
     if (Get.find<CustomerProviderController>().isCustomerNull) {
       EasyLoading.showInfo("请先选择客户哦");
       return Get.toNamed(BAppRoutes.customerEdit,

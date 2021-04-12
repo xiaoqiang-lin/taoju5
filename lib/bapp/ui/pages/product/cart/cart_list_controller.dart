@@ -58,6 +58,7 @@ class CartListParentController extends GetxController
       e.isChecked.value = flag;
     });
     totalPrice = cartListController.totalPrice;
+    update(["isCheckedAll", "totalPrice"]);
     // cartListController.isCheckedAll = flag;
   }
 
@@ -93,7 +94,7 @@ class CartListParentController extends GetxController
     }).catchError((err) {
       loadState = XLoadState.error;
     }).whenComplete(() {
-      update(["tab"]);
+      update(["tab", "buttonBar"]);
     });
   }
 
@@ -244,7 +245,15 @@ class CartListController extends GetxController {
     return _repository.removeFromCart(params: params).then((value) {
       removeFromList();
       Get.find<CustomerProviderController>().refreshData();
-      Get.find<CartListParentController>().loadData();
+      CartListParentController parentController =
+          Get.find<CartListParentController>();
+      parentController.loadData();
+      if (GetUtils.isNullOrBlank(cartList)) {
+        loadState = XLoadState.empty;
+        parentController.isCheckedAll = false;
+        parentController.update(["isCheckedAll"]);
+        update();
+      }
     }).whenComplete(update);
   }
 

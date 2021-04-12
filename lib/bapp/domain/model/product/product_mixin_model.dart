@@ -22,6 +22,7 @@ class ProductMixinModel implements AbstractProdductModel {
   String unit;
   int picId;
   int code;
+  int tagId;
 
   String get widthMStr => ((width ?? 0) / 100)?.toStringAsFixed(2);
   String get heightMStr => ((height ?? 0) / 100)?.toStringAsFixed(2);
@@ -51,7 +52,7 @@ class ProductMixinModel implements AbstractProdductModel {
 
   String measureId;
 
-  String attribute;
+  String _attribute;
 
   String skuId;
   String skuName;
@@ -62,8 +63,8 @@ class ProductMixinModel implements AbstractProdductModel {
 
   String windowPattern;
 
-  double defaultWidth;
-  double defaultHeight;
+  double defaultWidth = 3.5;
+  double defaultHeight = 2.65;
 
   ProductMixinModel.fromJson(Map json) {
     id = json['goods_id'];
@@ -73,7 +74,7 @@ class ProductMixinModel implements AbstractProdductModel {
     code = json["goods_type"];
     marketPrice = JsonKit.asDouble(json['market_price']);
     // totalPrice = JsonKit.asDouble(json['total_price']);
-
+    tagId = json["tag_id"];
     price = JsonKit.asDouble(json["price"]);
     unit = json["unit"];
     picId = json["pic_id"];
@@ -81,7 +82,8 @@ class ProductMixinModel implements AbstractProdductModel {
         (json['price'] ?? json['display_price'] ?? json['market_price']));
     width = JsonKit.asDouble(json['width']);
     height = JsonKit.asDouble(json['height']);
-
+    defaultWidth = width;
+    defaultHeight = height;
     Map<String, dynamic> sku = json['sku_list']?.first ?? {};
 
     skuName = json['sku_name'] ?? sku['sku_name'];
@@ -95,9 +97,6 @@ class ProductMixinModel implements AbstractProdductModel {
         .map((e) => ProductSkuModel.fromJson(e))
         .toList();
     material = json["material"];
-
-    defaultWidth = json["default_width"] ?? 350;
-    defaultHeight = json["default_width"] ?? 265;
 
     isFixedHeight = json['fixed_height'] == 1;
     isFixedWidth = json['fixed_height'] == 2;
@@ -122,14 +121,31 @@ class ProductMixinModel implements AbstractProdductModel {
     height = defaultHeight;
 
     measureData = {
-      "width": width,
-      "height": height,
+      "width": width ?? defaultWidth,
+      "height": height ?? defaultHeight,
       "vertical_ground_height": deltaY,
       "goods_id": id,
       "install_room": roomId,
     };
-    attribute =
-        jsonEncode({"wc_attr": attrList.map((e) => e.params)?.toList()});
+  }
+
+  set attribute(String val) {
+    _attribute = val;
+  }
+
+  String get attribute {
+    if (_attribute != null) return _attribute;
+    Map map = {};
+    attrList?.forEach((e) {
+      map.addAll(e.params);
+    });
+    map.addAll({
+      '9': [
+        {'name': '宽', 'value': width},
+        {'name': '高', 'value': height}
+      ]
+    });
+    return jsonEncode(map);
   }
 
   @override
@@ -219,7 +235,7 @@ extension ProductMixinModelKit on ProductMixinModel {
   double get totalPrice => priceDelegator?.totalPrice ?? 0;
 
   bool get isUseDefaultMeasureData =>
-      width == defaultWidth && height == defaultHeight;
+      widthM == defaultWidth && heightM == defaultHeight;
 
   String get currentSkuDescription {
     if (GetUtils.isNullOrBlank(specList)) return "";
@@ -247,7 +263,7 @@ extension ProductMixinModelKit on ProductMixinModel {
     if (productType is SectionalbarProductType) {
       return "${currentSkuModel?.name ?? currentSkuDescription}\n用料:$width米";
     }
-    return "宽:$width米 高:$height,$room,离地距离(cm):$deltaY,$installInfo";
+    return "宽:$widthM米 高:$heightM米,$room,离地距离(cm):${deltaY ?? ''},${installInfo ?? ''}";
   }
 
   Map get params => {

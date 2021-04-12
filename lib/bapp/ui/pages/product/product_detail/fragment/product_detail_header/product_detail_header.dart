@@ -11,6 +11,7 @@ import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/widgets/product_onsale_tag.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_cart_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_like_button.dart';
 import 'package:taoju5/bapp/ui/widgets/bloc/x_share_button.dart';
@@ -39,12 +40,9 @@ class ProductDetailHeader extends StatelessWidget {
                     fontSize: BDimens.sp32, fontWeight: FontWeight.w500),
               ),
               Spacer(),
-              Visibility(
-                visible: GetPlatform.isIOS || GetPlatform.isAndroid,
-                child: Container(
-                    margin: EdgeInsets.only(right: BDimens.gap16),
-                    child: XShareButton(id: product.id)),
-              ),
+              Container(
+                  margin: EdgeInsets.only(right: BDimens.gap16),
+                  child: XShareButton(id: product.id)),
               Container(
                   margin: EdgeInsets.only(right: BDimens.gap32),
                   child: XLikeButton()),
@@ -56,7 +54,7 @@ class ProductDetailHeader extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: BDimens.gap4),
               child: Text(
-                "${product.fullName}",
+                "${product?.fullName}",
                 style: TextStyle(fontSize: BDimens.sp28),
               ),
             ),
@@ -95,6 +93,13 @@ class ProductDetailHeader extends StatelessWidget {
                               ? Colors.transparent
                               : BColors.tipColor),
                     ),
+                  ),
+                ),
+                Visibility(
+                  visible: product.isOnsale,
+                  child: ProductOnSaleTag(
+                    margin: EdgeInsets.only(left: BDimens.gap16),
+                    padding: EdgeInsets.symmetric(horizontal: BDimens.gap4),
                   ),
                 )
               ],

@@ -73,8 +73,7 @@ class _XSearchBarState extends State<XSearchBar> {
 
   @override
   void initState() {
-    _controller =
-        widget.controller ?? TextEditingController(text: widget.value);
+    _controller = TextEditingController(text: widget.value);
     _focusNode = widget.focusNode ?? FocusNode();
     if (widget.value != null) _controller.text = widget.value;
     super.initState();

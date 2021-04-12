@@ -48,7 +48,7 @@ class OrderListParentController extends GetxController
     OrderStatusTabModel(name: "待安装", status: "7"),
     OrderStatusTabModel(name: "已完成", status: "8"),
     OrderStatusTabModel(name: "已取消", status: "9"),
-    OrderStatusTabModel(name: "全部"),
+    OrderStatusTabModel(name: "全部", status: "all"),
   ];
 
   List<OrderTimeOptionModel> timeList = [
@@ -80,20 +80,22 @@ class OrderListParentController extends GetxController
     }
   }
 
-  Future filter(BuildContext context) {
+  Future filter(BuildContext ctx) {
     ///如果已经打开了筛选面版 则关闭筛选面板
     showFilterPanel = true;
     update(["tab"]);
-    if (!ModalRoute.of(context).isCurrent) {
+    if (!ModalRoute.of(ctx).isCurrent) {
       Get.back();
       return Future.value(false);
     }
 
     ///打开排序面板
-    RenderBox renderBox = context.findRenderObject();
+    RenderBox renderBox = ctx.findRenderObject();
     Rect box = renderBox.localToGlobal(Offset.zero) & renderBox.size;
-    return showXModalPopdown(context,
-            builder: (context) => OrderFilterPage(), offset: box.bottom)
+    return showXModalPopdown(ctx,
+            builder: (BuildContext context) => OrderFilterPage(),
+            offset: box.bottom,
+            settings: RouteSettings(arguments: Get.arguments))
         .whenComplete(() {
       showFilterPanel = false;
       update(["tab"]);

@@ -35,7 +35,10 @@ class SceneDesignProductSection extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         child: Column(
           children: [
-            XTitleBar(title: "场景推荐"),
+            XTitleBar(
+              title: "场景推荐",
+              trailing: SizedBox.shrink(),
+            ),
             AspectRatio(
               aspectRatio: 1.08,
               child: Container(

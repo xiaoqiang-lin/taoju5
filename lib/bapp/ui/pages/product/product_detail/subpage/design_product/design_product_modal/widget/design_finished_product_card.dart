@@ -89,11 +89,15 @@ class DesignFinishedProductCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "${spec.name}:",
-                          style: TextStyle(
-                              fontSize: BDimens.sp24,
-                              fontWeight: FontWeight.w500),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: BDimens.gap24),
+                          child: Text(
+                            "${spec.name}:",
+                            style: TextStyle(
+                                fontSize: BDimens.sp24,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                         Container(
                           // margin: EdgeInsets.symmetric(vertical: BDimens.gap16),
@@ -115,7 +119,10 @@ class DesignFinishedProductCard extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ),
+                Container(
+                    margin: EdgeInsets.symmetric(vertical: BDimens.gap16),
+                    child: Divider())
               ],
             ),
           );

@@ -49,8 +49,7 @@ class OrderDetailProductModel {
     totalPrice = json["estimated_price"];
     hasSelected = JsonKit.asBool(json["is_selected_goods"]);
     orderStatusName = json["status_name"];
-    room =
-        JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"]).toString();
+    room = "${JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"])}";
 
     measureData =
         OrderMeasureDataModel.fromJson(json["order_goods_measure"] ?? {});

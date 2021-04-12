@@ -13,27 +13,25 @@ import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/room/room_attr_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 
-class SizeSelectorTipBar extends StatelessWidget {
+class SizeSelectorTipBar extends GetView<SizeSelectorController> {
   final String tag;
   const SizeSelectorTipBar({Key key, @required this.tag}) : super(key: key);
 
   ///是否为选品
-  bool get isForSelect =>
-      Get.arguments != null && Get.arguments is SelectProductEvent;
+  bool get isForSelect => controller.selectProductEvent != null;
 
   _onTap() {
     if (!isForSelect) {
       print(tag);
       return Get.toNamed(BAppRoutes.editMeasureData + "/$tag");
     }
-    OrderDetailController controller = Get.find<OrderDetailController>();
+    OrderDetailController orderController = Get.find<OrderDetailController>();
 
     return Get.toNamed(
         BAppRoutes.orderMeasureData +
-            "?id=${controller.order.id}&productId=$tag",
-        arguments: Get.arguments);
+            "?id=${orderController.order.id}&productId=$tag",
+        arguments: controller.selectProductEvent);
   }
 
   @override

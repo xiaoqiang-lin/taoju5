@@ -10,6 +10,7 @@ import 'package:taoju5/bapp/domain/model/product/design_product_model.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_skeleton.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
@@ -35,6 +36,7 @@ class SoftProductDetailPage extends StatelessWidget {
         builder: (_) {
           return XLoadStateBuilder(
             loadState: _.loadState,
+            loadingWidget: SceneProductDetailSkeleton(),
             builder: (BuildContext context) {
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
@@ -62,7 +64,7 @@ class SoftProductDetailPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "¥${e.totalPrice}",
+                                "¥${e.totalPrice.toStringAsFixed(2)}",
                                 style: TextStyle(
                                     fontSize: BDimens.sp36,
                                     color: BColors.highLightColor),
@@ -77,7 +79,7 @@ class SoftProductDetailPage extends StatelessWidget {
                               ),
                               ElevatedButton(
                                   onPressed: () => _.openDesignProductModal(
-                                      fromId: _.fromId),
+                                      id: "${e.id}", fromId: _.fromId),
                                   child: Text("立即购买"))
                             ],
                           ),
@@ -98,7 +100,10 @@ class SoftProductDetailPage extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (BuildContext context, int i) =>
-                        Divider(),
+                        Container(
+                            margin:
+                                EdgeInsets.symmetric(vertical: BDimens.gap24),
+                            child: Divider()),
                     itemCount: _.productList.length),
               );
             },

@@ -38,6 +38,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                   init: FinishedProductAttrsController(
                       product: product, id: id, cartProduct: cartProduct),
                   builder: (_) {
+                    _.id = id;
                     return XLoadStateBuilder(
                         loadState: _.loadState,
                         builder: (BuildContext context) {

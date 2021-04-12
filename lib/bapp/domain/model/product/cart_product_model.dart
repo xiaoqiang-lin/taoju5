@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_attr_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/interface/i_xcountalbe.dart';
+
 import 'package:taoju5/utils/json_kit.dart';
 import 'product_adapter_model.dart';
 
@@ -44,7 +45,12 @@ class CartPorductModel implements IXCountable {
   String categoryType;
   double price;
 
+  int tagId;
+
+  String craftId;
   bool hasDeleted = false;
+
+  String attribute;
   CartPorductModel.fromJson(Map json) {
     id = "${json["cart_id"]}";
     measureId = json["measure_id"];
@@ -52,14 +58,16 @@ class CartPorductModel implements IXCountable {
     productName = json['goods_name'];
     skuId = JsonKit.asInt(json["sku_id"]);
     description = json["goods_attr_str"];
-
+    tagId = json["tag_id"];
     room = "${JsonKit.getValueInComplexMap(json, ["wc_attr", "1", "name"])}";
     image = JsonKit.asWebUrl(JsonKit.getValueInComplexMap(
             json, ["picture_info", "pic_cover_mid"])) ??
         '';
     type = json["goods_type"];
+    craftId = "${JsonKit.getValueInComplexMap(json, ["wc_attr", "4", "id"])}";
     price = JsonKit.asDouble(json["price"]);
     unit = json["goods_unit"];
+    attribute = productType is CurtainProductType ? json["wc_attr_str"] : "";
     length = json["material"];
     productId = json["goods_id"];
     estimatedPrice = JsonKit.asDouble(json["estimated_price"]) * count.value;
@@ -78,18 +86,30 @@ class CartPorductModel implements IXCountable {
 extension CartPorductModelKit on CartPorductModel {
   ///商品类型
   BaseProductType get productType => getProductType(type);
-  double get totalPrice => estimatedPrice * count.value;
+  double get totalPrice {
+    if (productType is FinishedProductType) {
+      return price * count.value;
+    }
+    return estimatedPrice * count.value;
+  }
+
   ProductAdapterModel adapt() {
     ProductAdapterModel model = ProductAdapterModel();
+
     model.id = productId;
     model.room = room;
     model.attrList = attrsList;
+
+    model.attribute = attribute;
     model.name = productName;
-    model.unitPrcie = productPrice;
+    model.unitPrcie = productPrice ?? price;
     model.totalPrice = totalPrice;
     model.image = image;
+
     model.type = type;
-    model.description = description + "\n数量x$count";
+    model.description = model.productType is CurtainProductType
+        ? description
+        : description + "\n数量x$count";
     model.measureId = measureId;
     model.skuId = "$skuId";
     model.cartId = id;

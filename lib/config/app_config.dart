@@ -15,7 +15,7 @@ class AppConfig {
   static AppEnv env = AppEnv.$b;
 
   ///打包时只需要修改这两个即可
-  static AppMode mode = AppMode.debug;
+  static AppMode mode = AppMode.release;
 
   static String get appName => getAppName(env: env, mode: mode);
 
@@ -28,7 +28,7 @@ class AppConfig {
   static const buglyIosAppId = '9e3d92e673';
 
   ///高德地图key
-  static const String amapAndroidKey = "c861bca41e4014c514a13ba71cce758a";
+  static const String amapAndroidKey = "8e7fdd6ce80879a122c2768ebed08f03";
 
   /// 微信分享相关
   static const weChatAppId = 'wx1dda23b1cd57b8c2';

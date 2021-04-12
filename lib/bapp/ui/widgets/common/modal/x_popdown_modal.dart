@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'x_animated_mask.dart';
 
 Future<T> showXModalPopdown<T>(BuildContext context,
-    {@required WidgetBuilder builder, double offset = 0}) {
-  return Navigator.of(context)
-      .push(XPopdownRoute(builder: builder, offset: offset));
+    {@required WidgetBuilder builder,
+    double offset = 0,
+    RouteSettings settings}) {
+  return Navigator.of(context).push(
+      XPopdownRoute(builder: builder, offset: offset, settings: settings));
 }
 
 class XPopdownRoute<T> extends TransitionRoute<T> {
@@ -23,7 +25,7 @@ class XPopdownRoute<T> extends TransitionRoute<T> {
   final Duration animationDuration;
   final WidgetBuilder builder;
   final double offset;
-
+  final RouteSettings settings;
   OverlayEntry modalbarrier;
   OverlayEntry modalScope;
 
@@ -34,6 +36,7 @@ class XPopdownRoute<T> extends TransitionRoute<T> {
       this.maintainState = true,
       this.barrierColor = Colors.black54,
       this.semanticsDismissible,
+      this.settings,
       this.animationDuration = const Duration(milliseconds: 246),
       @required this.builder,
       this.offset = 0});

@@ -11,7 +11,7 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_detail_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/design_product_modal/design_product_modal_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -21,6 +21,10 @@ class SizeSelectorController extends GetxController {
   String deltaY;
 
   String tag;
+
+  String defaultWidth;
+  String defaultHeight;
+  SizeSelectorController();
 
   double get widthCM => CommonKit.asDouble(width);
   double get heightCM => CommonKit.asDouble(height);
@@ -34,8 +38,8 @@ class SizeSelectorController extends GetxController {
 
   Map get params => {
         "9": [
-          {"name": "宽", "value": widthCM},
-          {"name": "高", "value": heightCM}
+          {"name": "宽", "value": defaultWidth ?? widthCM},
+          {"name": "高", "value": defaultHeight ?? heightCM}
         ]
       };
 
@@ -50,6 +54,8 @@ class SizeSelectorController extends GetxController {
   TextEditingController heightController;
   TextEditingController deltaYController;
 
+  SelectProductEvent selectProductEvent;
+
   @override
   void onInit() {
     widthController = TextEditingController();
@@ -61,6 +67,9 @@ class SizeSelectorController extends GetxController {
       width = "${product.width}";
       height = "${product.height}";
       deltaY = product.deltaY;
+    }
+    if (Get.arguments != null && Get.arguments is SelectProductEvent) {
+      selectProductEvent = Get.arguments;
     }
 
     super.onInit();
@@ -156,13 +165,13 @@ class SizeSelectorController extends GetxController {
 
   void confirm() {
     setWH();
-    if (Get.arguments != null && Get.arguments is ProductMixinModel) {
-      ProductMixinModel product = Get.arguments;
-      product.width = widthCM;
-      product.height = heightCM;
-      product.deltaY = deltaY;
-      Get.find<DesignProductModalController>().update();
-    }
+    // if (Get.arguments != null && Get.arguments is ProductMixinModel) {
+    // ProductMixinModel product = Get.arguments;
+    // product.width = widthCM;
+    // product.height = heightCM;
+    // product.deltaY = deltaY;
+    // Get.find<DesignProductModalController>().update();
+    // }
     update(["size"]);
   }
 }

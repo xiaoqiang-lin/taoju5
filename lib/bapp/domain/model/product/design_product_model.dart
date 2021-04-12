@@ -52,7 +52,7 @@ extension DesignProductModelKit on DesignProductModel {
     if (GetUtils.isNullOrBlank(productList)) {
       return 0.0;
     }
-    return productList.map((e) => e.price).reduce((a, b) => a + b);
+    return productList.map((e) => e.totalPrice).reduce((a, b) => a + b);
   }
 
   double get marketPrice {

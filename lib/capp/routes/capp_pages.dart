@@ -22,5 +22,11 @@ class CAppPages {
         name: CAppRoutes.debug,
         page: () => DebugEnvPage(),
         binding: DebugBinding()),
+
+    // ///显示地图
+    // GetPage(
+    //     name: CAppRoutes.amap,
+    //     page: () => AMapViewPage(),
+    //     binding: AMapViewBinding()),
   ];
 }

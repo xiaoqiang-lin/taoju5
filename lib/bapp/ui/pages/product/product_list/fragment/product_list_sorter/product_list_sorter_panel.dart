@@ -33,7 +33,7 @@ class ProductListSorterPanel extends StatelessWidget {
                   GestureDetector(
                     onTap: () => _.triggerSortAction(model),
                     child: Container(
-                      height: 24,
+                      height: 44.h,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

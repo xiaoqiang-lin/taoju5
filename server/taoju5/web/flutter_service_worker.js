@@ -4,34 +4,17 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "875316497852d5d920fcf00bddaad1d2",
-"index.html": "d5aa8f928d46ae39890c6935a7ebd658",
-"/": "d5aa8f928d46ae39890c6935a7ebd658",
-"main.dart.js": "716eca1b2eb34e27b996718efce8366c",
+"index.html": "2f516ec8df7f248c2ffad5b2b89bcb20",
+"/": "2f516ec8df7f248c2ffad5b2b89bcb20",
+"main.dart.js": "d3eefef854b3a95f3444a4b7090e0ba8",
 "favicon.png": "23c9191c743f0e5398d18f84adea9b93",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "b630cde0a430147e06bb0038a891a560",
-"assets/AssetManifest.json": "61de1f95f9255327d48976b689dc6179",
-"assets/NOTICES": "f8600f3a59647910cb4d153394dc0bc0",
+"assets/AssetManifest.json": "5a1d2ad30905efefc16c08fe3f9f469a",
+"assets/NOTICES": "9ff93f9b31fc1030825d5ffd89432cc0",
 "assets/FontManifest.json": "076a1e34bf231ad693bee505ce45341d",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"assets/packages/dokit/images/3.0x/dk_view_check.png": "e305ba6738b7fd2f8c7c94cdccc36e48",
-"assets/packages/dokit/images/3.0x/dk_channel_check_h.png": "ab49b89ace97e09855b26ec13119df34",
-"assets/packages/dokit/images/3.0x/dk_frame_hist.png": "87072f67d54b6f5257efc67edf27699c",
-"assets/packages/dokit/images/3.0x/dk_log_info.png": "9cf47ea418ed586959efa30635135cbc",
-"assets/packages/dokit/images/3.0x/dokit_ic_close.png": "412d4d2b28545902a98035e6483a0f83",
-"assets/packages/dokit/images/3.0x/dk_route_arrow.png": "387b987a3cc86f6c0ca0de9361de828d",
-"assets/packages/dokit/images/3.0x/dk_channel_check_n.png": "6424a1a7825f433d8c24456bad68d5a1",
-"assets/packages/dokit/images/3.0x/dk_ram.png": "b2b9a1025167a348243ce13709508bc0",
-"assets/packages/dokit/images/3.0x/dk_sys_info.png": "c1550ee142d50ea93697fb0e93395627",
-"assets/packages/dokit/images/3.0x/dk_net_monitor.png": "2638a4806cc13cdb1c712f5a8d9eafaf",
-"assets/packages/dokit/images/3.0x/dk_channel_expand_h.png": "e5de31197b722bb621341dc25379c484",
-"assets/packages/dokit/images/3.0x/dk_memory_search.png": "b99196177c4717c71a0f3394c43cfef0",
-"assets/packages/dokit/images/3.0x/dk_method_channel.png": "1fa668c9de0ade636427256655c54ab4",
-"assets/packages/dokit/images/3.0x/dk_channel_expand_n.png": "2e1d7ee629eca06249d41355195344e4",
-"assets/packages/dokit/images/3.0x/dokit_flutter_btn.png": "68c856d4897f28a3caa3c529c11c735f",
-"assets/packages/dokit/images/3.0x/dk_view_route.png": "8e2575ab9ed773e50e96880c8624a845",
-"assets/packages/dokit/images/3.0x/dk_fps_chart.png": "d37aa0b512f0725d6faf20bcd1e2f85f",
 "assets/packages/wakelock_web/assets/no_sleep.js": "7748a45cd593f33280669b29c2c8919a",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
 "assets/assets/images/default_avatar.png": "af8f40a5eddce46bd4522c8e45d7e3cb",
@@ -219,7 +202,7 @@ const RESOURCES = {
 "assets/assets/images/customer_add.png": "bff66beb6b07d861ae33acaef7257ae9",
 "assets/assets/flrs/submit_status.flr": "279b653e902181ccae685da05d9db22a",
 "assets/assets/fonts/iconfont.ttf": "dfe5ac0942ecc7a887f0feda30f14927",
-"assets/assets/data/curtain_mode.json": "bfc53a096648b9b49fc1570e338b9c16"
+"assets/assets/data/curtain_mode.json": "bda3e9fc69f9b54f2b9b371f9e7ba389"
 };
 
 // The application shell files that are downloaded before a service worker can

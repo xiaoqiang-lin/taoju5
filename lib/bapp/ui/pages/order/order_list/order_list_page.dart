@@ -101,6 +101,7 @@ class OrderListPage extends GetView<OrderListParentController> {
                   builder: (_) {
                     return XLoadStateBuilder(
                         loadState: _.loadState,
+
                         // retry: _.l,
                         loadingWidget: OrderListSkeleton(),
                         builder: (BuildContext context) {

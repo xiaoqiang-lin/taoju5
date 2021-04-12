@@ -17,7 +17,7 @@ class ProductShareController extends GetxController {
   ProductDetailModel product;
   String mainImg;
 
-  String get id => Get.parameters["id"];
+  String id = Get.parameters["id"];
 
   ScrollController scrollController;
 
@@ -28,7 +28,7 @@ class ProductShareController extends GetxController {
         (ProductDetailModelWrapper wrapper) {
       loadState = XLoadState.idle;
       product = wrapper.product;
-      mainImg = wrapper.mainImg;
+      mainImg = wrapper.mainImg ?? product?.cover ?? "";
       scrollController = ScrollController();
     }).catchError((err) {
       loadState = XLoadState.error;

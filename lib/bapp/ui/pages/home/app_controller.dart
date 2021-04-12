@@ -17,6 +17,7 @@ import 'package:taoju5/bapp/domain/model/app/app_info_model.dart';
 import 'package:taoju5/bapp/domain/repository/app/app_repository.dart';
 import 'package:taoju5/bapp/ui/dialog/app/app_upgrade_dialog.dart';
 import 'package:dio/dio.dart';
+import 'package:taoju5/storage/storage_manager.dart';
 
 class AppController extends GetxController {
   AppRepository _repository = AppRepository();
@@ -159,5 +160,9 @@ class AppController extends GetxController {
   void onInit() {
     // _hasNewAppVersion();
     super.onInit();
+  }
+
+  Future auth() {
+    return StorageManager().sharedPreferences?.setBool("hasAuth", true);
   }
 }

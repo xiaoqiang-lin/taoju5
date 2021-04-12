@@ -74,7 +74,7 @@ class BTheme {
               // foregroundColor: MaterialStateProperty.all(BColors.buttonColor),
               // overlayColor: MaterialStateProperty.all(BColors.buttonColor),
               minimumSize: MaterialStateProperty.all(
-                  Size(BDimens.minW156, BDimens.min32)))),
+                  Size(BDimens.minW144, BDimens.min32)))),
       disabledColor: Colors.grey,
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
@@ -85,7 +85,7 @@ class BTheme {
                 return BColors.textColor;
               }),
               minimumSize: MaterialStateProperty.all(
-                  Size(BDimens.minW156, BDimens.min32)),
+                  Size(BDimens.minW144, BDimens.min32)),
               textStyle: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.disabled)) {
                   return TextStyle(

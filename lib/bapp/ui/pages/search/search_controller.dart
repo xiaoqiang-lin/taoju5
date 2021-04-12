@@ -90,6 +90,7 @@ class SearchController extends GetxController {
 
   @override
   void onClose() {
+    keyword = null;
     super.onClose();
   }
 

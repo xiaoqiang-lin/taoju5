@@ -59,8 +59,8 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_produ
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/soft_prodcut_detail/soft_product_detail_page.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/measure_data/edit_measure_data_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/measure_data/edit_measure_data_page.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/measure_data/eidt_measure_data_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_page.dart';
@@ -91,9 +91,8 @@ part 'bapp_routes.dart';
 
 class BAppPages {
   static get initial {
-    print(StorageManager().sharedPreferences.getString("token"));
     return !GetUtils.isNullOrBlank(
-            StorageManager().sharedPreferences.getString("token"))
+            StorageManager().sharedPreferences?.getString("token"))
         ? BAppRoutes.home
         : BAppRoutes.login;
   }

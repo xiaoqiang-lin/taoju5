@@ -6,11 +6,13 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_banner/product_detail_banner_section_card.dart';
-import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_header/product_detail_header.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_header/proudct_share_header.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_detail_image_section_view/product_detail_image_section_view.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_material_section/product_material_section.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_skeleton.dart';
@@ -34,6 +36,7 @@ class ProductSharePage extends StatelessWidget {
             bottomNavigationBar: Visibility(
               visible: _.product.productType is CurtainProductType,
               child: Container(
+                color: Get.theme.primaryColor,
                 height: kBottomNavigationBarHeight,
                 width: Get.width,
                 // margin: EdgeInsets.all(BDimens.gap32),
@@ -41,8 +44,14 @@ class ProductSharePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                    onPressed: () => Get.toNamed(BAppRoutes.commitOrder + "/2"),
-                    child: Text("预约测量")),
+                    onPressed: () => Get.toNamed(BAppRoutes.commitOrder,
+                        arguments: CommitOrderEvent(
+                            productList: [],
+                            orderType: OrderType.measureOrder)),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: BDimens.gap12),
+                      child: Text("预约测量"),
+                    )),
               ),
             ),
             body: CustomScrollView(
@@ -79,7 +88,7 @@ class ProductSharePage extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: ProductDetailHeader(
+                  child: ProductShareHeader(
                     product: _.product,
                   ),
                 ),

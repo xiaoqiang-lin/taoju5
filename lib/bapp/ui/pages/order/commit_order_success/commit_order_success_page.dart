@@ -42,6 +42,13 @@ class CommitOrderSuccessPage extends GetView<CustomerProviderController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset("assets/images/" + "success.png"),
+              Container(
+                margin: EdgeInsets.only(top: BDimens.gap32),
+                child: Text(
+                  "等待师傅上门测量尺寸~\n请在测量完成后支付尾款",
+                  style: TextStyle(color: BColors.greyTextColor),
+                ),
+              ),
               Visibility(
                   visible: !isFromShare,
                   child: Column(
@@ -49,7 +56,12 @@ class CommitOrderSuccessPage extends GetView<CustomerProviderController> {
                       Container(
                         margin: EdgeInsets.only(top: BDimens.gap32),
                         child: OutlinedButton(
-                          onPressed: () => Get.toNamed(BAppRoutes.productList),
+                          onPressed: () {
+                            Get.until((route) => (RegExp(BAppRoutes.productList)
+                                    .hasMatch(Get.currentRoute) ||
+                                RegExp(BAppRoutes.selectableProductList)
+                                    .hasMatch(Get.currentRoute)));
+                          },
                           child: Padding(
                             padding:
                                 EdgeInsets.symmetric(vertical: BDimens.gap16),

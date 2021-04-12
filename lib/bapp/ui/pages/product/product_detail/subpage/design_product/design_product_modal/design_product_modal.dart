@@ -24,6 +24,7 @@ class DesignProductModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DesignProductModalController>(
+        autoRemove: true,
         init: DesignProductModalController(id: id, fromId: fromId),
         builder: (_) {
           return XBaseModal(
@@ -128,7 +129,7 @@ class DesignProductModal extends StatelessWidget {
                                           tag: _.tag,
                                           designProduct: _.designProduct)
                                     else
-                                      DesignFinishedProductCard(product: e)
+                                      DesignFinishedProductCard(product: e),
                                 ],
                               ),
                             ),

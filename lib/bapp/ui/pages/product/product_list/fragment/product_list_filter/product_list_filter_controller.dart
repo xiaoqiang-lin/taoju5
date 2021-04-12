@@ -20,7 +20,13 @@ class ProductListFilterController extends GetxController {
 
   XLoadState loadState = XLoadState.idle;
 
-  Future refreshData({Map params, ProductFilterTagModel tag}) {
+  String get categoryType =>
+      "${Get.find<ProductListParentController>().currentTabModel.id}";
+
+  Future refreshData(
+      {Map params,
+      ProductFilterTagModel tag,
+      ProductFilterTagOptionModel option}) {
     loadState = XLoadState.idle;
     update();
 
@@ -31,6 +37,9 @@ class ProductListFilterController extends GetxController {
       for (int i = 0; i < tagList.length; i++) {
         ProductFilterTagModel e = tagList[i];
         if (e.key == tag.key) {
+          for (ProductFilterTagOptionModel o in tag.options) {
+            o.isChecked = o.id == option.id;
+          }
           tagList[i] = tag;
         }
       }
@@ -64,25 +73,22 @@ class ProductListFilterController extends GetxController {
   ///[return]:
   void selectOption(
       ProductFilterTagModel tag, ProductFilterTagOptionModel option) {
-    if (tag?.isMultiple ?? false) {
-      option.isChecked = !option.isChecked;
-    } else {
+    option.isChecked = !option.isChecked;
+
+    if (!tag.isMultiple) {
       for (ProductFilterTagOptionModel e in tag.options) {
-        option.isChecked = !option.isChecked;
-        if (e.id != option.id) {
-          e.isChecked = false;
-        }
+        e.isChecked = e.id == option.id;
       }
     }
 
     if (tag.shouldRefresh) {
       refreshData(params: {
-        tag.key: tag.options.where((e) => e.isChecked).map((e) => e.id).toList()
-      }, tag: tag);
+        "category_type": categoryType,
+        tag.key: [option.id]
+      }, tag: tag, option: option);
       return;
     }
-
-    update([tag.key]);
+    update();
   }
 
   ///重置
@@ -97,11 +103,17 @@ class ProductListFilterController extends GetxController {
 
   Map get filterParams {
     if (GetUtils.isNull(tagList)) return {};
-    Map map = {};
+    Map<String, List> map = {};
     tagList.forEach((tag) {
-      map.addAll({
-        tag.key: tag.options.where((e) => e.isChecked).map((e) => e.id).toList()
-      });
+      if (map[tag.key] != null) {
+        map[tag.key].addAll(
+            tag.options.where((e) => e.isChecked).map((e) => e.id).toList());
+      } else {
+        map.addAll({
+          tag.key:
+              tag.options.where((e) => e.isChecked).map((e) => e.id).toList()
+        });
+      }
     });
     return map;
   }
@@ -118,10 +130,7 @@ class ProductListFilterController extends GetxController {
 
   @override
   void onInit() {
-    loadData(params: {
-      "category_type":
-          Get.find<ProductListParentController>().currentTabModel.id
-    });
+    loadData(params: {"category_type": "$categoryType"});
     super.onInit();
   }
 }

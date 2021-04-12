@@ -53,6 +53,7 @@ abstract class BaseAttrSelectorController extends GetxController {
 
   void initCheckState() {
     if (GetUtils.isNullOrBlank(attr?.optionList)) return;
+
     attr?.optionList?.first?.isChecked = true;
     attr?.optionList?.first?.hasConfirmed = true;
   }
@@ -90,7 +91,6 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   void _initFromMixinProductModel() {
-    print(Get.arguments);
     if (Get.arguments != null &&
         Get.arguments is ModifyCurtainProductAttrEvent) {
       ModifyCurtainProductAttrEvent event = Get.arguments;
@@ -122,7 +122,8 @@ abstract class BaseAttrSelectorController extends GetxController {
     }
   }
 
-  String get tag => Get.parameters["id"];
+  String tag = Get.parameters["id"];
+
   CraftAttrSelectorController get craftController {
     if (Get.isRegistered<CraftAttrSelectorController>(tag: tag)) {
       return Get.find<CraftAttrSelectorController>(tag: tag);

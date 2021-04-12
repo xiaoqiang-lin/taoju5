@@ -6,8 +6,8 @@
  */
 
 import 'dart:convert';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as g;
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
@@ -36,10 +36,13 @@ class XDio {
     String token = StorageManager().sharedPreferences?.getString("token");
     String deviceInfo =
         StorageManager().sharedPreferences?.getString("device_info");
-    Map<String, String> headers = {
-      'ACCEPT': 'application/json',
-      'equipment': deviceInfo
-    };
+    Map<String, String> headers = {};
+    if (g.GetPlatform.isAndroid || g.GetPlatform.isIOS) {
+      headers = {
+        'ACCEPT': 'application/json',
+        'equipment': deviceInfo,
+      };
+    }
 
     dio = Dio()
       ..options = BaseOptions(
@@ -53,12 +56,12 @@ class XDio {
           return error;
         },
         onRequest: ((RequestOptions options) {
-          Map queryParameters = options.queryParameters;
-          options.queryParameters = _formatParams(queryParameters);
-          var formData = options.data;
-          if (formData is Map) {
-            options.data = _formatParams(formData);
-          }
+          // Map queryParameters = options.queryParameters;
+          // options.queryParameters = _formatParams(queryParameters);
+          // var formData = options.data;
+          // if (formData is Map) {
+          //   options.data = _formatParams(formData);
+          // }
           print(DateTime.now());
           print("--------------请求地址----------------");
           XLogger.v("${options.baseUrl + options.path}");
@@ -72,16 +75,17 @@ class XDio {
         }),
         onResponse: (Response response) {
           response.data = jsonDecode(response.toString());
+
+          BaseResponse baseResponse = BaseResponse.fromJson(response.data);
           XLogger.e(
               "*******************************请求结果*******************************\n${response.data}");
-          BaseResponse baseResponse = BaseResponse.fromJson(response.data);
-
           if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
-            throw EasyLoading.showInfo(baseResponse.message);
+            throw EasyLoading.showInfo(baseResponse.message,
+                duration: Duration(milliseconds: 1500));
           }
           if (baseResponse.data == null ||
               baseResponse.data == null.toString()) {
-            throw baseResponse.message;
+            // throw baseResponse.message;
           }
           response.data = baseResponse;
           // if (baseResponse.data is Map) {
@@ -98,13 +102,13 @@ class XDio {
   static XDio _singleton = XDio._internal();
   factory XDio() => _singleton;
 
-  Map _formatParams(Map map) {
-    if (map == null) return {};
-    List list = map.values?.toList();
-    if (GetUtils.isNullOrBlank(list)) return {};
-    map.removeWhere((key, value) => GetUtils.isNullOrBlank(value));
-    return map;
-  }
+  // Map _formatParams(Map map) {
+  //   if (map == null) return {};
+  //   List list = map.values?.toList();
+  //   if (GetUtils.isNullOrBlank(list)) return {};
+  //   map.removeWhere((key, value) => GetUtils.isNullOrBlank(value));
+  //   return map;
+  // }
 
   Future<BaseResponse> get(String url, {Map params, Options options}) async {
     Response response = await dio.get(url,

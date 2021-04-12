@@ -63,6 +63,7 @@ class BDimens {
 
   static double minW128 = 128.w;
   static double minW156 = 156.w;
+  static double minW144 = 144.w;
   // static double minH56 = 56.h;
   // static double minH56 = 32;
   static double min32 = 32;

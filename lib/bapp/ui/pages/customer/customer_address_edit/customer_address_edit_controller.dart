@@ -106,8 +106,11 @@ class CustomerAddressEditController extends GetxController {
   Future submit() {
     CustomerEditAddressParamsModel params =
         CustomerEditAddressParamsModel(customer: customer);
-
+    if (isFromShare) {
+      _saveCustomerInfo(params);
+    }
     if (!params.validate()) throw Future.value(false);
+
     if (isFromShare) {
       return _syncSubmit(params);
     }
@@ -124,7 +127,7 @@ class CustomerAddressEditController extends GetxController {
 
   Future _syncSubmit(CustomerEditAddressParamsModel params) {
     XLogger.v(params.params);
-    _saveCustomerInfo(params);
+
     return Future.value(true);
   }
 
@@ -141,7 +144,6 @@ class CustomerAddressEditController extends GetxController {
   @override
   void onInit() {
     _loadData();
-
     super.onInit();
   }
 

@@ -20,7 +20,6 @@ import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';
-import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/validator/params_validator.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -76,7 +75,7 @@ class CommitOrderParamsModel extends ParamsValidator {
   String get cartId => productList.map((e) => "${e.cartId}").join(",");
 
   String get attribute =>
-      jsonEncode(productList.map((e) => "${e.attribute}")?.toList() ?? []);
+      jsonEncode(productList.map((e) => "${e?.attribute}")?.toList() ?? []);
 
   String get shopId => "${Get.find<UserProviderController>().user.shopId}";
   Map get params {
@@ -87,6 +86,7 @@ class CommitOrderParamsModel extends ParamsValidator {
       "cart_id": cartId,
       "shop_id": shopId,
       "wc_attr": attribute,
+      "client_info": customer?.toJson(),
       "data": """{
         "order_type": "1",
         "point": "0",
@@ -190,13 +190,6 @@ class CommitOrderController extends GetxController {
       }
     }
 
-    // Map args = {};
-    // args.addAll(params?.params ?? {});
-    if (isFromShare) {
-      params.params.addAll({"client_info": customer?.toJson() ?? {}});
-    }
-    XLogger.v(params.params);
-
     return _repository
         .submitOrder(
             params: params.params,
@@ -218,7 +211,7 @@ class CommitOrderController extends GetxController {
   }
 
   Future editAddress() {
-    if (GetUtils.isNullOrBlank(customer?.id)) {
+    if (!isFromShare && GetUtils.isNullOrBlank(customer?.id)) {
       EasyLoading.showInfo("请先选择客户哦");
       return Future.error(false);
     }

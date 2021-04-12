@@ -117,6 +117,7 @@ class ProductListParentController extends GetxController
   void onClose() {
     tabController?.removeListener(_onTabChanged);
     tabController?.dispose();
+    keyword = null;
     _onClose();
     super.onClose();
   }
@@ -125,7 +126,6 @@ class ProductListParentController extends GetxController
     for (ProductTabModel tab in tabList) {
       Get.delete<ProductListController>(tag: "${tab.id}", force: true);
     }
-    print("史昂资源");
   }
 
   void triggerSortAction(ProductSortModel model) {
@@ -157,7 +157,8 @@ class ProductListParentController extends GetxController
     Rect box = renderBox.localToGlobal(Offset.zero) & renderBox.size;
     return showXModalPopdown(ctx,
             builder: (BuildContext context) => ProductListSorterPanel(),
-            offset: box.bottom)
+            offset: box.bottom,
+            settings: RouteSettings(arguments: Get.arguments))
         .then((value) {
       // refreshData();
     });
@@ -240,12 +241,15 @@ class ProductListController extends GetxController {
 
   ProductListController({@required this.type});
 
+  Map refreshParams = {};
+
   Map get args {
     Map map = {
       "category_type": type,
       "page_index": pageIndex,
-      "keyword": keyword
+      "keyword": keyword,
     };
+    map.addAll(refreshParams);
     if (Get.arguments != null && Get.arguments is SelectProductEvent) {
       SelectProductEvent event = Get.arguments;
       OrderDetailProductModel orderProduct = event.orderProduct;
@@ -299,6 +303,7 @@ class ProductListController extends GetxController {
   Future refreshData({Map parameters, String keyword}) {
     pageIndex = 1;
     Map map = {};
+    refreshParams.addAll(parameters ?? {});
     map.addAll(args);
     map.addAll(parameters ?? {});
 

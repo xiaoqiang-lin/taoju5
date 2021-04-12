@@ -1,9 +1,13 @@
 PODS:
+  - AMap3DMap (7.8.0):
+    - AMapFoundation (~> 1.6.4)
   - amap_location (0.0.1):
     - AMapLocation
     - Flutter
   - AMapFoundation (1.6.5.1)
   - AMapLocation (2.6.7):
+    - AMapFoundation (~> 1.6.4)
+  - AMapSearch (7.8.0):
     - AMapFoundation (~> 1.6.4)
   - BSGridCollectionViewLayout (1.2.5)
   - BSImagePicker (2.10.3):
@@ -54,7 +58,10 @@ PODS:
   - WechatOpenSDK (1.8.7.1)
 
 DEPENDENCIES:
+  - AMap3DMap
   - amap_location (from `.symlinks/plugins/amap_location/ios`)
+  - AMapLocation
+  - AMapSearch
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
@@ -74,8 +81,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AMap3DMap
     - AMapFoundation
     - AMapLocation
+    - AMapSearch
     - BSGridCollectionViewLayout
     - BSImagePicker
     - BSImageView
@@ -121,9 +130,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
+  AMap3DMap: 3e4fac78e3e023cefd47e7d7715ef5ea69bfd0fa
   amap_location: a3e2a140bb25950d4e97560ce1b00e53a121e4f4
   AMapFoundation: b67560a6f21aab81c8c12f84616b55a3833b6253
   AMapLocation: a46c30d9930d0f3a3bd21139d8f845d10ac3f01d
+  AMapSearch: a62d0b2508270dff5a9b05ba3af9fc8843b48c8a
   BSGridCollectionViewLayout: 333dcb457a5a3bdd9212607ab5756553dcfe06cb
   BSImagePicker: 07404254f2fcdaf5a2eb403c0f8c337267ce8738
   BSImageView: a149459433a2687157d034c78e059d30ac7f2544
@@ -148,6 +159,6 @@ SPEC CHECKSUMS:
   webview_flutter: 9f491a9b5a66f2573946a389b2677987b0ff8c0b
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
 
-PODFILE CHECKSUM: 3973db9ad9038e10e4b6a0346728fe3cd1057e31
+PODFILE CHECKSUM: fc9a731a391bfa947413f31e9b5fea2cdcf2c405
 
 COCOAPODS: 1.10.1

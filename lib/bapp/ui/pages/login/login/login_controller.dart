@@ -13,8 +13,10 @@ import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/user/user_info_model.dart';
 import 'package:taoju5/bapp/domain/repository/login/login_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/dialog/auth.dart';
 import 'package:taoju5/bapp/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
+import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/validator/params_validator.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
@@ -70,11 +72,8 @@ class LoginController extends GetxController {
 
     SharedPreferences.getInstance().then((sp) {
       sp.setString("userInfo", jsonEncode(model.toJson()));
-      print(model.token);
 
-      sp.setString("token", model.token);
-      print(sp.getString("token"));
-      print("+++++");
+      sp.setString("token", model.token).then((value) {});
     });
 
     // storageManager.sharedPreferences
@@ -107,6 +106,14 @@ class LoginController extends GetxController {
     loginMode = mode;
     start = startx;
     update();
+  }
+
+  @override
+  onInit() {
+    super.onInit();
+    if (!(StorageManager().sharedPreferences?.getBool("hasAuth") ?? false)) {
+      Future.microtask(() => showAuthDialog(Get.context));
+    }
   }
 }
 

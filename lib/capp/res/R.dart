@@ -6,7 +6,6 @@ import 'c_image.dart';
 import 'c_theme.dart';
 
 class R {
-  // ignore: missing_return
   static CColor color = CColor();
 
   static CImage image = CImage();

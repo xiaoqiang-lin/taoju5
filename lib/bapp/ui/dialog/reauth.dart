@@ -8,6 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
+import 'package:taoju5/bapp/ui/pages/home/app_controller.dart';
+import 'package:get/get.dart';
 
 Future showReauthDialog(BuildContext context) {
   return showDialog(
@@ -40,7 +42,10 @@ Future showReauthDialog(BuildContext context) {
                     width: BDimens.gap56,
                   ),
                   ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      Get.back();
+                      Get.find<AppController>().auth();
+                    },
                     child: Text("同意并使用"),
                   ),
                 ],

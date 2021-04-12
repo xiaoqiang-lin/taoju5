@@ -7,12 +7,11 @@
 
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/user/user_info_model.dart';
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/clear_cache.dart';
 import 'package:taoju5/bapp/ui/dialog/logout.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
-import 'package:taoju5/bapp/ui/pages/login/login/login_binding.dart';
-import 'package:taoju5/bapp/ui/pages/login/login/login_page.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 import 'package:taoju5/config/app_manager.dart';
@@ -34,11 +33,12 @@ class SettingController extends GetxController {
       if (value) {
         ///清除token
         XDio().refreshToken("");
+        StorageManager().sharedPreferences.remove("token");
 
         ///清空客户信息
         Get.find<CustomerProviderController>().clear();
         //页面跳转
-        Get.offAll(LoginPage(), binding: LoginBinding());
+        Get.offAndToNamed(BAppRoutes.login);
       }
     }).whenComplete(update);
   }

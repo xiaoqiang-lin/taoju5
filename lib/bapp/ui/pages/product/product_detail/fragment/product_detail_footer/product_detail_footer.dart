@@ -63,7 +63,7 @@ class ProductDetailFooter extends StatelessWidget {
                           child: XFutureButton(
                             child: Text("确认选品"),
                             onFuture: _.selectProduct,
-                            showSuccessTip: true,
+                            // showSuccessTip: true,
                           ),
                         )
                       else

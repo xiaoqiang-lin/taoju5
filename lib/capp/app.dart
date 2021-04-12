@@ -12,6 +12,7 @@ import 'package:taoju5/config/app_config.dart';
 
 import 'package:taoju5/config/app_env.dart';
 
+import 'res/R.dart';
 import 'routes/capp_pages.dart';
 
 class $CAPP extends StatelessWidget {
@@ -24,6 +25,8 @@ class $CAPP extends StatelessWidget {
       title: AppConfig.appName,
       getPages: CAppPages.pages,
       home: CHomePage(),
+
+      theme: R.theme.lightTheme,
       defaultTransition: Get.defaultTransition,
       popGesture: false,
       // defaultTransition: Transition,

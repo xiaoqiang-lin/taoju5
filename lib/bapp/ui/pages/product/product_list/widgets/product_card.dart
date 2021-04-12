@@ -17,6 +17,7 @@ import 'package:taoju5/bapp/ui/pages/product/widgets/product_onsale_tag.dart';
 
 class ProductGridCard extends StatelessWidget {
   final ProductModel product;
+
   const ProductGridCard({Key key, this.product}) : super(key: key);
 
   @override

@@ -8,4 +8,6 @@ class CAppRoutes {
   static const home = '/home';
 
   static const debug = '/debug';
+
+  static const amap = '/amap';
 }

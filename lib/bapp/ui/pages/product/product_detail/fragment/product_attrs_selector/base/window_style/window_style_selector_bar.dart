@@ -37,7 +37,7 @@ class WindowStyleSelectorBar extends StatelessWidget {
                               for (WindowInstallModeOptionModel o
                                   in _?.installModeOptionList)
                                 Container(
-                                  margin: EdgeInsets.only(right: BDimens.gap12),
+                                  margin: EdgeInsets.only(right: BDimens.gap8),
                                   child: o.isChecked
                                       ? ElevatedButton(
                                           onPressed: () =>
@@ -81,38 +81,47 @@ class WindowStyleSelectorBar extends StatelessWidget {
                     ))
               ],
             ),
-            Column(
-              children: [
-                for (WindowSubopenModeModel e in _?.subopenModeList)
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(e.title),
-                        flex: 2,
-                      ),
-                      Expanded(
-                          flex: 6,
-                          child: Row(
-                            children: [
-                              for (WindowSubopenModeOptionModel o
-                                  in e.optionList)
-                                Container(
-                                  margin: EdgeInsets.only(right: BDimens.gap12),
-                                  child: o.isChecked
-                                      ? ElevatedButton(
-                                          onPressed: () => _.selectSubopenMode(
-                                              mode: e, option: o),
-                                          child: Text(o.name))
-                                      : OutlinedButton(
-                                          onPressed: () => _.selectSubopenMode(
-                                              mode: e, option: o),
-                                          child: Text(o.name)),
-                                )
-                            ],
-                          ))
-                    ],
-                  )
-              ],
+            Visibility(
+              visible: !GetUtils.isNullOrBlank(_?.subopenModeList),
+              child: Column(
+                children: [
+                  for (WindowSubopenModeModel e in _?.subopenModeList)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            e.title,
+                            style: TextStyle(fontSize: 13),
+                          ),
+                          flex: 2,
+                        ),
+                        Expanded(
+                            flex: 6,
+                            child: Row(
+                              children: [
+                                for (WindowSubopenModeOptionModel o
+                                    in e.optionList)
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(right: BDimens.gap12),
+                                    child: o.isChecked
+                                        ? ElevatedButton(
+                                            onPressed: () =>
+                                                _.selectSubopenMode(
+                                                    mode: e, option: o),
+                                            child: Text(o.name))
+                                        : OutlinedButton(
+                                            onPressed: () =>
+                                                _.selectSubopenMode(
+                                                    mode: e, option: o),
+                                            child: Text(o.name)),
+                                  )
+                              ],
+                            ))
+                      ],
+                    )
+                ],
+              ),
             )
           ],
         );

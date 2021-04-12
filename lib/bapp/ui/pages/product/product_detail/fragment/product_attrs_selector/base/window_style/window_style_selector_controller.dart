@@ -16,7 +16,7 @@ import 'package:taoju5/bapp/ui/pages/order/order_detail/subpage/measure_data/ord
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 
 class WindowStyleSelectorController extends GetxController {
-  final String tag;
+  String tag;
 
   WindowStyleSelectorController({@required this.tag});
   TaojuwuController get taojuwuController => Get.find<TaojuwuController>();
@@ -74,7 +74,7 @@ class WindowStyleSelectorController extends GetxController {
 
   List<WindowSubopenModeModel> get subopenModeList {
     if (GetUtils.isNullOrBlank(openModeOptionList)) return [];
-    return currentOpenModeOption?.suboptionList;
+    return currentOpenModeOption?.suboptionList ?? [];
   }
 
   ///顶部主图
@@ -121,24 +121,46 @@ class WindowStyleSelectorController extends GetxController {
     update();
   }
 
+  String get openModeName {
+    String description = "";
+    description += "${currentOpenModeOption?.name}、";
+    if (!GetUtils.isNullOrBlank(currentOpenModeOption?.suboptionList)) {
+      for (WindowSubopenModeModel mode
+          in currentOpenModeOption?.suboptionList) {
+        for (WindowSubopenModeOptionModel o in mode?.optionList)
+          if (o.isChecked) {
+            description += "${mode.title}:${o.name};";
+          }
+      }
+    }
+    return description;
+  }
+
+  get openMode {
+    var val;
+    String openModeName = currentOpenModeOption?.name;
+    if (GetUtils.isNullOrBlank(currentOpenModeOption?.suboptionList)) {
+      val = [openModeName];
+    } else {
+      Map map = {};
+      for (WindowSubopenModeModel e in currentOpenModeOption?.suboptionList) {
+        map[e?.title] = [
+          e?.optionList
+              ?.firstWhere((element) => element.isChecked,
+                  orElse: () => e.optionList?.first)
+              ?.name
+        ];
+      }
+      val = {openModeName: map};
+    }
+    return val;
+  }
+
   Map get data {
     String dataId = "${style?.id}";
     String windowPattern = style?.name;
     List<String> installMode = [currentInstallModeOption?.name];
-    var openMode;
-    String openModeName = currentOpenModeOption?.name;
-    if (GetUtils.isNullOrBlank(currentOpenModeOption?.suboptionList)) {
-      openMode = [openModeName];
-    } else {
-      Map map = {};
-      for (WindowSubopenModeModel e in currentOpenModeOption?.suboptionList) {
-        map[e?.title] = e?.optionList
-            ?.firstWhere((element) => element.isChecked,
-                orElse: () => e.optionList?.first)
-            ?.name;
-      }
-      openMode = {openModeName: map};
-    }
+
     return {
       "$dataId": jsonEncode({
         "name": windowPattern,
@@ -171,7 +193,7 @@ class WindowStyleSelectorController extends GetxController {
           String val = str?.split(":")?.last?.trim();
           if (o.title.contains(key)) {
             o.optionList.forEach((p) {
-              p.isChecked = p.name.contains(val);
+              p.isChecked = p.name.contains(val) || val.contains(p.name);
             });
           }
         }
@@ -194,6 +216,7 @@ class WindowStyleSelectorController extends GetxController {
         element.isConfirmed = element.isChecked;
       });
     });
+    print(data);
     if (Get.isRegistered<OrderMeasureDataController>()) {
       _saveToOrderMeasureData();
     }

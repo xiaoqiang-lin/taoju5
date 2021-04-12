@@ -89,8 +89,10 @@ class ProductModel {
     id = json['goods_id'];
     name = json['goods_name'];
     thumbnail = JsonKit.asWebUrl(json['pic_cover_small'] ?? "");
-    image = JsonKit.asWebUrl(
-        (json['pic_cover_mid'] ?? json['image'] ?? json['picture']));
+    image = JsonKit.asWebUrl((json['pic_cover_mid'] ??
+        json["pic_cover_small"] ??
+        json['image'] ??
+        json['picture']));
     code = json["goods_type"];
     marketPrice = JsonKit.asDouble(json['market_price']);
     displayPrice = JsonKit.asDouble(json["displya_price"]);
@@ -109,5 +111,5 @@ extension ProductModelKit on ProductModel {
   BaseProductType get productType => getProductType(code);
 
   bool get isOnsale =>
-      !CommonKit.isNullOrZero(marketPrice) && marketPrice > displayPrice;
+      !CommonKit.isNullOrZero(marketPrice) && marketPrice > price;
 }

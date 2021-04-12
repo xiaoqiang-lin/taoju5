@@ -28,6 +28,10 @@ class OrderMeasureDataController extends GetxController {
         Get.find<WindowStyleSelectorController>(tag: id);
     measureData.newOpenModeName = measureData.openMode;
     measureData.openMode = controller.currentOpenModeOption.name;
+    measureData.data.addAll({
+      // "安装选项": [measureData.openMode],
+      "打开方式": controller.openMode
+    });
     update(["openMode"]);
     Get.back();
   }
@@ -42,6 +46,12 @@ class OrderMeasureDataController extends GetxController {
           .initWithMeasureData(measureData);
     }
     Get.back();
+
+    measureData.data.addAll({
+      "num": 1,
+      "goods_id": tag,
+      // "打开方式": controller.openMode
+    });
     measureData.hasChecked = true;
     return Future.value();
   }

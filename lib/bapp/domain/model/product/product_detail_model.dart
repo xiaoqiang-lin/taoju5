@@ -17,7 +17,6 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/valance/valance_attr_selector_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/utils/json_kit.dart';
-import 'package:taoju5/utils/x_logger.dart';
 
 import 'abstract_product_model.dart';
 import 'design_product_model.dart';
@@ -114,9 +113,11 @@ class ProductDetailModel implements AbstractProdductModel {
 
   String _currentSpecOptionName;
 
+  int tagId;
+
   ProductDetailModel.fromJson(Map json) {
     id = json['goods_id'];
-
+    tagId = json["tag_id"];
     name = json['goods_name'];
     fullName = json['show_name'];
     shopId = json['shop_id'];
@@ -133,8 +134,9 @@ class ProductDetailModel implements AbstractProdductModel {
         .toList();
     marketPrice = JsonKit.asDouble(json['market_price']);
     price = JsonKit.asDouble(json['price']);
+
     unit = json["goods_unit"];
-    XLogger.v(json['goods_img_list']);
+
     imgList = JsonKit.asList(json['goods_img_list'])
         .map((e) => JsonKit.asWebUrl(
             JsonKit.getValueByKey(e, 'pic_cover_long').toString()))
@@ -183,7 +185,7 @@ class ProductDetailModel implements AbstractProdductModel {
     if (Get.isRegistered<GauzeAttrSelectorController>(tag: tag)) {
       GauzeAttrSelectorController controller =
           Get.find<GauzeAttrSelectorController>(tag: tag);
-      return controller.attr.currentOptionPrice;
+      return (controller.attr.currentOptionPrice);
     }
     return 0.0;
   }
@@ -260,6 +262,8 @@ class ProductDetailModel implements AbstractProdductModel {
 
 extension ProductDetailModelKit on ProductDetailModel {
   BaseProductType get productType => getProductType(type);
+  bool get isOnsale =>
+      !CommonKit.isNullOrZero(marketPrice) && marketPrice > price;
 
   set currentSpecOptionName(String val) {
     _currentSpecOptionName = val;

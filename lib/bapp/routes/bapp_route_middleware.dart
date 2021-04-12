@@ -25,8 +25,12 @@ class BAppRouteMiddleWare extends RouteObserver {
 
     ///进入商品详情页
     if (RegExp(BAppRoutes.productDetail).hasMatch(routing?.current)) {
-      // String tag = Get.parameters["id"];
-      // Get.find<ProductRegisterController>().tag ??= tag;
+      // if (Get.isRegistered<ProductRegisterController>()) {
+      //   ProductRegisterController registerController = Get.find();
+      //   if (registerController.pageManager.hasOverflow) {
+      //     Get.offAndToNamed(Get.currentRoute);
+      //   }
+      // }
     }
   }
 }

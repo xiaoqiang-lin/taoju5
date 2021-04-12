@@ -51,12 +51,11 @@ class OrderRepository {
     return _api
         .selectProduct("/api/order/addMeasureOrderGoods", params: params)
         .then((BaseResponse response) {
-      if (response.isValid) {
-        XLogger.v(response.data);
-        return;
-      }
+      print(response.isValid);
+      print("___++++");
       // throw EasyLoading.showInfo(response.message);/
     }).catchError((err) {
+      print(err);
       throw err;
     });
   }

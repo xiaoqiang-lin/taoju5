@@ -4,6 +4,7 @@
  * @Date: 2021-01-07 22:14:53
  * @LastEditTime: 2021-02-01 17:46:27
  */
+import 'package:taoju5/bapp/res/b_icons.dart';
 import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,7 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Text(
-                                    "¥${product.totalPrice.toStringAsFixed(2)}",
+                                    "¥${product.unitPrcie?.toStringAsFixed(2)}",
                                     style: TextStyle(
                                         fontSize: BDimens.sp26,
                                         fontWeight: FontWeight.w400),
@@ -110,6 +111,40 @@ class CommitOrderBody extends GetView<CommitOrderController> {
                             color: BColors.accentCardColor,
                             borderRadius: BorderRadius.circular(4)),
                         child: ProductAttrCard(attrList: product.attrList)),
+                  ),
+                  Container(
+                    width: Get.width,
+                    padding: EdgeInsets.symmetric(vertical: BDimens.gap8),
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "小计:¥${product.totalPrice?.toStringAsFixed(2)}",
+                          style: TextStyle(
+                              fontSize: BDimens.sp28,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Visibility(
+                          visible: product.productType is CurtainProductType,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                BIcons.exclamation_point,
+                                size: 16,
+                              ),
+                              Text(
+                                "预估价格",
+                                style: TextStyle(
+                                    color: BColors.greyTextColor, fontSize: 12),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

@@ -9,6 +9,7 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_produ
 import 'package:taoju5/bapp/ui/widgets/common/x_photo_viewer.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taoju5/utils/common_kit.dart';
 
 class DesignCurtainProductCard extends StatelessWidget {
   final DesignProductModel designProduct;
@@ -52,7 +53,7 @@ class DesignCurtainProductCard extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(left: BDimens.gap16),
                           child: Text(
-                            "¥${product.totalPrice.toStringAsFixed(2)}",
+                            "¥${product.price.toStringAsFixed(2)}",
                             style: TextStyle(
                                 color: BColors.highLightColor,
                                 fontSize: BDimens.sp28),
@@ -94,13 +95,16 @@ class DesignCurtainProductCard extends StatelessWidget {
                               color: BColors.highLightColor,
                               fontSize: BDimens.sp28),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: BDimens.gap16),
-                          child: Text(
-                            "¥${product.marketPrice.toStringAsFixed(2)}",
-                            style: TextStyle(
-                                color: BColors.tipTextColor,
-                                fontSize: BDimens.sp24),
+                        Visibility(
+                          visible: !CommonKit.isNullOrZero(product.marketPrice),
+                          child: Container(
+                            margin: EdgeInsets.only(left: BDimens.gap16),
+                            child: Text(
+                              "¥${product.marketPrice.toStringAsFixed(2)}",
+                              style: TextStyle(
+                                  color: BColors.tipTextColor,
+                                  fontSize: BDimens.sp24),
+                            ),
                           ),
                         )
                       ],
@@ -157,7 +161,10 @@ class DesignCurtainProductCard extends StatelessWidget {
                       fontSize: BDimens.sp24, color: BColors.greyTextColor),
                 )
             ],
-          )
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(vertical: BDimens.gap16),
+              child: Divider())
         ],
       ),
     );

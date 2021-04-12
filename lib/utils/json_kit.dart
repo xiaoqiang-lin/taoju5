@@ -38,8 +38,8 @@ abstract class JsonKit {
   static double asDouble(dynamic n) {
     if (n is num) return n.toDouble();
     if (GetUtils.isNum(n)) return double.tryParse(n);
-    if (GetUtils.isNullOrBlank(n)) return 0.0;
-    return n;
+    if (n is double) return n;
+    return 0.0;
   }
 
   static bool asBool(dynamic value) {

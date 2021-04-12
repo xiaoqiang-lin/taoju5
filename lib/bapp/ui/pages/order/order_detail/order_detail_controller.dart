@@ -36,35 +36,29 @@ class SelectProductParamsModel {
 
   int orderProductId;
 
-  String deltaY;
+  OrderMeasureDataModel measureData;
 
-  List<String> installMode;
-
-  List<String> openMode;
   String _tag;
 
   CurtainProductAtrrParamsModel _attribute;
 
-  SelectProductParamsModel({
-    this.productId,
-    this.count = 1,
-    @required this.orderProductId,
-  }) {
+  SelectProductParamsModel(
+      {this.productId,
+      this.count = 1,
+      @required this.orderProductId,
+      @required this.measureData}) {
     this._tag = "$productId";
     this._attribute = CurtainProductAtrrParamsModel(tag: _tag);
   }
 
-  Map get params => {
-        "vertical_ground_height": deltaY,
-        "data": jsonEncode({
-          "num": count,
-          "goods_id": productId,
-          "安装选项": installMode,
-          "打开方式": openMode
-        }),
-        "order_goods_id": orderProductId,
-        "wc_attr": jsonEncode(_attribute.params)
-      };
+  Map get params {
+    return {
+      "vertical_ground_height": measureData.newDeltaY,
+      "data": jsonEncode(measureData.data),
+      "order_goods_id": orderProductId,
+      "wc_attr": jsonEncode(_attribute.params)
+    };
+  }
 }
 
 ///修改价格参数模型
@@ -153,13 +147,15 @@ class OrderDetailController extends GetxController {
     }).whenComplete(update);
   }
 
-  Future select({
-    @required String productId,
-    @required int orderProductId,
-  }) {
+  Future select(
+      {@required String productId,
+      @required int orderProductId,
+      @required OrderMeasureDataModel measureData}) {
     SelectProductParamsModel selectProductArgs = SelectProductParamsModel(
-        orderProductId: orderProductId, productId: productId);
-
+        orderProductId: orderProductId,
+        productId: productId,
+        measureData: measureData);
+    print(selectProductArgs?.params);
     return _repository
         .selectProduct(params: selectProductArgs?.params)
         .then((value) {
@@ -192,6 +188,7 @@ class OrderDetailController extends GetxController {
   }
 
   Future refreshOrderListData() async {
+    loadData(showLoading: false);
     OrderListParentController parentController =
         Get.find<OrderListParentController>();
     parentController.refreshData();

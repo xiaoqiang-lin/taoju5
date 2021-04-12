@@ -12,6 +12,8 @@ class ProductAttrAdapterModel {
   String key;
   String value;
   double totalPrice;
+  int id;
+  double price;
 
   ProductAttrAdapterModel();
   ProductAttrAdapterModel.fromJson(Map json) {
@@ -19,5 +21,11 @@ class ProductAttrAdapterModel {
     key = json["attr_category"];
     value = json["attr_name"];
     totalPrice = JsonKit.asDouble(json["sub_total"]);
+    price = json["price"];
+    id = json["id"];
   }
+
+  Map toJson() => {
+        "$type": {"id": "$id", "name": "$value", "price": "$price"}
+      };
 }

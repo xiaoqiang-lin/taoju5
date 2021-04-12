@@ -51,7 +51,7 @@ class ProductDetailPage extends StatelessWidget {
                           actions: [
                             XCustomerChooseButton(
                               event: ChooseCustomerEventModel(
-                                  fromUrl: Get.currentRoute),
+                                  fromUrl: _.currentRoute),
                             )
                           ],
                         )

@@ -104,20 +104,23 @@ class SceneProductDetailPage extends StatelessWidget {
                               ),
                               ElevatedButton(
                                   onPressed: () => _.openDesignProductModal(
-                                      fromId: _.fromId),
+                                      id: _.id, fromId: _.fromId),
                                   child: Text("立即购买"))
                             ],
                           ),
                         ),
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: BDimens.gap32),
-                          child: Text(
-                            "场景推荐",
-                            style: TextStyle(
-                                color: BColors.titleColor,
-                                fontSize: BDimens.sp28,
-                                fontWeight: FontWeight.w500),
+                        Visibility(
+                          visible: !GetUtils.isNullOrBlank(_.sceneList),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: BDimens.gap32),
+                            child: Text(
+                              "场景推荐",
+                              style: TextStyle(
+                                  color: BColors.titleColor,
+                                  fontSize: BDimens.sp28,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                         StaggeredGridView.countBuilder(

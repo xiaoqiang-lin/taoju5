@@ -19,6 +19,7 @@ import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/domain/model/window/window_style_model.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
+import 'package:taoju5/bapp/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_controller.dart';
@@ -29,10 +30,10 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base_curtain_product_attrs_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_pridce_delegator.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/product_register_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:taoju5/bapp/domain/model/product/curtain_product_attr_model.dart';
-import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
 import 'fragment/product_attrs_selector/base/accessory/accessory_attr_selector_controller.dart';
@@ -55,11 +56,14 @@ class EditMeasureDataParamsModel<T> {
   List<String> installMode;
   var openMode;
 
-  EditMeasureDataParamsModel({@required this.tag}) {
+  EditMeasureDataParamsModel(
+      {@required this.tag, String defaultWidth, String defaultHeight}) {
     SizeSelectorController sizeSelectorController =
         find<SizeSelectorController>(tag: tag);
-    width = "${sizeSelectorController?.widthCM}";
-    height = "${sizeSelectorController?.heightCM}";
+    sizeSelectorController?.defaultWidth = defaultWidth;
+    sizeSelectorController?.defaultHeight = defaultHeight;
+    width = defaultWidth ?? "${sizeSelectorController?.widthCM}";
+    height = defaultHeight ?? "${sizeSelectorController?.heightCM}";
     deltaY = sizeSelectorController?.deltaY;
     RoomAttrSelectorController roomController =
         find<RoomAttrSelectorController>(tag: tag);
@@ -177,6 +181,7 @@ class CurtainProductAtrrParamsModel<T> {
 
   Map get params {
     Map map = {};
+
     _controllers.forEach((e) {
       if (e == null) {
         return;
@@ -197,8 +202,10 @@ class ProductDetailController extends GetxController {
 
   ProductDetailModelWrapper wrapper;
 
+  String currentRoute = Get.currentRoute;
+
   ///选品事件
-  SelectProductEvent selectProductEvent = Get.arguments;
+  SelectProductEvent selectProductEvent;
 
   ProductDetailModel product = ProductDetailModel();
 
@@ -207,14 +214,14 @@ class ProductDetailController extends GetxController {
   BaseCurtainProductAttrsSelectorController selectorController;
 
   BasePoductPriceDelegator get priceDelegator {
-    if (product.productType is FabricCurtainProductType) {
-      return FabricCurtainProductPriceDelegator(product);
+    if (product.productType is GauzeCurtainProductType) {
+      return GauzeCurtainProductPriceDelegator(product);
     }
     if (product.productType is RollingCurtainProductType) {
       return RollingCurtainProductPriceDelegator(product);
     }
-    if (product.productType is GauzeCurtainProductType) {
-      return GauzeCurtainProductPriceDelegator(product);
+    if (product.productType is FabricCurtainProductType) {
+      return FabricCurtainProductPriceDelegator(product);
     }
     if (product.productType is SectionalbarProductType) {
       return SectionalbarProductPriceDelegator(product);
@@ -263,9 +270,10 @@ class ProductDetailController extends GetxController {
   }
 
   bool _checkValidCustomer() {
-    print(Get.find<CustomerProviderController>().isCustomerNull);
     if (Get.find<CustomerProviderController>().isCustomerNull) {
       EasyLoading.showInfo("请先选择客户哦");
+      Get.toNamed(BAppRoutes.customerEdit,
+          arguments: ChooseCustomerEventModel(fromUrl: Get.currentRoute));
       throw false;
     }
     return true;
@@ -288,7 +296,6 @@ class ProductDetailController extends GetxController {
       return Future.error(null);
     }
     EditMeasureDataParamsModel args = EditMeasureDataParamsModel(tag: tag);
-    XLogger.v(args.params);
     return _repository.addMeasureData(params: args.params);
   }
 
@@ -358,6 +365,13 @@ class ProductDetailController extends GetxController {
 
   @override
   void onInit() {
+    tag = Get.parameters["id"];
+    if (Get.isRegistered<ProductRegisterController>()) {
+      Get.find<ProductRegisterController>().pageManager.add(Get.currentRoute);
+    }
+    if (Get.arguments != null && Get.arguments is SelectProductEvent) {
+      selectProductEvent = Get.arguments;
+    }
     if (selectProductEvent != null) {
       CustomerModel customer = selectProductEvent.customer;
       Get.find<CustomerProviderController>().setCustomer(customer);
@@ -376,7 +390,7 @@ class ProductDetailController extends GetxController {
   String id = Get.parameters["id"];
   bool get isForSelect => selectProductEvent != null;
   String get flag => isForSelect ? '1' : '0';
-  String tag = Get.parameters["id"];
+  String tag;
   List<GetxController> get attrControllerList => [
         Get.find<RoomAttrSelectorController>(tag: tag),
         Get.find<GauzeAttrSelectorController>(tag: tag),
@@ -406,7 +420,6 @@ class ProductDetailController extends GetxController {
     Get.delete<RibouxAttrSelectorController>(tag: tag, force: force);
     Get.delete<ValanceAttrSelectorController>(tag: tag, force: force);
     Get.delete<WindowPatternSelectorController>(tag: tag, force: force);
-
     Get.delete<SizeSelectorController>(tag: tag, force: force);
     Get.delete<WindowStyleSelectorController>(tag: tag, force: force);
   }
@@ -446,7 +459,7 @@ class ProductDetailController extends GetxController {
       }
       if (e is SizeSelectorController) {
         description += "宽:${e.widthM}米,";
-        description += "高:${e.height}米,";
+        description += "高:${e.heightM}米,";
         description += "离地距离:${e.deltaY}cm,";
       }
     }
@@ -499,6 +512,8 @@ class ProductDetailController extends GetxController {
       throw Future.value(false);
     }
     return Get.find<OrderDetailController>().select(
-        productId: tag, orderProductId: selectProductEvent.orderProduct.id);
+        productId: tag,
+        orderProductId: selectProductEvent.orderProduct.id,
+        measureData: selectProductEvent.orderProduct.measureData);
   }
 }

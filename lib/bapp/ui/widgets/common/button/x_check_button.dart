@@ -40,7 +40,7 @@ class XCheckButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPresss,
-      behavior: HitTestBehavior.translucent,
+      behavior: HitTestBehavior.opaque,
       child: ConstrainedBox(
         constraints: constraints,
         child: XBorderFrame(

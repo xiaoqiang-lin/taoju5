@@ -17,7 +17,19 @@ class ProductImageModel {
 }
 
 extension ProductImageModelKit on ProductImageModel {
-  List<String> get _specList => spec.split(",");
+  List<String> get _specList {
+    if (GetUtils.isNullOrBlank(spec)) {
+      return [];
+    }
+    if (spec.contains(",")) {
+      return spec.split(",");
+    }
+    if (spec.contains("*")) {
+      return spec.split("*");
+    }
+    return [];
+  }
+
   double get width => JsonKit.asDouble(_specList?.first ?? "${Get.width}");
   double get height => JsonKit.asDouble(_specList?.last ?? "480");
 
@@ -33,6 +45,9 @@ extension ProductImageModelKit on ProductImageModel {
     if (GetUtils.isNullOrBlank(spec)) {
       return 1.0;
     }
+    print(spec);
+    print(width);
+    print(height);
     return width / height;
   }
 

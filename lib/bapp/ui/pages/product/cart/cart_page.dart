@@ -336,6 +336,17 @@ class CartPage extends GetView<CartListParentController> {
                                                             ],
                                                           ),
                                                         ),
+                                                      ),
+                                                      Visibility(
+                                                        visible: e !=
+                                                            _.cartList?.last,
+                                                        child: Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        BDimens
+                                                                            .gap16),
+                                                            child: Divider()),
                                                       )
                                                     ],
                                                   ),
@@ -409,8 +420,7 @@ class CartPage extends GetView<CartListParentController> {
                         Visibility(
                           visible: !_.isInEditMode,
                           child: ElevatedButton(
-                              onPressed: controller.commit,
-                              child: Text("提交订单")),
+                              onPressed: controller.commit, child: Text("去结算")),
                         ),
                         Visibility(
                           visible: _.isInEditMode,

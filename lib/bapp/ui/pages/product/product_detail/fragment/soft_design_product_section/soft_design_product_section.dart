@@ -45,7 +45,11 @@ class SoftDesignProductSection extends StatelessWidget {
             horizontal: BDimens.gap16, vertical: BDimens.gap16),
         child: Column(
           children: [
-            XTitleBar(title: "软装方案"),
+            XTitleBar(
+              title: "软装方案",
+              onTap: () =>
+                  Get.toNamed(BAppRoutes.softProductDetail + "?fromId=$fromId"),
+            ),
             AspectRatio(
                 aspectRatio: 2.4,
                 child: XSwiper(
@@ -53,107 +57,97 @@ class SoftDesignProductSection extends StatelessWidget {
                   viewportFraction: .98,
                   itemBuilder: (BuildContext context, int i) {
                     DesignProductModel product = productList[i];
-                    return GestureDetector(
-                      onTap: () => Get.toNamed(BAppRoutes.softProductDetail +
-                          "?fromId=$fromId&id=${product.id}"),
-                      child: Container(
-                        margin: EdgeInsets.only(top: 4, bottom: 32),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                            border: Border.all(
-                                width: 1, color: const Color(0xFFE8E8E8)),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0, 2),
-                                  color: Color.fromARGB(16, 0, 0, 0),
-                                  blurRadius: 3,
-                                  spreadRadius: 1),
-                            ]),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AspectRatio(
-                                aspectRatio: 1,
-                                child: XPhotoViewer(
-                                  url: product.image,
-                                  fit: BoxFit.fitHeight,
-                                )),
-                            Expanded(
-                                flex: 3,
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: BDimens.gap24,
-                                      right: BDimens.gap20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        product.name,
-                                        style: TextStyle(
-                                            fontSize: BDimens.sp26,
-                                            fontWeight: FontWeight.w500),
+                    return Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 32),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          border: Border.all(
+                              width: 1, color: const Color(0xFFE8E8E8)),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 2),
+                                color: Color.fromARGB(16, 0, 0, 0),
+                                blurRadius: 3,
+                                spreadRadius: 1),
+                          ]),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AspectRatio(
+                              aspectRatio: 1,
+                              child: XPhotoViewer(
+                                url: product.image,
+                                fit: BoxFit.fitHeight,
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    left: BDimens.gap24, right: BDimens.gap20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      product.name,
+                                      style: TextStyle(
+                                          fontSize: BDimens.sp26,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 0),
+                                      child: Text(
+                                        product?.fullName ?? '',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:
+                                            TextStyle(fontSize: BDimens.sp28),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 0),
-                                        child: Text(
-                                          product?.fullName ?? '',
-                                          maxLines: 3,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "¥${product?.totalPrice?.toStringAsFixed(2)}",
                                           overflow: TextOverflow.ellipsis,
-                                          style:
-                                              TextStyle(fontSize: BDimens.sp28),
+                                          style: TextStyle(
+                                              fontSize: BDimens.sp28,
+                                              fontWeight: FontWeight.w500),
                                         ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "¥${product?.totalPrice?.toStringAsFixed(2)}",
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: BDimens.gap16),
+                                          child: Text(
+                                            "¥${product?.marketPrice?.toStringAsFixed(2)}",
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                                fontSize: BDimens.sp28,
-                                                fontWeight: FontWeight.w500),
+                                                fontSize: BDimens.sp20,
+                                                color: product?.marketPrice == 0
+                                                    ? Colors.transparent
+                                                    : BColors.greyTextColor),
                                           ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: BDimens.gap16),
+                                        ),
+                                        Spacer(),
+                                        GestureDetector(
+                                            onTap: () => openDesignProductModal(
+                                                product.id),
                                             child: Text(
-                                              "¥${product?.marketPrice?.toStringAsFixed(2)}",
-                                              overflow: TextOverflow.ellipsis,
+                                              "立即购买",
                                               style: TextStyle(
-                                                  fontSize: BDimens.sp20,
-                                                  color: product?.marketPrice ==
-                                                          0
-                                                      ? Colors.transparent
-                                                      : BColors.greyTextColor),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          GestureDetector(
-                                              onTap: () =>
-                                                  openDesignProductModal(
-                                                      product.id),
-                                              child: Text(
-                                                "立即购买",
-                                                style: TextStyle(
-                                                    color:
-                                                        BColors.highLightColor,
-                                                    fontSize: BDimens.sp28,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ))
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ))
-                          ],
-                        ),
+                                                  color: BColors.highLightColor,
+                                                  fontSize: BDimens.sp28,
+                                                  fontWeight: FontWeight.w500),
+                                            ))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ))
+                        ],
                       ),
                     );
                   },

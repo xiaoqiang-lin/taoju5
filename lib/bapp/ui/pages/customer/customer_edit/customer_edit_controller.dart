@@ -39,11 +39,11 @@ class CustomerEditController extends GetxController {
       canChoose = event.canChoose;
     }
     target ??= CustomerDetailModel();
-    _getLocation();
+    // _getLocation();
     super.onInit();
   }
 
-  Future _getLocation() async {
+  Future getLocation() async {
     if (GetPlatform.isIOS) return;
     if (event == null || event.customer == null) {
       // bool isGranted = await PermissionKit.requestPerssion(Permission.location);

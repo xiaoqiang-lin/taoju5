@@ -174,7 +174,7 @@
             "index": 1
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -220,7 +220,7 @@
             "index": 1
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -266,7 +266,7 @@
             "sub_options": []
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -312,7 +312,7 @@
             "index": 1
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -363,7 +363,7 @@
             "sub_options": []
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -416,7 +416,7 @@
             "sub_options": []
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -469,7 +469,7 @@
             "sub_options": []
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [
@@ -522,7 +522,7 @@
             "sub_options": []
           },
           {
-            "name": "分墙面打开",
+            "name": "分墙体打开",
             "is_checked": false,
             "index": 2,
             "sub_options": [

@@ -156,6 +156,8 @@ class AfterSellController extends GetxController {
         images: imageList.join(","));
 
     OrderRepository repository = OrderRepository();
-    return repository.aftersell(params: model.params);
+    return repository.aftersell(params: model.params).then((value) {
+      Get.back();
+    });
   }
 }
