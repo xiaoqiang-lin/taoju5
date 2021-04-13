@@ -15,7 +15,7 @@ class AppConfig {
   static AppEnv env = AppEnv.$b;
 
   ///打包时只需要修改这两个即可
-  static AppMode mode = AppMode.debug;
+  static AppMode mode = AppMode.release;
 
   static String get appName => getAppName(env: env, mode: mode);
 
