@@ -61,7 +61,7 @@ dev_dependencies:
   flutter_html: ^2.0.0-nullsafety.0
   flutter_app_upgrade: ^1.1.0
   # webview_flutter: ^2.0.2
-  flutter_staggered_grid_view: ^0.3.3
+  flutter_staggered_grid_view: ^0.4.0
   shimmer: ^1.1.2
   # jpush_flutter: ^0.6.3
   permission_handler: ^6.1.1
@@ -80,6 +80,8 @@ dev_dependencies:
   amap_location: ^0.2.0
   carousel_slider: ^4.0.0-nullsafety.0
 
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -97,6 +99,10 @@ flutter:
       - assets/images/curtain/
       - assets/flrs/
       - assets/data/curtain_mode.json
+
+      - resources/images/
+      - resources/images/2.0x/
+      - resources/images/3.0x/
   fonts:
   # - family: Quicksand
   #   fonts:

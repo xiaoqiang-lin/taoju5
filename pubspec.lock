@@ -325,7 +325,7 @@ packages:
       name: flutter_staggered_grid_view
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.4"
+    version: "0.4.0"
   flutter_svg:
     dependency: transitive
     description:

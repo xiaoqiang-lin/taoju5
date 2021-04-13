@@ -10,6 +10,8 @@ class CDimen {
 
   final double dp1 = 1;
 
+  final double dp5 = 5;
+
   final double dp16 = 16;
 
   final double dp12 = 12;
@@ -19,6 +21,8 @@ class CDimen {
   final double dp3 = 3;
 
   final double dp20 = 20;
+
+  final double dp24 = 24;
 
   final double dp10 = 10;
   final double dp36 = 36;
@@ -32,6 +36,8 @@ class CDimen {
   final double sp8 = 8;
   final double sp10 = 10;
   final double sp12 = 12;
+
+  final double sp14 = 14;
   final double sp15 = 15;
 
   final double sp16 = 16;

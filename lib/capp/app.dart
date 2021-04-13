@@ -7,7 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/capp/ui/pages/home/home_page.dart';
+import 'package:taoju5/capp/ui/pages/main/main_binding.dart';
+import 'package:taoju5/capp/ui/pages/main/main_page.dart';
 import 'package:taoju5/config/app_config.dart';
 
 import 'package:taoju5/config/app_env.dart';
@@ -24,10 +25,10 @@ class $CAPP extends StatelessWidget {
       key: ValueKey(AppEnv.$c),
       title: AppConfig.appName,
       getPages: CAppPages.pages,
-      home: CHomePage(),
-
+      home: CMainPage(),
+      initialBinding: CMainBinding(),
       theme: R.theme.lightTheme,
-      defaultTransition: Get.defaultTransition,
+      defaultTransition: Transition.cupertino,
       popGesture: false,
       // defaultTransition: Transition,
 

@@ -10,4 +10,10 @@ class CAppRoutes {
   static const debug = '/debug';
 
   static const amap = '/amap';
+
+  static const mine = '/mine';
+
+  static const profile = '/profile';
+
+  static const address = '/address';
 }

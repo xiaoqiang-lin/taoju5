@@ -13,15 +13,14 @@ class CTheme {
 
   final ThemeData lightTheme = ThemeData(
       fontFamily: "PingFang SC",
+      iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.iconColor),
+      scaffoldBackgroundColor: R.color.scaffoldBackgroundColor,
       toggleButtonsTheme: ToggleButtonsThemeData(),
       checkboxTheme: CheckboxThemeData(
           fillColor: MaterialStateProperty.all(R.color.primaryColor)),
       buttonBarTheme: ButtonBarThemeData(),
-      dividerTheme: DividerThemeData(
-          space: R.dimen.dp1,
-          indent: R.dimen.dp20,
-          endIndent: R.dimen.dp20,
-          color: R.color.dividerColor),
+      dividerTheme:
+          DividerThemeData(space: R.dimen.dp1, color: R.color.dividerColor),
       textSelectionTheme:
           TextSelectionThemeData(cursorColor: R.color.primaryColor),
       toggleableActiveColor: R.color.primaryColor,
@@ -57,8 +56,9 @@ class CTheme {
       appBarTheme: AppBarTheme(
           centerTitle: false,
           elevation: 0,
+          backgroundColor: R.color.appBarColor,
           titleTextStyle:
-              TextStyle(fontSize: R.dimen.sp18, fontWeight: FontWeight.bold)),
+              TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.bold)),
       tabBarTheme: TabBarTheme(
           indicatorSize: TabBarIndicatorSize.tab,
           unselectedLabelStyle: TextStyle(
@@ -150,5 +150,12 @@ class CTheme {
           thumbColor: MaterialStateProperty.all<Color>(R.color.primaryColor),
           trackColor: MaterialStateProperty.all<Color>(R.color.primaryColor)),
       primaryColor: R.color.primaryColor,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(elevation: 1));
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          selectedIconTheme: IconThemeData(size: R.dimen.sp12),
+          unselectedIconTheme: IconThemeData(size: R.dimen.sp12),
+          selectedLabelStyle: TextStyle(fontSize: R.dimen.sp10),
+          unselectedLabelStyle:
+              TextStyle(fontSize: R.dimen.sp10, color: R.color.primaryColor),
+          elevation: 10));
 }

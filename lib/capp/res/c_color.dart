@@ -10,7 +10,15 @@ class CColor {
   ///主题色 应用程序主要部分的背景颜色(toolbars、tab bars 等)
   final Color primaryColor = const Color(0xFFEE9B5F);
 
+  final Color appBarColor = Colors.white;
+
+  final Color scaffoldBackgroundColor = Colors.white;
+
+  final Color iconColor = const Color(0xFFB5B5B5);
+
   final Color primaryTextColor = const Color(0xFF333333);
+
+  final Color badgeColor = const Color(0xFFFF5005);
 
   final Color splashColor = Colors.transparent;
 
@@ -43,4 +51,8 @@ class CColor {
   final Color lightShimmerColor = const Color(0xFFEFEFEF);
 
   final Color lightShimmerBgColor = Colors.transparent;
+
+  final Color tileTipColor = const Color(0xFFB4B4B4);
+
+  final Color subtitleColor = const Color(0xFFB5B5B5);
 }
