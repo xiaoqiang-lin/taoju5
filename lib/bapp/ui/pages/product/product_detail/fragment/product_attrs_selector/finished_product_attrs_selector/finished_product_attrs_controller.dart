@@ -15,6 +15,7 @@ import 'package:taoju5/bapp/ui/pages/product/cart/cart_list_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:taoju5/utils/common_kit.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 
 class FinishedProductAttrsController extends GetxController {
@@ -112,8 +113,11 @@ class FinishedProductAttrsController extends GetxController {
     if (!GetUtils.isNum(val)) {
       EasyLoading.showInfo("请输入正确的数值哦");
     } else {
-      product.materialUsed = val;
-      cartProduct?.length = val;
+      if (cartProduct != null) {
+        cartProduct?.length = CommonKit.asDouble(val);
+      } else {
+        product.materialUsed = val;
+      }
     }
     update(["header"]);
   }

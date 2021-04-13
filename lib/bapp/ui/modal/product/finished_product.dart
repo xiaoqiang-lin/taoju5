@@ -98,7 +98,7 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                         margin: EdgeInsets.only(
                                                             top: BDimens.gap20),
                                                         child: Text(
-                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${_.product.materialUsed ?? cartProduct?.length ?? ""}${(_.product.materialUsed != null || cartProduct?.length != null) ? "米" : ""}"),
+                                                          ("已选:${_.product.currentSpecOptionName ?? ""} 用料:${cartProduct?.length ?? _.product.materialUsed ?? ""}${(_.product.materialUsed != null || cartProduct?.length != null) ? "米" : ""}"),
                                                           style: TextStyle(
                                                               fontSize:
                                                                   BDimens.sp28,
@@ -161,18 +161,18 @@ Future showFinishedProductAttrModal(BuildContext context,
                                                       height: 42,
                                                       width: Get.width / 2.4,
                                                       child: TextFormField(
-                                                          initialValue: _
-                                                                  .product
-                                                                  ?.material ??
-                                                              cartProduct
-                                                                  ?.length,
+                                                          initialValue: cartProduct
+                                                                  ?.length
+                                                                  ?.toString() ??
+                                                              _.product
+                                                                  ?.materialUsed,
                                                           onChanged:
                                                               _.setMaterialUsed,
                                                           scrollPadding:
                                                               EdgeInsets.zero,
                                                           decoration: InputDecoration(
                                                               hintText:
-                                                                  "输入米数 例:1.5米",
+                                                                  "输入米数 例:1.5",
                                                               focusedBorder: OutlineInputBorder(
                                                                   borderSide: BorderSide(
                                                                       color: BColors

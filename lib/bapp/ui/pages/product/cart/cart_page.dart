@@ -303,7 +303,9 @@ class CartPage extends GetView<CartListParentController> {
                                                       ),
                                                       Visibility(
                                                         visible: e.productType
-                                                            is CurtainProductType,
+                                                                is CurtainProductType ||
+                                                            e.productType
+                                                                is SectionalbarProductType,
                                                         child: Container(
                                                           width: Get.width,
                                                           alignment: Alignment

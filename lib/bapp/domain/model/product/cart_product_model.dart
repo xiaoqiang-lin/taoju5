@@ -39,7 +39,7 @@ class CartPorductModel implements IXCountable {
   String room;
   String unit;
   List<ProductAttrAdapterModel> attrsList;
-  String length;
+  double length;
   final isChecked = false.obs;
   RxInt count;
   String categoryType;
@@ -68,7 +68,7 @@ class CartPorductModel implements IXCountable {
     price = JsonKit.asDouble(json["price"]);
     unit = json["goods_unit"];
     attribute = productType is CurtainProductType ? json["wc_attr_str"] : "";
-    length = json["material"];
+    length = JsonKit.asDouble(json["material"]);
     productId = json["goods_id"];
     estimatedPrice = JsonKit.asDouble(json["estimated_price"]) * count.value;
     attrsList = JsonKit.asList(json["goods_accessory"])
@@ -87,9 +87,13 @@ extension CartPorductModelKit on CartPorductModel {
   ///商品类型
   BaseProductType get productType => getProductType(type);
   double get totalPrice {
+    if (productType is SectionalbarProductType) {
+      return price * length;
+    }
     if (productType is FinishedProductType) {
       return price * count.value;
     }
+
     return estimatedPrice * count.value;
   }
 
@@ -113,7 +117,7 @@ extension CartPorductModelKit on CartPorductModel {
     model.measureId = measureId;
     model.skuId = "$skuId";
     model.cartId = id;
-    model.length = length;
+    model.length = "$length";
     model.count = count.value;
     return model;
   }

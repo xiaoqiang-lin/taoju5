@@ -312,6 +312,12 @@ class ProductDetailController extends GetxController {
   }
 
   Future buy() {
+    if (product.productType is SectionalbarProductType) {
+      if (GetUtils.isNullOrBlank(product.materialUsed)) {
+        EasyLoading.showInfo("请输入型材用料哦");
+        throw Future.value(false);
+      }
+    }
     if (!_isValidInfo()) {
       scrollToTop();
       throw Future.error(false);
@@ -338,6 +344,13 @@ class ProductDetailController extends GetxController {
   Future addToCart() {
     AddToCartParamsModel args = AddToCartParamsModel(
         tag: tag, product: product, totalPrice: "${priceDelegator.totalPrice}");
+    if (product.productType is SectionalbarProductType) {
+      if (GetUtils.isNullOrBlank(product.materialUsed)) {
+        EasyLoading.showInfo("请输入型材用料哦");
+        throw Future.value(false);
+      }
+    }
+
     if (product.productType is CurtainProductType) {
       return addMeasureData().then((BaseResponse response) {
         // if (response == null) return;

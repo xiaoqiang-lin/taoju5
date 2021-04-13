@@ -13,6 +13,6 @@ class SectionalProductAdapterModel {
 
   SectionalProductAdapterModel.fromCart(CartPorductModel model) {
     image = model.image;
-    length = model.length;
+    length = "${model.length}";
   }
 }

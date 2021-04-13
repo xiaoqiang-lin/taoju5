@@ -11,6 +11,7 @@ import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/domain/model/product/cart_product_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
+import 'package:taoju5/bapp/domain/model/product/product_type.dart';
 import 'package:taoju5/bapp/domain/repository/product/product_repository.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/product/cart/remove_from_cart.dart';
@@ -19,6 +20,7 @@ import 'package:taoju5/bapp/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5/bapp/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_view_state.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:taoju5/utils/common_kit.dart';
 
 class CartListParentController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -200,14 +202,20 @@ class CartListController extends GetxController {
   }
 
   Future modifySectionalbarLength(CartPorductModel e) {
+    if (CommonKit.isNullOrZero(e.length)) {
+      EasyLoading.showInfo("请输入型材米数哦");
+      throw Future.error(false);
+    }
     return _repository.modifyProuductCountInCart(params: {
       "sku_id": e.skuId,
       "cart_id": e.id,
-      "num": e.count,
+      "num": e.productType is SectionalbarProductType ? e.length : e.count,
       "material": e.length,
       "type": 2
     }).then((value) {
       e.description = "用料:${e.length}米";
+      parentController.totalPrice = totalPrice;
+      parentController.update(["totalPrice"]);
       update(["${e.id}"]);
       Get.back();
     });
