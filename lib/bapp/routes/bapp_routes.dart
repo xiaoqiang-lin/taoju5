@@ -30,6 +30,8 @@ abstract class BAppRoutes {
 
   static const productDetail = '/productDetail';
 
+  static const webProductDetail = '/webProductDetail';
+
   static const productShare = '/productShare';
 
   static const productDetailV2 = '/productDetailV2';

@@ -68,6 +68,8 @@ import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_binding.d
 import 'package:taoju5/bapp/ui/pages/product/product_list/product_list_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/selectable_product_list/selectable_product_list_page.dart';
+import 'package:taoju5/bapp/ui/pages/product/web_product_detail/web_product_detail_binding.dart';
+import 'package:taoju5/bapp/ui/pages/product/web_product_detail/web_product_detail_page.dart';
 import 'package:taoju5/bapp/ui/pages/scan_qrcode/scan_qrcode_binding.dart';
 import 'package:taoju5/bapp/ui/pages/scan_qrcode/scan_qrcode_page.dart';
 import 'package:taoju5/bapp/ui/pages/search/search_binding.dart';
@@ -141,6 +143,12 @@ class BAppPages {
       name: BAppRoutes.productDetail + "/:id",
       page: () => ProductDetailPage(),
       binding: ProductDetailBinding(),
+    ),
+
+    GetPage(
+      name: BAppRoutes.webProductDetail + "/:id",
+      page: () => WebProductDetailPage(),
+      binding: WebProductDetailBinding(),
     ),
 
     GetPage(
