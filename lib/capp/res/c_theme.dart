@@ -12,7 +12,8 @@ class CTheme {
   factory CTheme() => _singleton;
 
   final ThemeData lightTheme = ThemeData(
-      fontFamily: "PingFang SC",
+      // fontFamily: "PingFang SC",
+
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.iconColor),
       scaffoldBackgroundColor: R.color.scaffoldBackgroundColor,
       toggleButtonsTheme: ToggleButtonsThemeData(),
@@ -54,7 +55,6 @@ class CTheme {
       primaryTextTheme:
           TextTheme(bodyText2: TextStyle(color: R.color.primaryTextColor)),
       appBarTheme: AppBarTheme(
-          centerTitle: false,
           elevation: 0,
           backgroundColor: R.color.appBarColor,
           titleTextStyle:
@@ -101,7 +101,7 @@ class CTheme {
               //     EdgeInsets.symmetric(horizontal: 24, vertical: 8)),
 
               minimumSize:
-                  MaterialStateProperty.all(Size(R.dimen.dp84, R.dimen.dp36)))),
+                  MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),
@@ -124,7 +124,7 @@ class CTheme {
                 return BorderSide(color: R.color.primaryColor);
               }),
               minimumSize:
-                  MaterialStateProperty.all(Size(R.dimen.dp84, R.dimen.dp36)))),
+                  MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(R.color.splashColor),
@@ -144,7 +144,7 @@ class CTheme {
                 return BorderSide(color: R.color.primaryColor);
               }),
               minimumSize:
-                  MaterialStateProperty.all(Size(R.dimen.dp84, R.dimen.dp36)))),
+                  MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       switchTheme: SwitchThemeData(
           overlayColor: MaterialStateProperty.all<Color>(R.color.primaryColor),
           thumbColor: MaterialStateProperty.all<Color>(R.color.primaryColor),

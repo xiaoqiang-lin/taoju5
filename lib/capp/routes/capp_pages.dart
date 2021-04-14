@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:taoju5/bc-app/ui/pages/debug/debug_binding.dart';
 import 'package:taoju5/bc-app/ui/pages/debug/debug_page.dart';
 import 'package:taoju5/capp/ui/pages/home/home_page.dart';
+import 'package:taoju5/capp/ui/pages/login/guide/login_guide_page.dart';
 import 'package:taoju5/capp/ui/pages/mine/mine_binding.dart';
 import 'package:taoju5/capp/ui/pages/mine/mine_page.dart';
 import 'package:taoju5/capp/ui/pages/mine/subpage/address/address_binding.dart';
@@ -20,6 +21,8 @@ import 'capp_routes.dart';
 
 class CAppPages {
   static final pages = [
+    ///登录
+    GetPage(name: CAppRoutes.loginGuide, page: () => CLoginGuidePage()),
     GetPage(
         name: CAppRoutes.home,
         page: () => CHomePage(),

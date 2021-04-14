@@ -144,6 +144,12 @@ class BAppPages {
     ),
 
     GetPage(
+      name: BAppRoutes.webProductDetail + "/:id",
+      page: () => ProductDetailPage(),
+      binding: ProductDetailBinding(),
+    ),
+
+    GetPage(
         name: BAppRoutes.productShare + "/:id/:token",
         page: () => ProductSharePage(),
         binding: ProductShareBinding()),

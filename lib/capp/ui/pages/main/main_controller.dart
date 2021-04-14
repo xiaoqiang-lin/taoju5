@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/capp/res/R.dart';
+import 'package:taoju5/capp/ui/pages/home/home_page.dart';
 import 'package:taoju5/capp/ui/pages/mine/mine_page.dart';
 
 class CBottomNavigationBarItemEntity {
@@ -29,7 +30,7 @@ class CMainController extends GetxController {
   ];
 
   final List<Widget> pages = [
-    Text("我的"),
+    CHomePage(),
     Text("分类"),
     Text("淘学院"),
     Text("购物车"),

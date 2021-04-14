@@ -16,4 +16,6 @@ class CAppRoutes {
   static const profile = '/profile';
 
   static const address = '/address';
+
+  static const loginGuide = '/loginGuide';
 }

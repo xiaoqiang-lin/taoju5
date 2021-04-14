@@ -38,6 +38,8 @@ class CColor {
 
   final Color textButtonBackgroudColor = const Color(0xFFF5F5F5);
 
+  final Color materialButtonBackgroudColor = const Color(0xFFF5F5F5);
+
   final Color textButtonForegroudColor = const Color(0xFF666666);
 
   final Color elevatedButtonDisabledColor =
@@ -55,4 +57,6 @@ class CColor {
   final Color tileTipColor = const Color(0xFFB4B4B4);
 
   final Color subtitleColor = const Color(0xFFB5B5B5);
+
+  final Color greyTextColor = const Color(0xFF999999);
 }

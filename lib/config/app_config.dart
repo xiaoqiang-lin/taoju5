@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppConfig {
   // app名字
   // static String get appName => isDebug ? '淘居屋商家测试版' : "淘居屋商家";
-  static AppEnv env = AppEnv.$b;
+  static AppEnv env = AppEnv.$c;
 
   ///打包时只需要修改这两个即可
   static AppMode mode = AppMode.debug;

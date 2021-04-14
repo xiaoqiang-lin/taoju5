@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5/capp/res/R.dart';
 import 'package:taoju5/capp/ui/pages/mine/subpage/address/address_controller.dart';
 import 'package:taoju5/capp/ui/pages/mine/subpage/address/wdiget/addresss_card.dart';
 
@@ -18,7 +19,8 @@ class CAddressPage extends StatelessWidget {
               itemBuilder: (BuildContext context, int i) {
                 return CAddressCard(address: _.addresses[i]);
               },
-              separatorBuilder: (BuildContext context, int i) => Divider(),
+              separatorBuilder: (BuildContext context, int i) =>
+                  Divider(indent: R.dimen.dp24, endIndent: R.dimen.dp24),
               itemCount: _.addresses.length),
         );
       },

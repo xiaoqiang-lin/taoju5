@@ -11,22 +11,65 @@ class CAddressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(
+          vertical: R.dimen.dp20, horizontal: R.dimen.dp24),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(address.username),
-              Text(address.tel),
-              Spacer(),
-              Text("编辑"),
-              Icon(R.icon.next)
-            ],
+          Container(
+            margin: EdgeInsets.only(bottom: R.dimen.dp12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  address.username,
+                  style: TextStyle(
+                      fontSize: R.dimen.sp13, fontWeight: FontWeight.w600),
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: R.dimen.dp10),
+                    child: Text(
+                      address.tel,
+                      style: TextStyle(
+                          fontSize: R.dimen.sp13, color: R.color.greyTextColor),
+                    )),
+                Spacer(),
+                Text(
+                  "编辑",
+                  style: TextStyle(
+                      fontSize: R.dimen.sp12, color: R.color.greyTextColor),
+                ),
+                Icon(R.icon.next)
+              ],
+            ),
           ),
-          Wrap(
-            children: [
-              Text("默认"),
-              Text(address.description),
-            ],
+          Text.rich(
+            TextSpan(
+              children: [
+                WidgetSpan(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: R.dimen.dp3),
+                    child: Text(
+                      "默认",
+                      style: TextStyle(
+                          fontSize: R.dimen.sp13, color: R.color.primaryColor),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(R.dimen.sp2),
+                        color: R.color.primaryColor.withOpacity(.08)),
+                  ),
+                ),
+                WidgetSpan(
+                  child: Text(
+                    address.description,
+                    softWrap: false,
+                    maxLines: 3,
+                    style: TextStyle(fontSize: R.dimen.sp13),
+                  ),
+                ),
+              ],
+            ),
+            softWrap: false,
+            maxLines: 3,
           )
         ],
       ),
