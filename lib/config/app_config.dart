@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-02-03 10:17:02
+ * @LastEditTime: 2021-04-15 13:59:01
  */
 
 import 'package:flutter/foundation.dart';
@@ -32,6 +32,7 @@ class AppConfig {
 
   /// 微信分享相关
   static const weChatAppId = 'wx1dda23b1cd57b8c2';
+  static const weChatSecret = '7983b20cb37a9fd0fe19b406ce7725fd';
   static const weCharShareUniversalLink = 'https://ii1vy.share2dlink.com/';
 
   static bool get isDebug => mode == AppMode.debug;

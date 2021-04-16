@@ -1,6 +1,13 @@
+/*
+ * @Description:实体类
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-16 19:00:53
+ */
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:taoju5/capp/entity/user/user_entity.dart';
+import 'package:taoju5/capp/domain/entity/user/user_entity.dart';
+import 'package:taoju5/capp/domain/repository/mine_api.dart';
 import 'package:taoju5/capp/res/R.dart';
 import 'package:taoju5/capp/routes/capp_routes.dart';
 
@@ -26,7 +33,7 @@ class CMineTileEntity {
 }
 
 class CMineController extends GetxController {
-  UserEntity user = UserEntity.smaple();
+  CUserEntity user = CUserEntity.smaple();
 
   List<CMineKongoEntity> get kongos => [
         CMineKongoEntity(
@@ -46,10 +53,22 @@ class CMineController extends GetxController {
         CMineTileEntity(
             icon: R.image.address,
             label: "地址管理",
-            onTap: () => Get.toNamed(CAppRoutes.mine + CAppRoutes.address,
+            onTap: () => Get.toNamed(CAppRoutes.mine + CAppRoutes.addressList,
                 parameters: {"userId": "${user.id}"})),
         CMineTileEntity(icon: R.image.feedback, label: "意见反馈", onTap: () {}),
         CMineTileEntity(
-            icon: R.image.customerService, label: "客服", onTap: () {})
+            icon: R.image.customerService, label: "客服", onTap: () {}),
+        CMineTileEntity(
+            icon: R.image.customerService, label: "售后申请", onTap: () {})
       ];
+
+  @override
+  void onInit() {
+    CMineRepository _repository = CMineRepository();
+    _repository.getUserInfo().then((CUserEntity value) {
+      user = value;
+      update();
+    });
+    super.onInit();
+  }
 }

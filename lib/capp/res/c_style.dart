@@ -1,3 +1,9 @@
+/*
+ * @Description: 字体
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-16 13:53:24
+ */
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -14,8 +20,33 @@ class CStyle {
   TextStyle headline6 = TextStyle(
       fontSize: R.dimen.sp16,
       color: R.color.primaryTextColor,
+      fontFamily: "PingFang",
+      fontWeight: FontWeight.w700);
+
+  TextStyle tileTip = TextStyle(
+      fontSize: R.dimen.sp12,
+      fontFamily: "PingFang",
+      color: R.color.tileTipColor);
+
+  ///顶部导航栏标题文字等
+  TextStyle h1 = TextStyle(
+      fontSize: R.dimen.sp18,
+      fontFamily: "PingFang",
+      fontWeight: FontWeight.w700);
+
+  ///重要标题/首页模块标题/弹窗标题
+  TextStyle h2 = TextStyle(
+      fontSize: R.dimen.sp15,
+      fontFamily: "PingFang",
+      fontWeight: FontWeight.w700);
+
+  ///次要标题/加入购物车选项模块标题等
+  TextStyle h3 = TextStyle(
+      fontSize: R.dimen.sp14,
+      fontFamily: "PingFang",
       fontWeight: FontWeight.w500);
 
-  TextStyle tileTip =
-      TextStyle(fontSize: R.dimen.sp12, color: R.color.tileTipColor);
+  ///次要标题/加入购物车选项模块标题/弹窗按钮文字等
+  TextStyle primaryText =
+      TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.w700);
 }

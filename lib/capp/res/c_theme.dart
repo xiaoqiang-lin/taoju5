@@ -1,6 +1,7 @@
 // part of R;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taoju5/capp/component/indicator/fixed_size_tab_indicator.dart';
 
 import 'R.dart';
 
@@ -12,8 +13,7 @@ class CTheme {
   factory CTheme() => _singleton;
 
   final ThemeData lightTheme = ThemeData(
-      // fontFamily: "PingFang SC",
-
+  
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.iconColor),
       scaffoldBackgroundColor: R.color.scaffoldBackgroundColor,
       toggleButtonsTheme: ToggleButtonsThemeData(),
@@ -26,10 +26,10 @@ class CTheme {
           TextSelectionThemeData(cursorColor: R.color.primaryColor),
       toggleableActiveColor: R.color.primaryColor,
       inputDecorationTheme: InputDecorationTheme(
-
-          // border: UnderlineInputBorder(
-          //     borderSide:
-          //         BorderSide(color: R.color.textFieldEnabledBorderColor)),
+          isCollapsed: true,
+          border: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
           focusedBorder: UnderlineInputBorder(
               borderSide:
                   BorderSide(color: R.color.textFieldEnabledBorderColor)),
@@ -37,13 +37,14 @@ class CTheme {
               borderSide:
                   BorderSide(color: R.color.textFieldEnabledBorderColor)),
           errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: R.color.errorColor)),
+              borderSide:
+                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
           errorStyle: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: R.dimen.sp10,
               color: R.color.errorColor),
           hintStyle:
-              TextStyle(color: R.color.hintColor, fontSize: R.dimen.sp15)),
+              TextStyle(color: R.color.hintColor, fontSize: R.dimen.sp12)),
       // toggleButtonsTheme: ToggleButtonsThemeData(color: R.color.primaryColor),
       dialogTheme: DialogTheme(
           titleTextStyle: TextStyle(
@@ -56,6 +57,7 @@ class CTheme {
           TextTheme(bodyText2: TextStyle(color: R.color.primaryTextColor)),
       appBarTheme: AppBarTheme(
           elevation: 0,
+          centerTitle: false,
           backgroundColor: R.color.appBarColor,
           titleTextStyle:
               TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.bold)),
@@ -68,7 +70,7 @@ class CTheme {
           labelStyle:
               TextStyle(fontWeight: FontWeight.w500, fontSize: R.dimen.sp13),
           // labelPadding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-          indicator: UnderlineTabIndicator(
+          indicator: FixedSizeUnderlineTabIndicator(
               insets: EdgeInsets.symmetric(horizontal: R.dimen.dp44),
               borderSide: BorderSide(
                   width: R.dimen.dp3, color: R.color.tabBarIndicatorColor))),
@@ -80,28 +82,19 @@ class CTheme {
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: R.color.primaryColor),
       textButtonTheme: TextButtonThemeData(
-          style: ButtonStyle(
-              elevation: MaterialStateProperty.all(0),
-              overlayColor: MaterialStateProperty.all(R.color.splashColor),
-              shape: MaterialStateProperty.all(StadiumBorder()),
-              backgroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.grey;
-                }
-                return R.color.textButtonBackgroudColor;
-              }),
-              foregroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.grey;
-                }
-                return R.color.textButtonForegroudColor;
-              }),
-
-              // padding: MaterialStateProperty.all(
-              //     EdgeInsets.symmetric(horizontal: 24, vertical: 8)),
-
-              minimumSize:
-                  MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
+          overlayColor: MaterialStateProperty.all(R.color.splashColor),
+          shape: MaterialStateProperty.all(StadiumBorder()),
+          backgroundColor: MaterialStateProperty.all(R.color.transparent),
+          foregroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return R.color.disabledColor;
+            }
+            return R.color.primaryColor;
+          }),
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),

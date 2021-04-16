@@ -2,9 +2,12 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-02-02 22:41:40
+ * @LastEditTime: 2021-04-16 09:21:04
  */
 class CAppRoutes {
+  ///app程序入口
+  static const main = '/main';
+
   static const home = '/home';
 
   static const debug = '/debug';
@@ -15,7 +18,34 @@ class CAppRoutes {
 
   static const profile = '/profile';
 
-  static const address = '/address';
+  static const addressList = '/address/list';
+
+  static const addressEdit = '/address/edit';
+
+  ///登陆相关
+  static const account = '/account';
 
   static const loginGuide = '/loginGuide';
+
+  static const customerPasswordLogin = '/customerPasswordLogin';
+
+  static const customerSmsLogin = '/customerSmsLogin';
+
+  static const businessPasswordLogin = '/businessPasswordLogin';
+
+  static const businessSmsLogin = '/businessSmsLogin';
+
+  static const modifyPassword1 = '/modifyPassword/first';
+
+  static const modifyPassword2 = '/modifyPassword/second';
+
+  static const modifyTelephone1 = '/modifyTelephone/first';
+
+  static const modifyTelephone2 = '/modifyTelephone/second';
+
+  ///设置
+  static const setting = '/setting';
+
+  ///订单
+  static const afterSell = '/afterSell';
 }

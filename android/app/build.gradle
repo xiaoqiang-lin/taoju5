@@ -75,10 +75,16 @@ android {
         }
 
         debug {
-            keyAlias keystoreProperties['debugKeyAlias']
-            keyPassword keystoreProperties['debugKeyPassword']
-            storeFile file(keystoreProperties['debugStoreFile'])
-            storePassword keystoreProperties['debugStorePassword']
+            // keyAlias keystoreProperties['debugKeyAlias']
+            // keyPassword keystoreProperties['debugKeyPassword']
+            // storeFile file(keystoreProperties['debugStoreFile'])
+            // storePassword keystoreProperties['debugStorePassword']
+
+
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
 

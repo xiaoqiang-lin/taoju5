@@ -291,6 +291,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.11"
   flutter_screenutil:
     dependency: "direct dev"
     description:
@@ -392,6 +399,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
+  image_picker:
+    dependency: "direct dev"
+    description:
+      name: image_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.5+3"
   intl:
     dependency: transitive
     description:
@@ -697,14 +711,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.47"
+    version: "19.1.56"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.47"
+    version: "19.1.56"
   synchronized:
     dependency: transitive
     description:

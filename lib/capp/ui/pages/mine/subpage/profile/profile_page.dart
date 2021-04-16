@@ -19,21 +19,25 @@ class CProfilePage extends StatelessWidget {
             child: Column(
               children: [
                 ///头像
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                  child: Row(
-                    children: [
-                      Text(
-                        "头像",
-                        style: TextStyle(fontSize: R.dimen.sp14),
-                      ),
-                      Spacer(),
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundImage: NetworkImage(_.user.avatar),
-                      ),
-                      Icon(R.icon.next)
-                    ],
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _.chooseAvatar,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                    child: Row(
+                      children: [
+                        Text(
+                          "头像",
+                          style: TextStyle(fontSize: R.dimen.sp14),
+                        ),
+                        Spacer(),
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundImage: NetworkImage(_.user.avatar),
+                        ),
+                        Icon(R.icon.next)
+                      ],
+                    ),
                   ),
                 ),
                 Divider(),

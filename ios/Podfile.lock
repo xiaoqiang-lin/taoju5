@@ -32,6 +32,8 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - image_picker (0.0.1):
+    - Flutter
   - multi_image_picker (4.7.15):
     - BSImagePicker (~> 2.10.3)
     - Flutter
@@ -68,6 +70,7 @@ DEPENDENCIES:
   - flutter_app_upgrade (from `.symlinks/plugins/flutter_app_upgrade/ios`)
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
   - fluwx (from `.symlinks/plugins/fluwx/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - multi_image_picker (from `.symlinks/plugins/multi_image_picker/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -108,6 +111,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_bugly/ios"
   fluwx:
     :path: ".symlinks/plugins/fluwx/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   multi_image_picker:
     :path: ".symlinks/plugins/multi_image_picker/ios"
   package_info:
@@ -146,6 +151,7 @@ SPEC CHECKSUMS:
   flutter_bugly: c9800f4d5bc5bdc27ffdde3417a26ba44266e0c3
   fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  image_picker: 66aa71bc96850a90590a35d4c4a2907b0d823109
   multi_image_picker: 58577ab96d99b35c82d626db7d81906d14c2b667
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

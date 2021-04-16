@@ -1,3 +1,9 @@
+/*
+ * @Description: 图片资源
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-16 15:01:08
+ */
 // part of R;
 class CImage {
   static CImage _singleton = CImage._();
@@ -31,4 +37,28 @@ class CImage {
   final String address = "resources/images/address.png";
   final String feedback = "resources/images/feedback.png";
   final String customerService = "resources/images/customer_service.png";
+
+  ///通用
+  final String close = "resources/images/close.png";
+
+  ///登陆
+  final String clear = "resources/images/clear.png";
+  final String eyeOpen = "resources/images/eye_open.png";
+  final String eyeClose = "resources/images/eye_close.png";
+
+  ///首页
+  final String factory = "resources/images/factory.png";
+  final String secure = "resources/images/secure.png";
+  final String lamp = "resources/images/lamp.png";
+  final String diamond = "resources/images/diamond.png";
+
+  ///是否选中
+  final String checked = "resources/images/checked.png";
+  final String unchecked = "resources/images/unchecked.png";
+
+  final String next = "resources/images/next.png";
+
+  ///定位
+  final String locationAccent = "resources/images/location_accent.png";
+  final String location = "resources/images/location.png";
 }

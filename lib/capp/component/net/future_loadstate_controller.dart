@@ -1,3 +1,9 @@
+/*
+ * @Description: 网络请求加载
+ * @Author: iamsmiling
+ * @Date: 2021-04-06 09:15:12
+ * @LastEditTime: 2021-04-16 17:04:03
+ */
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/capp/component/net/base/future_empty_view.dart';
@@ -33,6 +39,7 @@ abstract class FutureLoadStateController<T> extends GetxController {
 
   Map<FutureLoadState, Widget> viewBuilder;
 
+  @mustCallSuper
   FutureLoadStateController({@required this.builder})
       : assert(builder != null) {
     _initView();

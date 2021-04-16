@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/capp/res/R.dart';
+import 'package:taoju5/capp/ui/pages/design_pattern/design_pattern_page.dart';
 import 'package:taoju5/capp/ui/pages/home/home_page.dart';
 import 'package:taoju5/capp/ui/pages/mine/mine_page.dart';
 
@@ -31,7 +32,7 @@ class CMainController extends GetxController {
 
   final List<Widget> pages = [
     CHomePage(),
-    Text("分类"),
+    DesignPatternPage(),
     Text("淘学院"),
     Text("购物车"),
     CMinePage()

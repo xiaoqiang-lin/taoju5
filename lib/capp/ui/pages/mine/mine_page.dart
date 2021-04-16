@@ -1,3 +1,9 @@
+/*
+ * @Description: 我的页面
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-15 11:24:19
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5/capp/res/R.dart';
 import 'package:get/get.dart';
@@ -20,8 +26,7 @@ class CMinePage extends StatelessWidget {
           title: Text("我的"),
           actions: [
             GestureDetector(
-                onTap: () => Get.toNamed(CAppRoutes.mine + CAppRoutes.profile,
-                    arguments: _.user),
+                onTap: () => Get.toNamed(CAppRoutes.mine + CAppRoutes.setting),
                 child: Image.asset(R.image.setting))
           ],
         ),

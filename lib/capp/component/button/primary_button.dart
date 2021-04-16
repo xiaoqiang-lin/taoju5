@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum PrimaryButtonSize { normal, large, middle, small, mini, custom }
+enum CPrimaryButtonSize { normal, large, big, middle, small, mini, custom }
 
-enum PrimaryButtonMode {
+enum CPrimaryButtonMode {
   elevatedButton,
   outlinedButton,
   textButton,
@@ -10,9 +10,9 @@ enum PrimaryButtonMode {
 }
 
 // ignore: must_be_immutable
-class PrimaryButton extends StatelessWidget {
-  final PrimaryButtonSize size;
-  final PrimaryButtonMode mode;
+class CPrimaryButton extends StatelessWidget {
+  final CPrimaryButtonSize size;
+  final CPrimaryButtonMode mode;
   final String text;
   final EdgeInsets margin;
   final EdgeInsets padding;
@@ -23,10 +23,10 @@ class PrimaryButton extends StatelessWidget {
   final Color foregroundColor;
   final Color fillColor;
   final BoxConstraints constraints;
-  PrimaryButton(
+  CPrimaryButton(
       {Key key,
-      this.size = PrimaryButtonSize.normal,
-      this.mode = PrimaryButtonMode.elevatedButton,
+      this.size = CPrimaryButtonSize.normal,
+      this.mode = CPrimaryButtonMode.elevatedButton,
       this.constraints,
       @required this.text,
       this.margin,
@@ -37,7 +37,7 @@ class PrimaryButton extends StatelessWidget {
       this.foregroundColor,
       this.textStyle,
       this.fillColor = const Color(0xFFF5F5F5)})
-      : assert((size != PrimaryButtonSize.custom) || (constraints == null),
+      : assert((size != CPrimaryButtonSize.custom) || (constraints == null),
             "please provide a concrete size for the button"),
         assert(text != null, "please provide a text describing the button"),
         super(key: key) {
@@ -45,6 +45,7 @@ class PrimaryButton extends StatelessWidget {
     _initMargin();
     _initPadding();
     _initColor();
+    _initStyle();
     _initButtonMode();
   }
 
@@ -55,31 +56,32 @@ class PrimaryButton extends StatelessWidget {
 
   Widget _child;
   Color _color;
+  TextStyle _textStyle;
 
   _initSize() {
     _constraints = constraints;
-    if (size == PrimaryButtonSize.large) {
+    if (size == CPrimaryButtonSize.large) {
       _constraints ??= BoxConstraints(minWidth: double.maxFinite);
     }
 
-    if (mode == PrimaryButtonMode.materialButton) {
-      // _constraints
+    if (mode == CPrimaryButtonMode.materialButton) {
+      _constraints ??= BoxConstraints(minWidth: 110, minHeight: 38);
     }
   }
 
   _initMargin() {
     _margin = margin;
 
-    if (size == PrimaryButtonSize.large) {
+    if (size == CPrimaryButtonSize.big) {
       _margin ??= EdgeInsets.symmetric(horizontal: 56);
     }
   }
 
   _initPadding() {
-    if (size == PrimaryButtonSize.large) {
+    if (size == CPrimaryButtonSize.big || size == CPrimaryButtonSize.large) {
       _padding = EdgeInsets.symmetric(vertical: 13);
     }
-    if (size == PrimaryButtonSize.middle) {
+    if (size == CPrimaryButtonSize.middle) {
       _padding = EdgeInsets.symmetric(horizontal: 40, vertical: 10);
     }
     _padding ??= padding ?? EdgeInsets.zero;
@@ -87,45 +89,58 @@ class PrimaryButton extends StatelessWidget {
 
   _initColor() {
     _color = backgroundColor ?? foregroundColor;
-    if (mode == PrimaryButtonMode.materialButton) {
+    if (mode == CPrimaryButtonMode.materialButton) {
       _color ??= fillColor;
+    }
+    
+  }
+
+  _initStyle() {
+    _textStyle = textStyle;
+    if (mode == CPrimaryButtonMode.materialButton) {
+      _textStyle ??= TextStyle(color: const Color(0xFF666666));
     }
   }
 
   _initButtonMode() {
     _child = Padding(
       padding: _padding,
-      child: Text(text, style: textStyle),
+      child: Text(text, style: _textStyle),
     );
 
     switch (mode) {
-      case PrimaryButtonMode.elevatedButton:
+      case CPrimaryButtonMode.elevatedButton:
         {
           _child = ElevatedButton(onPressed: onPressed, child: _child);
           break;
         }
-      case PrimaryButtonMode.outlinedButton:
+      case CPrimaryButtonMode.outlinedButton:
         {
           _child = OutlinedButton(onPressed: onPressed, child: _child);
           break;
         }
-      case PrimaryButtonMode.textButton:
+      case CPrimaryButtonMode.textButton:
         {
           _child = TextButton(onPressed: onPressed, child: _child);
           break;
         }
-      case PrimaryButtonMode.materialButton:
+      case CPrimaryButtonMode.materialButton:
         {
-          _child = RawMaterialButton(
-            fillColor: _color,
-            elevation: 0,
-            focusElevation: 0,
-            highlightElevation: 0,
-            hoverElevation: 0,
-            disabledElevation: 0,
-            onPressed: onPressed,
-            child: _child,
-            constraints: _constraints,
+          _child = ClipRRect(
+            borderRadius: BorderRadius.circular(radius),
+            child: RawMaterialButton(
+              fillColor: _color,
+              elevation: 0,
+              focusElevation: 0,
+              highlightColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              highlightElevation: 0,
+              hoverElevation: 0,
+              disabledElevation: 0,
+              onPressed: onPressed,
+              child: _child,
+              constraints: _constraints,
+            ),
           );
           break;
         }

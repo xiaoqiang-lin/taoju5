@@ -22,11 +22,15 @@ class CColor {
 
   final Color splashColor = Colors.transparent;
 
+  final Color transparent = Colors.transparent;
+
   final Color hintColor = const Color(0xFFC7C8CC);
 
   final Color errorColor = const Color(0xFFFF0000);
 
   final Color dividerColor = const Color(0xFFE5E5E5);
+
+  final Color disabledColor = const Color(0xFFEE9B5F).withOpacity(.6);
 
   final Color barrierColor = Colors.black.withOpacity(.6);
 
@@ -57,6 +61,8 @@ class CColor {
   final Color tileTipColor = const Color(0xFFB4B4B4);
 
   final Color subtitleColor = const Color(0xFFB5B5B5);
+
+  final Color secondPrimaryTextColor = const Color(0xFF666666);
 
   final Color greyTextColor = const Color(0xFF999999);
 }
