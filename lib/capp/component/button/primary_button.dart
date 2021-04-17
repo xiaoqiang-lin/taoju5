@@ -60,7 +60,7 @@ class CPrimaryButton extends StatelessWidget {
 
   _initSize() {
     _constraints = constraints;
-    if (size == CPrimaryButtonSize.large) {
+    if (size == CPrimaryButtonSize.large || size == CPrimaryButtonSize.big) {
       _constraints ??= BoxConstraints(minWidth: double.maxFinite);
     }
 
@@ -92,7 +92,6 @@ class CPrimaryButton extends StatelessWidget {
     if (mode == CPrimaryButtonMode.materialButton) {
       _color ??= fillColor;
     }
-    
   }
 
   _initStyle() {

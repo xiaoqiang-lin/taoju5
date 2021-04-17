@@ -2,16 +2,25 @@
  * @Description: 电话号码输入框封装
  * @Author: iamsmiling
  * @Date: 2021-04-14 14:05:35
- * @LastEditTime: 2021-04-15 17:56:42
+ * @LastEditTime: 2021-04-17 16:42:12
  */
 import 'package:flutter/material.dart';
 
 import 'clearable_text_field.dart';
 
-class TelephoneTextField extends StatelessWidget {
+class CTelephoneTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
-  const TelephoneTextField({Key key, this.onChanged, this.hintText = "请输入手机号"})
+  final String errorText;
+
+  ///是否开启错误提示
+  final bool enabledErrorHint;
+  const CTelephoneTextField(
+      {Key key,
+      this.onChanged,
+      this.hintText = "请输入手机号",
+      this.errorText = "手机号错误",
+      this.enabledErrorHint = false})
       : super(key: key);
 
   @override
@@ -21,9 +30,9 @@ class TelephoneTextField extends StatelessWidget {
       suffixIcon: Image.asset("resources/images/clear.png"),
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-        hintText: hintText,
-        // errorText: "手机号输入错误",
-      ),
+          hintText: hintText, errorText: enabledErrorHint ? errorText : null
+          // errorText: "手机号输入错误",
+          ),
     );
   }
 }

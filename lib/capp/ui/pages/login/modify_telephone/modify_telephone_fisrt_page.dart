@@ -36,7 +36,7 @@ class CModifyTelephoneFirstPage extends StatelessWidget {
                     children: [
                       Text("修改手机号", style: R.style.h1),
                       Container(
-                        child: TelephoneTextField(),
+                        child: CTelephoneTextField(),
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
                       ),

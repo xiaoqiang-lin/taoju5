@@ -1,9 +1,14 @@
+/*
+ * @Description: //TODO
+ * @Author: iamsmiling
+ * @Date: 2021-03-27 17:51:12
+ * @LastEditTime: 2021-04-17 10:32:04
+ */
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -38,5 +43,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+
+//pass input image(.jpeg,.pnp .....) path ,output image(give path where to save and image file name with .webp extension)
+//pass option(read  documentation for options)
+
+//cwebp(input,output,option)
 
 module.exports = app;

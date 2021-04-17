@@ -2,7 +2,7 @@
  * @Description: 修改手机号
  * @Author: iamsmiling
  * @Date: 2021-04-14 17:33:34
- * @LastEditTime: 2021-04-15 17:57:15
+ * @LastEditTime: 2021-04-17 16:38:29
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/capp/component/button/primary_button.dart';
@@ -36,7 +36,7 @@ class CModifyTelephoneSecondPage extends StatelessWidget {
                     children: [
                       Text("修改手机号", style: R.style.h1),
                       Container(
-                        child: TelephoneTextField(
+                        child: CTelephoneTextField(
                           hintText: "请输入需要绑定的新手机号",
                         ),
                         margin: EdgeInsets.only(

@@ -2,7 +2,7 @@
  * @Description: 常用工具方法
  * @Author: iamsmiling
  * @Date: 2020-12-24 10:44:12
- * @LastEditTime: 2021-02-10 10:55:46
+ * @LastEditTime: 2021-04-17 16:30:52
  */
 
 import 'dart:async';
@@ -61,4 +61,6 @@ abstract class CommonKit {
             '^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$')
         .hasMatch(val);
   }
+
+  // static bool get isImage(String val)=>GetUtils.isImage(filePath)
 }

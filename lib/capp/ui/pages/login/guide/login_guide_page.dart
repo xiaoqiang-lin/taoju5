@@ -1,3 +1,9 @@
+/*
+ * @Description: 登录引导页面
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-17 16:35:20
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5/capp/component/button/primary_button.dart';
 import 'package:taoju5/capp/res/R.dart';
@@ -17,7 +23,10 @@ class CLoginGuidePage extends StatelessWidget {
             body: SingleChildScrollView(
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top: kToolbarHeight * 2 + R.dimen.dp20),
+                margin: EdgeInsets.only(
+                    top: kToolbarHeight * 2 + R.dimen.dp20,
+                    left: R.dimen.dp56,
+                    right: R.dimen.dp56),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

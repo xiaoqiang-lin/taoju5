@@ -2,7 +2,7 @@
  * @Description: 验证码登陆
  * @Author: iamsmiling
  * @Date: 2021-04-14 15:14:00
- * @LastEditTime: 2021-04-16 09:38:32
+ * @LastEditTime: 2021-04-17 16:38:21
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/capp/component/button/primary_button.dart';
@@ -38,7 +38,7 @@ class CCustomerSmsLoginPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
-                        child: TelephoneTextField(onChanged: _.setTelephone),
+                        child: CTelephoneTextField(onChanged: _.setTelephone),
                       ),
                       SmsTextField(
                           onChanged: _.setSmsCode, onPressed: _.getSmsCode),

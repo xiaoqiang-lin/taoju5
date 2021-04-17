@@ -40,7 +40,7 @@ class CBusinessSmsLoginPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(
                               top: R.dimen.dp48, bottom: R.dimen.dp20),
-                          child: TelephoneTextField(),
+                          child: CTelephoneTextField(),
                         ),
                         SmsTextField(
                           onPressed: () {},

@@ -1,3 +1,9 @@
+/*
+ * @Description: 商户登录
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 16:56:35
+ * @LastEditTime: 2021-04-17 16:38:52
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/capp/component/button/primary_button.dart';
@@ -35,7 +41,7 @@ class CBusinessPasswordLoginPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(
                               top: R.dimen.dp48, bottom: R.dimen.dp20),
-                          child: TelephoneTextField(),
+                          child: CTelephoneTextField(),
                         ),
                         PasswordTextField(),
                         Container(
