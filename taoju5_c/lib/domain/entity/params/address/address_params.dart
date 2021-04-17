@@ -8,7 +8,7 @@
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 
-class CAddressParamsEntity extends CBaseParamsEntity {
+class AddressParamsEntity extends BaseParamsEntity {
   String provinceName;
   String cityName;
   String districtName;
@@ -21,9 +21,9 @@ class CAddressParamsEntity extends CBaseParamsEntity {
   int districtId;
   int addressId;
 
-  CAddressParamsEntity.empty();
+  AddressParamsEntity.empty();
 
-  CAddressParamsEntity.fromAddress(CAddressEntity address) {
+  AddressParamsEntity.fromAddress(AddressEntity address) {
     assert(address != null);
     addressId = address.id;
     provinceName = address.provinceName;

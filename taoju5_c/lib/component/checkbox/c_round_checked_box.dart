@@ -2,25 +2,25 @@
  * @Description: 圆形checkbox
  * @Author: iamsmiling
  * @Date: 2021-04-16 09:59:55
- * @LastEditTime: 2021-04-17 17:41:36
+ * @LastEditTime: 2021-04-17 18:24:16
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class CRoundCheckbox extends StatefulWidget {
+class RoundCheckbox extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
-  CRoundCheckbox({Key key, @required this.value, @required this.onChanged})
+  RoundCheckbox({Key key, @required this.value, @required this.onChanged})
       : assert(value != null, "please provide a initial value"),
         assert(onChanged != null,
             "please provide a action when the value changed"),
         super(key: key);
 
   @override
-  _CRoundCheckBoxState createState() => _CRoundCheckBoxState();
+  _RoundCheckboxState createState() => _RoundCheckboxState();
 }
 
-class _CRoundCheckBoxState extends State<CRoundCheckbox> {
+class _RoundCheckboxState extends State<RoundCheckbox> {
   bool _isChecked = true;
 
   @override

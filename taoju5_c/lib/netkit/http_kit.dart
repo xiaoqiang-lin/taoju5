@@ -53,7 +53,7 @@ class HttpKit {
     dio.interceptors.add(ApiInterceptor());
   }
 
-  Future<CBaseEntity> get(String url, {Map params, Options options}) async {
+  Future<BaseEntity> get(String url, {Map params, Options options}) async {
     return dio
         .get(url,
             queryParameters: params?.cast<String, dynamic>(), options: options)
@@ -65,7 +65,7 @@ class HttpKit {
     });
   }
 
-  Future<CBaseEntity> post(String url,
+  Future<BaseEntity> post(String url,
       {Map params, Options options, Map formData}) async {
     return dio
         .post(url,

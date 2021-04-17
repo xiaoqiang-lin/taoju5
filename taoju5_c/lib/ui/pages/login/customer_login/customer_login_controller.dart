@@ -17,35 +17,35 @@ import 'package:taoju5_c/utils/toast.dart';
 import 'package:taoju5_bc/config/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class CLoginStrategy {
+abstract class LoginStrategy {
   CLoginRepository repository = CLoginRepository();
 
-  Function(CBaseEntity entity) onSuccess;
+  Function(BaseEntity entity) onSuccess;
   Future login(Map params) {
     assert(params != null);
     ToastKit.loading(message: "正在登录");
     return repository.login(params).then(onSuccess);
   }
 
-  void setSuccessHandler(Function(CBaseEntity entity) handler) {
+  void setSuccessHandler(Function(BaseEntity entity) handler) {
     onSuccess = handler;
   }
 }
 
 ///密码登陆
-class CPasswordLoginStrategy extends CLoginStrategy {
+class PasswordLoginStrategy extends LoginStrategy {
   @override
-  Function(CBaseEntity entity) onSuccess;
+  Function(BaseEntity entity) onSuccess;
 }
 
 ///密码登陆
-class CSmsCodeLoginStrategy extends CLoginStrategy {
+class SmsCodeLoginStrategy extends LoginStrategy {
   @override
-  Function(CBaseEntity entity) onSuccess;
+  Function(BaseEntity entity) onSuccess;
 }
 
 ///微信登陆
-class CWeChatLoginStrategy extends CLoginStrategy {
+class WeChatLoginStrategy extends LoginStrategy {
   StreamSubscription _subscription;
 
   @override
@@ -76,18 +76,18 @@ class CWeChatLoginStrategy extends CLoginStrategy {
   }
 
   @override
-  Function(CBaseEntity entity) onSuccess;
+  Function(BaseEntity entity) onSuccess;
 }
 
-class CCustomerLoginController extends GetxController {
+class CustomerLoginController extends GetxController {
   bool isPasswordVisible = true;
 
-  CLoginParamsEntity _loginArg = CLoginParamsEntity();
+  LoginParamsEntity _loginArg = LoginParamsEntity();
 
-  void _onLoginSuccess(CBaseEntity entity) async {
+  void _onLoginSuccess(BaseEntity entity) async {
     SharedPreferences _sp = await SharedPreferences.getInstance();
     await _sp.setString("token", entity.data);
-    Get.offAndToNamed(CAppRoutes.main);
+    Get.offAndToNamed(AppRoutes.main);
   }
 
   void setPassword(String val) {
@@ -112,7 +112,7 @@ class CCustomerLoginController extends GetxController {
     throw Future.error(false);
   }
 
-  Future login(CLoginStrategy strategy, CLoginMode mode) {
+  Future login(LoginStrategy strategy, CLoginMode mode) {
     assert(strategy != null);
     _loginArg.mode = mode;
     strategy.setSuccessHandler(_onLoginSuccess);

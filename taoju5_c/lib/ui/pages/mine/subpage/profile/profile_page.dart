@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
 
-class CProfilePage extends StatelessWidget {
-  const CProfilePage({Key key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CProfileController>(builder: (_) {
+    return GetBuilder<ProfileController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
           title: Text("个人资料"),

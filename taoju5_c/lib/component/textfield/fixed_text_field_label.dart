@@ -2,15 +2,15 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-16 14:24:25
- * @LastEditTime: 2021-04-16 14:42:32
+ * @LastEditTime: 2021-04-17 18:18:08
  */
 import 'package:flutter/material.dart';
 
-class CFixedTextFieldLabel extends StatelessWidget {
+class FixedTextFieldLabel extends StatelessWidget {
   final String label;
   final TextStyle labelStyle;
   final BoxConstraints constraints;
-  const CFixedTextFieldLabel(
+  const FixedTextFieldLabel(
       {Key key,
       @required this.label,
       this.labelStyle = const TextStyle(fontSize: 13, color: Color(0xFF333333)),

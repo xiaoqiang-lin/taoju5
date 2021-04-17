@@ -1,8 +1,14 @@
+/*
+ * @Description:首页场景模块
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-17 18:21:02
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class CHomeSceneSection extends StatelessWidget {
-  const CHomeSceneSection({Key key}) : super(key: key);
+class HomeSceneSection extends StatelessWidget {
+  const HomeSceneSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

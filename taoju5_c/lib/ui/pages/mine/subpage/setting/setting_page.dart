@@ -1,3 +1,9 @@
+/*
+ * @Description: 设置页面
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-17 18:43:02
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/appbar/app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -5,12 +11,12 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/widget/setting_tile.dart';
 
-class CSettingPage extends StatelessWidget {
-  const CSettingPage({Key key}) : super(key: key);
+class SettingPage extends StatelessWidget {
+  const SettingPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CSettingController>(builder: (_) {
+    return GetBuilder<SettingController>(builder: (_) {
       return Scaffold(
         appBar: CAppBar(
           title: Text("设置"),
@@ -23,8 +29,8 @@ class CSettingPage extends StatelessWidget {
                 Container(
                   child: Column(
                     children: [
-                      for (CSettingTileEntity item in _.accountGroup)
-                        CSettingListTile(entity: item)
+                      for (SettingTileEntity item in _.accountGroup)
+                        SettingListTile(entity: item)
                     ],
                   ),
                 ),
@@ -32,8 +38,8 @@ class CSettingPage extends StatelessWidget {
                   margin: EdgeInsets.only(top: R.dimen.dp30),
                   child: Column(
                     children: [
-                      for (CSettingTileEntity item in _.appGroup)
-                        CSettingListTile(entity: item)
+                      for (SettingTileEntity item in _.appGroup)
+                        SettingListTile(entity: item)
                     ],
                   ),
                 ),

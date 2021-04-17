@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
 
-class CMineFooterSection extends StatelessWidget {
-  final List<CMineTileEntity> tiles;
-  const CMineFooterSection({Key key, @required this.tiles})
+class MineFooterSection extends StatelessWidget {
+  final List<MineTileEntity> tiles;
+  const MineFooterSection({Key key, @required this.tiles})
       : assert(tiles != null),
         super(key: key);
 
@@ -18,7 +18,7 @@ class CMineFooterSection extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: R.dimen.dp5),
             child: Text("其他", style: R.style.headline6),
           ),
-          for (CMineTileEntity item in tiles)
+          for (MineTileEntity item in tiles)
             GestureDetector(
               onTap: item.onTap,
               behavior: HitTestBehavior.translucent,

@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 
-class CSettingListTile extends StatelessWidget {
-  final CSettingTileEntity entity;
-  const CSettingListTile({Key key, @required this.entity})
+class SettingListTile extends StatelessWidget {
+  final SettingTileEntity entity;
+  const SettingListTile({Key key, @required this.entity})
       : assert(entity != null),
         super(key: key);
 

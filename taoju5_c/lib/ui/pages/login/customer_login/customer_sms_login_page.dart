@@ -15,12 +15,12 @@ import 'package:taoju5_c/ui/pages/login/customer_login/customer_login_controller
 import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
-class CCustomerSmsLoginPage extends StatelessWidget {
-  const CCustomerSmsLoginPage({Key key}) : super(key: key);
+class CustomerSmsLoginPage extends StatelessWidget {
+  const CustomerSmsLoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CCustomerLoginController>(builder: (_) {
+    return GetBuilder<CustomerLoginController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
@@ -29,7 +29,7 @@ class CCustomerSmsLoginPage extends StatelessWidget {
             margin: EdgeInsets.only(top: kToolbarHeight + R.dimen.dp20),
             child: Column(
               children: [
-                CLoginHeaderSection(),
+                LoginHeaderSection(),
                 Container(
                   margin: EdgeInsets.only(bottom: R.dimen.dp24),
                   padding: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
@@ -38,7 +38,7 @@ class CCustomerSmsLoginPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
-                        child: CTelephoneTextField(onChanged: _.setTelephone),
+                        child: TelephoneTextField(onChanged: _.setTelephone),
                       ),
                       SmsTextField(
                           onChanged: _.setSmsCode, onPressed: _.getSmsCode),
@@ -56,23 +56,23 @@ class CCustomerSmsLoginPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                CPrimaryButton(
+                PrimaryButton(
                   text: "验证码登录",
-                  size: CPrimaryButtonSize.big,
+                  size: PrimaryButtonSize.big,
                   onPressed: () =>
-                      _.login(CSmsCodeLoginStrategy(), CLoginMode.sms),
+                      _.login(SmsCodeLoginStrategy(), CLoginMode.sms),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp20),
-                  child: CPrimaryButton(
+                  child: PrimaryButton(
                     text: "微信登录",
-                    size: CPrimaryButtonSize.big,
-                    mode: CPrimaryButtonMode.outlinedButton,
+                    size: PrimaryButtonSize.big,
+                    mode: PrimaryButtonMode.outlinedButton,
                     onPressed: () =>
-                        _.login(CWeChatLoginStrategy(), CLoginMode.wechat),
+                        _.login(WeChatLoginStrategy(), CLoginMode.wechat),
                   ),
                 ),
-                CLoginFooterSection()
+                LoginFooterSection()
               ],
             ),
           ),

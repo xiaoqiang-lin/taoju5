@@ -8,10 +8,10 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_controller.dart';
 
-class CAddressEditBinding extends Bindings {
+class AddressEditBinding extends Bindings {
   @override
   void dependencies() {
-    assert(Get.arguments == null || Get.arguments is CAddressEntity);
-    Get.lazyPut(() => CAddressEditController(currentAddress: Get.arguments));
+    assert(Get.arguments == null || Get.arguments is AddressEntity);
+    Get.lazyPut(() => AddressEditController(currentAddress: Get.arguments));
   }
 }

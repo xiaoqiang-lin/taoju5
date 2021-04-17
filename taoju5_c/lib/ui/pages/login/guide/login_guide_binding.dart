@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 import 'login_guide_controller.dart';
 
-class CLoginGuideBinding extends Bindings {
+class LoginGuideBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => CLoginGuideController());
+    Get.lazyPut(() => LoginGuideController());
   }
 }

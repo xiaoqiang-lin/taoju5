@@ -12,14 +12,14 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/widget/setting_tile.dart';
 
-class CAccountPage extends StatelessWidget {
-  const CAccountPage({Key key}) : super(key: key);
+class AccountPage extends StatelessWidget {
+  const AccountPage({Key key}) : super(key: key);
 
-  static List<CSettingTileEntity> tiles = [
-    CSettingTileEntity(
-        label: "修改手机号", onTap: () => Get.toNamed(CAppRoutes.modifyTelephone1)),
-    CSettingTileEntity(
-        label: "修改密码", onTap: () => Get.toNamed(CAppRoutes.modifyPassword1)),
+  static List<SettingTileEntity> tiles = [
+    SettingTileEntity(
+        label: "修改手机号", onTap: () => Get.toNamed(AppRoutes.modifyTelephone1)),
+    SettingTileEntity(
+        label: "修改密码", onTap: () => Get.toNamed(AppRoutes.modifyPassword1)),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,7 @@ class CAccountPage extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
         child: Column(
           children: [
-            for (CSettingTileEntity item in tiles)
-              CSettingListTile(entity: item)
+            for (SettingTileEntity item in tiles) SettingListTile(entity: item)
           ],
         ),
       ),

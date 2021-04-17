@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CModifyPasswordSecondPage extends StatelessWidget {
-  const CModifyPasswordSecondPage({Key key}) : super(key: key);
+class ModifyPasswordSecondPage extends StatelessWidget {
+  const ModifyPasswordSecondPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

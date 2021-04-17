@@ -15,12 +15,12 @@ import 'package:taoju5_c/ui/pages/login/bussiness_login/bussiness_login_controll
 import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
-class CBusinessPasswordLoginPage extends StatelessWidget {
-  const CBusinessPasswordLoginPage({Key key}) : super(key: key);
+class BusinessPasswordLoginPage extends StatelessWidget {
+  const BusinessPasswordLoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CBusinessLoginController>(
+    return GetBuilder<BusinessLoginController>(
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
@@ -32,7 +32,7 @@ class CBusinessPasswordLoginPage extends StatelessWidget {
               margin: EdgeInsets.only(top: R.dimen.dp30),
               child: Column(
                 children: [
-                  CLoginHeaderSection(),
+                  LoginHeaderSection(),
                   Container(
                     margin: EdgeInsets.only(bottom: R.dimen.dp24),
                     padding: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
@@ -41,7 +41,7 @@ class CBusinessPasswordLoginPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(
                               top: R.dimen.dp48, bottom: R.dimen.dp20),
-                          child: CTelephoneTextField(),
+                          child: TelephoneTextField(),
                         ),
                         PasswordTextField(),
                         Container(
@@ -56,7 +56,7 @@ class CBusinessPasswordLoginPage extends StatelessWidget {
                                   color: R.color.primaryColor),
                             ),
                             onTap: () =>
-                                Get.toNamed(CAppRoutes.businessSmsLogin),
+                                Get.toNamed(AppRoutes.businessSmsLogin),
                           ),
                         ),
                       ],
@@ -64,13 +64,13 @@ class CBusinessPasswordLoginPage extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: R.dimen.dp20),
-                    child: CPrimaryButton(
+                    child: PrimaryButton(
                       text: "登录",
-                      size: CPrimaryButtonSize.large,
+                      size: PrimaryButtonSize.large,
                       onPressed: () {},
                     ),
                   ),
-                  CLoginFooterSection()
+                  LoginFooterSection()
                 ],
               ),
             ),

@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-04-15 14:36:24
  */
 
-class CWeChatLoginEntity {
+class WeChatLoginEntity {
   String accessToken;
   int expiresIn;
   String refreshToken;
@@ -13,7 +13,7 @@ class CWeChatLoginEntity {
   String scope;
   String unionId;
 
-  CWeChatLoginEntity.fromJson(Map json) {
+  WeChatLoginEntity.fromJson(Map json) {
     accessToken = json["access_token"];
     expiresIn = json["expires_in"];
     refreshToken = json["refresh_token"];

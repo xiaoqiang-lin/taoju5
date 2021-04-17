@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class CLoginHeaderSection extends StatelessWidget {
-  const CLoginHeaderSection({Key key}) : super(key: key);
+class LoginHeaderSection extends StatelessWidget {
+  const LoginHeaderSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

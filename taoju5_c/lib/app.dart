@@ -25,9 +25,9 @@ class $CAPP extends StatelessWidget {
     return GetMaterialApp(
       key: ValueKey(AppEnv.$c),
       title: AppConfig.appName,
-      getPages: CAppPages.pages,
-      home: CMainPage(),
-      initialBinding: CMainBinding(),
+      getPages: AppPages.pages,
+      home: MainPage(),
+      initialBinding: MainBinding(),
       theme: R.theme.lightTheme,
       defaultTransition: Transition.cupertino,
       popGesture: false,

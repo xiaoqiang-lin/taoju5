@@ -15,34 +15,34 @@ class CMineRepository {
   CMineAPI _api = CMineAPI();
 
   ///新建地址
-  Future<CUserEntity> getUserInfo() => _api
+  Future<UserEntity> getUserInfo() => _api
       .getUserInfo()
-      .then((CBaseEntity response) => CUserEntity.fromJson(response.data));
+      .then((BaseEntity response) => UserEntity.fromJson(response.data));
 
   ///新建地址
-  Future<CBaseEntity> addAddress(Map params) => _api.addAddress(params);
+  Future<BaseEntity> addAddress(Map params) => _api.addAddress(params);
 
   ///编辑
-  Future<CBaseEntity> editAddress(Map params) => _api.editAddress(params);
+  Future<BaseEntity> editAddress(Map params) => _api.editAddress(params);
 
   ///查询
-  Future<List<CAddressEntity>> getAddressList(Map params) =>
-      _api.getAddressList(params).then((CBaseEntity response) {
+  Future<List<AddressEntity>> getAddressList(Map params) =>
+      _api.getAddressList(params).then((BaseEntity response) {
         List list = JsonKit.asList(response.data);
-        return list.map((e) => CAddressEntity.fromJson(e)).toList();
+        return list.map((e) => AddressEntity.fromJson(e)).toList();
       });
 
   ///设为默认地址
-  Future<List<CAddressEntity>> setDefaultAddress(Map params) =>
-      _api.setDefaultAddress(params).then((CBaseEntity response) {
+  Future<List<AddressEntity>> setDefaultAddress(Map params) =>
+      _api.setDefaultAddress(params).then((BaseEntity response) {
         List list = JsonKit.asList(response.data);
-        return list.map((e) => CAddressEntity.fromJson(e)).toList();
+        return list.map((e) => AddressEntity.fromJson(e)).toList();
       });
 
   ///删除地址
-  Future<List<CAddressEntity>> delAddress(Map params) =>
-      _api.delAddress(params).then((CBaseEntity response) {
+  Future<List<AddressEntity>> delAddress(Map params) =>
+      _api.delAddress(params).then((BaseEntity response) {
         List list = JsonKit.asList(response.data);
-        return list.map((e) => CAddressEntity.fromJson(e)).toList();
+        return list.map((e) => AddressEntity.fromJson(e)).toList();
       });
 }

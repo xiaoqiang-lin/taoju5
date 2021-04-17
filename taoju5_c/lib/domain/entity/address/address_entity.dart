@@ -6,7 +6,7 @@
  */
 import 'package:flutter/cupertino.dart';
 
-class CAddressEntity {
+class AddressEntity {
   String receiverName;
   String telephone;
   String concreteInfo;
@@ -21,9 +21,9 @@ class CAddressEntity {
   int cityId;
   int districtId;
 
-  CAddressEntity.empty();
+  AddressEntity.empty();
 
-  CAddressEntity.fromJson(Map json) {
+  AddressEntity.fromJson(Map json) {
     receiverName = json["consigner"];
     telephone = json["mobile"];
     provinceName = json["province_name"];
@@ -38,7 +38,7 @@ class CAddressEntity {
     description = json["all_address"];
   }
 
-  CAddressEntity.sample({@required int id, bool isDefault = false}) {
+  AddressEntity.sample({@required int id, bool isDefault = false}) {
     this.id = id;
     receiverName = "青红造了个白";
     telephone = "13588414007";

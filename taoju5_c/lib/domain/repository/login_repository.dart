@@ -9,14 +9,14 @@ import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/domain/provider/login_api.dart';
 
 class CLoginRepository {
-  CLoginAPI _api = CLoginAPI();
+  LoginAPI _api = LoginAPI();
 
-  Future<CBaseEntity> weChatLogin(Map params) {
+  Future<BaseEntity> weChatLogin(Map params) {
     return _api.weChatLogin(params);
   }
 
-  Future<CBaseEntity> login(Map params) => _api.login(params);
+  Future<BaseEntity> login(Map params) => _api.login(params);
 
   ///获取验证码
-  Future<CBaseEntity> getSmsCode(Map params) => _api.getSmsCode(params);
+  Future<BaseEntity> getSmsCode(Map params) => _api.getSmsCode(params);
 }

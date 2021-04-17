@@ -4,7 +4,7 @@
  * @Date: 2021-02-02 22:40:24
  * @LastEditTime: 2021-04-16 09:21:04
  */
-class CAppRoutes {
+class AppRoutes {
   ///app程序入口
   static const main = '/main';
 

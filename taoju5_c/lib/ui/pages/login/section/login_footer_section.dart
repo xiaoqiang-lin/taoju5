@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class CLoginFooterSection extends StatelessWidget {
-  const CLoginFooterSection({Key key}) : super(key: key);
+class LoginFooterSection extends StatelessWidget {
+  const LoginFooterSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

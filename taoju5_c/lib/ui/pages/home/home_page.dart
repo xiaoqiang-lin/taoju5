@@ -15,8 +15,8 @@ import 'package:taoju5_c/ui/pages/home/section/home_scene_section.dart';
 import 'home_controller.dart';
 import 'section/home_banner_section.dart';
 
-class CHomePage extends StatelessWidget {
-  const CHomePage({Key key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key key}) : super(key: key);
 
   static MethodChannel methodChannel = MethodChannel('taoju5_amap');
 
@@ -26,7 +26,7 @@ class CHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CHomeController>(builder: (_) {
+    return GetBuilder<HomeController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: R.color.primaryColor,
@@ -34,9 +34,9 @@ class CHomePage extends StatelessWidget {
         ),
         body: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: CHomeBannerSection()),
-            SliverToBoxAdapter(child: CHomeSceneSection()),
-            SliverToBoxAdapter(child: CHomeCustomMadeSection())
+            SliverToBoxAdapter(child: HomeBannerSection()),
+            SliverToBoxAdapter(child: HomeSceneSection()),
+            SliverToBoxAdapter(child: HomeCustomMadeSection())
           ],
         ),
       );

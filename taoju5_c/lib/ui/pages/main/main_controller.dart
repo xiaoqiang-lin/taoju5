@@ -5,37 +5,37 @@ import 'package:taoju5_c/ui/pages/design_pattern/design_pattern_page.dart';
 import 'package:taoju5_c/ui/pages/home/home_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
 
-class CBottomNavigationBarItemEntity {
+class BottomNavigationBarItemEntity {
   final String title;
   final String activeIcon;
   final String icon;
 
-  CBottomNavigationBarItemEntity(
+  BottomNavigationBarItemEntity(
       {@required this.title, @required this.activeIcon, @required this.icon});
 }
 
-class CMainController extends GetxController {
-  final List<CBottomNavigationBarItemEntity> navigationItemEntities = [
-    CBottomNavigationBarItemEntity(
+class MainController extends GetxController {
+  final List<BottomNavigationBarItemEntity> navigationItemEntities = [
+    BottomNavigationBarItemEntity(
         title: "首页", activeIcon: R.image.homeActive, icon: R.image.home),
-    CBottomNavigationBarItemEntity(
+    BottomNavigationBarItemEntity(
         title: "分类",
         activeIcon: R.image.categoryActive,
         icon: R.image.category),
-    CBottomNavigationBarItemEntity(
+    BottomNavigationBarItemEntity(
         title: "淘学院", activeIcon: R.image.schoolActive, icon: R.image.school),
-    CBottomNavigationBarItemEntity(
+    BottomNavigationBarItemEntity(
         title: "购物车", activeIcon: R.image.cartActive, icon: R.image.cart),
-    CBottomNavigationBarItemEntity(
+    BottomNavigationBarItemEntity(
         title: "我的", activeIcon: R.image.mineActive, icon: R.image.mine),
   ];
 
   final List<Widget> pages = [
-    CHomePage(),
+    HomePage(),
     DesignPatternPage(),
     Text("淘学院"),
     Text("购物车"),
-    CMinePage()
+    MinePage()
   ];
 
   int currentIndex = 0;

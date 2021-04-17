@@ -14,12 +14,12 @@ import 'package:taoju5_c/ui/pages/login/bussiness_login/bussiness_login_controll
 import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
-class CBusinessSmsLoginPage extends StatelessWidget {
-  const CBusinessSmsLoginPage({Key key}) : super(key: key);
+class BusinessSmsLoginPage extends StatelessWidget {
+  const BusinessSmsLoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CBusinessLoginController>(
+    return GetBuilder<BusinessLoginController>(
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
@@ -31,7 +31,7 @@ class CBusinessSmsLoginPage extends StatelessWidget {
               margin: EdgeInsets.only(top: R.dimen.dp30),
               child: Column(
                 children: [
-                  CLoginHeaderSection(),
+                  LoginHeaderSection(),
                   Container(
                     margin: EdgeInsets.only(bottom: R.dimen.dp24),
                     padding: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
@@ -40,7 +40,7 @@ class CBusinessSmsLoginPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(
                               top: R.dimen.dp48, bottom: R.dimen.dp20),
-                          child: CTelephoneTextField(),
+                          child: TelephoneTextField(),
                         ),
                         SmsTextField(
                           onPressed: () {},
@@ -50,13 +50,13 @@ class CBusinessSmsLoginPage extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: R.dimen.dp48),
-                    child: CPrimaryButton(
+                    child: PrimaryButton(
                       text: "登录",
-                      size: CPrimaryButtonSize.large,
+                      size: PrimaryButtonSize.large,
                       onPressed: () {},
                     ),
                   ),
-                  CLoginFooterSection()
+                  LoginFooterSection()
                 ],
               ),
             ),

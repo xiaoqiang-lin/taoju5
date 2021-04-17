@@ -7,9 +7,9 @@
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_controller.dart';
 
-class CAddressListBinding extends Bindings {
+class AddressListBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => CAddressListController());
+    Get.lazyPut(() => AddressListController());
   }
 }

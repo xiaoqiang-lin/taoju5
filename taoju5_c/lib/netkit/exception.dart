@@ -1,3 +1,9 @@
+/*
+ * @Description: 自定义异常
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-17 18:19:03
+ */
 /// 接口的code没有返回为true的异常
 class NetErrorException implements Exception {
   String message;

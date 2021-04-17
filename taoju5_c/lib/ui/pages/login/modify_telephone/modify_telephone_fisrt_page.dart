@@ -14,12 +14,12 @@ import 'package:taoju5_c/routes/capp_routes.dart';
 import 'modify_telephone_controller.dart';
 import 'package:get/get.dart';
 
-class CModifyTelephoneFirstPage extends StatelessWidget {
-  const CModifyTelephoneFirstPage({Key key}) : super(key: key);
+class ModifyTelephoneFirstPage extends StatelessWidget {
+  const ModifyTelephoneFirstPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CModifyTelephoneController>(builder: (_) {
+    return GetBuilder<ModifyTelephoneController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(),
         body: Container(
@@ -36,7 +36,7 @@ class CModifyTelephoneFirstPage extends StatelessWidget {
                     children: [
                       Text("修改手机号", style: R.style.h1),
                       Container(
-                        child: CTelephoneTextField(),
+                        child: TelephoneTextField(),
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
                       ),
@@ -44,10 +44,10 @@ class CModifyTelephoneFirstPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                CPrimaryButton(
-                    size: CPrimaryButtonSize.large,
+                PrimaryButton(
+                    size: PrimaryButtonSize.large,
                     text: "下一步",
-                    onPressed: () => Get.toNamed(CAppRoutes.modifyTelephone2))
+                    onPressed: () => Get.toNamed(AppRoutes.modifyTelephone2))
               ],
             ),
           ),

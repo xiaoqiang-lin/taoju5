@@ -35,90 +35,88 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
 
 import 'capp_routes.dart';
 
-class CAppPages {
+class AppPages {
   static final pages = [
     ///登录
     GetPage(
-        name: CAppRoutes.loginGuide,
-        page: () => CLoginGuidePage(),
-        binding: CLoginGuideBinding()),
+        name: AppRoutes.loginGuide,
+        page: () => LoginGuidePage(),
+        binding: LoginGuideBinding()),
     GetPage(
-        name: CAppRoutes.customerPasswordLogin,
-        page: () => CCustomerPasswordLoginPage(),
-        binding: CCustomerLoginBinding()),
+        name: AppRoutes.customerPasswordLogin,
+        page: () => CustomerPasswordLoginPage(),
+        binding: CustomerLoginBinding()),
     GetPage(
-        name: CAppRoutes.customerSmsLogin,
-        page: () => CCustomerSmsLoginPage(),
-        binding: CCustomerLoginBinding()),
+        name: AppRoutes.customerSmsLogin,
+        page: () => CustomerSmsLoginPage(),
+        binding: CustomerLoginBinding()),
 
     GetPage(
-        name: CAppRoutes.businessPasswordLogin,
-        page: () => CBusinessPasswordLoginPage(),
-        binding: CBusinessLoginBinding()),
+        name: AppRoutes.businessPasswordLogin,
+        page: () => BusinessPasswordLoginPage(),
+        binding: BusinessLoginBinding()),
     GetPage(
-        name: CAppRoutes.businessSmsLogin,
-        page: () => CBusinessSmsLoginPage(),
-        binding: CBusinessLoginBinding()),
+        name: AppRoutes.businessSmsLogin,
+        page: () => BusinessSmsLoginPage(),
+        binding: BusinessLoginBinding()),
 
     GetPage(
-        name: CAppRoutes.modifyPassword1,
-        page: () => CModifyPasswordFirstPage(),
-        binding: CModifyPasswordBinding()),
+        name: AppRoutes.modifyPassword1,
+        page: () => ModifyPasswordFirstPage(),
+        binding: ModifyPasswordBinding()),
 
     GetPage(
-        name: CAppRoutes.modifyPassword2,
-        page: () => CModifyPasswordSecondPage(),
-        binding: CModifyPasswordBinding()),
+        name: AppRoutes.modifyPassword2,
+        page: () => ModifyPasswordSecondPage(),
+        binding: ModifyPasswordBinding()),
 
     GetPage(
-        name: CAppRoutes.modifyTelephone1,
-        page: () => CModifyTelephoneFirstPage(),
-        binding: CModifyTelephoneBinding()),
+        name: AppRoutes.modifyTelephone1,
+        page: () => ModifyTelephoneFirstPage(),
+        binding: ModifyTelephoneBinding()),
 
     GetPage(
-        name: CAppRoutes.modifyTelephone2,
-        page: () => CModifyTelephoneSecondPage(),
-        binding: CModifyTelephoneBinding()),
+        name: AppRoutes.modifyTelephone2,
+        page: () => ModifyTelephoneSecondPage(),
+        binding: ModifyTelephoneBinding()),
 
     GetPage(
-        name: CAppRoutes.main,
-        page: () => CMainPage(),
-        binding: CMineBinding()),
+        name: AppRoutes.main, page: () => MainPage(), binding: MineBinding()),
 
     GetPage(
-        name: CAppRoutes.mine,
-        page: () => CMinePage(),
-        binding: CMineBinding(),
+        name: AppRoutes.mine,
+        page: () => MinePage(),
+        binding: MineBinding(),
         children: [
           GetPage(
-              name: CAppRoutes.profile,
-              page: () => CProfilePage(),
-              binding: CProfileBinding()),
+              name: AppRoutes.profile,
+              page: () => ProfilePage(),
+              binding: ProfileBinding()),
 
           ///地址列表
           GetPage(
-              name: CAppRoutes.addressList,
-              page: () => CAddressListPage(),
-              binding: CAddressListBinding()),
+              name: AppRoutes.addressList,
+              page: () => AddressListPage(),
+              binding: AddressListBinding()),
 
           ///地址编辑
           GetPage(
-              name: CAppRoutes.addressEdit,
-              page: () => CAddresseEditPage(),
-              binding: CAddressEditBinding()),
+              name: AppRoutes.addressEdit,
+              page: () => AddresseEditPage(),
+              binding: AddressEditBinding()),
           GetPage(
-              name: CAppRoutes.setting,
-              page: () => CSettingPage(),
-              binding: CSettingBinding()),
+              name: AppRoutes.setting,
+              page: () => SettingPage(),
+              binding: SettingBinding()),
           GetPage(
-            name: CAppRoutes.account,
-            page: () => CAccountPage(),
+            name: AppRoutes.account,
+            page: () => AccountPage(),
           )
         ]),
 
     // ///显示地图
     // GetPage(
-    //     name: CAppRoutes.amap,
+    //     name: AppRoutes.amap,
     //     page: () => AMapViewPage(),
     //     binding: AMapViewBinding()),
   ];

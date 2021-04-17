@@ -9,9 +9,9 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';
 
-class CMineBodySection extends StatelessWidget {
-  final List<CMineKongoEntity> kongos;
-  const CMineBodySection({Key key, @required this.kongos})
+class MineBodySection extends StatelessWidget {
+  final List<MineKongoEntity> kongos;
+  const MineBodySection({Key key, @required this.kongos})
       : assert(kongos != null),
         super(key: key);
 
@@ -37,7 +37,7 @@ class CMineBodySection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                for (CMineKongoEntity item in kongos)
+                for (MineKongoEntity item in kongos)
                   GestureDetector(
                     onTap: item.onTap,
                     child: Stack(

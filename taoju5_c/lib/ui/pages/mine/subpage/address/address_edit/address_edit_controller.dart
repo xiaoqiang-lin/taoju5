@@ -8,11 +8,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/picker/city_picker.dart';
-import 'package:taoju5_c/domain/entity/params/address/c_address_params.dart';
+import 'package:taoju5_c/domain/entity/params/address/address_params.dart';
 import 'package:taoju5_c/domain/repository/mine_api.dart';
 
-class CAddressEditController extends GetxController {
-  CAddressParamsEntity addressArg;
+class AddressEditController extends GetxController {
+  AddressParamsEntity addressArg;
 
   ///标识是否为新新建地址
   bool isNew;
@@ -20,11 +20,11 @@ class CAddressEditController extends GetxController {
   ///城市选择器为可读,需要控制器才能显示内容
   TextEditingController areaController;
 
-  CAddressEditController({@required currentAddress}) {
+  AddressEditController({@required currentAddress}) {
     isNew = currentAddress == null;
     addressArg = currentAddress == null
-        ? CAddressParamsEntity.empty()
-        : CAddressParamsEntity.fromAddress(currentAddress);
+        ? AddressParamsEntity.empty()
+        : AddressParamsEntity.fromAddress(currentAddress);
   }
 
   @override

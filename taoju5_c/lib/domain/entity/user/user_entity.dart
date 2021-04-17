@@ -6,7 +6,7 @@
  */
 import 'package:taoju5_bc/utils/json_kit.dart';
 
-class CUserEntity {
+class UserEntity {
   String name;
   String avatar;
   String account;
@@ -14,7 +14,7 @@ class CUserEntity {
   int id;
   String birthday;
 
-  CUserEntity.fromJson(Map json) {
+  UserEntity.fromJson(Map json) {
     assert(json is Map);
     name = json["user_name"];
     avatar = JsonKit.asWebUrl(json["user_headimg"]);
@@ -23,7 +23,7 @@ class CUserEntity {
     birthday = json["user_birth"];
   }
 
-  CUserEntity.smaple() {
+  UserEntity.smaple() {
     id = 1;
     name = "小居友-T1J23456";
     account = "13588414007";

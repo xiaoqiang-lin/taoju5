@@ -2,13 +2,13 @@
  * @Description: 首页布艺定制板块
  * @Author: iamsmiling
  * @Date: 2021-04-15 11:13:42
- * @LastEditTime: 2021-04-15 11:21:14
+ * @LastEditTime: 2021-04-17 18:20:28
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class CHomeCustomMadeSection extends StatelessWidget {
-  const CHomeCustomMadeSection({Key key}) : super(key: key);
+class HomeCustomMadeSection extends StatelessWidget {
+  const HomeCustomMadeSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

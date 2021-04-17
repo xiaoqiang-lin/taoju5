@@ -16,12 +16,12 @@ import 'package:taoju5_c/ui/pages/login/customer_login/customer_login_controller
 import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
-class CCustomerPasswordLoginPage extends StatelessWidget {
-  const CCustomerPasswordLoginPage({Key key}) : super(key: key);
+class CustomerPasswordLoginPage extends StatelessWidget {
+  const CustomerPasswordLoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CCustomerLoginController>(builder: (_) {
+    return GetBuilder<CustomerLoginController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(leading: SizedBox.shrink(), actions: [
           GestureDetector(onTap: Get.back, child: Image.asset(R.image.close))
@@ -32,7 +32,7 @@ class CCustomerPasswordLoginPage extends StatelessWidget {
             margin: EdgeInsets.only(top: kToolbarHeight + R.dimen.dp20),
             child: Column(
               children: [
-                CLoginHeaderSection(),
+                LoginHeaderSection(),
                 Container(
                   margin: EdgeInsets.only(bottom: R.dimen.dp24),
                   padding: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
@@ -41,7 +41,7 @@ class CCustomerPasswordLoginPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
-                        child: CTelephoneTextField(),
+                        child: TelephoneTextField(),
                       ),
                       PasswordTextField(),
                       Container(
@@ -55,29 +55,29 @@ class CCustomerPasswordLoginPage extends StatelessWidget {
                                 fontSize: R.dimen.sp12,
                                 color: R.color.primaryColor),
                           ),
-                          onTap: () => Get.toNamed(CAppRoutes.customerSmsLogin),
+                          onTap: () => Get.toNamed(AppRoutes.customerSmsLogin),
                         ),
                       )
                     ],
                   ),
                 ),
-                CPrimaryButton(
+                PrimaryButton(
                   text: "密码登录",
-                  size: CPrimaryButtonSize.big,
+                  size: PrimaryButtonSize.big,
                   onPressed: () =>
-                      _.login(CPasswordLoginStrategy(), CLoginMode.password),
+                      _.login(PasswordLoginStrategy(), CLoginMode.password),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp20),
-                  child: CPrimaryButton(
+                  child: PrimaryButton(
                     text: "微信登录",
-                    size: CPrimaryButtonSize.big,
-                    mode: CPrimaryButtonMode.outlinedButton,
+                    size: PrimaryButtonSize.big,
+                    mode: PrimaryButtonMode.outlinedButton,
                     onPressed: () =>
-                        _.login(CWeChatLoginStrategy(), CLoginMode.wechat),
+                        _.login(WeChatLoginStrategy(), CLoginMode.wechat),
                   ),
                 ),
-                CLoginFooterSection()
+                LoginFooterSection()
               ],
             ),
           ),

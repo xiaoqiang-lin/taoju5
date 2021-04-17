@@ -2,7 +2,7 @@
  * @Description: 修改手机号
  * @Author: iamsmiling
  * @Date: 2021-04-14 17:33:34
- * @LastEditTime: 2021-04-17 16:38:29
+ * @LastEditTime: 2021-04-17 18:36:09
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -14,12 +14,12 @@ import 'package:taoju5_c/routes/capp_routes.dart';
 import 'modify_telephone_controller.dart';
 import 'package:get/get.dart';
 
-class CModifyTelephoneSecondPage extends StatelessWidget {
-  const CModifyTelephoneSecondPage({Key key}) : super(key: key);
+class ModifyTelephoneSecondPage extends StatelessWidget {
+  const ModifyTelephoneSecondPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CModifyTelephoneController>(builder: (_) {
+    return GetBuilder<ModifyTelephoneController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(),
         body: Container(
@@ -36,7 +36,7 @@ class CModifyTelephoneSecondPage extends StatelessWidget {
                     children: [
                       Text("修改手机号", style: R.style.h1),
                       Container(
-                        child: CTelephoneTextField(
+                        child: TelephoneTextField(
                           hintText: "请输入需要绑定的新手机号",
                         ),
                         margin: EdgeInsets.only(
@@ -46,10 +46,10 @@ class CModifyTelephoneSecondPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                CPrimaryButton(
-                    size: CPrimaryButtonSize.large,
+                PrimaryButton(
+                    size: PrimaryButtonSize.large,
                     text: "确定",
-                    onPressed: () => Get.toNamed(CAppRoutes.modifyTelephone2))
+                    onPressed: () => Get.toNamed(AppRoutes.modifyTelephone2))
               ],
             ),
           ),

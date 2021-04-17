@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/main/main_controller.dart';
 
-class CMainPage extends StatelessWidget {
-  const CMainPage({Key key}) : super(key: key);
+class MainPage extends StatelessWidget {
+  const MainPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CMainController>(builder: (_) {
+    return GetBuilder<MainController>(builder: (_) {
       return Scaffold(
         body: IndexedStack(
           index: _.currentIndex,

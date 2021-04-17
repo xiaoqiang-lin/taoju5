@@ -3,14 +3,14 @@ import 'package:taoju5_c/routes/capp_routes.dart';
 
 enum UserRole { customer, business }
 
-class CLoginGuideController extends GetxController {
+class LoginGuideController extends GetxController {
   UserRole role = UserRole.customer;
 
   loginAsCustomer() {
-    return Get.toNamed(CAppRoutes.customerPasswordLogin);
+    return Get.toNamed(AppRoutes.customerPasswordLogin);
   }
 
   loginAsBussiness() {
-    return Get.toNamed(CAppRoutes.businessPasswordLogin);
+    return Get.toNamed(AppRoutes.businessPasswordLogin);
   }
 }

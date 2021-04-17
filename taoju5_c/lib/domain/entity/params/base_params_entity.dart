@@ -6,7 +6,7 @@
  */
 import 'package:get/get.dart';
 
-abstract class CBaseParamsEntity {
+abstract class BaseParamsEntity {
   bool validate();
 
   bool isNullOrZero(dynamic val) {

@@ -11,13 +11,13 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/login/guide/login_guide_controller.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
-class CLoginGuidePage extends StatelessWidget {
-  const CLoginGuidePage({Key key}) : super(key: key);
+class LoginGuidePage extends StatelessWidget {
+  const LoginGuidePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CLoginGuideController>(
-        init: CLoginGuideController(),
+    return GetBuilder<LoginGuideController>(
+        init: LoginGuideController(),
         builder: (_) {
           return Scaffold(
             body: SingleChildScrollView(
@@ -30,22 +30,22 @@ class CLoginGuidePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CLoginHeaderSection(),
+                    LoginHeaderSection(),
                     Container(
                       margin: EdgeInsets.only(
                           top: R.dimen.dp100, bottom: R.dimen.dp20),
-                      child: CPrimaryButton(
+                      child: PrimaryButton(
                         onPressed: _.loginAsCustomer,
                         text: "用户登录/注册",
-                        size: CPrimaryButtonSize.large,
-                        mode: CPrimaryButtonMode.elevatedButton,
+                        size: PrimaryButtonSize.large,
+                        mode: PrimaryButtonMode.elevatedButton,
                       ),
                     ),
-                    CPrimaryButton(
+                    PrimaryButton(
                       onPressed: _.loginAsBussiness,
                       text: "商户登录",
-                      size: CPrimaryButtonSize.large,
-                      mode: CPrimaryButtonMode.outlinedButton,
+                      size: PrimaryButtonSize.large,
+                      mode: PrimaryButtonMode.outlinedButton,
                     ),
                   ],
                 ),

@@ -2,7 +2,7 @@
  * @Description: 登陆参数
  * @Author: iamsmiling
  * @Date: 2021-04-15 16:03:15
- * @LastEditTime: 2021-04-15 19:43:44
+ * @LastEditTime: 2021-04-17 18:46:23
  */
 
 import '../base_params_entity.dart';
@@ -15,13 +15,13 @@ extension CLoginModeKit on CLoginMode {
   }
 }
 
-class CLoginParamsEntity extends CBaseParamsEntity {
+class LoginParamsEntity extends BaseParamsEntity {
   CLoginMode mode;
   String telephone;
   String password;
   String code;
 
-  CLoginParamsEntity();
+  LoginParamsEntity();
 
   int get type => mode.code;
 

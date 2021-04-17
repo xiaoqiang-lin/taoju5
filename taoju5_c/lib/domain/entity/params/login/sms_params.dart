@@ -20,7 +20,7 @@ extension CSmsTypeKit on CSmsType {
   }
 }
 
-class CSmsParamsEntity extends CBaseParamsEntity {
+class CSmsParamsEntity extends BaseParamsEntity {
   String telephone;
   CSmsType type;
 

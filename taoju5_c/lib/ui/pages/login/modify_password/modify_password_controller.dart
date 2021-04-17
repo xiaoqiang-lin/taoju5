@@ -1,3 +1,3 @@
 import 'package:get/get.dart';
 
-class CModifyPasswordController extends GetxController {}
+class ModifyPasswordController extends GetxController {}

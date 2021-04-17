@@ -4,18 +4,18 @@
  * @Date: 2021-04-06 13:06:37
  * @LastEditTime: 2021-04-15 16:17:26
  */
-class CBaseEntity {
+class BaseEntity {
   int code;
   dynamic data;
   String message;
 
-  CBaseEntity.fromJson(Map json) {
+  BaseEntity.fromJson(Map json) {
     code = json["code"];
     data = json["data"];
     message = json["message"];
   }
 
-  CBaseEntity(dynamic data) {
+  BaseEntity(dynamic data) {
     this.data = data;
   }
 

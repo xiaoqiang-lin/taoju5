@@ -8,10 +8,10 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
 
-class CProfileBinding extends Bindings {
+class ProfileBinding extends Bindings {
   @override
   void dependencies() {
-    assert(Get.arguments is CUserEntity);
-    Get.lazyPut(() => CProfileController(Get.arguments));
+    assert(Get.arguments is UserEntity);
+    Get.lazyPut(() => ProfileController(Get.arguments));
   }
 }

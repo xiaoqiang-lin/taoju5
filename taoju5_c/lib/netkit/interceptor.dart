@@ -57,10 +57,10 @@ class ApiInterceptor extends InterceptorsWrapper {
     dynamic data = response.data;
     data = data is String ? jsonDecode(data) : data;
     if (_isThirdPartyUrl(response.request.uri.toString())) {
-      response.data = CBaseEntity(data);
+      response.data = BaseEntity(data);
       return Future.value(response);
     }
-    CBaseEntity entity = CBaseEntity.fromJson(data);
+    BaseEntity entity = BaseEntity.fromJson(data);
 
     ///首先判断是否授权
     if (entity.unAuthed) {

@@ -10,9 +10,9 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/capp_routes.dart';
 
-class CMineHeaderSection extends StatelessWidget {
-  final CUserEntity user;
-  const CMineHeaderSection({Key key, @required this.user})
+class MineHeaderSection extends StatelessWidget {
+  final UserEntity user;
+  const MineHeaderSection({Key key, @required this.user})
       : assert(user != null),
         super(key: key);
 
@@ -21,7 +21,7 @@ class CMineHeaderSection extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () =>
-          Get.toNamed(CAppRoutes.mine + CAppRoutes.profile, arguments: user),
+          Get.toNamed(AppRoutes.mine + AppRoutes.profile, arguments: user),
       child: Container(
         margin: EdgeInsets.only(top: R.dimen.dp20),
         child: Row(

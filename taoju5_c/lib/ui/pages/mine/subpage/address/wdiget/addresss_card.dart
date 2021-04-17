@@ -6,17 +6,17 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/routes/capp_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_controller.dart';
 
-class CAddressCard extends StatelessWidget {
-  final CAddressEntity address;
-  const CAddressCard({Key key, @required this.address})
+class AddressCard extends StatelessWidget {
+  final AddressEntity address;
+  const AddressCard({Key key, @required this.address})
       : assert(address != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CAddressListController>(builder: (_) {
+    return GetBuilder<AddressListController>(builder: (_) {
       return GestureDetector(
-        onTap: () => Get.toNamed(CAppRoutes.mine + CAppRoutes.addressEdit,
+        onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressEdit,
             arguments: address),
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -120,7 +120,7 @@ class CAddressCard extends StatelessWidget {
                   children: [
                     Container(
                       margin: EdgeInsets.only(right: R.dimen.dp5),
-                      child: CRoundCheckbox(
+                      child: RoundCheckbox(
                           key: ValueKey(address.isDefault),
                           value: address.isDefault,
                           onChanged: (bool flag) =>
