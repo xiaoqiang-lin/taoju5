@@ -1,0 +1,59 @@
+/*
+ * @Description: 我的 头部
+ * @Author: iamsmiling
+ * @Date: 2021-04-14 09:40:34
+ * @LastEditTime: 2021-04-15 13:09:24
+ */
+import 'package:flutter/material.dart';
+import 'package:taoju5_c/domain/entity/user/user_entity.dart';
+import 'package:taoju5_c/res/R.dart';
+import 'package:get/get.dart';
+import 'package:taoju5_c/routes/capp_routes.dart';
+
+class CMineHeaderSection extends StatelessWidget {
+  final CUserEntity user;
+  const CMineHeaderSection({Key key, @required this.user})
+      : assert(user != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () =>
+          Get.toNamed(CAppRoutes.mine + CAppRoutes.profile, arguments: user),
+      child: Container(
+        margin: EdgeInsets.only(top: R.dimen.dp20),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: R.dimen.dp16),
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(user.avatar),
+              ),
+            ),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.name,
+                  style: TextStyle(
+                      fontSize: R.dimen.sp15, fontWeight: FontWeight.w500),
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: R.dimen.dp8),
+                    child: Text(
+                      "账号:${user.account}(默认注册手机号)",
+                      style: TextStyle(
+                          fontSize: R.dimen.sp12, color: R.color.subtitleColor),
+                    ))
+              ],
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+}

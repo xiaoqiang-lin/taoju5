@@ -2,7 +2,7 @@
  * @Description: app入口
  * @Author: iamsmiling
  * @Date: 2020-12-15 12:05:52
- * @LastEditTime: 2021-02-03 10:30:05
+ * @LastEditTime: 2021-04-17 18:12:00
  */
 
 // import 'package:flutter/material.dart';
@@ -10,9 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/app.dart';
-// import 'package:taoju5/config/app_config.dart';
-import 'bapp/app_initializer.dart';
-// import 'package:dokit/dokit.dart';
+
+import 'app_initializer.dart';
 
 void main() {
   _main();

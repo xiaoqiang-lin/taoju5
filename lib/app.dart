@@ -2,14 +2,14 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-02-19 15:34:07
+ * @LastEditTime: 2021-04-17 17:52:53
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5/config/app_env.dart';
+import 'package:taoju5_bc/config/app_env.dart';
 
-import 'bapp/app.dart';
-import 'capp/app.dart';
-import 'config/app_config.dart';
+import 'package:taoju5_b/app.dart';
+import 'package:taoju5_c/app.dart';
+import 'package:taoju5_bc/config/app_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaojuwuApp extends StatelessWidget {
