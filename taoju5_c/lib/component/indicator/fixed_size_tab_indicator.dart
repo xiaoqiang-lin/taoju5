@@ -20,7 +20,9 @@ class FixedSizeUnderlineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///
   /// The [borderSide] and [insets] arguments must not be null.
+  final double width;
   const FixedSizeUnderlineTabIndicator({
+    this.width = 16,
     this.borderSide = const BorderSide(width: 2.0, color: Colors.white),
     this.insets = EdgeInsets.zero,
   })  : assert(borderSide != null),
@@ -60,12 +62,13 @@ class FixedSizeUnderlineTabIndicator extends Decoration {
 
   @override
   _UnderlinePainter createBoxPainter([VoidCallback onChanged]) {
-    return _UnderlinePainter(this, onChanged);
+    return _UnderlinePainter(this, onChanged, width);
   }
 }
 
 class _UnderlinePainter extends BoxPainter {
-  _UnderlinePainter(this.decoration, VoidCallback onChanged)
+  final double width;
+  _UnderlinePainter(this.decoration, VoidCallback onChanged, this.width)
       : assert(decoration != null),
         super(onChanged);
 
@@ -79,9 +82,9 @@ class _UnderlinePainter extends BoxPainter {
     assert(textDirection != null);
     final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
     return Rect.fromLTWH(
-      indicator.left,
+      (indicator.left + indicator.right) / 2 - width / 2,
       indicator.bottom - borderSide.width,
-      indicator.width,
+      width,
       borderSide.width,
     );
   }

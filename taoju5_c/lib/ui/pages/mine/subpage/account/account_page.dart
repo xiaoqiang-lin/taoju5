@@ -2,9 +2,10 @@
  * @Description: 账号安全
  * @Author: iamsmiling
  * @Date: 2021-04-14 18:04:14
- * @LastEditTime: 2021-04-15 17:43:02
+ * @LastEditTime: 2021-04-18 12:43:11
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 
 import 'package:taoju5_c/routes/capp_routes.dart';
@@ -24,8 +25,8 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("账号安全"),
+      appBar: PrimaryAppBar(
+        title: "账号安全",
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
 
@@ -10,8 +11,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text("个人资料"),
+        appBar: PrimaryAppBar(
+          title: "个人资料",
         ),
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),

@@ -2,9 +2,10 @@
  * @Description: 我的页面
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-17 18:28:24
+ * @LastEditTime: 2021-04-18 12:48:37
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/capp_routes.dart';
@@ -20,10 +21,10 @@ class MinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<MineController>(builder: (_) {
       return Scaffold(
-        appBar: AppBar(
+        appBar: PrimaryAppBar(
           backgroundColor: R.color.appBarColor,
           elevation: 0,
-          title: Text("我的"),
+          title: "我的",
           actions: [
             GestureDetector(
                 onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.setting),
