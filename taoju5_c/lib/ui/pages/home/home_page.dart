@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-04-15 11:19:23
+ * @LastEditTime: 2021-04-18 00:12:41
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'home_controller.dart';
 import 'section/home_banner_section.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   static MethodChannel methodChannel = MethodChannel('taoju5_amap');
 

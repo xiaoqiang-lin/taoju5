@@ -1,26 +1,31 @@
+/*
+ * @Description: 密码输入框
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-18 08:34:23
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class PasswordTextField extends StatefulWidget {
   final bool isPasswordVisible;
-  final ValueChanged<String> onChanged;
-  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
   final BoxConstraints constraints;
   const PasswordTextField(
-      {Key key,
+      {Key? key,
       this.isPasswordVisible = false,
       this.onChanged,
       this.controller,
       this.constraints = const BoxConstraints(maxHeight: 36)})
-      : assert(constraints != null),
-        super(key: key);
+      : super(key: key);
 
   @override
   _PasswordTextFieldState createState() => _PasswordTextFieldState();
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
-  bool _isPasswordVisible;
+  late bool _isPasswordVisible;
 
   @override
   void initState() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FutureErrorView extends StatelessWidget {
-  const FutureErrorView({Key key}) : super(key: key);
+  const FutureErrorView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

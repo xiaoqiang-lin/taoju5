@@ -8,9 +8,7 @@ import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list
 
 class AddressCard extends StatelessWidget {
   final AddressEntity address;
-  const AddressCard({Key key, @required this.address})
-      : assert(address != null),
-        super(key: key);
+  const AddressCard({Key? key, required this.address}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

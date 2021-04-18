@@ -2,7 +2,7 @@
  * @Description: APP初始化配置
  * @Author: iamsmiling
  * @Date: 2021-01-12 22:34:48
- * @LastEditTime: 2021-04-17 18:11:29
+ * @LastEditTime: 2021-04-17 21:48:11
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

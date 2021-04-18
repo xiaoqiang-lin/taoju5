@@ -1,12 +1,16 @@
+/*
+ * @Description: 
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 21:31:19
+ * @LastEditTime: 2021-04-18 00:26:28
+ */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
 
 class MineFooterSection extends StatelessWidget {
   final List<MineTileEntity> tiles;
-  const MineFooterSection({Key key, @required this.tiles})
-      : assert(tiles != null),
-        super(key: key);
+  const MineFooterSection({Key? key, required this.tiles}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

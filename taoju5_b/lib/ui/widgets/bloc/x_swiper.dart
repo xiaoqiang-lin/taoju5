@@ -2,10 +2,10 @@
  * @Description: 自定义封装swiper
  * @Author: iamsmiling
  * @Date: 2021-01-19 17:47:39
- * @LastEditTime: 2021-01-19 18:00:49
+ * @LastEditTime: 2021-04-17 22:55:50
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class XSwiper extends StatelessWidget {
   final int itemCount;

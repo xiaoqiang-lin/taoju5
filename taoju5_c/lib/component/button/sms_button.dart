@@ -1,10 +1,16 @@
+/*
+ * @Description: 验证码按钮
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-18 08:33:05
+ */
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 class SmsButton extends StatefulWidget {
   final Function onPressed;
-  const SmsButton({Key key, @required this.onPressed}) : super(key: key);
+  const SmsButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   _SmsButtonState createState() => _SmsButtonState();
@@ -14,9 +20,9 @@ class _SmsButtonState extends State<SmsButton> {
   int _initialCount = 60;
   int _maxCount = 60;
 
-  StreamController<int> _streamController;
+  late StreamController<int> _streamController;
 
-  Timer _timer;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -37,17 +43,14 @@ class _SmsButtonState extends State<SmsButton> {
   }
 
   void _onPressed() {
-    if (widget.onPressed != null) {
-      widget.onPressed();
-    }
+    widget.onPressed();
     _countDown();
   }
 
   @override
   void dispose() {
-    _streamController?.close();
-    _streamController = null;
-    _timer?.cancel();
+    _streamController.close();
+    _timer.cancel();
     super.dispose();
   }
 

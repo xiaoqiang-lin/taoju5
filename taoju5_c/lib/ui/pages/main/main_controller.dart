@@ -1,3 +1,9 @@
+/*
+ * @Description:
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 21:31:19
+ * @LastEditTime: 2021-04-18 08:35:09
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -11,7 +17,7 @@ class BottomNavigationBarItemEntity {
   final String icon;
 
   BottomNavigationBarItemEntity(
-      {@required this.title, @required this.activeIcon, @required this.icon});
+      {required this.title, required this.activeIcon, required this.icon});
 }
 
 class MainController extends GetxController {

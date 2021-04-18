@@ -12,7 +12,7 @@ import 'package:taoju5_c/ui/pages/login/guide/login_guide_controller.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
 class LoginGuidePage extends StatelessWidget {
-  const LoginGuidePage({Key key}) : super(key: key);
+  const LoginGuidePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

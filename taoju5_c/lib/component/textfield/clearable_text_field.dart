@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ClearableTextField extends StatefulWidget {
-  final String initialValue;
-  final TextEditingController controller;
-  final InputDecoration decoration;
-  final ValueChanged<String> onChanged;
+  final String? initialValue;
+  final TextEditingController? controller;
+  final InputDecoration? decoration;
+  final ValueChanged<String>? onChanged;
   final Widget suffixIcon;
-  final TextInputType keyboardType;
-  final FormFieldValidator<String> validator;
+  final TextInputType? keyboardType;
+  final FormFieldValidator<String>? validator;
   final BoxConstraints constraints;
   const ClearableTextField(
-      {Key key,
+      {Key? key,
       this.initialValue,
       this.controller,
       this.decoration,
@@ -22,9 +22,7 @@ class ClearableTextField extends StatefulWidget {
       this.keyboardType,
       this.validator,
       this.constraints = const BoxConstraints(maxHeight: 36)})
-      : assert(suffixIcon != null),
-        assert(decoration != null),
-        assert(constraints != null),
+      : assert(decoration != null),
         super(key: key);
 
   @override
@@ -32,20 +30,20 @@ class ClearableTextField extends StatefulWidget {
 }
 
 class _ClearableTextFieldState extends State<ClearableTextField> {
-  String _value;
+  late String? _value;
 
-  TextEditingController _controller;
+  late TextEditingController _controller;
 
   bool _clearable = false;
 
   void _onChanged(String text) {
-    if (text == null || text.isEmpty) {
+    if (text.isEmpty) {
       _clearable = false;
     } else {
       _clearable = true;
     }
     if (widget.onChanged != null) {
-      widget.onChanged(text);
+      widget.onChanged!(text);
     }
     setState(() {
       _value = text;
@@ -71,7 +69,7 @@ class _ClearableTextFieldState extends State<ClearableTextField> {
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -86,7 +84,7 @@ class _ClearableTextFieldState extends State<ClearableTextField> {
         keyboardType: widget.keyboardType,
         controller: _controller,
         onChanged: _onChanged,
-        decoration: widget.decoration.copyWith(
+        decoration: widget.decoration?.copyWith(
             suffixIcon: Visibility(
           visible: _clearable,
           child: IconButton(

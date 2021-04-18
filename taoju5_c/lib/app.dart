@@ -2,23 +2,25 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-04-17 17:45:48
+ * @LastEditTime: 2021-04-18 08:32:46
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/config/app_config.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/config/app_env.dart';
 
 import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
-import 'package:taoju5_bc/config/app_config.dart';
 
 import 'res/R.dart';
 import 'routes/capp_pages.dart';
 
 class $CAPP extends StatelessWidget {
-  const $CAPP({Key key}) : super(key: key);
+  const $CAPP({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

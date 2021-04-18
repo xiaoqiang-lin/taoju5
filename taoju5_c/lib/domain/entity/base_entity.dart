@@ -2,12 +2,12 @@
  * @Description: 网络请求返回数据
  * @Author: iamsmiling
  * @Date: 2021-04-06 13:06:37
- * @LastEditTime: 2021-04-15 16:17:26
+ * @LastEditTime: 2021-04-18 00:09:01
  */
 class BaseEntity {
-  int code;
+  late int code;
   dynamic data;
-  String message;
+  late String message;
 
   BaseEntity.fromJson(Map json) {
     code = json["code"];

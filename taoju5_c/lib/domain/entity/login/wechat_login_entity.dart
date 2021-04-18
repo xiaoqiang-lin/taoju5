@@ -6,12 +6,12 @@
  */
 
 class WeChatLoginEntity {
-  String accessToken;
-  int expiresIn;
-  String refreshToken;
-  String openId;
-  String scope;
-  String unionId;
+  late String accessToken;
+  late int expiresIn;
+  late String refreshToken;
+  late String openId;
+  late String scope;
+  late String unionId;
 
   WeChatLoginEntity.fromJson(Map json) {
     accessToken = json["access_token"];

@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-17 17:24:31
+ * @LastEditTime: 2021-04-17 22:56:21
  */
 
 import 'dart:convert';
@@ -52,51 +52,89 @@ class XDio {
           queryParameters: {"token": token},
           connectTimeout: netConfig.timeout,
           receiveTimeout: netConfig.timeout)
-      ..interceptors.add(InterceptorsWrapper(
-        onError: (DioError error) {
-          return error;
-        },
-        onRequest: ((RequestOptions options) {
+      ..interceptors.add(InterceptorsWrapper(onError: (DioError err, _) {
+        return err;
+      }, onRequest: (RequestOptions options, _) {
+        // Map queryParameters = options.queryParameters;
+        // options.queryParameters = _formatParams(queryParameters);
+        // var formData = options.data;
+        // if (formData is Map) {
+        //   options.data = _formatParams(formData);
+        // }
+        XLogger.v("${options.baseUrl + options.path}");
+        XLogger.v("====================query请求参数===========================");
+        XLogger.v("${options.queryParameters}");
+        XLogger.v(
+            "+++++++++++++++++++++++++formData参数+++++++++++++++++++++++++");
+        XLogger.v("${options.data}");
+        return options;
+      }, onResponse: (Response response, _) {
+        response.data = jsonDecode(response.toString());
+        BaseResponse baseResponse = BaseResponse.fromJson(response.data);
+
+        XLogger.e(
+            "*******************************请求结果*******************************\n${response.data}");
+        if (!baseResponse.isValid &&
+            !_isInWhiteList(response.requestOptions.path)) {
+          throw EasyLoading.showInfo(baseResponse.message,
+              duration: Duration(milliseconds: 1500));
+        }
+        if (baseResponse.data == null || baseResponse.data == null.toString()) {
+          throw baseResponse.message;
+        }
+        response.data = baseResponse;
+        if (baseResponse.data is Map) {
+          // baseResponse.data = JsonKit.normalize(baseResponse.data);
+          print(response.data);
+        }
+        return Future.value(response);
+
+        // if (baseResponse.data is Map) {
+        //   // baseResponse.data = JsonKit.normalize(baseResponse.data);
+        //   print(response.data);
+        // }
+      }
+          // onRequest: ((RequestOptions options, _) {
           // Map queryParameters = options.queryParameters;
           // options.queryParameters = _formatParams(queryParameters);
           // var formData = options.data;
           // if (formData is Map) {
           //   options.data = _formatParams(formData);
           // }
-          print(DateTime.now());
-          print("--------------请求地址----------------");
-          XLogger.v("${options.baseUrl + options.path}");
-          XLogger.v("====================query请求参数===========================");
-          XLogger.v("${options.queryParameters}");
-          XLogger.v(
-              "+++++++++++++++++++++++++formData参数+++++++++++++++++++++++++");
-          XLogger.v("${options.data}");
+          // print(DateTime.now());
+          // print("--------------请求地址----------------");
+          // XLogger.v("${options.baseUrl + options.path}");
+          // XLogger.v("====================query请求参数===========================");
+          // XLogger.v("${options.queryParameters}");
+          // XLogger.v(
+          //     "+++++++++++++++++++++++++formData参数+++++++++++++++++++++++++");
+          // XLogger.v("${options.data}");
 
-          return options;
-        }),
-        onResponse: (Response response) {
-          response.data = jsonDecode(response.toString());
+          //   return options;
+          // }),
+          // onResponse: (Response response) {
+          //   response.data = jsonDecode(response.toString());
 
-          BaseResponse baseResponse = BaseResponse.fromJson(response.data);
-          XLogger.e(
-              "*******************************请求结果*******************************\n${response.data}");
-          if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
-            throw EasyLoading.showInfo(baseResponse.message,
-                duration: Duration(milliseconds: 1500));
-          }
-          if (baseResponse.data == null ||
-              baseResponse.data == null.toString()) {
-            // throw baseResponse.message;
-          }
-          response.data = baseResponse;
+          //   BaseResponse baseResponse = BaseResponse.fromJson(response.data);
+          //   XLogger.e(
+          //     "*******************************请求结果*******************************\n${response.data}");
+          // if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
+          //   throw EasyLoading.showInfo(baseResponse.message,
+          //       duration: Duration(milliseconds: 1500));
+          // }
+          // if (baseResponse.data == null ||
+          //     baseResponse.data == null.toString()) {
+          //   // throw baseResponse.message;
+          // }
+          // response.data = baseResponse;
           // if (baseResponse.data is Map) {
           //   // baseResponse.data = JsonKit.normalize(baseResponse.data);
           //   print(response.data);
           // }
 
-          return response;
-        },
-      ));
+          // return response;
+          // },
+          ));
     // ..interceptors.add(
     //     DioCacheManager(CacheConfig(baseUrl: NetConfig.baseUrl)).interceptor);
   }

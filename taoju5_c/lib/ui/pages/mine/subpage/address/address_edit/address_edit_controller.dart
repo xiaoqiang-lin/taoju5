@@ -2,7 +2,7 @@
  * @Description: 收货地址编辑页面
  * @Author: iamsmiling
  * @Date: 2021-04-16 09:16:27
- * @LastEditTime: 2021-04-16 17:44:04
+ * @LastEditTime: 2021-04-18 08:29:35
  */
 
 import 'package:flutter/material.dart';
@@ -12,15 +12,15 @@ import 'package:taoju5_c/domain/entity/params/address/address_params.dart';
 import 'package:taoju5_c/domain/repository/mine_api.dart';
 
 class AddressEditController extends GetxController {
-  AddressParamsEntity addressArg;
+  late AddressParamsEntity addressArg;
 
   ///标识是否为新新建地址
-  bool isNew;
+  late bool isNew;
 
   ///城市选择器为可读,需要控制器才能显示内容
-  TextEditingController areaController;
+  late TextEditingController areaController;
 
-  AddressEditController({@required currentAddress}) {
+  AddressEditController({required currentAddress}) {
     isNew = currentAddress == null;
     addressArg = currentAddress == null
         ? AddressParamsEntity.empty()
@@ -62,11 +62,11 @@ class AddressEditController extends GetxController {
   Future selectArea() {
     AddressModel addressModel = AddressModel.fromName(
         addressArg.provinceName, addressArg.cityName, addressArg.districtName);
-    return cshowCityPicker(Get.context, addressResult: addressModel)
+    return cshowCityPicker(Get.context!, addressResult: addressModel)
         .then((value) {
       if (value is AddressModel) {
         setArea(value);
-        areaController.text = addressArg.area;
+        areaController.text = addressArg.area!;
       }
     });
   }

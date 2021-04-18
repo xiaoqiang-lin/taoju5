@@ -17,7 +17,7 @@ import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
 class CustomerPasswordLoginPage extends StatelessWidget {
-  const CustomerPasswordLoginPage({Key key}) : super(key: key);
+  const CustomerPasswordLoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

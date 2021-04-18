@@ -2,9 +2,8 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-17 18:29:37
+ * @LastEditTime: 2021-04-18 00:27:41
  */
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/repository/mine_api.dart';
@@ -14,22 +13,22 @@ import 'package:taoju5_c/routes/capp_routes.dart';
 class MineKongoEntity {
   final String label;
   final String icon;
-  final Function onTap;
+  final Function()? onTap;
   final int count;
   MineKongoEntity(
-      {@required this.label,
+      {required this.label,
       this.count = 0,
-      @required this.icon,
-      @required this.onTap});
+      required this.icon,
+      required this.onTap});
 }
 
 class MineTileEntity {
   final String label;
   final String icon;
-  final Function onTap;
+  final Function()? onTap;
 
   MineTileEntity(
-      {@required this.label, @required this.icon, @required this.onTap});
+      {required this.label, required this.icon, required this.onTap});
 }
 
 class MineController extends GetxController {

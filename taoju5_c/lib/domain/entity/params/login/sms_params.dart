@@ -2,7 +2,7 @@
  * @Description: 获取验证码参数
  * @Author: iamsmiling
  * @Date: 2021-04-15 17:12:00
- * @LastEditTime: 2021-04-15 19:43:55
+ * @LastEditTime: 2021-04-18 00:15:23
  */
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 
@@ -16,18 +16,18 @@ extension CSmsTypeKit on CSmsType {
       CSmsType.modifyPassword: 4,
       CSmsType.modifyTelephone: 5
     };
-    return map[this];
+    return map[this]!;
   }
 }
 
 class CSmsParamsEntity extends BaseParamsEntity {
-  String telephone;
-  CSmsType type;
+  late String telephone;
+  CSmsType? type;
 
-  CSmsParamsEntity({this.telephone, this.type});
+  CSmsParamsEntity({required this.telephone, this.type});
 
   @override
-  Map get params => {"phone": telephone, "type": type.code};
+  Map get params => {"phone": telephone, "type": type?.code};
 
   @override
   bool validate() => isMobileNumber(telephone);

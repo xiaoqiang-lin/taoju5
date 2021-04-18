@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/main/main_controller.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

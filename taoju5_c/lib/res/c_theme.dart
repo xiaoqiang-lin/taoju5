@@ -1,6 +1,7 @@
 // part of R;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_c/component/indicator/fixed_size_tab_indicator.dart';
 
 import 'R.dart';

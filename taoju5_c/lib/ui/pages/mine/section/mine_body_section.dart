@@ -2,18 +2,17 @@
  * @Description: 个人中心
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-17 17:45:29
+ * @LastEditTime: 2021-04-18 00:27:01
  */
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/utils/common_kit.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
-import 'package:taoju5_bc/utils/common_kit.dart';
 
 class MineBodySection extends StatelessWidget {
   final List<MineKongoEntity> kongos;
-  const MineBodySection({Key key, @required this.kongos})
-      : assert(kongos != null),
-        super(key: key);
+  const MineBodySection({Key? key, required this.kongos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

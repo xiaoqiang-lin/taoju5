@@ -2,16 +2,17 @@
  * @Description: 网络请求封装
  * @Author: iamsmiling
  * @Date: 2021-03-30 21:39:00
- * @LastEditTime: 2021-04-17 17:44:52
+ * @LastEditTime: 2021-04-18 00:02:25
  */
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/config/app_config.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/netkit/exception.dart';
 import 'package:taoju5_c/utils/toast.dart';
-import 'package:taoju5_bc/config/app_config.dart';
 import 'interceptor.dart';
 
 // 必须是顶层函数
@@ -36,7 +37,7 @@ class HttpKit {
 
   factory HttpKit() => _singleton;
 
-  Dio dio;
+  late Dio dio;
 
   HttpKit._() {
     dio = Dio();
@@ -53,7 +54,7 @@ class HttpKit {
     dio.interceptors.add(ApiInterceptor());
   }
 
-  Future<BaseEntity> get(String url, {Map params, Options options}) async {
+  Future<BaseEntity> get(String url, {Map? params, Options? options}) async {
     return dio
         .get(url,
             queryParameters: params?.cast<String, dynamic>(), options: options)
@@ -66,7 +67,7 @@ class HttpKit {
   }
 
   Future<BaseEntity> post(String url,
-      {Map params, Options options, Map formData}) async {
+      {Map? params, Options? options, Map? formData}) async {
     return dio
         .post(url,
             queryParameters: params?.cast<String, dynamic>(),
@@ -81,11 +82,11 @@ class HttpKit {
   }
 
   /// [e]分类Error和Exception两种
-  void setError(e, {String message}) {
+  void setError(e, {String? message}) {
     printErrorStack(e);
     if (e is UnAuthorizedException) {}
     if (e is NetErrorException) {
-      ToastKit.error(message);
+      ToastKit.error(message!);
     }
     // if (e is DioError) {
     //   ToastKit.error("连接失败");

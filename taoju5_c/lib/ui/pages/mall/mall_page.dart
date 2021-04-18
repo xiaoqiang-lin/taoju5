@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class MallPage extends StatefulWidget {
-  MallPage({Key key}) : super(key: key);
+  MallPage({Key? key}) : super(key: key);
 
   @override
   _MallPageState createState() => _MallPageState();

@@ -2,17 +2,16 @@
  * @Description: 设置通用组件
  * @Author: iamsmiling
  * @Date: 2021-04-14 17:42:39
- * @LastEditTime: 2021-04-17 18:26:18
+ * @LastEditTime: 2021-04-18 00:25:46
  */
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/capp_routes.dart';
 
 class SettingTileEntity {
   final String label;
-  final Function onTap;
+  final Function()? onTap;
 
-  SettingTileEntity({@required this.label, @required this.onTap});
+  SettingTileEntity({required this.label, required this.onTap});
 }
 
 class SettingController extends GetxController {

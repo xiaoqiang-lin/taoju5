@@ -2,7 +2,7 @@
  * @Description: 网络请求加载
  * @Author: iamsmiling
  * @Date: 2021-04-06 09:15:12
- * @LastEditTime: 2021-04-17 17:42:30
+ * @LastEditTime: 2021-04-18 08:31:56
  */
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -29,19 +29,18 @@ abstract class FutureLoadStateController<T> extends GetxController {
 
   Future<T> onSuccess(T data);
 
-  WidgetBuilder builder;
+  late WidgetBuilder builder;
 
-  WidgetBuilder errorBuilder;
+  late WidgetBuilder? errorBuilder;
 
-  WidgetBuilder emptyBuilder;
+  late WidgetBuilder? emptyBuilder;
 
-  WidgetBuilder loadingBuilder;
+  late WidgetBuilder? loadingBuilder;
 
-  Map<FutureLoadState, Widget> viewBuilder;
+  late Map<FutureLoadState, Widget> viewBuilder;
 
   @mustCallSuper
-  FutureLoadStateController({@required this.builder})
-      : assert(builder != null) {
+  FutureLoadStateController({required this.builder}) {
     _initView();
   }
 
@@ -52,7 +51,7 @@ abstract class FutureLoadStateController<T> extends GetxController {
     super.onInit();
   }
 
-  Future _loadData() {
+  Future? _loadData() {
     loadState = FutureLoadState.busy;
     update();
     return loadData().then((data) {
@@ -60,6 +59,7 @@ abstract class FutureLoadStateController<T> extends GetxController {
       onSuccess(data);
     }).catchError((err) {
       if (err is UnAuthorizedException) {
+        // ignore: return_of_invalid_type_from_catch_error
         return Get.toNamed("/login");
       }
       loadState = FutureLoadState.error;
@@ -73,11 +73,11 @@ abstract class FutureLoadStateController<T> extends GetxController {
 
     viewBuilder = {
       FutureLoadState.idle: Builder(builder: builder),
-      FutureLoadState.error: Builder(builder: errorBuilder),
-      FutureLoadState.empty: Builder(builder: emptyBuilder),
-      FutureLoadState.busy: Builder(builder: loadingBuilder)
+      // FutureLoadState.error: Builder(builder: errorBuilder),
+      // FutureLoadState.empty: Builder(builder: emptyBuilder),
+      // FutureLoadState.busy: Builder(builder: loadingBuilder)
     };
   }
 
-  Widget get view => viewBuilder[loadState];
+  Widget get view => viewBuilder[loadState]!;
 }

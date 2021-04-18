@@ -15,7 +15,7 @@ import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
 
 class BusinessSmsLoginPage extends StatelessWidget {
-  const BusinessSmsLoginPage({Key key}) : super(key: key);
+  const BusinessSmsLoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

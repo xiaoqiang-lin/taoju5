@@ -1,9 +1,14 @@
+/*
+ * @Description: 设计标注
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 21:10:01
+ * @LastEditTime: 2021-04-18 00:09:47
+ */
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/checkbox/round_checkbox.dart';
 
 // ignore: must_be_immutable
 class DesignPatternPage extends StatefulWidget {
-  DesignPatternPage({Key key}) : super(key: key);
+  DesignPatternPage({Key? key}) : super(key: key);
 
   static List<String> tabs = ["待测量", "待选品", "待付款", "待发货", "待安装", "待评价", "已完成"];
 
@@ -35,16 +40,7 @@ class _DesignPatternPageState extends State<DesignPatternPage> {
                 child: TabBarView(children: [
               for (String _ in DesignPatternPage.tabs)
                 Column(
-                  children: [
-                    RoundCheckbox(
-                        value: flag,
-                        onChanged: (_) {
-                          setState(() {
-                            flag = !flag;
-                          });
-                        }),
-                    Text("标准字")
-                  ],
+                  children: [],
                 )
             ]))
           ],

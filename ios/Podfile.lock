@@ -1,9 +1,6 @@
 PODS:
   - AMap3DMap (7.8.0):
     - AMapFoundation (~> 1.6.4)
-  - amap_location (0.0.1):
-    - AMapLocation
-    - Flutter
   - AMapFoundation (1.6.5.1)
   - AMapLocation (2.6.7):
     - AMapFoundation (~> 1.6.4)
@@ -61,7 +58,6 @@ PODS:
 
 DEPENDENCIES:
   - AMap3DMap
-  - amap_location (from `.symlinks/plugins/amap_location/ios`)
   - AMapLocation
   - AMapSearch
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
@@ -97,8 +93,6 @@ SPEC REPOS:
     - WechatOpenSDK
 
 EXTERNAL SOURCES:
-  amap_location:
-    :path: ".symlinks/plugins/amap_location/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   device_info:
@@ -136,7 +130,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AMap3DMap: 3e4fac78e3e023cefd47e7d7715ef5ea69bfd0fa
-  amap_location: a3e2a140bb25950d4e97560ce1b00e53a121e4f4
   AMapFoundation: b67560a6f21aab81c8c12f84616b55a3833b6253
   AMapLocation: a46c30d9930d0f3a3bd21139d8f845d10ac3f01d
   AMapSearch: a62d0b2508270dff5a9b05ba3af9fc8843b48c8a

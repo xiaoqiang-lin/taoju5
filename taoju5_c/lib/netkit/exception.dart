@@ -2,11 +2,11 @@
  * @Description: 自定义异常
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-17 18:19:03
+ * @LastEditTime: 2021-04-18 00:01:08
  */
 /// 接口的code没有返回为true的异常
 class NetErrorException implements Exception {
-  String message;
+  late String message;
 
   NetErrorException.fromMessage(String val) {
     message = val;
@@ -20,7 +20,7 @@ class NetErrorException implements Exception {
 
 /// 接口的code没有返回为true的异常
 class ParseDataErrorException implements Exception {
-  String message;
+  late String message;
 
   ParseDataErrorException.fromMessage(String val) {
     message = val;

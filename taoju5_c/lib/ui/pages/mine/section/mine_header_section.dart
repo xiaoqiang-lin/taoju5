@@ -2,7 +2,7 @@
  * @Description: 我的 头部
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-15 13:09:24
+ * @LastEditTime: 2021-04-18 00:29:20
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
@@ -12,9 +12,7 @@ import 'package:taoju5_c/routes/capp_routes.dart';
 
 class MineHeaderSection extends StatelessWidget {
   final UserEntity user;
-  const MineHeaderSection({Key key, @required this.user})
-      : assert(user != null),
-        super(key: key);
+  const MineHeaderSection({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

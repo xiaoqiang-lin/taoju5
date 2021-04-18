@@ -2,7 +2,7 @@
  * @Description: CustomerEditController
  * @Author: iamsmiling
  * @Date: 2020-12-22 09:59:14
- * @LastEditTime: 2021-04-17 17:30:55
+ * @LastEditTime: 2021-04-17 22:55:14
  */
 
 import 'package:get/get.dart';
@@ -12,11 +12,11 @@ import 'package:taoju5_b/domain/repository/customer/customer_repository.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_detail/customer_detail_controller.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
-import 'package:taoju5_b/ui/widgets/bloc/city_picker/x_city_picker.dart';
+// import 'package:taoju5_b/ui/widgets/bloc/city_picker/x_city_picker.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';
 import 'package:taoju5_bc/utils/x_logger.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:amap_location/amap_location.dart';
+// import 'package:amap_location/amap_location.dart';
 
 class CustomerEditController extends GetxController {
   CustomerRepository _repository = CustomerRepository();
@@ -56,14 +56,14 @@ class CustomerEditController extends GetxController {
       //     return isGranted;
       //   });
       // }
-      await AMapLocationClient.startup(new AMapLocationOption(
-          desiredAccuracy:
-              CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
-      AMapLocation location = await AMapLocationClient.getLocation(true);
-      target.address = CustomerAddressModel();
-      target.address.address = AddressModel.fromName(location?.province ?? "",
-          location?.city ?? "", location?.district ?? "");
-      update();
+      // await AMapLocationClient.startup(new AMapLocationOption(
+      //     desiredAccuracy:
+      //         CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
+      // AMapLocation location = await AMapLocationClient.getLocation(true);
+      // target.address = CustomerAddressModel();
+      // target.address.address = AddressModel.fromName(location?.province ?? "",
+      //     location?.city ?? "", location?.district ?? "");
+      // update();
       // bool flag =
       // await showAppPermissionRequestDialog("为了更好的为您提供服务,淘居屋需要使用定位权限");
       // if (!flag) return false;

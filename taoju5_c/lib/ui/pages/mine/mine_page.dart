@@ -14,7 +14,7 @@ import 'package:taoju5_c/ui/pages/mine/section/mine_footer_section.dart';
 import 'section/mine_header_section.dart';
 
 class MinePage extends StatelessWidget {
-  const MinePage({Key key}) : super(key: key);
+  const MinePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

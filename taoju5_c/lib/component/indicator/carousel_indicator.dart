@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CarouselIndicator extends StatefulWidget {
-  CarouselIndicator({Key key}) : super(key: key);
+  CarouselIndicator({Key? key}) : super(key: key);
 
   @override
   _CarouselIndicatorState createState() => _CarouselIndicatorState();

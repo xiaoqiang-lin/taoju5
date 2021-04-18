@@ -2,17 +2,18 @@
  * @Description: 用户模型
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-17 17:44:12
+ * @LastEditTime: 2021-04-18 08:34:32
  */
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
 class UserEntity {
-  String name;
-  String avatar;
-  String account;
-  String telephone;
-  int id;
-  String birthday;
+  late String name;
+  late String avatar;
+  late String account;
+  late String telephone;
+  late int id;
+  late String birthday;
 
   UserEntity.fromJson(Map json) {
     assert(json is Map);

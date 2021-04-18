@@ -11,7 +11,7 @@ import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list
 import 'package:taoju5_c/ui/pages/mine/subpage/address/wdiget/addresss_card.dart';
 
 class AddressListPage extends StatelessWidget {
-  const AddressListPage({Key key}) : super(key: key);
+  const AddressListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

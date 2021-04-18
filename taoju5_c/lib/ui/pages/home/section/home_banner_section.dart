@@ -12,7 +12,7 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';
 
 class HomeBannerSection extends StatelessWidget {
-  const HomeBannerSection({Key key}) : super(key: key);
+  const HomeBannerSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

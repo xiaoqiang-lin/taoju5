@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class LoginHeaderSection extends StatelessWidget {
-  const LoginHeaderSection({Key key}) : super(key: key);
+  const LoginHeaderSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

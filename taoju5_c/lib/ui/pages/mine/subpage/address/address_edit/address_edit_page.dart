@@ -13,7 +13,7 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_controller.dart';
 
 class AddresseEditPage extends StatelessWidget {
-  const AddresseEditPage({Key key}) : super(key: key);
+  const AddresseEditPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

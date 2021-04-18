@@ -2,27 +2,27 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-14 12:11:34
- * @LastEditTime: 2021-04-16 16:47:33
+ * @LastEditTime: 2021-04-18 08:34:13
  */
 import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/config/app_config.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/domain/entity/params/login/login_params.dart';
 import 'package:taoju5_c/domain/entity/params/login/sms_params.dart';
 import 'package:taoju5_c/domain/repository/login_repository.dart';
 import 'package:taoju5_c/routes/capp_routes.dart';
 import 'package:taoju5_c/utils/toast.dart';
-import 'package:taoju5_bc/config/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginStrategy {
   CLoginRepository repository = CLoginRepository();
 
-  Function(BaseEntity entity) onSuccess;
+  late Function(BaseEntity entity) onSuccess;
   Future login(Map params) {
-    assert(params != null);
     ToastKit.loading(message: "正在登录");
     return repository.login(params).then(onSuccess);
   }
@@ -35,22 +35,21 @@ abstract class LoginStrategy {
 ///密码登陆
 class PasswordLoginStrategy extends LoginStrategy {
   @override
-  Function(BaseEntity entity) onSuccess;
+  late Function(BaseEntity entity) onSuccess;
 }
 
 ///密码登陆
 class SmsCodeLoginStrategy extends LoginStrategy {
   @override
-  Function(BaseEntity entity) onSuccess;
+  late Function(BaseEntity entity) onSuccess;
 }
 
 ///微信登陆
 class WeChatLoginStrategy extends LoginStrategy {
-  StreamSubscription _subscription;
+  late StreamSubscription? _subscription;
 
   @override
   Future login(params) {
-    assert(params != null);
     _subscription = fluwx.weChatResponseEventHandler
         .distinct((a, b) => a == b)
         .listen((res) {
@@ -66,7 +65,7 @@ class WeChatLoginStrategy extends LoginStrategy {
           });
           repository.weChatLogin(params).then(onSuccess).whenComplete(() {
             ToastKit.dismiss();
-            _subscription.cancel();
+            _subscription?.cancel();
             _subscription = null;
           });
         }
@@ -76,7 +75,7 @@ class WeChatLoginStrategy extends LoginStrategy {
   }
 
   @override
-  Function(BaseEntity entity) onSuccess;
+  late Function(BaseEntity entity) onSuccess;
 }
 
 class CustomerLoginController extends GetxController {
@@ -113,7 +112,6 @@ class CustomerLoginController extends GetxController {
   }
 
   Future login(LoginStrategy strategy, CLoginMode mode) {
-    assert(strategy != null);
     _loginArg.mode = mode;
     strategy.setSuccessHandler(_onLoginSuccess);
     return strategy.login(_loginArg.params);

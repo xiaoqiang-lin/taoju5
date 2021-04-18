@@ -2,26 +2,23 @@
  * @Description: 验证码输入框封装
  * @Author: iamsmiling
  * @Date: 2021-04-14 15:22:28
- * @LastEditTime: 2021-04-17 17:42:03
+ * @LastEditTime: 2021-04-18 00:22:22
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/sms_button.dart';
 
 class SmsTextField extends StatefulWidget {
-  final ValueChanged<String> onChanged;
-  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
   final BoxConstraints constraints;
   final Function onPressed;
   const SmsTextField(
-      {Key key,
+      {Key? key,
       this.onChanged,
       this.controller,
       this.constraints = const BoxConstraints(maxHeight: 36),
-      @required this.onPressed})
-      : assert(constraints != null),
-        assert(
-            onPressed != null, "please provide a callback for the smsButton"),
-        super(key: key);
+      required this.onPressed})
+      : super(key: key);
 
   @override
   _SmsTextFieldState createState() => _SmsTextFieldState();

@@ -4,7 +4,7 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

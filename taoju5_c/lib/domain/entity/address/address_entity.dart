@@ -2,24 +2,23 @@
  * @Description: 地址
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-16 17:35:07
+ * @LastEditTime: 2021-04-18 00:04:53
  */
-import 'package:flutter/cupertino.dart';
 
 class AddressEntity {
-  String receiverName;
-  String telephone;
-  String concreteInfo;
-  bool isDefault;
-  int id;
-  bool hasDeleted = false;
-  String provinceName;
-  String cityName;
-  String districtName;
-  String description;
-  int provinceId;
-  int cityId;
-  int districtId;
+  late String receiverName;
+  late String telephone;
+  late String concreteInfo;
+  late bool isDefault;
+  late int id;
+  late bool hasDeleted = false;
+  late String provinceName;
+  late String cityName;
+  late String districtName;
+  late String description;
+  late int provinceId;
+  late int cityId;
+  late int districtId;
 
   AddressEntity.empty();
 
@@ -38,7 +37,7 @@ class AddressEntity {
     description = json["all_address"];
   }
 
-  AddressEntity.sample({@required int id, bool isDefault = false}) {
+  AddressEntity.sample({required int id, bool isDefault = false}) {
     this.id = id;
     receiverName = "青红造了个白";
     telephone = "13588414007";

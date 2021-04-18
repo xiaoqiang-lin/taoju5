@@ -2,7 +2,7 @@
  * @Description: 设置通用组件
  * @Author: iamsmiling
  * @Date: 2021-04-14 18:05:10
- * @LastEditTime: 2021-04-15 17:41:06
+ * @LastEditTime: 2021-04-18 00:24:47
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -10,9 +10,7 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 
 class SettingListTile extends StatelessWidget {
   final SettingTileEntity entity;
-  const SettingListTile({Key key, @required this.entity})
-      : assert(entity != null),
-        super(key: key);
+  const SettingListTile({Key? key, required this.entity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

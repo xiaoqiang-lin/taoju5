@@ -15,7 +15,7 @@ import 'modify_telephone_controller.dart';
 import 'package:get/get.dart';
 
 class ModifyTelephoneSecondPage extends StatelessWidget {
-  const ModifyTelephoneSecondPage({Key key}) : super(key: key);
+  const ModifyTelephoneSecondPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -14,24 +14,24 @@ class PrimaryButton extends StatelessWidget {
   final PrimaryButtonSize size;
   final PrimaryButtonMode mode;
   final String text;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final Function onPressed;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final Function()? onPressed;
   final double radius;
-  final TextStyle textStyle;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final Color fillColor;
-  final BoxConstraints constraints;
+  final TextStyle? textStyle;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? fillColor;
+  final BoxConstraints? constraints;
   PrimaryButton(
-      {Key key,
+      {Key? key,
       this.size = PrimaryButtonSize.normal,
       this.mode = PrimaryButtonMode.elevatedButton,
       this.constraints,
-      @required this.text,
+      required this.text,
       this.margin,
       this.padding,
-      @required this.onPressed,
+      required this.onPressed,
       this.radius = 25,
       this.backgroundColor,
       this.foregroundColor,
@@ -39,7 +39,6 @@ class PrimaryButton extends StatelessWidget {
       this.fillColor = const Color(0xFFF5F5F5)})
       : assert((size != PrimaryButtonSize.custom) || (constraints == null),
             "please provide a concrete size for the button"),
-        assert(text != null, "please provide a text describing the button"),
         super(key: key) {
     _initSize();
     _initMargin();
@@ -49,14 +48,14 @@ class PrimaryButton extends StatelessWidget {
     _initButtonMode();
   }
 
-  EdgeInsets _margin;
-  EdgeInsets _padding;
+  EdgeInsets? _margin;
+  EdgeInsets? _padding;
 
-  BoxConstraints _constraints;
+  BoxConstraints? _constraints;
 
-  Widget _child;
-  Color _color;
-  TextStyle _textStyle;
+  Widget? _child;
+  Color? _color;
+  TextStyle? _textStyle;
 
   _initSize() {
     _constraints = constraints;
@@ -103,7 +102,7 @@ class PrimaryButton extends StatelessWidget {
 
   _initButtonMode() {
     _child = Padding(
-      padding: _padding,
+      padding: _padding!,
       child: Text(text, style: _textStyle),
     );
 
@@ -115,12 +114,12 @@ class PrimaryButton extends StatelessWidget {
         }
       case PrimaryButtonMode.outlinedButton:
         {
-          _child = OutlinedButton(onPressed: onPressed, child: _child);
+          _child = OutlinedButton(onPressed: onPressed, child: _child!);
           break;
         }
       case PrimaryButtonMode.textButton:
         {
-          _child = TextButton(onPressed: onPressed, child: _child);
+          _child = TextButton(onPressed: onPressed, child: _child!);
           break;
         }
       case PrimaryButtonMode.materialButton:
@@ -138,7 +137,7 @@ class PrimaryButton extends StatelessWidget {
               disabledElevation: 0,
               onPressed: onPressed,
               child: _child,
-              constraints: _constraints,
+              constraints: _constraints!,
             ),
           );
           break;

@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/widget/setting_tile.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key key}) : super(key: key);
+  const AccountPage({Key? key}) : super(key: key);
 
   static List<SettingTileEntity> tiles = [
     SettingTileEntity(

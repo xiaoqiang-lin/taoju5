@@ -9,6 +9,7 @@ import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/provider/mine_api.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
 class CMineRepository {

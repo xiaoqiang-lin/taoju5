@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class HomeSceneSection extends StatelessWidget {
-  const HomeSceneSection({Key key}) : super(key: key);
+  const HomeSceneSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

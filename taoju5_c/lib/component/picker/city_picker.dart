@@ -2,7 +2,7 @@
  * @Description: 城市选择
  * @Author: iamsmiling
  * @Date: 2020-11-28 23:11:50
- * @LastEditTime: 2021-04-17 18:18:41
+ * @LastEditTime: 2021-04-18 08:32:11
  */
 
 import 'dart:async';
@@ -13,14 +13,14 @@ import 'package:flutter/material.dart';
 
 import 'data.dart';
 
-typedef ValueChanged = AddressEntity Function(Map map);
+typedef ValueChanged = AddressEntity? Function(Map map);
 
 List<Map> quertProviceList() => proviceData["RECORDS"];
 
 ///[description]: 查找城市列表
 ///[params]: provinceId 选中的城市列表
 ///[return]: 当前省份下的所有城市
-List<Map> queryCityList(int provinceId) {
+List<Map>? queryCityList(int? provinceId) {
   ///使用set集合可以过滤重复
   Set<Map> citySet = {};
   List<Map> data = cityData["RECORDS"];
@@ -33,7 +33,7 @@ List<Map> queryCityList(int provinceId) {
   return citySet.toList();
 }
 
-List<Map> queryDistrictList(int cityId) {
+List<Map>? queryDistrictList(int? cityId) {
   Set<Map> districtSet = {};
   List<Map> data = districtData["RECORDS"];
   for (int i = 0; i < data.length; i++) {
@@ -45,7 +45,7 @@ List<Map> queryDistrictList(int cityId) {
   return districtSet.toList();
 }
 
-int getProvinceIdByName(String name) {
+int? getProvinceIdByName(String? name) {
   if (name == null || name.isEmpty) return null;
   List<Map> list = quertProviceList();
   for (int i = 0; i < list.length; i++) {
@@ -57,10 +57,10 @@ int getProvinceIdByName(String name) {
   return null;
 }
 
-int getCityIdByName(int provinceId, String name) {
+int? getCityIdByName(int? provinceId, String? name) {
   if (name == null || name.isEmpty) return null;
-  List<Map> list = queryCityList(provinceId);
-  for (int i = 0; i < list.length; i++) {
+  List<Map>? list = queryCityList(provinceId);
+  for (int i = 0; i < list!.length; i++) {
     Map el = list[i];
     if (RegExp(name).hasMatch(el["city_name"] ?? "")) {
       return el["city_id"];
@@ -69,10 +69,10 @@ int getCityIdByName(int provinceId, String name) {
   return null;
 }
 
-int getDistrictIdByName(int cityId, String name) {
+int? getDistrictIdByName(int? cityId, String? name) {
   if (name == null || name.isEmpty) return null;
-  List<Map> list = queryDistrictList(cityId);
-  for (int i = 0; i < list.length; i++) {
+  List<Map>? list = queryDistrictList(cityId);
+  for (int i = 0; i < list!.length; i++) {
     Map el = list[i];
     if (RegExp(name).hasMatch(el["district_name"] ?? "")) {
       return el["district_id"];
@@ -81,7 +81,7 @@ int getDistrictIdByName(int cityId, String name) {
   return null;
 }
 
-String getProvinceNameById(int id) {
+String? getProvinceNameById(int id) {
   List<Map> list = quertProviceList();
   for (int i = 0; i < list.length; i++) {
     Map el = list[i];
@@ -92,9 +92,9 @@ String getProvinceNameById(int id) {
   return null;
 }
 
-String getCityNameById(int provinceId, int cityId) {
-  List<Map> list = queryCityList(provinceId);
-  for (int i = 0; i < list.length; i++) {
+String? getCityNameById(int? provinceId, int? cityId) {
+  List<Map>? list = queryCityList(provinceId);
+  for (int i = 0; i < list!.length; i++) {
     Map el = list[i];
     if (cityId == el["city_id"]) {
       return el["city_name"];
@@ -103,9 +103,10 @@ String getCityNameById(int provinceId, int cityId) {
   return null;
 }
 
-String getDistrictNameById(int provinceId, int cityId, int districtId) {
-  List<Map> list = queryDistrictList(cityId);
-  for (int i = 0; i < list.length; i++) {
+String? getDistrictNameById(int? provinceId, int? cityId, int? districtId) {
+  if (cityId == null) return null;
+  List<Map>? list = queryDistrictList(cityId);
+  for (int i = 0; i < list!.length; i++) {
     Map el = list[i];
     if (districtId == el["district_id"]) {
       return el["district_name"];
@@ -116,22 +117,22 @@ String getDistrictNameById(int provinceId, int cityId, int districtId) {
 
 AddressModel queryByName(
     String provinceName, String cityName, String districtName) {
-  int provinceId = getProvinceIdByName(provinceName);
-  int cityId = getCityIdByName(provinceId, cityName);
-  int districtId = getDistrictIdByName(cityId, districtName);
+  int? provinceId = getProvinceIdByName(provinceName);
+  int? cityId = getCityIdByName(provinceId!, cityName);
+  int? districtId = getDistrictIdByName(cityId!, districtName);
   ProvicneEntity provicneEntity =
       ProvicneEntity(id: provinceId, name: provinceName);
   CityEntity cityEntity = CityEntity(id: cityId, name: cityName);
   DistrictEntity districtEntity =
-      DistrictEntity(id: districtId, name: districtName);
+      DistrictEntity(id: districtId!, name: districtName);
   return AddressModel(
       provicne: provicneEntity, city: cityEntity, district: districtEntity);
 }
 
 AddressModel queryById(int provinceId, int cityId, int districtId) {
-  String provinceName = getProvinceNameById(provinceId);
-  String cityName = getProvinceNameById(provinceId);
-  String districtName = getProvinceNameById(provinceId);
+  String? provinceName = getProvinceNameById(provinceId);
+  String? cityName = getProvinceNameById(provinceId);
+  String? districtName = getProvinceNameById(provinceId);
   ProvicneEntity provicneEntity =
       ProvicneEntity(id: provinceId, name: provinceName);
   CityEntity cityEntity = CityEntity(id: cityId, name: cityName);
@@ -144,39 +145,39 @@ AddressModel queryById(int provinceId, int cityId, int districtId) {
 abstract class AddressEntity {}
 
 class ProvicneEntity extends AddressEntity {
-  int id;
-  String name;
+  int? id;
+  String? name;
   ProvicneEntity({@required this.id, @required this.name});
 }
 
 class CityEntity extends AddressEntity {
-  int id;
-  String name;
+  int? id;
+  String? name;
   CityEntity({@required this.id, @required this.name});
 }
 
 class DistrictEntity extends AddressEntity {
-  int id;
-  String name;
+  int? id;
+  String? name;
   DistrictEntity({@required this.id, @required this.name});
 }
 
 class AddressModel {
-  ProvicneEntity provicne;
-  CityEntity city;
-  DistrictEntity district;
+  late ProvicneEntity provicne;
+  late CityEntity city;
+  late DistrictEntity district;
 
   @override
   String toString() {
-    return "${provicne?.name ?? ''}${city?.name ?? ''}${district?.name ?? ''}";
+    return "${provicne.name ?? ''}${city.name ?? ''}${district.name ?? ''}";
   }
 
   String get address =>
-      "${provicne?.name ?? ''}${city?.name ?? ''}${district?.name ?? ''}";
+      "${provicne.name ?? ''}${city.name ?? ''}${district.name ?? ''}";
   AddressModel(
-      {@required this.provicne, @required this.city, @required this.district});
+      {required this.provicne, required this.city, required this.district});
 
-  AddressModel.fromId(int provinceId, int cityId, int districtId) {
+  AddressModel.fromId(int? provinceId, int? cityId, int? districtId) {
     if (provinceId == 0 || provinceId == null) {
       provinceId = 1;
     }
@@ -196,20 +197,20 @@ class AddressModel {
   }
 
   AddressModel.fromName(
-      String provinceName, String cityName, String districtName) {
-    int provinceId = getProvinceIdByName(provinceName);
-    int cityId = getCityIdByName(provinceId, cityName);
-    int districtId = getDistrictIdByName(cityId, districtName);
+      String? provinceName, String? cityName, String? districtName) {
+    int? provinceId = getProvinceIdByName(provinceName);
+    int? cityId = getCityIdByName(provinceId, cityName);
+    int? districtId = getDistrictIdByName(cityId, districtName);
 
     provicne = ProvicneEntity(id: provinceId, name: provinceName);
     city = CityEntity(id: cityId, name: getCityNameById(provinceId, cityId));
     district = DistrictEntity(
         id: districtId,
-        name: getDistrictNameById(provinceId, cityId, districtId));
+        name: getDistrictNameById(provinceId!, cityId!, districtId!));
   }
 }
 
-Future cshowCityPicker(BuildContext context, {AddressModel addressResult}) {
+Future cshowCityPicker(BuildContext context, {AddressModel? addressResult}) {
   return showCupertinoModalPopup<AddressModel>(
       context: context,
       builder: (BuildContext context) {
@@ -220,9 +221,9 @@ Future cshowCityPicker(BuildContext context, {AddressModel addressResult}) {
 }
 
 class _XCityPicker extends StatefulWidget {
-  final AddressModel addressResult;
+  late final AddressModel? addressResult;
   _XCityPicker({
-    Key key,
+    Key? key,
     this.addressResult,
   }) : super(key: key);
 
@@ -231,33 +232,33 @@ class _XCityPicker extends StatefulWidget {
 }
 
 class _XCityPickerState extends State<_XCityPicker> {
-  FixedExtentScrollController provinceController;
-  FixedExtentScrollController cityController;
-  FixedExtentScrollController districtController;
+  late FixedExtentScrollController provinceController;
+  late FixedExtentScrollController cityController;
+  late FixedExtentScrollController districtController;
 
-  AddressModel get addressResult => widget.addressResult;
+  AddressModel? get addressResult => widget.addressResult;
 
-  ProvicneEntity get provinceEntity => addressResult?.provicne;
-  CityEntity get cityEntity => addressResult?.city;
-  DistrictEntity get districtEntity => addressResult?.district;
+  ProvicneEntity? get provinceEntity => addressResult?.provicne;
+  CityEntity? get cityEntity => addressResult?.city;
+  DistrictEntity? get districtEntity => addressResult?.district;
 
-  int get defaultProvinceId => provinceEntity?.id;
-  int get defaultCityId => cityEntity?.id;
-  int get defaultDistrictId => districtEntity?.id;
+  int? get defaultProvinceId => provinceEntity?.id;
+  int? get defaultCityId => cityEntity?.id;
+  int? get defaultDistrictId => districtEntity?.id;
 
   ///[targetProvinceId]当前选中的省份id
-  int targetProvinceId;
+  late int targetProvinceId;
 
   ///[targetCityId]当前选中的城市id
-  int targetCityId;
+  late int targetCityId;
 
   ///[targetDistrictId]当前选中的区id
-  int targetDistrictId;
+  late int targetDistrictId;
 
   /// [用于构件城市列表]-->StreamBuilder
-  StreamController<List<Map>> cityStramController;
+  late StreamController<List<Map>?> cityStramController;
 
-  StreamController<List<Map>> distrctStreamController;
+  late StreamController<List<Map>?> distrctStreamController;
 
   @override
   void initState() {
@@ -278,11 +279,11 @@ class _XCityPickerState extends State<_XCityPicker> {
 
   @override
   void dispose() {
-    provinceController?.dispose();
-    cityController?.dispose();
-    districtController?.dispose();
-    cityStramController?.close();
-    distrctStreamController?.close();
+    provinceController.dispose();
+    cityController.dispose();
+    districtController.dispose();
+    cityStramController.close();
+    distrctStreamController.close();
     super.dispose();
   }
 
@@ -298,7 +299,8 @@ class _XCityPickerState extends State<_XCityPicker> {
 
   int _getInitialCityIndex() {
     if (defaultCityId == null) return 0;
-    List list = queryCityList(defaultProvinceId);
+    List? list = queryCityList(defaultProvinceId);
+    if (list == null) return 0;
     for (int i = 0; i < list.length; i++) {
       Map el = list[i];
       if (el["city_id"] == defaultCityId) return i;
@@ -308,7 +310,8 @@ class _XCityPickerState extends State<_XCityPicker> {
 
   int _getInitialDistrictIndex() {
     if (defaultDistrictId == null) return 0;
-    List list = queryDistrictList(defaultCityId);
+    List? list = queryDistrictList(defaultCityId);
+    if (list == null) return 0;
     for (int i = 0; i < list.length; i++) {
       Map el = list[i];
       if (el["district_id"] == defaultDistrictId) return i;
@@ -316,16 +319,18 @@ class _XCityPickerState extends State<_XCityPicker> {
     return 0;
   }
 
-  ProvicneEntity _onProvinceChange(Map map) {
+  ProvicneEntity? _onProvinceChange(Map map) {
     targetProvinceId = map["province_id"];
     // _updateCityAndDistrcitData(targetProvinceId);
-    List<Map> cityList = queryCityList(targetProvinceId);
+    List<Map>? cityList = queryCityList(targetProvinceId);
+
     targetCityId = cityList?.first["city_id"];
     _onCityChange(cityList?.first);
 
-    List<Map> districtList = queryDistrictList(targetCityId);
+    List<Map>? districtList = queryDistrictList(targetCityId);
+    if (districtList == null) return null;
     if (districtList.isNotEmpty) {
-      _onDistrictChange(districtList?.first);
+      _onDistrictChange(districtList.first);
     }
     cityStramController.add(cityList);
     distrctStreamController.add(districtList);
@@ -339,14 +344,16 @@ class _XCityPickerState extends State<_XCityPicker> {
 
   // void _updateDistrictData(int cityId) {}
 
-  CityEntity _onCityChange(Map map) {
+  CityEntity? _onCityChange(Map? map) {
+    if (map == null) return null;
     targetCityId = map["city_id"];
     // _updateDistrictData(targetCityId);
-    List<Map> districtList = queryDistrictList(targetCityId);
+    List<Map>? districtList = queryDistrictList(targetCityId);
 
     distrctStreamController.add(queryDistrictList(targetCityId));
+    if (districtList == null) return null;
     if (districtList.isNotEmpty) {
-      _onDistrictChange(districtList?.first);
+      _onDistrictChange(districtList.first);
     }
 
     return CityEntity(id: map["city_id"], name: map["city_name"]);
@@ -463,10 +470,14 @@ class _PickerView extends StatefulWidget {
   ///[itemList]选项列表
   final String field;
   final List<Map> itemList;
-  final ValueChanged onChange;
+  final ValueChanged? onChange;
   final FixedExtentScrollController controller;
   _PickerView(
-      {Key key, this.itemList, this.onChange, this.controller, this.field})
+      {Key? key,
+      required this.itemList,
+      required this.onChange,
+      required this.controller,
+      required this.field})
       : super(key: key);
 
   @override
@@ -485,7 +496,8 @@ class __PickerViewState extends State<_PickerView> {
             itemExtent: 40,
             onSelectedItemChanged: (int index) {
               Map map = widget.itemList[index];
-              widget.onChange(map);
+              if (widget.onChange == null) return;
+              widget.onChange!(map);
             },
             itemBuilder: (BuildContext context, int index) {
               return Center(

@@ -1,4 +1,9 @@
-import 'package:flutter/material.dart';
+/*
+ * @Description: 产品特色
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 21:31:19
+ * @LastEditTime: 2021-04-18 00:13:32
+ */
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -6,7 +11,7 @@ class ProductFeatureEntity {
   final String icon;
   final String label;
 
-  const ProductFeatureEntity({@required this.icon, @required this.label});
+  const ProductFeatureEntity({required this.icon, required this.label});
 }
 
 class HomeController extends GetxController {
