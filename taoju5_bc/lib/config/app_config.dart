@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-04-20 10:43:54
+ * @LastEditTime: 2021-04-20 15:28:26
  */
 
 import 'package:flutter/foundation.dart';
@@ -13,7 +13,7 @@ import 'app_env.dart';
 class AppConfig {
   // app名字
   // static String get appName => isDebug ? '淘居屋商家测试版' : "淘居屋商家";
-  static AppEnv env = AppEnv.$b;
+  static AppEnv env = AppEnv.$c;
 
   ///打包时只需要修改这两个即可
   static AppMode mode = AppMode.release;

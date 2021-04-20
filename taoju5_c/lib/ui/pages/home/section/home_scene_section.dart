@@ -2,7 +2,7 @@
  * @Description:首页场景模块
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-20 10:32:22
+ * @LastEditTime: 2021-04-20 15:30:29
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -38,11 +38,8 @@ class HomeSceneSection extends StatelessWidget {
                 margin: EdgeInsets.only(left: R.dimen.dp20),
                 child: Stack(
                   children: [
-                    AspectRatio(
-                      aspectRatio: .98,
-                      child: Image.network(
-                          "https://i.loli.net/2021/04/15/dmbHyWe5DNuc1oA.png"),
-                    ),
+                    Image.network(
+                        "https://i.loli.net/2021/04/15/dmbHyWe5DNuc1oA.png"),
                     Container(
                       padding: EdgeInsets.all(R.dimen.dp12),
                       child: Column(
