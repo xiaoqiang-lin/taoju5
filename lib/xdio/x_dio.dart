@@ -2,12 +2,13 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-20 11:58:03
+ * @LastEditTime: 2021-04-20 15:47:28
  */
 
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as g;
+import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
@@ -79,6 +80,11 @@ class XDio {
           BaseResponse baseResponse = BaseResponse.fromJson(response.data);
           XLogger.e(
               "*******************************请求结果*******************************\n${response.data}");
+
+          if (baseResponse.code == -999) {
+            EasyLoading.showInfo("请重新登录");
+            g.Get.offAndToNamed(BAppRoutes.login);
+          }
           if (!baseResponse.isValid &&
               !_isInWhiteList(response.requestOptions.path)) {
             throw EasyLoading.showInfo(baseResponse.message,
