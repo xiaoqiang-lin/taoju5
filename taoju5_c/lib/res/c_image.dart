@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-16 15:01:08
+ * @LastEditTime: 2021-04-20 09:33:22
  */
 // part of R;
 class CImage {
@@ -10,6 +10,10 @@ class CImage {
   // ignore: unused_element
   CImage._();
   factory CImage() => _singleton;
+
+  final String message = "resources/images/message.png";
+
+  final String search = "resources/images/search.png";
 
   ///首页
   final String home = "resources/images/home.png";
@@ -61,4 +65,6 @@ class CImage {
   ///定位
   final String locationAccent = "resources/images/location_accent.png";
   final String location = "resources/images/location.png";
+
+  final String camera = "resources/images/camera.png";
 }

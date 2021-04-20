@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
 import 'package:taoju5_c/ui/pages/mine/section/mine_body_section.dart';
 import 'package:taoju5_c/ui/pages/mine/section/mine_footer_section.dart';

@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-04-18 00:12:41
+ * @LastEditTime: 2021-04-20 09:46:53
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +29,43 @@ class HomePage extends StatelessWidget {
     return GetBuilder<HomeController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
+          titleSpacing: 0,
           backgroundColor: R.color.primaryColor,
-          title: Text("首页"),
+          leading: IconButton(
+            padding: EdgeInsets.zero,
+            icon: Image.asset(R.image.location),
+            onPressed: () {},
+          ),
+          title: Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(R.image.search),
+                Container(
+                  margin: EdgeInsets.only(left: R.dimen.dp3),
+                  child: Text(
+                    "搜索您想找的内容",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: R.dimen.sp10, color: R.color.whiteColor),
+                  ),
+                )
+              ],
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: R.color.whiteColor.withOpacity(.3)),
+          ),
+          actions: [
+            IconButton(
+                padding: EdgeInsets.zero,
+                icon: Image.asset(R.image.message),
+                onPressed: () {})
+          ],
         ),
         body: CustomScrollView(
           slivers: [

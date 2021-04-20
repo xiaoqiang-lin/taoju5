@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 enum UserRole { customer, business }
 

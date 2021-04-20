@@ -2,13 +2,13 @@
  * @Description: 账号安全
  * @Author: iamsmiling
  * @Date: 2021-04-14 18:04:14
- * @LastEditTime: 2021-04-18 12:43:11
+ * @LastEditTime: 2021-04-18 15:14:57
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/widget/setting_tile.dart';

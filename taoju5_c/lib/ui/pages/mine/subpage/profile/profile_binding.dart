@@ -2,7 +2,7 @@
  * @Description: 个人资料
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-15 13:09:42
+ * @LastEditTime: 2021-04-19 15:56:39
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';

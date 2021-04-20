@@ -14,6 +14,7 @@ class CTheme {
   factory CTheme() => _singleton;
 
   final ThemeData lightTheme = ThemeData(
+      fontFamily: "PingFang SC",
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.iconColor),
       scaffoldBackgroundColor: R.color.scaffoldBackgroundColor,
       toggleButtonsTheme: ToggleButtonsThemeData(),

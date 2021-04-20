@@ -2,7 +2,7 @@
  * @Description: 网络请求封装
  * @Author: iamsmiling
  * @Date: 2021-03-30 21:39:00
- * @LastEditTime: 2021-04-18 00:02:25
+ * @LastEditTime: 2021-04-19 14:37:14
  */
 import 'dart:convert';
 
@@ -67,11 +67,11 @@ class HttpKit {
   }
 
   Future<BaseEntity> post(String url,
-      {Map? params, Options? options, Map? formData}) async {
+      {Map? params, Options? options, dynamic formData}) async {
     return dio
         .post(url,
             queryParameters: params?.cast<String, dynamic>(),
-            data: formData?.cast<String, dynamic>(),
+            data: formData is Map ? formData.cast<String, dynamic>() : formData,
             options: options)
         .then((Response response) {
       return response.data;

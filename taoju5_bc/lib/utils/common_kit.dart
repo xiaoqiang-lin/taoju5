@@ -2,7 +2,7 @@
  * @Description: 常用工具方法
  * @Author: iamsmiling
  * @Date: 2020-12-24 10:44:12
- * @LastEditTime: 2021-04-17 17:54:25
+ * @LastEditTime: 2021-04-19 14:14:37
  */
 
 import 'dart:async';
@@ -60,6 +60,11 @@ abstract class CommonKit {
     return RegExp(
             '^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$')
         .hasMatch(val);
+  }
+
+  static String getFileExt(String fileName) {
+    int index = fileName.lastIndexOf(".");
+    return fileName.substring(index + 1);
   }
 
   // static bool get isImage(String val)=>GetUtils.isImage(filePath)

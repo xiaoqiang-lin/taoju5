@@ -2,11 +2,13 @@
  * @Description:  参数模型
  * @Author: iamsmiling
  * @Date: 2021-04-15 15:42:35
- * @LastEditTime: 2021-04-18 00:07:22
+ * @LastEditTime: 2021-04-19 16:36:03
  */
 import 'package:get/get.dart';
 
 abstract class BaseParamsEntity {
+  ///初始参数参数 encode
+  String initialParams = '';
   bool validate();
 
   bool isNullOrZero(dynamic val) {

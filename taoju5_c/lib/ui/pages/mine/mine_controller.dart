@@ -2,13 +2,13 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-18 00:27:41
+ * @LastEditTime: 2021-04-19 14:23:36
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
-import 'package:taoju5_c/domain/repository/mine_api.dart';
+import 'package:taoju5_c/domain/repository/mine_repository.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class MineKongoEntity {
   final String label;
@@ -51,9 +51,13 @@ class MineController extends GetxController {
         MineTileEntity(
             icon: R.image.address,
             label: "地址管理",
-            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressList,
-                parameters: {"userId": "${user.id}"})),
-        MineTileEntity(icon: R.image.feedback, label: "意见反馈", onTap: () {}),
+            onTap: () => Get.toNamed(
+                  AppRoutes.mine + AppRoutes.addressList,
+                )),
+        MineTileEntity(
+            icon: R.image.feedback,
+            label: "意见反馈",
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.feedback)),
         MineTileEntity(
             icon: R.image.customerService, label: "客服", onTap: () {}),
         MineTileEntity(
@@ -62,7 +66,7 @@ class MineController extends GetxController {
 
   @override
   void onInit() {
-    CMineRepository _repository = CMineRepository();
+    MineRepository _repository = MineRepository();
     _repository.getUserInfo().then((UserEntity value) {
       user = value;
       update();

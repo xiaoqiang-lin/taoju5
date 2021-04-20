@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-04-16 09:21:04
+ * @LastEditTime: 2021-04-19 16:51:48
  */
 class AppRoutes {
   ///app程序入口
@@ -18,9 +18,15 @@ class AppRoutes {
 
   static const profile = '/profile';
 
+  static const modifyUserNickname = '/modifyUserNickname';
+
   static const addressList = '/address/list';
 
   static const addressEdit = '/address/edit';
+
+  static const feedback = '/feedback';
+
+  static const category = '/category';
 
   ///登陆相关
   static const account = '/account';

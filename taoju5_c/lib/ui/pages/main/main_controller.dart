@@ -2,12 +2,12 @@
  * @Description:
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-18 08:35:09
+ * @LastEditTime: 2021-04-19 16:54:04
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/ui/pages/design_pattern/design_pattern_page.dart';
+import 'package:taoju5_c/ui/pages/category/category_page.dart';
 import 'package:taoju5_c/ui/pages/home/home_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
 
@@ -38,9 +38,11 @@ class MainController extends GetxController {
 
   final List<Widget> pages = [
     HomePage(),
-    DesignPatternPage(),
-    Text("淘学院"),
-    Text("购物车"),
+    CategoryPage(),
+    Image.network(
+        "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f7fd7b0c6571454b8265ab0e4bcc2ad7~tplv-k3u1fbpfcp-watermark.image"),
+    Image.network(
+        "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f90fc3616964aae89c93147a895ea3d~tplv-k3u1fbpfcp-watermark.image"),
     MinePage()
   ];
 

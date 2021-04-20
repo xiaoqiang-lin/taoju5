@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ClearableTextField extends StatefulWidget {
   final String? initialValue;
   final TextEditingController? controller;
-  final InputDecoration? decoration;
+  final InputDecoration decoration;
   final ValueChanged<String>? onChanged;
   final Widget suffixIcon;
   final TextInputType? keyboardType;
@@ -13,7 +13,7 @@ class ClearableTextField extends StatefulWidget {
       {Key? key,
       this.initialValue,
       this.controller,
-      this.decoration,
+      required this.decoration,
       this.onChanged,
       this.suffixIcon = const Icon(
         Icons.cancel,
@@ -22,8 +22,7 @@ class ClearableTextField extends StatefulWidget {
       this.keyboardType,
       this.validator,
       this.constraints = const BoxConstraints(maxHeight: 36)})
-      : assert(decoration != null),
-        super(key: key);
+      : super(key: key);
 
   @override
   _ClearableTextFieldState createState() => _ClearableTextFieldState();
@@ -84,7 +83,7 @@ class _ClearableTextFieldState extends State<ClearableTextField> {
         keyboardType: widget.keyboardType,
         controller: _controller,
         onChanged: _onChanged,
-        decoration: widget.decoration?.copyWith(
+        decoration: widget.decoration.copyWith(
             suffixIcon: Visibility(
           visible: _clearable,
           child: IconButton(

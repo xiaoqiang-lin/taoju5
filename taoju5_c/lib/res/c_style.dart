@@ -2,7 +2,7 @@
  * @Description: 字体
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-16 13:53:24
+ * @LastEditTime: 2021-04-20 09:53:07
  */
 import 'dart:ui';
 
@@ -49,4 +49,8 @@ class CStyle {
   ///次要标题/加入购物车选项模块标题/弹窗按钮文字等
   TextStyle primaryText =
       TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.w700);
+
+  //更多提示文字
+  TextStyle moreTip =
+      TextStyle(fontSize: R.dimen.sp12, color: R.color.greyTextColor);
 }

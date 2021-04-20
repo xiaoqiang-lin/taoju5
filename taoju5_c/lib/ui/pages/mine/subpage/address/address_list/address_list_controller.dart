@@ -6,10 +6,10 @@
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
-import 'package:taoju5_c/domain/repository/mine_api.dart';
+import 'package:taoju5_c/domain/repository/mine_repository.dart';
 
 class AddressListController extends GetxController {
-  CMineRepository _repository = CMineRepository();
+  MineRepository _repository = MineRepository();
   List<AddressEntity> addresses = [
     AddressEntity.sample(id: 1, isDefault: true),
     AddressEntity.sample(id: 2),

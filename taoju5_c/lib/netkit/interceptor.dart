@@ -2,7 +2,7 @@
  * @Description: 请求拦截器
  * @Author: iamsmiling
  * @Date: 2021-04-06 13:22:02
- * @LastEditTime: 2021-04-18 00:02:46
+ * @LastEditTime: 2021-04-19 13:33:02
  */
 import 'dart:convert';
 
@@ -24,14 +24,16 @@ int _cReceiveTimeout = 1000 * 45;
 /// 添加常用Header
 class HeaderInterceptor extends InterceptorsWrapper {
   @override
-  Future onRequest(RequestOptions options, _) async {
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     options.connectTimeout = _cConnectTimeout;
     options.receiveTimeout = _cReceiveTimeout;
     String appInfo = await AppManager.getAppInfo();
 
     ///添加设备信息
     options.headers.addAll({"equipment": appInfo});
-    return options;
+    handler.next(options);
+    // return options;
   }
 }
 
@@ -42,7 +44,7 @@ class ApiInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  onRequest(RequestOptions options, _) async {
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 //    debugPrint('---api-request--->data--->${options.data}');
     ///为每个请求添加token
     SharedPreferences _sp = await SharedPreferences.getInstance();
@@ -51,11 +53,12 @@ class ApiInterceptor extends InterceptorsWrapper {
     debugPrint("请求时间:${DateTime.now()}");
     debugPrint('---api-请求地址--->url--> ${options.baseUrl}${options.path}\n' +
         ' queryParameters: ${options.queryParameters}----formdata:${options.data}');
+    handler.next(options);
     // return options;
   }
 
   @override
-  onResponse(Response response, _) {
+  onResponse(Response response, ResponseInterceptorHandler handler) {
     debugPrint('---api-response--->resp----->${response.data}');
     dynamic data = response.data;
     data = data is String ? jsonDecode(data) : data;
@@ -75,5 +78,6 @@ class ApiInterceptor extends InterceptorsWrapper {
     } else {
       throw ToastKit.error(entity.message);
     }
+    handler.next(response);
   }
 }

@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-04-18 00:25:46
  */
 import 'package:get/get.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class SettingTileEntity {
   final String label;

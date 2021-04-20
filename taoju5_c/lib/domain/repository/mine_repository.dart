@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:38:20
- * @LastEditTime: 2021-04-17 17:44:34
+ * @LastEditTime: 2021-04-19 14:52:28
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
@@ -12,8 +12,8 @@ import 'package:taoju5_c/domain/provider/mine_api.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
-class CMineRepository {
-  CMineAPI _api = CMineAPI();
+class MineRepository {
+  MineAPI _api = MineAPI();
 
   ///新建地址
   Future<UserEntity> getUserInfo() => _api
@@ -45,5 +45,11 @@ class CMineRepository {
       _api.delAddress(params).then((BaseEntity response) {
         List list = JsonKit.asList(response.data);
         return list.map((e) => AddressEntity.fromJson(e)).toList();
+      });
+
+  ///修改用户信息
+  Future<UserEntity> modifyUserProfile(Map params, {dynamic formData}) =>
+      _api.modifyUserProfile(params, formData).then((BaseEntity response) {
+        return UserEntity.fromJson(response.data);
       });
 }

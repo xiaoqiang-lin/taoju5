@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-15 17:45:52
+ * @LastEditTime: 2021-04-20 10:12:10
  */
 // part of R;
 
@@ -43,10 +43,15 @@ class CDimen {
   final double dp56 = 56;
   final double dp60 = 60;
   final double dp70 = 70;
+  final double dp80 = 80;
   final double dp84 = 84;
   final double dp100 = 100;
+
+  final double dp185 = 185;
+  final double dp140 = 140;
   final double sp2 = 2;
   final double sp4 = 4;
+  final double sp7 = 7;
   final double sp8 = 8;
   final double sp9 = 9;
   final double sp10 = 10;

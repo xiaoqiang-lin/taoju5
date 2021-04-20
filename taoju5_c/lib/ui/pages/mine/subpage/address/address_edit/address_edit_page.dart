@@ -2,14 +2,14 @@
  * @Description: 新增地址
  * @Author: iamsmiling
  * @Date: 2021-04-15 19:49:20
- * @LastEditTime: 2021-04-18 12:52:06
+ * @LastEditTime: 2021-04-19 10:25:34
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
-import 'package:taoju5_c/component/textfield/fixed_text_field_label.dart';
+import 'package:taoju5_c/component/textfield/fixed_label_text_field.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_controller.dart';
 
@@ -34,7 +34,7 @@ class AddresseEditPage extends StatelessWidget {
                     textAlignVertical: TextAlignVertical.center,
                     style: TextStyle(fontSize: R.dimen.sp13),
                     decoration: InputDecoration(
-                        prefixIcon: FixedTextFieldLabel(label: "收货人"),
+                        prefixIcon: FixedLabelTextField(label: "收货人"),
                         hintText: "请输入姓名",
                         hintStyle: TextStyle(
                             fontSize: R.dimen.sp13, color: R.color.hintColor))),
@@ -44,7 +44,7 @@ class AddresseEditPage extends StatelessWidget {
                     textAlignVertical: TextAlignVertical.center,
                     style: TextStyle(fontSize: R.dimen.sp13),
                     decoration: InputDecoration(
-                        prefixIcon: FixedTextFieldLabel(label: "手机号码"),
+                        prefixIcon: FixedLabelTextField(label: "手机号码"),
                         hintText: "请输入手机号",
                         hintStyle: TextStyle(
                             fontSize: R.dimen.sp13, color: R.color.hintColor))),
@@ -55,7 +55,7 @@ class AddresseEditPage extends StatelessWidget {
                     textAlignVertical: TextAlignVertical.center,
                     style: TextStyle(fontSize: R.dimen.sp13),
                     decoration: InputDecoration(
-                        prefixIcon: FixedTextFieldLabel(label: "选择地区"),
+                        prefixIcon: FixedLabelTextField(label: "选择地区"),
                         suffixIcon: IconButton(
                           onPressed: () {},
                           padding: EdgeInsets.zero,
@@ -72,7 +72,7 @@ class AddresseEditPage extends StatelessWidget {
                     style: TextStyle(fontSize: R.dimen.sp13),
                     maxLines: 2,
                     decoration: InputDecoration(
-                        prefixIcon: FixedTextFieldLabel(label: "详细地址"),
+                        prefixIcon: FixedLabelTextField(label: "详细地址"),
                         hintText: "请输入详细地址",
                         hintStyle: TextStyle(
                             fontSize: R.dimen.sp13, color: R.color.hintColor))),

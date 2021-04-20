@@ -14,7 +14,7 @@ import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/domain/entity/params/login/login_params.dart';
 import 'package:taoju5_c/domain/entity/params/login/sms_params.dart';
 import 'package:taoju5_c/domain/repository/login_repository.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/utils/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

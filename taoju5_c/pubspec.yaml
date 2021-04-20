@@ -16,6 +16,8 @@ dependencies:
     sdk: flutter
   taoju5_bc:
     path: ../taoju5_bc
+  extended_image: ^4.0.1
+  image: ^3.0.2
 
 dev_dependencies:
   flutter_test:

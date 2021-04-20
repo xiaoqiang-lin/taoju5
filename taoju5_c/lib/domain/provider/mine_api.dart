@@ -2,12 +2,12 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:37:07
- * @LastEditTime: 2021-04-16 18:02:03
+ * @LastEditTime: 2021-04-19 14:43:03
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/netkit/http_kit.dart';
 
-class CMineAPI {
+class MineAPI {
   HttpKit _http = HttpKit();
 
   ///创建地址
@@ -32,4 +32,8 @@ class CMineAPI {
   ///删除地址
   Future<BaseEntity> delAddress(Map params) =>
       _http.post("/app/user/delAddress", params: params);
+
+  ///修改用户信息
+  Future<BaseEntity> modifyUserProfile(Map params, dynamic formData) =>
+      _http.post("/app/user/editPerson", params: params, formData: formData);
 }

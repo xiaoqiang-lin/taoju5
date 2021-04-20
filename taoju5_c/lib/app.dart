@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-04-18 08:32:46
+ * @LastEditTime: 2021-04-18 15:15:08
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +17,7 @@ import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
 
 import 'res/R.dart';
-import 'routes/capp_pages.dart';
+import 'routes/app_pages.dart';
 
 class $CAPP extends StatelessWidget {
   const $CAPP({Key? key}) : super(key: key);

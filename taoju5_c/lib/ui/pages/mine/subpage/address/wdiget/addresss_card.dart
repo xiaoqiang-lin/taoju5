@@ -3,7 +3,7 @@ import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_controller.dart';
 
 class AddressCard extends StatelessWidget {

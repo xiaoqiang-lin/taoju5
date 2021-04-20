@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/picker/city_picker.dart';
 import 'package:taoju5_c/domain/entity/params/address/address_params.dart';
-import 'package:taoju5_c/domain/repository/mine_api.dart';
+import 'package:taoju5_c/domain/repository/mine_repository.dart';
 
 class AddressEditController extends GetxController {
   late AddressParamsEntity addressArg;
@@ -75,7 +75,7 @@ class AddressEditController extends GetxController {
 
   Future _sendRequest() {
     if (addressArg.validate()) {
-      CMineRepository _repository = CMineRepository();
+      MineRepository _repository = MineRepository();
       if (isNew) {
         return _repository.addAddress(addressArg.params);
       } else {

@@ -178,6 +178,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
+  extended_image:
+    dependency: "direct main"
+    description:
+      name: extended_image
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.1"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -271,7 +285,7 @@ packages:
       name: flutter_plugin_android_lifecycle
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.11"
+    version: "2.0.1"
   flutter_screenutil:
     dependency: transitive
     description:
@@ -361,6 +375,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.13.1"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.2"
   http_parser:
     dependency: transitive
     description:
@@ -369,7 +390,7 @@ packages:
     source: hosted
     version: "4.0.0"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
       url: "https://pub.flutter-io.cn"
@@ -381,7 +402,21 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.5+3"
+    version: "0.7.4"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   intl:
     dependency: transitive
     description:

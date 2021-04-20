@@ -2,10 +2,12 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-17 17:45:37
+ * @LastEditTime: 2021-04-19 16:52:11
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/category/category_binding.dart';
+import 'package:taoju5_c/ui/pages/category/category_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_login_binding.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_password_login_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_sms_login_page.dart';
@@ -28,12 +30,15 @@ import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_binding.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_nickname_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
 
-import 'capp_routes.dart';
+import 'app_routes.dart';
 
 class AppPages {
   static final pages = [
@@ -91,7 +96,14 @@ class AppPages {
           GetPage(
               name: AppRoutes.profile,
               page: () => ProfilePage(),
-              binding: ProfileBinding()),
+              binding: ProfileBinding(),
+              children: [
+                GetPage(
+                  name: AppRoutes.modifyUserNickname,
+                  page: () => ModifyUserNicknamePage(),
+                  binding: ProfileBinding(),
+                )
+              ]),
 
           ///地址列表
           GetPage(
@@ -111,8 +123,17 @@ class AppPages {
           GetPage(
             name: AppRoutes.account,
             page: () => AccountPage(),
-          )
+          ),
+
+          GetPage(
+              name: AppRoutes.feedback,
+              page: () => FeedbackPage(),
+              binding: FeedbackBinding())
         ]),
+    GetPage(
+        name: AppRoutes.category,
+        page: () => CategoryPage(),
+        binding: CategoryBinding())
 
     // ///显示地图
     // GetPage(

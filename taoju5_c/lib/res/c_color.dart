@@ -1,3 +1,9 @@
+/*
+ * @Description: app颜色
+ * @Author: iamsmiling
+ * @Date: 2021-04-17 18:16:40
+ * @LastEditTime: 2021-04-20 10:25:21
+ */
 // part of R;
 import 'package:flutter/material.dart';
 
@@ -12,6 +18,8 @@ class CColor {
 
   final Color appBarColor = Colors.white;
 
+  final Color whiteColor = Colors.white;
+
   final Color scaffoldBackgroundColor = Colors.white;
 
   final Color iconColor = const Color(0xFFB5B5B5);
@@ -25,6 +33,8 @@ class CColor {
   final Color transparent = Colors.transparent;
 
   final Color hintColor = const Color(0xFFC7C8CC);
+
+  final Color inputHintColor = const Color(0xFF999999);
 
   final Color errorColor = const Color(0xFFFF0000);
 
@@ -64,5 +74,12 @@ class CColor {
 
   final Color secondPrimaryTextColor = const Color(0xFF666666);
 
+  final Color textFieldFillColor = const Color(0xFFF5F5F5);
+
   final Color greyTextColor = const Color(0xFF999999);
+
+  ///棕色
+  final Color brownColor = const Color(0xFF832F03);
+
+  final Color secondAccentColor = const Color(0xFFEE7E2D);
 }

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class MineHeaderSection extends StatelessWidget {
   final UserEntity user;

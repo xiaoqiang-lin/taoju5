@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -44,43 +45,55 @@ class ProfilePage extends StatelessWidget {
                 Divider(),
 
                 ///昵称
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                  child: Row(
-                    children: [
-                      Text(
-                        "昵称",
-                        style: TextStyle(fontSize: R.dimen.sp14),
-                      ),
-                      Spacer(),
-                      Text(
-                        _.user.name,
-                        style: TextStyle(fontSize: R.dimen.sp12),
-                      ),
-                      Icon(R.icon.next)
-                    ],
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => Get.toNamed(
+                      AppRoutes.mine +
+                          AppRoutes.profile +
+                          AppRoutes.modifyUserNickname,
+                      arguments: _.user),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                    child: Row(
+                      children: [
+                        Text(
+                          "昵称",
+                          style: TextStyle(fontSize: R.dimen.sp14),
+                        ),
+                        Spacer(),
+                        Text(
+                          _.user.name,
+                          style: TextStyle(fontSize: R.dimen.sp12),
+                        ),
+                        Icon(R.icon.next)
+                      ],
+                    ),
                   ),
                 ),
                 Divider(),
 
                 ///性别
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                  child: Row(
-                    children: [
-                      Text(
-                        "性别",
-                        style: TextStyle(fontSize: R.dimen.sp14),
-                      ),
-                      Spacer(),
-                      Text(
-                        "未选择",
-                        style: TextStyle(
-                            fontSize: R.dimen.sp12,
-                            color: R.color.tileTipColor),
-                      ),
-                      Icon(R.icon.next)
-                    ],
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _.setGender,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                    child: Row(
+                      children: [
+                        Text(
+                          "性别",
+                          style: TextStyle(fontSize: R.dimen.sp14),
+                        ),
+                        Spacer(),
+                        Text(
+                          "未选择",
+                          style: TextStyle(
+                              fontSize: R.dimen.sp12,
+                              color: R.color.tileTipColor),
+                        ),
+                        Icon(R.icon.next)
+                      ],
+                    ),
                   ),
                 ),
                 Divider(),

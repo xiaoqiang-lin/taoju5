@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-17 22:56:21
+ * @LastEditTime: 2021-04-19 14:02:44
  */
 
 import 'dart:convert';
@@ -54,7 +54,8 @@ class XDio {
           receiveTimeout: netConfig.timeout)
       ..interceptors.add(InterceptorsWrapper(onError: (DioError err, _) {
         return err;
-      }, onRequest: (RequestOptions options, _) {
+      }, onRequest:
+              (RequestOptions options, RequestInterceptorHandler handler) {
         // Map queryParameters = options.queryParameters;
         // options.queryParameters = _formatParams(queryParameters);
         // var formData = options.data;
@@ -67,8 +68,8 @@ class XDio {
         XLogger.v(
             "+++++++++++++++++++++++++formData参数+++++++++++++++++++++++++");
         XLogger.v("${options.data}");
-        return options;
-      }, onResponse: (Response response, _) {
+        handler.next(options);
+      }, onResponse: (Response response, ResponseInterceptorHandler handler) {
         response.data = jsonDecode(response.toString());
         BaseResponse baseResponse = BaseResponse.fromJson(response.data);
 
@@ -87,7 +88,7 @@ class XDio {
           // baseResponse.data = JsonKit.normalize(baseResponse.data);
           print(response.data);
         }
-        return Future.value(response);
+        handler.next(response);
 
         // if (baseResponse.data is Map) {
         //   // baseResponse.data = JsonKit.normalize(baseResponse.data);

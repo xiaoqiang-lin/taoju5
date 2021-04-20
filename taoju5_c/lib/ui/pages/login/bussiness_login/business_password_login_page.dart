@@ -10,7 +10,7 @@ import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/textfield/password_text_field.dart';
 import 'package:taoju5_c/component/textfield/telephone_text_field.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/capp_routes.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/bussiness_login_controller.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_footer_section.dart';
 import 'package:taoju5_c/ui/pages/login/section/login_header_section.dart';
