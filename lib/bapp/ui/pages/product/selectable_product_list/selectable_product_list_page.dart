@@ -2,7 +2,7 @@
  * @Description: 选品页面
  * @Author: iamsmiling
  * @Date: 2021-01-10 13:23:31
- * @LastEditTime: 2021-04-20 12:00:27
+ * @LastEditTime: 2021-04-20 13:53:19
  */
 
 import 'package:flutter/material.dart';
@@ -62,6 +62,7 @@ class SelectableProductListPage
                                     enablePullDown: true,
                                     enablePullUp: true,
                                     mode: parentController.mode,
+                                    arguments: controller.event,
                                   );
                                 },
                               );

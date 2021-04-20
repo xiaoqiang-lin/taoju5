@@ -2,7 +2,7 @@
  * @Description: 商品卡片
  * @Author: iamsmiling
  * @Date: 2021-01-26 10:17:16
- * @LastEditTime: 2021-01-26 10:28:17
+ * @LastEditTime: 2021-04-20 13:51:48
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,8 +17,9 @@ import 'package:taoju5/bapp/ui/pages/product/widgets/product_onsale_tag.dart';
 
 class ProductGridCard extends StatelessWidget {
   final ProductModel product;
-
-  const ProductGridCard({Key key, this.product}) : super(key: key);
+  final dynamic arguments;
+  const ProductGridCard({Key key, this.product, this.arguments})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class ProductGridCard extends StatelessWidget {
         //   return Get.toNamed(BAppRoutes.productDetail + "?id=${product.id}");
         // },
         onTap: () => Get.toNamed(BAppRoutes.productDetail + "/${product.id}",
-            arguments: Get.arguments),
+            arguments: arguments ?? Get.arguments),
         child: Container(
           child: Column(
             children: [

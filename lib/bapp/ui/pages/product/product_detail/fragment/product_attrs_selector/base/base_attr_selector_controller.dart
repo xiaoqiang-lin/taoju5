@@ -2,7 +2,7 @@
  * @Description: 选择器的父类
  * @Author: iamsmiling
  * @Date: 2021-01-18 10:54:20
- * @LastEditTime: 2021-02-01 17:12:40
+ * @LastEditTime: 2021-04-20 14:53:47
  */
 
 import 'package:flutter/cupertino.dart';
@@ -19,6 +19,29 @@ import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_att
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
+
+///轨道类型
+enum OrbitType {
+  ///直轨 弯轨 飘窗轨 罗马杆
+  straight,
+  curve,
+  bay,
+  roma
+}
+
+OrbitType getOrbitType(int code) => {
+      1: OrbitType.straight,
+      2: OrbitType.curve,
+      3: OrbitType.bay,
+      4: OrbitType.roma
+    }[code];
+
+int getOrbitTypeCode(OrbitType type) => {
+      OrbitType.straight: 1,
+      OrbitType.curve: 2,
+      OrbitType.bay: 3,
+      OrbitType.roma: 4
+    }[type];
 
 abstract class BaseAttrSelectorController extends GetxController {
   TaojuwuController taojuwuController = Get.find<TaojuwuController>();
@@ -162,13 +185,13 @@ abstract class BaseAttrSelectorController extends GetxController {
   }
 
   ///过滤逻辑
-  void filter() {
-    _filterCraft();
-    filterSectionalbar();
+  void filter({OrbitType orbitType}) {
+    _filterCraft(orbitType: orbitType);
+    filterSectionalbar(orbitType: orbitType);
   }
 
   ///筛选工艺
-  void _filterCraft() {
+  void _filterCraft({OrbitType orbitType}) {
     List<CurtainProductAttrOptionModel> list =
         taojuwuController?.craft?.optionList;
 
@@ -176,7 +199,10 @@ abstract class BaseAttrSelectorController extends GetxController {
     List<CurtainProductAttrOptionModel> options = [];
 
     ///如果有盒
-    if (hasBox) {
+    if (hasBox ||
+        (orbitType == OrbitType.straight ||
+            orbitType == OrbitType.curve ||
+            orbitType == OrbitType.bay)) {
       for (CurtainProductAttrOptionModel option in list) {
         if (option.hasTrack) {
           options.add(option);
@@ -206,7 +232,7 @@ abstract class BaseAttrSelectorController extends GetxController {
     craftController?.update();
   }
 
-  void filterSectionalbar() {
+  void filterSectionalbar({OrbitType orbitType}) {
     List<CurtainProductAttrOptionModel> list =
         taojuwuController?.sectionalbar?.optionList;
 
@@ -223,13 +249,20 @@ abstract class BaseAttrSelectorController extends GetxController {
     // } else {
     //   options = list;
     // }
+    //
 
-    //如果需要打孔
-    if (craftController.value.contains("罗马杆")) {
-      ///过滤出龙马杆
-      options = options.where((e) => e.isDragonHorsePole).toList();
+    if (orbitType != null) {
+      options = options
+          .where((e) => e.tag == "${getOrbitTypeCode(orbitType)}")
+          ?.toList();
     } else {
-      options = options.where((e) => !e.isDragonHorsePole).toList();
+      //如果需要打孔
+      if (craftController.value.contains("罗马杆")) {
+        ///过滤出龙马杆
+        options = options.where((e) => e.isDragonHorsePole).toList();
+      } else {
+        options = options.where((e) => !e.isDragonHorsePole).toList();
+      }
     }
 
     ///默认选中第一个

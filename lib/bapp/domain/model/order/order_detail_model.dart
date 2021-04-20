@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:26:35
- * @LastEditTime: 2021-01-15 13:49:18
+ * @LastEditTime: 2021-04-20 15:01:45
  */
 
 import 'package:get/get.dart';
@@ -191,6 +191,7 @@ class OrderMeasureDataModel {
 
   String newDeltaY;
   String deltaY;
+  int partType;
 
   List<String> pictures;
 
@@ -205,11 +206,13 @@ class OrderMeasureDataModel {
     room = json["install_room"];
     windowType = json["window_measure_type"];
     windowPattern = json["window_type"];
-
-    pictures = '${json["picture"]}'
-        .split(",")
-        .map((e) => JsonKit.asWebUrl(e))
-        .toList();
+    partType = JsonKit.asInt(json["parts_type"]);
+    pictures = JsonKit.isNullOrBlank(json["picture"])
+        ? []
+        : '${json["picture"]}'
+            .split(",")
+            .map((e) => JsonKit.asWebUrl(e))
+            .toList();
     installMode = json["install_type"];
     openMode = json["open_type"];
     width = "${json["width"]}";

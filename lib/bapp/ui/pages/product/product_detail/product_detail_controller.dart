@@ -2,8 +2,9 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 14:43:22
- * @LastEditTime: 2021-02-02 10:32:12
+ * @LastEditTime: 2021-04-20 14:22:59
  */
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -384,6 +385,13 @@ class ProductDetailController extends GetxController {
     }
     if (Get.arguments != null && Get.arguments is SelectProductEvent) {
       selectProductEvent = Get.arguments;
+      scheduleMicrotask(() {
+        if (Get.isRegistered<CraftAttrSelectorController>(tag: tag)) {
+          Get.find<CraftAttrSelectorController>(tag: tag).filter(
+              orbitType: getOrbitType(
+                  selectProductEvent?.orderProduct?.measureData?.partType));
+        }
+      });
     }
     if (selectProductEvent != null) {
       CustomerModel customer = selectProductEvent.customer;

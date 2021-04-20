@@ -2,7 +2,7 @@
  * @Description: [BaseCurtainProductAttrsSelectorController]定义了一些公用的方法和属性
  * @Author: iamsmiling
  * @Date: 2020-12-23 12:59:27
- * @LastEditTime: 2021-02-01 11:25:15
+ * @LastEditTime: 2021-04-20 14:51:16
  */
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';

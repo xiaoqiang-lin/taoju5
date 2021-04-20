@@ -2,7 +2,7 @@
  * @Description:商品列表 网格模式视图
  * @Author: iamsmiling
  * @Date: 2021-01-08 13:17:59
- * @LastEditTime: 2021-01-26 11:04:59
+ * @LastEditTime: 2021-04-20 13:52:18
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
@@ -18,7 +18,7 @@ class ProductGridModeSection extends StatefulWidget {
   final Function onRefresh;
   final bool enablePullDown;
   final bool enablePullUp;
-
+  final dynamic arguments;
   const ProductGridModeSection({
     Key key,
     @required this.productList,
@@ -29,6 +29,7 @@ class ProductGridModeSection extends StatefulWidget {
     this.onRefresh,
     this.enablePullDown = true,
     this.enablePullUp = true,
+    this.arguments,
   }) : super(key: key);
 
   @override
@@ -69,7 +70,8 @@ class _ProductGridModeSectionState extends State<ProductGridModeSection> {
             // crossAxisSpacing: 24,
           ),
           itemBuilder: (BuildContext context, int i) {
-            return ProductGridCard(product: widget.productList[i]);
+            return ProductGridCard(
+                arguments: widget.arguments, product: widget.productList[i]);
           }),
     );
   }

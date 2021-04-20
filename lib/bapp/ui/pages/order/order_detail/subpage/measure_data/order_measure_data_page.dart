@@ -156,25 +156,50 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                       spacing: BDimens.gap16,
                       children: [
                         Text("图片"),
-                        for (String src in measureData.pictures)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: Container(
-                              width: 180.h,
-                              child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: XPhotoViewer(
-                                    url: src,
-                                    openBuilder: (BuildContext context, _) {
-                                      return XPhotoGallery(
-                                        imageList: measureData.pictures,
-                                        currentIndex:
-                                            measureData.pictures.indexOf(src),
-                                      );
-                                    },
-                                  )),
-                            ),
-                          )
+                        Column(
+                          children: [
+                            if (measureData.pictures.isEmpty)
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/image_err.png",
+                                        width: 180.h,
+                                        height: 180.h,
+                                      ),
+                                      Text(
+                                        "暂无图片",
+                                        style: TextStyle(color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            else
+                              for (String src in measureData.pictures)
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Container(
+                                    width: 180.h,
+                                    child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: XPhotoViewer(
+                                          url: src,
+                                          openBuilder:
+                                              (BuildContext context, _) {
+                                            return XPhotoGallery(
+                                              imageList: measureData.pictures,
+                                              currentIndex: measureData.pictures
+                                                  .indexOf(src),
+                                            );
+                                          },
+                                        )),
+                                  ),
+                                )
+                          ],
+                        )
                       ],
                     ),
                   )

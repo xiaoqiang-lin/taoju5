@@ -1,3 +1,9 @@
+/*
+ * @Description: O
+ * @Author: iamsmiling
+ * @Date: 2021-04-20 11:45:53
+ * @LastEditTime: 2021-04-20 13:52:49
+ */
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
@@ -17,6 +23,7 @@ class ProductTabView extends StatelessWidget {
   final Function onRefresh;
   final bool enablePullDown;
   final bool enablePullUp;
+  final dynamic arguments;
   const ProductTabView(
       {Key key,
       @required this.mode,
@@ -27,7 +34,8 @@ class ProductTabView extends StatelessWidget {
       this.onLoading,
       this.onRefresh,
       this.enablePullDown = true,
-      this.enablePullUp = true})
+      this.enablePullUp = true,
+      this.arguments})
       : super(key: key);
 
   @override
@@ -53,6 +61,7 @@ class ProductTabView extends StatelessWidget {
                 onRefresh: onRefresh,
                 enablePullDown: enablePullDown,
                 enablePullUp: enablePullUp,
+                arguments: arguments,
               )
             : ProductListModeSection(
                 productList: productList,
@@ -62,6 +71,7 @@ class ProductTabView extends StatelessWidget {
                 onRefresh: onRefresh,
                 enablePullDown: enablePullDown,
                 enablePullUp: enablePullUp,
+                arguments: arguments,
               ));
   }
 }

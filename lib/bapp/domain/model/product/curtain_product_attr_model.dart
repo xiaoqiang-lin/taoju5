@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性
  * @Author: iamsmiling
  * @Date: 2020-12-23 10:20:26
- * @LastEditTime: 2021-01-19 11:34:02
+ * @LastEditTime: 2021-04-20 14:52:59
  */
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/interface/i_xselectable.dart';

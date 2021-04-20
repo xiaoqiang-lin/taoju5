@@ -2,7 +2,7 @@
  * @Description: 选品控制器
  * @Author: iamsmiling
  * @Date: 2021-01-10 11:56:58
- * @LastEditTime: 2021-04-20 11:59:41
+ * @LastEditTime: 2021-04-20 13:43:26
  */
 
 import 'package:flutter/foundation.dart';
@@ -41,10 +41,13 @@ class SelectableProductListController extends GetxController {
   String keyword;
 
   Future search() {
-    return Get.toNamed(BAppRoutes.search +
-            "?height=${measureData.height}&searchType=${SearchType.product.index}&keyword=$keyword")
+    return Get.toNamed(
+            BAppRoutes.search +
+                "?height=${measureData.height}&searchType=${SearchType.product.index}&keyword=$keyword",
+            arguments: event)
         .then((value) {
       keyword = value;
+
       update();
       Get.find<ProductListController>(tag: "0").refreshData(keyword: value);
     });

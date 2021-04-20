@@ -2,7 +2,7 @@
  * @Description: 可预览的图片
  * @Author: iamsmiling
  * @Date: 2020-12-23 17:17:49
- * @LastEditTime: 2021-02-20 12:34:56
+ * @LastEditTime: 2021-04-20 14:57:34
  */
 
 import 'package:animations/animations.dart';

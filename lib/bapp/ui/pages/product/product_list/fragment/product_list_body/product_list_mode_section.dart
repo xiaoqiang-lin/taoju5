@@ -2,7 +2,7 @@
  * @Description: 商品列表 列表模式视图
  * @Author: iamsmiling
  * @Date: 2021-01-08 13:09:44
- * @LastEditTime: 2021-01-19 16:14:48
+ * @LastEditTime: 2021-04-20 13:50:10
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/domain/model/product/product_model.dart';
@@ -22,6 +22,7 @@ class ProductListModeSection extends StatelessWidget {
   final Function onRefresh;
   final bool enablePullDown;
   final bool enablePullUp;
+  final dynamic arguments;
 
   const ProductListModeSection(
       {Key key,
@@ -32,7 +33,8 @@ class ProductListModeSection extends StatelessWidget {
       this.onLoading,
       this.onRefresh,
       this.enablePullDown = true,
-      this.enablePullUp = true})
+      this.enablePullUp = true,
+      this.arguments})
       : super(key: key);
 
   @override
@@ -52,7 +54,7 @@ class ProductListModeSection extends StatelessWidget {
             ProductModel e = productList[i];
             return GestureDetector(
               onTap: () => Get.toNamed(BAppRoutes.productDetail + "/${e.id}",
-                  arguments: Get.arguments),
+                  arguments: arguments ?? Get.arguments),
               child: Container(
                 color: Get.theme.primaryColor,
                 padding: EdgeInsets.symmetric(horizontal: BDimens.gap32),
