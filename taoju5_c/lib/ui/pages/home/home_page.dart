@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-04-20 09:46:53
+ * @LastEditTime: 2021-04-20 17:17:24
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_custom_made_section.dart';
+import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_section.dart';
+import 'package:taoju5_c/ui/pages/home/section/home_physicial_store_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_scene_section.dart';
 
 import 'home_controller.dart';
@@ -71,7 +73,9 @@ class HomePage extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(child: HomeBannerSection()),
             SliverToBoxAdapter(child: HomeSceneSection()),
-            SliverToBoxAdapter(child: HomeCustomMadeSection())
+            SliverToBoxAdapter(child: HomeCustomMadeSection()),
+            SliverToBoxAdapter(child: HomeDecorationPrefectureSection()),
+            SliverToBoxAdapter(child: HomePhysicialStoreSection()),
           ],
         ),
       );
