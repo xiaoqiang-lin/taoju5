@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-21 10:35:04
- * @LastEditTime: 2021-04-20 10:47:24
+ * @LastEditTime: 2021-04-20 11:27:18
  */
 
 import 'package:flutter/material.dart';
@@ -307,7 +307,6 @@ class ProductListController extends GetxController {
     map.addAll(args);
     map.addAll(parameters ?? {});
     map.addAll({"keyword": keyword});
-
     loadState = XLoadState.busy;
     update();
     return _repository
