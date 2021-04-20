@@ -2,7 +2,7 @@
  * @Description: 选品控制器
  * @Author: iamsmiling
  * @Date: 2021-01-10 11:56:58
- * @LastEditTime: 2021-01-10 17:59:44
+ * @LastEditTime: 2021-04-20 11:59:41
  */
 
 import 'package:flutter/foundation.dart';
@@ -34,7 +34,7 @@ class SelectableProductListController extends GetxController {
 
   String get sortName => sortList.firstWhere((e) => e.isChecked).name;
 
-  SelectProductEvent get event => Get.arguments;
+  SelectProductEvent event = Get.arguments;
 
   OrderMeasureDataModel get measureData => event.orderProduct.measureData;
 
@@ -45,6 +45,7 @@ class SelectableProductListController extends GetxController {
             "?height=${measureData.height}&searchType=${SearchType.product.index}&keyword=$keyword")
         .then((value) {
       keyword = value;
+      update();
       Get.find<ProductListController>(tag: "0").refreshData(keyword: value);
     });
   }

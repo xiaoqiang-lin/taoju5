@@ -2,7 +2,7 @@
  * @Description: 选品页面
  * @Author: iamsmiling
  * @Date: 2021-01-10 13:23:31
- * @LastEditTime: 2021-01-19 16:14:40
+ * @LastEditTime: 2021-04-20 12:00:27
  */
 
 import 'package:flutter/material.dart';
@@ -22,51 +22,55 @@ class SelectableProductListPage
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: XSearchBar(
-          preferredSize: Size.fromHeight(72),
-          onTap: controller.search,
-        ),
-        body: GetBuilder<ProductListParentController>(
-            id: "tabview",
-            builder: (ProductListParentController parentController) {
-              return GetBuilder<ProductListController>(
-                  init: ProductListController(type: "0"),
-                  tag: "0",
-                  builder: (_) {
-                    return Column(children: [
-                      ProductListHeader(),
-                      Expanded(
-                          child: Scaffold(
-                        key: parentController.scaffoldKey,
-                        endDrawer: ProductListFilterPage(),
-                        endDrawerEnableOpenDragGesture: false,
-                        body: XLoadStateBuilder(
-                          loadState: _.loadState,
-                          loadingWidget: ProductGridModeSkeleton(),
-                          builder: (BuildContext context) {
-                            return GetBuilder<ProductListController>(
-                              init: ProductListController(type: "0"),
-                              tag: "0",
-                              autoRemove: false,
-                              builder: (_) {
-                                return ProductTabView(
-                                  productList: _.productList,
-                                  scrollController: _.scrollController,
-                                  refreshController: _.refreshController,
-                                  onLoading: _.loadMore,
-                                  onRefresh: _.refreshData,
-                                  enablePullDown: true,
-                                  enablePullUp: true,
-                                  mode: parentController.mode,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ))
-                    ]);
-                  });
-            }));
+    return GetBuilder<SelectableProductListController>(builder: (_) {
+      return Scaffold(
+          appBar: XSearchBar(
+            hintText: _.keyword,
+            preferredSize: Size.fromHeight(72),
+            onTap: controller.search,
+            readOnly: true,
+          ),
+          body: GetBuilder<ProductListParentController>(
+              id: "tabview",
+              builder: (ProductListParentController parentController) {
+                return GetBuilder<ProductListController>(
+                    init: ProductListController(type: "0"),
+                    tag: "0",
+                    builder: (_) {
+                      return Column(children: [
+                        ProductListHeader(),
+                        Expanded(
+                            child: Scaffold(
+                          key: parentController.scaffoldKey,
+                          endDrawer: ProductListFilterPage(),
+                          endDrawerEnableOpenDragGesture: false,
+                          body: XLoadStateBuilder(
+                            loadState: _.loadState,
+                            loadingWidget: ProductGridModeSkeleton(),
+                            builder: (BuildContext context) {
+                              return GetBuilder<ProductListController>(
+                                init: ProductListController(type: "0"),
+                                tag: "0",
+                                autoRemove: false,
+                                builder: (_) {
+                                  return ProductTabView(
+                                    productList: _.productList,
+                                    scrollController: _.scrollController,
+                                    refreshController: _.refreshController,
+                                    onLoading: _.loadMore,
+                                    onRefresh: _.refreshData,
+                                    enablePullDown: true,
+                                    enablePullUp: true,
+                                    mode: parentController.mode,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ))
+                      ]);
+                    });
+              }));
+    });
   }
 }

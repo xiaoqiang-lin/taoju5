@@ -2,7 +2,7 @@
  * @Description: 搜索
  * @Author: iamsmiling
  * @Date: 2020-12-25 13:32:49
- * @LastEditTime: 2021-01-28 16:44:50
+ * @LastEditTime: 2021-04-20 12:42:18
  */
 
 import 'package:flutter/material.dart';
@@ -24,6 +24,7 @@ class XSearchBar extends StatefulWidget implements PreferredSizeWidget {
       this.onChanged,
       this.onSearch,
       this.bottom,
+      this.readOnly = false,
       this.preferredSize = const Size.fromHeight(108)})
       : super(key: key);
   final bool autoFocus;
@@ -32,6 +33,8 @@ class XSearchBar extends StatefulWidget implements PreferredSizeWidget {
 
   // 默认值
   final String value;
+
+  final bool readOnly;
 
   // 最前面的组件
   final Widget leading;
@@ -187,6 +190,7 @@ class _XSearchBarState extends State<XSearchBar> {
                 autofocus: widget.autoFocus,
                 focusNode: _focusNode,
                 controller: _controller,
+                readOnly: widget.readOnly,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,

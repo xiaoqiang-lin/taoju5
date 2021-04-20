@@ -2,7 +2,7 @@
  * @Description: 商品列表页
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:29:05
- * @LastEditTime: 2021-01-28 16:46:44
+ * @LastEditTime: 2021-04-20 12:01:13
  */
 
 import 'package:flutter/material.dart';
@@ -45,6 +45,7 @@ class ProductListPage extends StatelessWidget {
                   )
                 ],
                 onTap: controller.search,
+                readOnly: true,
                 bottom: PreferredSize(
                     child: Column(
                       children: [

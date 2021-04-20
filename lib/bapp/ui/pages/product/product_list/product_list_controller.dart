@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-21 10:35:04
- * @LastEditTime: 2021-01-28 10:16:39
+ * @LastEditTime: 2021-04-20 12:30:15
  */
 
 import 'package:flutter/material.dart';
@@ -247,7 +247,6 @@ class ProductListController extends GetxController {
     Map map = {
       "category_type": type,
       "page_index": pageIndex,
-      "keyword": keyword,
     };
     map.addAll(refreshParams);
     if (Get.arguments != null && Get.arguments is SelectProductEvent) {
@@ -306,6 +305,8 @@ class ProductListController extends GetxController {
     refreshParams.addAll(parameters ?? {});
     map.addAll(args);
     map.addAll(parameters ?? {});
+
+    map.addAll({"keyword": keyword});
 
     loadState = XLoadState.busy;
     update();

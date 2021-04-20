@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-01-26 14:42:02
+ * @LastEditTime: 2021-04-20 11:58:03
  */
 
 import 'dart:convert';
@@ -52,10 +52,11 @@ class XDio {
           connectTimeout: netConfig.timeout,
           receiveTimeout: netConfig.timeout)
       ..interceptors.add(InterceptorsWrapper(
-        onError: (DioError error) {
-          return error;
+        onError: (DioError error, ErrorInterceptorHandler handler) {
+          handler.next(error);
         },
-        onRequest: ((RequestOptions options) {
+        onRequest:
+            ((RequestOptions options, RequestInterceptorHandler handler) {
           // Map queryParameters = options.queryParameters;
           // options.queryParameters = _formatParams(queryParameters);
           // var formData = options.data;
@@ -70,16 +71,16 @@ class XDio {
           XLogger.v(
               "+++++++++++++++++++++++++formData参数+++++++++++++++++++++++++");
           XLogger.v("${options.data}");
-
-          return options;
+          handler.next(options);
         }),
-        onResponse: (Response response) {
+        onResponse: (Response response, ResponseInterceptorHandler handler) {
           response.data = jsonDecode(response.toString());
 
           BaseResponse baseResponse = BaseResponse.fromJson(response.data);
           XLogger.e(
               "*******************************请求结果*******************************\n${response.data}");
-          if (!baseResponse.isValid && !_isInWhiteList(response.request.path)) {
+          if (!baseResponse.isValid &&
+              !_isInWhiteList(response.requestOptions.path)) {
             throw EasyLoading.showInfo(baseResponse.message,
                 duration: Duration(milliseconds: 1500));
           }
@@ -92,8 +93,7 @@ class XDio {
           //   // baseResponse.data = JsonKit.normalize(baseResponse.data);
           //   print(response.data);
           // }
-
-          return response;
+          handler.next(response);
         },
       ));
     // ..interceptors.add(

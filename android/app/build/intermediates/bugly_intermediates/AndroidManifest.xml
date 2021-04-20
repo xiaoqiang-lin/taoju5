@@ -1,4 +1,4 @@
-<manifest package="com.buyi.taojuwu" android:versionCode="2022" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.3.1">
+<manifest package="com.buyi.taojuwu" android:versionCode="2023" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.3.2">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
@@ -127,6 +127,6 @@
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_01_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_02_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="tinker_version" android:value="1.9.14.10"/>
-    <meta-data android:name="TINKER_ID" android:value="1.3.1.2022_0414-09-24-40"/>
+    <meta-data android:name="TINKER_ID" android:value="1.3.2.2023_0420-12-22-12"/>
   </application>
 </manifest>

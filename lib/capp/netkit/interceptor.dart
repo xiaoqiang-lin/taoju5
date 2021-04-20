@@ -1,3 +1,9 @@
+/*
+ * @Description: 
+ * @Author: iamsmiling
+ * @Date: 2021-04-20 11:45:53
+ * @LastEditTime: 2021-04-20 11:58:32
+ */
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,29 +18,31 @@ int _cReceiveTimeout = 1000 * 45;
 /// 添加常用Header
 class HeaderInterceptor extends InterceptorsWrapper {
   @override
-  Future onRequest(RequestOptions options) async {
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     options.connectTimeout = _cConnectTimeout;
     options.receiveTimeout = _cReceiveTimeout;
     String appInfo = await AppManager.getAppInfo();
 
     ///添加设备信息
     options.headers.addAll({"equipment": appInfo});
+    handler.next(options);
   }
 }
 
 /// 玩Android API
 class ApiInterceptor extends InterceptorsWrapper {
   @override
-  onRequest(RequestOptions options) async {
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     debugPrint("请求时间:${DateTime.now()}");
     debugPrint('---api-请求地址--->url--> ${options.baseUrl}${options.path}' +
         ' queryParameters: ${options.queryParameters}----formdata:${options.data}');
 //    debugPrint('---api-request--->data--->${options.data}');
-    return options;
+    handler.next(options);
   }
 
   @override
-  onResponse(Response response) {
+  onResponse(Response response, ResponseInterceptorHandler handler) {
 //    debugPrint('---api-response--->resp----->${response.data}');
     BaseEntity entity = BaseEntity.fromJson(response.data);
 
@@ -44,7 +52,7 @@ class ApiInterceptor extends InterceptorsWrapper {
     }
     if (entity.success) {
       response.data = entity;
-      return Future.value(response);
+      handler.next(response);
     }
     throw NetErrorException.fromMessage(entity.message);
   }
