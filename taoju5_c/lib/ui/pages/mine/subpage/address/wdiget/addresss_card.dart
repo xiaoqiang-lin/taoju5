@@ -37,14 +37,13 @@ class AddressCard extends StatelessWidget {
                         child: Text(
                           address.telephone,
                           style: TextStyle(
-                              fontSize: R.dimen.sp13,
-                              color: R.color.greyTextColor),
+                              fontSize: R.dimen.sp13, color: R.color.ff999999),
                         )),
                     Spacer(),
                     Text(
                       "编辑",
                       style: TextStyle(
-                          fontSize: R.dimen.sp12, color: R.color.greyTextColor),
+                          fontSize: R.dimen.sp12, color: R.color.ff999999),
                     ),
                     Icon(R.icon.next)
                   ],
@@ -63,7 +62,7 @@ class AddressCard extends StatelessWidget {
                             child: Container(
                               margin: EdgeInsets.only(right: R.dimen.dp3),
                               decoration: BoxDecoration(
-                                color: R.color.primaryColor.withOpacity(.08),
+                                color: R.color.ffee9b5f.withOpacity(.08),
                                 // borderRadius: BorderRadius.circular(2)
                               ),
                               padding:
@@ -72,7 +71,7 @@ class AddressCard extends StatelessWidget {
                                 "默认",
                                 style: TextStyle(
                                     fontSize: R.dimen.sp13,
-                                    color: R.color.primaryColor),
+                                    color: R.color.ffee9b5f),
                               ),
                             ),
                           ),
@@ -81,7 +80,7 @@ class AddressCard extends StatelessWidget {
                             text: address.description,
                             style: TextStyle(
                                 backgroundColor: R.color.transparent,
-                                color: R.color.primaryTextColor,
+                                color: R.color.ff333333,
                                 fontSize: R.dimen.sp13))
                       ],
                     ),
@@ -91,11 +90,11 @@ class AddressCard extends StatelessWidget {
                     //       "默认",
                     //       softWrap: false,
                     //       style: TextStyle(
-                    //           fontSize: R.dimen.sp13, color: R.color.primaryColor),
+                    //           fontSize: R.dimen.sp13, color: R.color.ffee9b5f),
                     //     ),
                     //     decoration: BoxDecoration(
                     //         borderRadius: BorderRadius.circular(R.dimen.sp2),
-                    //         color: R.color.primaryColor.withOpacity(.08)),
+                    //         color: R.color.ffee9b5f.withOpacity(.08)),
                     //   ),
                     // ),
                     // WidgetSpan(
@@ -128,7 +127,7 @@ class AddressCard extends StatelessWidget {
                       "设为默认地址",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: R.color.primaryColor,
+                          color: R.color.ffee9b5f,
                           fontSize: R.dimen.sp13),
                     ),
                     Spacer(),

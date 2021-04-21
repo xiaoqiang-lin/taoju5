@@ -66,12 +66,12 @@ class MineBodySection extends StatelessWidget {
                                 child: Text(
                                   "${item.count}",
                                   style: TextStyle(
-                                      fontSize: 8, color: R.color.badgeColor),
+                                      fontSize: 8, color: R.color.ffff5005),
                                 ),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.white,
-                                  border: Border.all(color: R.color.badgeColor),
+                                  border: Border.all(color: R.color.ffff5005),
                                 ),
                               ),
                             ),

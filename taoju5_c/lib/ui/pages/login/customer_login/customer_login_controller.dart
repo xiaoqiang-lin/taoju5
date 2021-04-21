@@ -2,7 +2,7 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-14 12:11:34
- * @LastEditTime: 2021-04-18 08:34:13
+ * @LastEditTime: 2021-04-21 11:21:29
  */
 import 'dart:async';
 
@@ -104,7 +104,7 @@ class CustomerLoginController extends GetxController {
   Future getSmsCode() {
     CLoginRepository _repository = CLoginRepository();
     CSmsParamsEntity _smsArg =
-        CSmsParamsEntity(telephone: _loginArg.telephone, type: CSmsType.login);
+        CSmsParamsEntity(telephone: _loginArg.telephone!, type: CSmsType.login);
     if (_smsArg.validate()) {
       return _repository.getSmsCode(_smsArg.params);
     }

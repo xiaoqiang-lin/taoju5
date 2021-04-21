@@ -19,14 +19,12 @@ class CStyle {
 
   TextStyle headline6 = TextStyle(
       fontSize: R.dimen.sp16,
-      color: R.color.primaryTextColor,
+      color: R.color.ff333333,
       fontFamily: "PingFang",
       fontWeight: FontWeight.w700);
 
   TextStyle tileTip = TextStyle(
-      fontSize: R.dimen.sp12,
-      fontFamily: "PingFang",
-      color: R.color.tileTipColor);
+      fontSize: R.dimen.sp12, fontFamily: "PingFang", color: R.color.ffb4b4b4);
 
   ///顶部导航栏标题文字等
   TextStyle h1 = TextStyle(
@@ -52,5 +50,5 @@ class CStyle {
 
   //更多提示文字
   TextStyle moreTip =
-      TextStyle(fontSize: R.dimen.sp12, color: R.color.greyTextColor);
+      TextStyle(fontSize: R.dimen.sp12, color: R.color.ff999999);
 }

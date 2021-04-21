@@ -2,7 +2,7 @@
  * @Description: 请求拦截器
  * @Author: iamsmiling
  * @Date: 2021-04-06 13:22:02
- * @LastEditTime: 2021-04-19 13:33:02
+ * @LastEditTime: 2021-04-21 11:34:26
  */
 import 'dart:convert';
 
@@ -43,13 +43,23 @@ class ApiInterceptor extends InterceptorsWrapper {
     return !url.startsWith(AppConfig.baseUrl);
   }
 
+  List<String> _noTokenList = [
+    "/app/login/sendConsumerPhoneCode",
+    "/app/login/login"
+  ];
+
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 //    debugPrint('---api-request--->data--->${options.data}');
+
     ///为每个请求添加token
-    SharedPreferences _sp = await SharedPreferences.getInstance();
-    String? token = _sp.getString("token");
-    options.queryParameters.addAll({"token": token});
+
+    if (!_noTokenList.contains(options.path)) {
+      SharedPreferences _sp = await SharedPreferences.getInstance();
+      String? token = _sp.getString("token");
+      options.queryParameters.addAll({"token": token});
+    }
+
     debugPrint("请求时间:${DateTime.now()}");
     debugPrint('---api-请求地址--->url--> ${options.baseUrl}${options.path}\n' +
         ' queryParameters: ${options.queryParameters}----formdata:${options.data}');

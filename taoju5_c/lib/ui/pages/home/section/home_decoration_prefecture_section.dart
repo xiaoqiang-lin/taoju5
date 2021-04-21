@@ -2,9 +2,10 @@
  * @Description: 软装专区
  * @Author: iamsmiling
  * @Date: 2021-04-20 16:54:05
- * @LastEditTime: 2021-04-20 17:05:25
+ * @LastEditTime: 2021-04-21 13:22:54
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class HomeDecorationPrefectureSection extends StatelessWidget {
@@ -34,23 +35,26 @@ class HomeDecorationPrefectureSection extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int i) {
                     return Container(
-                      width: R.dimen.dp90,
-                      height: R.dimen.dp90,
-                      margin: EdgeInsets.only(right: R.dimen.dp10),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(R.dimen.sp7),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://i.loli.net/2021/04/13/67rn3TmJ1Y4RIlu.png"))),
-                      child: Text(
-                        "沙发",
-                        style: TextStyle(
-                            fontSize: R.dimen.sp14,
-                            color: R.color.whiteColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    );
+                        margin: EdgeInsets.only(right: R.dimen.dp10),
+                        alignment: Alignment.center,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            ChimeraImage(
+                                width: R.dimen.dp90,
+                                height: R.dimen.dp90,
+                                fit: BoxFit.fill,
+                                imageUrl:
+                                    "https://i.loli.net/2021/04/13/67rn3TmJ1Y4RIlu.png"),
+                            Text(
+                              "沙发",
+                              style: TextStyle(
+                                  fontSize: R.dimen.sp14,
+                                  color: R.color.ffffffff,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ));
                   }))
         ],
       ),

@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-04-20 17:17:24
+ * @LastEditTime: 2021-04-21 11:08:57
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,8 @@ import 'package:taoju5_c/ui/pages/home/section/home_custom_made_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_physicial_store_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_scene_section.dart';
+import 'package:taoju5_c/ui/pages/home/section/home_special_offer_prefecture_section.dart';
+import 'package:taoju5_c/ui/pages/home/section/home_special_topic_section.dart';
 
 import 'home_controller.dart';
 import 'section/home_banner_section.dart';
@@ -32,7 +34,7 @@ class HomePage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           titleSpacing: 0,
-          backgroundColor: R.color.primaryColor,
+          backgroundColor: R.color.ffee9b5f,
           leading: IconButton(
             padding: EdgeInsets.zero,
             icon: Image.asset(R.image.location),
@@ -53,14 +55,14 @@ class HomePage extends StatelessWidget {
                     "搜索您想找的内容",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: R.dimen.sp10, color: R.color.whiteColor),
+                        fontSize: R.dimen.sp10, color: R.color.ffffffff),
                   ),
                 )
               ],
             ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: R.color.whiteColor.withOpacity(.3)),
+                color: R.color.ffffffff.withOpacity(.3)),
           ),
           actions: [
             IconButton(
@@ -76,6 +78,8 @@ class HomePage extends StatelessWidget {
             SliverToBoxAdapter(child: HomeCustomMadeSection()),
             SliverToBoxAdapter(child: HomeDecorationPrefectureSection()),
             SliverToBoxAdapter(child: HomePhysicialStoreSection()),
+            SliverToBoxAdapter(child: HomeSpecialOfferPrefectureSection()),
+            SliverToBoxAdapter(child: HomeSpecialTopicSection()),
           ],
         ),
       );

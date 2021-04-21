@@ -71,13 +71,6 @@ flutter:
   #       style: normal
   #     - asset: assets/fonts/Quicksand_Bold.otf
   #       weight: 700
-
-    - family: PingFang
-      fonts:
-        - asset: resources/fonts/PingFang.ttf
-          style: normal
-        - asset: resources/fonts/PingFang-Bold.ttf
-          weight: 700
     - family: Taojuwu
       fonts:
         - asset: assets/fonts/iconfont.ttf

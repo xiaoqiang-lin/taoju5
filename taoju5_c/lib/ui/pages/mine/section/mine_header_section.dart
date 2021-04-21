@@ -45,7 +45,7 @@ class MineHeaderSection extends StatelessWidget {
                     child: Text(
                       "账号:${user.account}(默认注册手机号)",
                       style: TextStyle(
-                          fontSize: R.dimen.sp12, color: R.color.subtitleColor),
+                          fontSize: R.dimen.sp12, color: R.color.ffb5b5b5),
                     ))
               ],
             )),

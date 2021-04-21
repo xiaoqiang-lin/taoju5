@@ -15,12 +15,11 @@ class LoginFooterSection extends StatelessWidget {
         children: [
           Text(
             "登录即代表同意淘居屋",
-            style: TextStyle(color: R.color.hintColor, fontSize: R.dimen.sp10),
+            style: TextStyle(color: R.color.ffc7c8cc, fontSize: R.dimen.sp10),
           ),
           Text(
             "隐私政策与用户协议",
-            style: TextStyle(
-                color: R.color.secondPrimaryTextColor, fontSize: R.dimen.sp10),
+            style: TextStyle(color: R.color.ff666666, fontSize: R.dimen.sp10),
           )
         ],
       ),

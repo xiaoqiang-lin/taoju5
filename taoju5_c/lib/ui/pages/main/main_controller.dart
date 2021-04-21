@@ -2,14 +2,16 @@
  * @Description:
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-19 16:54:04
+ * @LastEditTime: 2021-04-21 15:04:23
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/ui/pages/cart/cart_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
 import 'package:taoju5_c/ui/pages/home/home_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
+import 'package:taoju5_c/ui/pages/school/school_page.dart';
 
 class BottomNavigationBarItemEntity {
   final String title;
@@ -39,10 +41,8 @@ class MainController extends GetxController {
   final List<Widget> pages = [
     HomePage(),
     CategoryPage(),
-    Image.network(
-        "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f7fd7b0c6571454b8265ab0e4bcc2ad7~tplv-k3u1fbpfcp-watermark.image"),
-    Image.network(
-        "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f90fc3616964aae89c93147a895ea3d~tplv-k3u1fbpfcp-watermark.image"),
+    SchoolPage(),
+    CartPage(),
     MinePage()
   ];
 
@@ -50,11 +50,17 @@ class MainController extends GetxController {
 
   void switchTo(int index) {
     currentIndex = index;
+
     update();
   }
 
   @override
   void onInit() {
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

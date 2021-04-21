@@ -15,97 +15,92 @@ class CTheme {
 
   final ThemeData lightTheme = ThemeData(
       fontFamily: "PingFang SC",
-      iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.iconColor),
-      scaffoldBackgroundColor: R.color.scaffoldBackgroundColor,
+      iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.ffffffff),
+      scaffoldBackgroundColor: R.color.ffffffff,
       toggleButtonsTheme: ToggleButtonsThemeData(),
       checkboxTheme: CheckboxThemeData(
-          fillColor: MaterialStateProperty.all(R.color.primaryColor)),
+          fillColor: MaterialStateProperty.all(R.color.ffee9b5f)),
       buttonBarTheme: ButtonBarThemeData(),
       dividerTheme:
-          DividerThemeData(space: R.dimen.dp1, color: R.color.dividerColor),
-      textSelectionTheme:
-          TextSelectionThemeData(cursorColor: R.color.primaryColor),
-      toggleableActiveColor: R.color.primaryColor,
+          DividerThemeData(space: R.dimen.dp1, color: R.color.ffe5e5e5),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: R.color.ffee9b5f),
+      toggleableActiveColor: R.color.ffee9b5f,
       inputDecorationTheme: InputDecorationTheme(
           isCollapsed: true,
           border: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
+              borderSide: BorderSide(color: R.color.ffe5e5e5)),
           focusedBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
+              borderSide: BorderSide(color: R.color.ffe5e5e5)),
           enabledBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
+              borderSide: BorderSide(color: R.color.ffe5e5e5)),
           errorBorder: UnderlineInputBorder(
-              borderSide:
-                  BorderSide(color: R.color.textFieldEnabledBorderColor)),
+              borderSide: BorderSide(color: R.color.ffe5e5e5)),
           errorStyle: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: R.dimen.sp10,
-              color: R.color.errorColor),
+              color: R.color.ffff0000),
           hintStyle:
-              TextStyle(color: R.color.hintColor, fontSize: R.dimen.sp12)),
-      // toggleButtonsTheme: ToggleButtonsThemeData(color: R.color.primaryColor),
+              TextStyle(color: R.color.ffc7c8cc, fontSize: R.dimen.sp12)),
+      // toggleButtonsTheme: ToggleButtonsThemeData(color: R.color.ffee9b5f),
       dialogTheme: DialogTheme(
           titleTextStyle: TextStyle(
               fontWeight: FontWeight.bold,
-              color: R.color.dialogTitleColor,
+              color: R.color.ff1b1b1b,
               fontSize: R.dimen.sp12),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(R.dimen.sp8))),
       primaryTextTheme:
-          TextTheme(bodyText2: TextStyle(color: R.color.primaryTextColor)),
+          TextTheme(bodyText2: TextStyle(color: R.color.ff333333)),
       appBarTheme: AppBarTheme(
           elevation: 0,
           centerTitle: false,
-          backgroundColor: R.color.appBarColor,
+          backgroundColor: R.color.ffffffff,
           titleTextStyle:
               TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.bold)),
       tabBarTheme: TabBarTheme(
           indicatorSize: TabBarIndicatorSize.tab,
           unselectedLabelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: R.color.unselectedTabBarLabelColor,
+              color: R.color.ff999999,
               fontSize: R.dimen.sp13),
           labelStyle:
               TextStyle(fontWeight: FontWeight.w500, fontSize: R.dimen.sp13),
           // labelPadding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
           indicator: FixedSizeUnderlineTabIndicator(
               insets: EdgeInsets.symmetric(horizontal: R.dimen.dp44),
-              borderSide: BorderSide(
-                  width: R.dimen.dp3, color: R.color.tabBarIndicatorColor))),
-      splashColor: R.color.splashColor,
+              borderSide:
+                  BorderSide(width: R.dimen.dp3, color: R.color.ffee9b5f))),
+      splashColor: R.color.transparent,
       buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
       textTheme: TextTheme(
           button:
               TextStyle(fontSize: R.dimen.sp15, fontWeight: FontWeight.w500)),
       floatingActionButtonTheme:
-          FloatingActionButtonThemeData(backgroundColor: R.color.primaryColor),
+          FloatingActionButtonThemeData(backgroundColor: R.color.ffee9b5f),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
-          overlayColor: MaterialStateProperty.all(R.color.splashColor),
+          overlayColor: MaterialStateProperty.all(R.color.transparent),
           shape: MaterialStateProperty.all(StadiumBorder()),
           backgroundColor: MaterialStateProperty.all(R.color.transparent),
           foregroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.disabled)) {
-              return R.color.disabledColor;
+              return R.color.ffee9b5f_6;
             }
-            return R.color.primaryColor;
+            return R.color.ffee9b5f;
           }),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),
-              overlayColor: MaterialStateProperty.all(R.color.splashColor),
+              overlayColor: MaterialStateProperty.all(R.color.transparent),
               shape: MaterialStateProperty.all(StadiumBorder()),
               backgroundColor: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.disabled)) {
-                  return R.color.elevatedButtonDisabledColor;
+                  return R.color.ffee9b5f_4;
                 }
-                return R.color.primaryColor;
+                return R.color.ffee9b5f;
               }),
               foregroundColor: MaterialStateProperty.all(Colors.white),
 
@@ -115,19 +110,19 @@ class CTheme {
                 if (states.contains(MaterialState.disabled)) {
                   return null;
                 }
-                return BorderSide(color: R.color.primaryColor);
+                return BorderSide(color: R.color.ffee9b5f);
               }),
               minimumSize:
                   MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all(R.color.splashColor),
+              overlayColor: MaterialStateProperty.all(R.color.transparent),
               shape: MaterialStateProperty.all(StadiumBorder()),
               foregroundColor: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.disabled)) {
                   return Colors.grey;
                 }
-                return R.color.primaryColor;
+                return R.color.ffee9b5f;
               }),
               // padding: MaterialStateProperty.all(
               //     EdgeInsets.symmetric(horizontal: 24, vertical: 8)),
@@ -135,21 +130,21 @@ class CTheme {
                 if (states.contains(MaterialState.disabled)) {
                   return null;
                 }
-                return BorderSide(color: R.color.primaryColor);
+                return BorderSide(color: R.color.ffee9b5f);
               }),
               minimumSize:
                   MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       switchTheme: SwitchThemeData(
-          overlayColor: MaterialStateProperty.all<Color>(R.color.primaryColor),
-          thumbColor: MaterialStateProperty.all<Color>(R.color.primaryColor),
-          trackColor: MaterialStateProperty.all<Color>(R.color.primaryColor)),
-      primaryColor: R.color.primaryColor,
+          overlayColor: MaterialStateProperty.all<Color>(R.color.ffee9b5f),
+          thumbColor: MaterialStateProperty.all<Color>(R.color.ffee9b5f),
+          trackColor: MaterialStateProperty.all<Color>(R.color.ffee9b5f)),
+      primaryColor: R.color.ffee9b5f,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           selectedIconTheme: IconThemeData(size: R.dimen.sp12),
           unselectedIconTheme: IconThemeData(size: R.dimen.sp12),
           selectedLabelStyle: TextStyle(fontSize: R.dimen.sp10),
           unselectedLabelStyle:
-              TextStyle(fontSize: R.dimen.sp10, color: R.color.primaryColor),
+              TextStyle(fontSize: R.dimen.sp10, color: R.color.ffee9b5f),
           elevation: 10));
 }

@@ -37,7 +37,7 @@ class AddresseEditPage extends StatelessWidget {
                         prefixIcon: FixedLabelTextField(label: "收货人"),
                         hintText: "请输入姓名",
                         hintStyle: TextStyle(
-                            fontSize: R.dimen.sp13, color: R.color.hintColor))),
+                            fontSize: R.dimen.sp13, color: R.color.ffc7c8cc))),
                 TextFormField(
                     initialValue: _.addressArg.telephone,
                     onChanged: _.setTelephone,
@@ -47,7 +47,7 @@ class AddresseEditPage extends StatelessWidget {
                         prefixIcon: FixedLabelTextField(label: "手机号码"),
                         hintText: "请输入手机号",
                         hintStyle: TextStyle(
-                            fontSize: R.dimen.sp13, color: R.color.hintColor))),
+                            fontSize: R.dimen.sp13, color: R.color.ffc7c8cc))),
                 TextFormField(
                     onTap: _.selectArea,
                     readOnly: true,
@@ -64,7 +64,7 @@ class AddresseEditPage extends StatelessWidget {
                         ),
                         hintText: "请选择省、市、区",
                         hintStyle: TextStyle(
-                            fontSize: R.dimen.sp13, color: R.color.hintColor))),
+                            fontSize: R.dimen.sp13, color: R.color.ffc7c8cc))),
                 TextFormField(
                     initialValue: _.addressArg.concreteInfo,
                     onChanged: _.setConcreteInfo,
@@ -75,7 +75,7 @@ class AddresseEditPage extends StatelessWidget {
                         prefixIcon: FixedLabelTextField(label: "详细地址"),
                         hintText: "请输入详细地址",
                         hintStyle: TextStyle(
-                            fontSize: R.dimen.sp13, color: R.color.hintColor))),
+                            fontSize: R.dimen.sp13, color: R.color.ffc7c8cc))),
                 Container(
                     margin: EdgeInsets.only(
                         top: R.dimen.dp15, bottom: R.dimen.dp60),
@@ -99,8 +99,7 @@ class AddresseEditPage extends StatelessWidget {
                         Text(
                           "获取定位",
                           style: TextStyle(
-                              fontSize: R.dimen.sp12,
-                              color: R.color.primaryColor),
+                              fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
                         )
                       ],
                     )),

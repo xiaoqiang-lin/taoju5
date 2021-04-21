@@ -1,3 +1,9 @@
+/*
+ * @Description: app入口页面
+ * @Author: iamsmiling
+ * @Date: 2021-04-20 19:11:22
+ * @LastEditTime: 2021-04-21 15:06:29
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/main/main_controller.dart';
@@ -9,6 +15,12 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<MainController>(builder: (_) {
       return Scaffold(
+        // body: PageView.builder(
+        //     controller: _.pageController,
+        //     itemCount: _.pages.length,
+        //     itemBuilder: (BuildContext context, int i) {
+        //       return _.pages[i];
+        //     }),
         body: IndexedStack(
           index: _.currentIndex,
           children: _.pages,

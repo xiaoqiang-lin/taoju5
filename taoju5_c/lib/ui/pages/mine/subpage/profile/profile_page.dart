@@ -88,8 +88,7 @@ class ProfilePage extends StatelessWidget {
                         Text(
                           "未选择",
                           style: TextStyle(
-                              fontSize: R.dimen.sp12,
-                              color: R.color.tileTipColor),
+                              fontSize: R.dimen.sp12, color: R.color.ffb4b4b4),
                         ),
                         Icon(R.icon.next)
                       ],

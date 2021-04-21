@@ -53,7 +53,7 @@ class CustomerPasswordLoginPage extends StatelessWidget {
                             "验证码登录",
                             style: TextStyle(
                                 fontSize: R.dimen.sp12,
-                                color: R.color.primaryColor),
+                                color: R.color.ffee9b5f),
                           ),
                           onTap: () => Get.toNamed(AppRoutes.customerSmsLogin),
                         ),

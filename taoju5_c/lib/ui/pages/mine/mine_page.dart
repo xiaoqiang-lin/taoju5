@@ -22,7 +22,7 @@ class MinePage extends StatelessWidget {
     return GetBuilder<MineController>(builder: (_) {
       return Scaffold(
         appBar: PrimaryAppBar(
-          backgroundColor: R.color.appBarColor,
+          backgroundColor: R.color.ffffffff,
           elevation: 0,
           title: "我的",
           actions: [

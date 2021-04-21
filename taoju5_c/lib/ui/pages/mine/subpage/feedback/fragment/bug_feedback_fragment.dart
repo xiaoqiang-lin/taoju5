@@ -36,7 +36,7 @@ class BugFeedbackFragment extends StatelessWidget {
               //   margin: EdgeInsets.only(top: R.dimen.sp7),
               //   padding: EdgeInsets.all(R.dimen.dp10),
               //   decoration: BoxDecoration(
-              //       color: R.color.textFieldFillColor,
+              //       color: R.color.fff5f5f5,
               //       borderRadius: BorderRadius.circular(7)),
               //   child: TextFormField(
               //       maxLines: 4,
@@ -49,7 +49,7 @@ class BugFeedbackFragment extends StatelessWidget {
               //           focusedBorder: InputBorder.none,
               //           counterStyle: TextStyle(
               //               fontSize: R.dimen.sp10,
-              //               color: R.color.inputHintColor))),
+              //               color: R.color.ff999999))),
               // ),
               Text("上传凭证（非必填）"),
 
@@ -60,7 +60,7 @@ class BugFeedbackFragment extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(R.dimen.sp7),
-                    color: R.color.textFieldFillColor),
+                    color: R.color.fff5f5f5),
                 child: UploadImageButton(),
               )
             ],

@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-04-20 15:28:26
+ * @LastEditTime: 2021-04-21 11:17:33
  */
 
 import 'package:flutter/foundation.dart';
@@ -16,7 +16,7 @@ class AppConfig {
   static AppEnv env = AppEnv.$c;
 
   ///打包时只需要修改这两个即可
-  static AppMode mode = AppMode.release;
+  static AppMode mode = AppMode.debug;
 
   static String get appName => getAppName(env: env, mode: mode);
 

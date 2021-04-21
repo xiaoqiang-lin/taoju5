@@ -2,7 +2,7 @@
  * @Description: 分类控制
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-19 17:52:11
+ * @LastEditTime: 2021-04-21 11:39:53
  */
 
 import 'package:flutter/cupertino.dart';
@@ -41,7 +41,7 @@ class CategoryController extends GetxController {
   }
 
   void onTabChanged(int i) {
-    print(Get.height);
+    if (currentCategory == categories[i]) return;
     pageController.animateTo(i * Get.height,
         duration: Duration(milliseconds: 200), curve: Curves.ease);
     currentCategory = categories[i];

@@ -2,13 +2,13 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-20 17:27:23
+ * @LastEditTime: 2021-04-21 19:21:38
  */
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
@@ -23,7 +23,7 @@ class CategoryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             titleSpacing: 0,
-            backgroundColor: R.color.primaryColor,
+            backgroundColor: R.color.ffee9b5f,
             leading: Container(
               constraints: BoxConstraints(minHeight: 44),
               alignment: Alignment.center,
@@ -32,7 +32,7 @@ class CategoryPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: R.dimen.sp18,
                     fontWeight: FontWeight.bold,
-                    color: R.color.whiteColor),
+                    color: R.color.ffffffff),
               ),
             ),
             title: Container(
@@ -51,14 +51,14 @@ class CategoryPage extends StatelessWidget {
                       "搜索您想找的内容",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: R.dimen.sp10, color: R.color.whiteColor),
+                          fontSize: R.dimen.sp10, color: R.color.ffffffff),
                     ),
                   )
                 ],
               ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: R.color.whiteColor.withOpacity(.3)),
+                  color: R.color.ffffffff.withOpacity(.3)),
             ),
             actions: [
               IconButton(
@@ -74,24 +74,37 @@ class CategoryPage extends StatelessWidget {
                   child: GetBuilder<CategoryController>(
                     id: "tab",
                     builder: (_) {
-                      return ListView.builder(
-                          itemCount: _.categories.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            CategoryEntity item = _.categories[i];
-                            return GestureDetector(
-                              onTap: () => _.onTabChanged(i),
-                              child: AnimatedDefaultTextStyle(
-                                  child: Text(item.name),
-                                  style: item == _.currentCategory
-                                      ? TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.black)
-                                      : TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500),
-                                  duration: const Duration(milliseconds: 200)),
-                            );
-                          });
+                      return Container(
+                        height: Get.height,
+                        decoration:
+                            BoxDecoration(color: const Color(0xFFEEEEEE)),
+                        child: ListView.builder(
+                            itemCount: _.categories.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              CategoryEntity item = _.categories[i];
+                              return GestureDetector(
+                                onTap: () => _.onTabChanged(i),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: R.dimen.dp20),
+                                  child: AnimatedDefaultTextStyle(
+                                      child: Text(item.name),
+                                      style: item == _.currentCategory
+                                          ? TextStyle(
+                                              fontSize: R.dimen.sp12,
+                                              fontWeight: FontWeight.w800,
+                                              color: R.color.ff333333)
+                                          : TextStyle(
+                                              color: R.color.ff333333,
+                                              fontSize: R.dimen.sp12,
+                                              fontWeight: FontWeight.w500),
+                                      duration:
+                                          const Duration(milliseconds: 200)),
+                                ),
+                              );
+                            }),
+                      );
                     },
                   )),
               Expanded(
@@ -103,28 +116,54 @@ class CategoryPage extends StatelessWidget {
                       onPageChanged: _.onPageChanded,
                       itemBuilder: (BuildContext context, int i) {
                         CategoryEntity item = _.categories[i];
+                        double assignableWidth =
+                            R.dimen.width * (4 / 5) - R.dimen.dp20 * 2;
                         return Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: R.dimen.dp20),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(
-                                item.image,
-                                height: 120,
-                                fit: BoxFit.fitHeight,
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: R.dimen.dp20),
+                                child: ChimeraImage(
+                                  imageUrl: item.image,
+                                  width: assignableWidth,
+                                  height: assignableWidth * (120 / 235),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               Wrap(
+                                spacing: R.dimen.dp15,
+                                runSpacing: R.dimen.dp20,
                                 children: [
                                   for (CategoryEntity child in item.children)
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 68,
-                                          child: AspectRatio(
+                                    Container(
+                                      width:
+                                          (assignableWidth - R.dimen.dp15 * 2) /
+                                              3.001,
+                                      child: Column(
+                                        children: [
+                                          AspectRatio(
                                             aspectRatio: 1.0,
-                                            child: Image.network(child.image),
+                                            child: ChimeraImage(
+                                                width: (assignableWidth -
+                                                        R.dimen.dp15 * 2) /
+                                                    3.001,
+                                                imageUrl: child.image),
                                           ),
-                                        ),
-                                        Text(child.name)
-                                      ],
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                top: R.dimen.dp3),
+                                            child: Text(
+                                              child.name,
+                                              style: TextStyle(
+                                                  fontSize: R.dimen.sp12),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     )
                                 ],
                               )

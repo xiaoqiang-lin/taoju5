@@ -2,12 +2,14 @@
  * @Description: 首页轮播图
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-17 18:50:02
+ * @LastEditTime: 2021-04-21 19:05:18
  */
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/carousel/carousel_slide.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';
 
@@ -21,8 +23,23 @@ class HomeBannerSection extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(bottom: R.dimen.dp10),
-            child: Image.network(
-                "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"),
+            child: CarouselSlide(
+                itemCount: 6,
+                paginationColor: Colors.white,
+                viewportFraction: 1.0,
+                containerHeight: R.dimen.dp184,
+                itemHeight: R.dimen.dp184,
+                itemWidth: Get.width,
+                itemBuilder: (BuildContext context, int i) {
+                  return ChimeraImage(
+                      borderRadius: BorderRadius.zero,
+                      width: Get.width,
+                      height: R.dimen.dp184,
+                      fit: BoxFit.fill,
+                      enlarge: true,
+                      imageUrl:
+                          "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png");
+                }),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,8 +51,7 @@ class HomeBannerSection extends StatelessWidget {
                     Text(
                       feature.label,
                       style: TextStyle(
-                          fontSize: R.dimen.sp9,
-                          color: R.color.secondPrimaryTextColor),
+                          fontSize: R.dimen.sp9, color: R.color.ff666666),
                     )
                   ],
                 )

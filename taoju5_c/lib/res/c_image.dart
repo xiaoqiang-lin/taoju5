@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-20 09:33:22
+ * @LastEditTime: 2021-04-21 16:22:13
  */
 // part of R;
 class CImage {
@@ -67,4 +67,8 @@ class CImage {
   final String location = "resources/images/location.png";
 
   final String camera = "resources/images/camera.png";
+
+  final String starLevel = "resources/images/star_level.png";
+
+  final String scale = "resources/images/scale.png";
 }

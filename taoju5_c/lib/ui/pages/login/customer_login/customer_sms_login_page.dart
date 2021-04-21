@@ -49,8 +49,7 @@ class CustomerSmsLoginPage extends StatelessWidget {
                         child: Text(
                           "未注册账号登录后直接注册",
                           style: TextStyle(
-                              fontSize: R.dimen.sp12,
-                              color: R.color.secondPrimaryTextColor),
+                              fontSize: R.dimen.sp12, color: R.color.ff666666),
                         ),
                       )
                     ],

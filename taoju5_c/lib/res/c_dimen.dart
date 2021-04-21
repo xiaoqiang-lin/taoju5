@@ -2,9 +2,10 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-20 17:36:11
+ * @LastEditTime: 2021-04-21 11:15:45
  */
 // part of R;
+import 'package:get/get.dart';
 
 enum PrimaryButtonSize { defaultSize, medium, small, mini }
 
@@ -15,6 +16,7 @@ class CDimen {
   factory CDimen() => _singleton;
 
   final double dp1 = 1;
+  final double width = Get.width;
 
   final double dp5 = 5;
   final double dp7 = 7;
@@ -27,8 +29,11 @@ class CDimen {
   final double dp8 = 8;
 
   final double dp3 = 3;
+  final double dp4 = 4;
 
   final double dp13 = 13;
+
+  final double dp14 = 14;
   final double dp15 = 15;
   final double dp20 = 20;
 
@@ -48,7 +53,7 @@ class CDimen {
   final double dp84 = 84;
   final double dp90 = 90;
   final double dp100 = 100;
-
+  final double dp184 = 184;
   final double dp185 = 185;
   final double dp140 = 140;
   final double dp158 = 158;
