@@ -2,7 +2,7 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-21 19:21:38
+ * @LastEditTime: 2021-04-23 18:03:54
  */
 import 'dart:ui';
 
@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -118,6 +119,7 @@ class CategoryPage extends StatelessWidget {
                         CategoryEntity item = _.categories[i];
                         double assignableWidth =
                             R.dimen.width * (4 / 5) - R.dimen.dp20 * 2;
+                        double factor = 3.001;
                         return Container(
                           margin:
                               EdgeInsets.symmetric(horizontal: R.dimen.dp20),
@@ -139,30 +141,69 @@ class CategoryPage extends StatelessWidget {
                                 runSpacing: R.dimen.dp20,
                                 children: [
                                   for (CategoryEntity child in item.children)
-                                    Container(
-                                      width:
-                                          (assignableWidth - R.dimen.dp15 * 2) /
-                                              3.001,
-                                      child: Column(
-                                        children: [
-                                          AspectRatio(
-                                            aspectRatio: 1.0,
-                                            child: ChimeraImage(
-                                                width: (assignableWidth -
-                                                        R.dimen.dp15 * 2) /
-                                                    3.001,
-                                                imageUrl: child.image),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                top: R.dimen.dp3),
-                                            child: Text(
-                                              child.name,
-                                              style: TextStyle(
-                                                  fontSize: R.dimen.sp12),
+                                    GestureDetector(
+                                      onTap: () => Get.toNamed(
+                                          AppRoutes.category +
+                                              AppRoutes.productList,
+                                          arguments: child),
+                                      child: Container(
+                                        width: (assignableWidth -
+                                                R.dimen.dp15 * 2) /
+                                            factor,
+                                        child: Column(
+                                          children: [
+                                            AspectRatio(
+                                              aspectRatio: 1.0,
+                                              child: Stack(
+                                                children: [
+                                                  ChimeraImage(
+                                                      width: (assignableWidth -
+                                                              R.dimen.dp15 *
+                                                                  2) /
+                                                          factor,
+                                                      imageUrl: child.image),
+                                                  Positioned.fill(
+                                                      child: Visibility(
+                                                    visible: child ==
+                                                        item.children.first,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        "全部分类",
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                R.dimen.dp10,
+                                                            color: R
+                                                                .color.ffffffff,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(R
+                                                                    .dimen.sp7),
+                                                        color: R.color.ff00000
+                                                            .withOpacity(.5),
+                                                      ),
+                                                    ),
+                                                  ))
+                                                ],
+                                              ),
                                             ),
-                                          )
-                                        ],
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  top: R.dimen.dp5),
+                                              child: Text(
+                                                child.name,
+                                                style: TextStyle(
+                                                    fontSize: R.dimen.sp12),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     )
                                 ],

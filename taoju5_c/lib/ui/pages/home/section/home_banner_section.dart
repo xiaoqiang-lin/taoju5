@@ -2,7 +2,7 @@
  * @Description: 首页轮播图
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-21 19:05:18
+ * @LastEditTime: 2021-04-23 21:09:23
  */
 import 'dart:ui';
 
@@ -30,13 +30,19 @@ class HomeBannerSection extends StatelessWidget {
                 containerHeight: R.dimen.dp184,
                 itemHeight: R.dimen.dp184,
                 itemWidth: Get.width,
+                thunmbnails: [
+                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
+                ],
+                bigImages: [
+                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
+                ],
                 itemBuilder: (BuildContext context, int i) {
                   return ChimeraImage(
                       borderRadius: BorderRadius.zero,
                       width: Get.width,
                       height: R.dimen.dp184,
                       fit: BoxFit.fill,
-                      enlarge: true,
+                      enlarge: false,
                       imageUrl:
                           "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png");
                 }),

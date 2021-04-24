@@ -2,11 +2,10 @@
  * @Description: 新增地址
  * @Author: iamsmiling
  * @Date: 2021-04-15 19:49:20
- * @LastEditTime: 2021-04-19 10:25:34
+ * @LastEditTime: 2021-04-22 18:57:37
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
 import 'package:taoju5_c/component/textfield/fixed_label_text_field.dart';
@@ -20,8 +19,8 @@ class AddresseEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AddressEditController>(builder: (_) {
       return Scaffold(
-        appBar: PrimaryAppBar(
-          title: _.isNew ? "新增收货地址" : "编辑收货地址",
+        appBar: AppBar(
+          title: Text(_.isNew ? "新增收货地址" : "编辑收货地址"),
         ),
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),

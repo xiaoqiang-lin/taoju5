@@ -2,7 +2,7 @@
  * @Description: 城市选择
  * @Author: iamsmiling
  * @Date: 2020-11-28 23:11:50
- * @LastEditTime: 2021-04-18 08:32:11
+ * @LastEditTime: 2021-04-22 10:06:44
  */
 
 import 'dart:async';
@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'data.dart';
+import 'city_data.dart';
 
 typedef ValueChanged = AddressEntity? Function(Map map);
 

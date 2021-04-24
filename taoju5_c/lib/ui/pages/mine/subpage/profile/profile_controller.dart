@@ -2,13 +2,14 @@
  * @Description: 个人资料
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-19 16:20:13
+ * @LastEditTime: 2021-04-23 17:23:31
  */
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
+import 'package:taoju5_c/component/picker/date_picker.dart';
 import 'package:taoju5_c/domain/entity/params/user/modify_user_profile_params.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,7 +31,7 @@ class ProfileController extends GetxController {
     if (source == null) return;
     ImagePicker picker = ImagePicker();
     PickedFile? avatar = await picker.getImage(source: source);
-    if (avatar == null) return;
+
     _upload(avatar);
   }
 
@@ -70,5 +71,9 @@ class ProfileController extends GetxController {
     });
   }
 
-  void setBirthday() {}
+  void setBirthday() {
+    openDatePicker(Get.context!).then((value) {
+      print(value);
+    });
+  }
 }

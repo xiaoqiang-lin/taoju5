@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-04-19 16:51:48
+ * @LastEditTime: 2021-04-23 17:55:54
  */
 class AppRoutes {
   ///app程序入口
@@ -17,6 +17,8 @@ class AppRoutes {
   static const mine = '/mine';
 
   static const profile = '/profile';
+
+  static const modifyUserAvatar = '/modifyUserAvatar';
 
   static const modifyUserNickname = '/modifyUserNickname';
 
@@ -54,4 +56,14 @@ class AppRoutes {
 
   ///订单
   static const afterSell = '/afterSell';
+
+  static const imageCrop = '/imageCrop';
+
+  static const videoPlayer = '/videoPlayer';
+
+  static const articleDetail = '/article/detail';
+
+  static const productList = '/product/list';
+
+  static const productDetail = '/product/detail';
 }

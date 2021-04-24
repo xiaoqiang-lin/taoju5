@@ -40,6 +40,9 @@ PODS:
     - Flutter
   - "permission_handler (5.1.0+2)":
     - Flutter
+  - photo_manager (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - Reachability (3.2)
   - scan (0.0.1):
     - Flutter
@@ -71,6 +74,7 @@ DEPENDENCIES:
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - scan (from `.symlinks/plugins/scan/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -115,6 +119,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  photo_manager:
+    :path: ".symlinks/plugins/photo_manager/ios"
   scan:
     :path: ".symlinks/plugins/scan/ios"
   shared_preferences:
@@ -149,6 +155,7 @@ SPEC CHECKSUMS:
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
+  photo_manager: a8db3597a3b44e17ecb331fa099731c99b849496
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   scan: aea35bb4aa59ccc8839c576a18cd57c7d492cc86
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

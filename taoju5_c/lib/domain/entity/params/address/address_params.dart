@@ -2,7 +2,7 @@
  * @Description: 地址数据模型
  * @Author: iamsmiling
  * @Date: 2021-04-16 15:08:39
- * @LastEditTime: 2021-04-18 00:30:08
+ * @LastEditTime: 2021-04-22 10:23:17
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
@@ -10,16 +10,16 @@ import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 
 class AddressParamsEntity extends BaseParamsEntity {
   String? provinceName;
-  late String? cityName;
-  late String? districtName;
-  late String receiverName;
-  late String concreteInfo;
-  late bool isDefault = false;
-  late String telephone;
-  late int? provinceId;
-  late int? cityId;
-  late int? districtId;
-  late int addressId;
+  String? cityName;
+  String? districtName;
+  String? receiverName;
+  String? concreteInfo;
+  bool isDefault = false;
+  String? telephone;
+  int? provinceId;
+  int? cityId;
+  int? districtId;
+  int? addressId;
 
   AddressParamsEntity.empty();
 

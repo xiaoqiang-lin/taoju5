@@ -2,7 +2,7 @@
  * @Description: app颜色
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-21 19:47:39
+ * @LastEditTime: 2021-04-22 17:23:42
  */
 // part of R;
 import 'package:flutter/material.dart';
@@ -53,6 +53,8 @@ class CColor {
 
   ///黑色
   final Color ff00000 = Colors.black;
+
+  final Color ff181818 = const Color(0xff181818);
 
   final Color ffffffff = Colors.white;
 }

@@ -2,13 +2,14 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-04-21 15:02:49
+ * @LastEditTime: 2021-04-23 10:22:24
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/school/course_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/school/school_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -83,34 +84,75 @@ class SchoolPage extends StatelessWidget {
                     child: TabBarView(
                   children: [
                     for (String __ in _.tabs)
-                      StaggeredGridView.countBuilder(
-                        crossAxisCount: 4,
-                        itemCount: _.courses.length,
-                        mainAxisSpacing: R.dimen.dp15,
-                        crossAxisSpacing: R.dimen.dp16,
-                        staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(2, index.isEven ? 2 : 3),
-                        itemBuilder: (BuildContext context, int i) {
-                          CourseEntity item = _.courses[i];
-                          return Container(
-                            margin:
-                                EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-                            child: Column(
-                              children: [
-                                ChimeraImage(
-                                  imageUrl: _.courses[i].cover,
-                                  width:
-                                      (assignableWidth - R.dimen.dp15) / 2.00,
-                                  height: (assignableWidth - R.dimen.dp15) /
-                                      2.00 *
-                                      (item.ratio),
-                                  fit: BoxFit.fill,
-                                ),
-                                Text("夏日南法的白色小屋搭配灰色 床品和暖橘色系")
-                              ],
-                            ),
-                          );
-                        },
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+                        child: StaggeredGridView.countBuilder(
+                          padding: EdgeInsets.zero,
+                          crossAxisCount: 4,
+                          itemCount: _.courses.length,
+                          mainAxisSpacing: R.dimen.dp15,
+                          crossAxisSpacing: R.dimen.dp16,
+                          staggeredTileBuilder: (index) {
+                            return StaggeredTile.fit(2);
+                          },
+                          itemBuilder: (BuildContext context, int i) {
+                            CourseEntity item = _.courses[i];
+                            return GestureDetector(
+                              onTap: item.isVideo
+                                  ? () => Get.toNamed(AppRoutes.videoPlayer)
+                                  : () => Get.toNamed(AppRoutes.articleDetail,
+                                      arguments: item.type),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width:
+                                        (assignableWidth - R.dimen.dp15) / 2.00,
+                                    height: (assignableWidth - R.dimen.dp15) /
+                                            2.00 *
+                                            (item.ratio) +
+                                        48,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ChimeraImage(
+                                          imageUrl: _.courses[i].cover,
+                                          width:
+                                              (assignableWidth - R.dimen.dp15) /
+                                                  2.00,
+                                          height:
+                                              (assignableWidth - R.dimen.dp15) /
+                                                  2.00 *
+                                                  (item.ratio),
+                                          fit: BoxFit.fill,
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: R.dimen.dp10),
+                                          child: Text(
+                                            item.desc,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: R.dimen.sp12),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: R.dimen.dp10,
+                                    right: R.dimen.dp10,
+                                    child: Visibility(
+                                      child: Image.asset(R.image.video),
+                                      visible: item.isVideo,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       )
                   ],
                 ))

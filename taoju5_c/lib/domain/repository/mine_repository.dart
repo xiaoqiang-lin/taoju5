@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:38:20
- * @LastEditTime: 2021-04-19 14:52:28
+ * @LastEditTime: 2021-04-22 15:42:43
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
@@ -52,4 +52,8 @@ class MineRepository {
       _api.modifyUserProfile(params, formData).then((BaseEntity response) {
         return UserEntity.fromJson(response.data);
       });
+
+  ///修改用户信息
+  Future feedback({Map? params, dynamic formData}) =>
+      _api.feedback(params: params, formData: formData);
 }

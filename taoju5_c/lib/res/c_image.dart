@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-21 16:22:13
+ * @LastEditTime: 2021-04-23 17:48:51
  */
 // part of R;
 class CImage {
@@ -71,4 +71,30 @@ class CImage {
   final String starLevel = "resources/images/star_level.png";
 
   final String scale = "resources/images/scale.png";
+
+  final String more = "resources/images/more.png";
+
+  final String delete = "resources/images/delete.png";
+
+  final String video = "resources/images/video.png";
+
+  final String play = "resources/images/play.png";
+
+  final String hasCollected = "resources/images/has_collected.png";
+
+  final String collect = "resources/images/collect.png";
+
+  final String share = "resources/images/share.png";
+
+  final String nearby = "resources/images/nearby.png";
+
+  final String priceAsc = "resources/images/price_asc.png";
+
+  final String priceDesc = "resources/images/price_desc.png";
+
+  final String listMode = "resources/images/list_mode.png";
+
+  final String gridMode = "resources/images/grid_mode.png";
+
+  final String find = "resources/images/search_black.png";
 }

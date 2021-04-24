@@ -2,7 +2,7 @@
  * @Description: 自定义图片
  * @Author: iamsmiling
  * @Date: 2021-04-21 09:58:17
- * @LastEditTime: 2021-04-21 19:22:18
+ * @LastEditTime: 2021-04-23 15:29:10
  */
 
 import 'package:flutter/material.dart';
@@ -49,6 +49,7 @@ class ChimeraImage extends StatelessWidget {
         openElevation: 0,
         closedElevation: 0,
         showOpenButton: showOpenButton,
+        closedShape: RoundedRectangleBorder(borderRadius: borderRadius!),
         openBuilder: (BuildContext context, _) {
           return InteractivePhotoView(imageUrl: imageUrl);
         },
@@ -85,7 +86,7 @@ class ChimeraImage extends StatelessWidget {
                         color: const Color(0xFFF5F5F5),
                         borderRadius: borderRadius),
                     child: Image.asset("resources/images/image_error.png",
-                        fit: fit),
+                        fit: BoxFit.contain),
                   );
                 },
           );

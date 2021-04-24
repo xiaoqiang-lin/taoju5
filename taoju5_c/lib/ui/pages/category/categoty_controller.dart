@@ -2,7 +2,7 @@
  * @Description: 分类控制
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-21 11:39:53
+ * @LastEditTime: 2021-04-23 17:57:54
  */
 
 import 'package:flutter/cupertino.dart';
@@ -19,7 +19,6 @@ class CategoryController extends GetxController {
 
   @override
   void onInit() {
-    print("((((((isBlank))))))");
     loadData();
     pageController = PageController();
     super.onInit();

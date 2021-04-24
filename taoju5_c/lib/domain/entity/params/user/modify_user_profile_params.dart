@@ -2,7 +2,7 @@
  * @Description: 修改用户信息参数
  * @Author: iamsmiling
  * @Date: 2021-04-19 14:25:46
- * @LastEditTime: 2021-04-19 20:42:18
+ * @LastEditTime: 2021-04-22 14:14:10
  */
 
 import 'dart:convert';
@@ -28,9 +28,11 @@ class ModifyUserProfileParamsEntity extends BaseParamsEntity {
   late ModifyUserProfileField? field;
   String? avatar;
   String? nickname;
-  late Gender gender;
+  Gender? gender;
   String? birthday;
   dio.MultipartFile? filePath;
+
+  ModifyUserProfileParamsEntity({this.field});
 
   ModifyUserProfileParamsEntity.fromUserEntity(UserEntity user) {
     avatar = user.avatar;
@@ -42,11 +44,11 @@ class ModifyUserProfileParamsEntity extends BaseParamsEntity {
   }
 
   @override
-  Map get params => {
+  Map<String, dynamic?> get params => {
         "type": field!.code,
         "user_headimg": avatar,
         "user_name": nickname,
-        "sex": gender.code,
+        "sex": gender?.code,
         "user_bir": birthday
       };
 

@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-21 11:15:45
+ * @LastEditTime: 2021-04-23 10:45:10
  */
 // part of R;
 import 'package:get/get.dart';
@@ -40,8 +40,10 @@ class CDimen {
   final double dp24 = 24;
   final double dp27 = 27;
   final double dp10 = 10;
+  final double dp6 = 6;
   final double dp28 = 28;
   final double dp30 = 30;
+  final double dp32 = 32;
   final double dp36 = 36;
   final double dp44 = 44;
   final double dp48 = 48;
@@ -49,6 +51,7 @@ class CDimen {
   final double dp56 = 56;
   final double dp60 = 60;
   final double dp70 = 70;
+  final double dp72 = 72;
   final double dp80 = 80;
   final double dp84 = 84;
   final double dp90 = 90;
@@ -64,6 +67,7 @@ class CDimen {
   final double sp8 = 8;
   final double sp9 = 9;
   final double sp10 = 10;
+  final double sp11 = 11;
   final double sp12 = 12;
   final double sp14 = 14;
   final double sp15 = 15;

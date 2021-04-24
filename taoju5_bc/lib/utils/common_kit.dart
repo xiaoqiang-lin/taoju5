@@ -2,7 +2,7 @@
  * @Description: 常用工具方法
  * @Author: iamsmiling
  * @Date: 2020-12-24 10:44:12
- * @LastEditTime: 2021-04-19 14:14:37
+ * @LastEditTime: 2021-04-23 14:47:55
  */
 
 import 'dart:async';
@@ -16,6 +16,19 @@ abstract class CommonKit {
     if (value == null) return true;
     if (value is String) return value == "0" || value == "0.00";
     return value == 0;
+  }
+
+  static bool isNullOrEmpty(dynamic value) {
+    if (value == null) return true;
+    if (value is Iterable) return value.isEmpty;
+    return false;
+  }
+
+  static bool isNum(dynamic value) {
+    if (value == null) return false;
+    if (value is num) return true;
+    if (GetUtils.isNum(value)) return true;
+    return false;
   }
 
   static String formatDateTime(DateTime dateTime,

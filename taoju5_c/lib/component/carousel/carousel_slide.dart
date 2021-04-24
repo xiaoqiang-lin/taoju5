@@ -2,11 +2,14 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-04-21 19:10:59
+ * @LastEditTime: 2021-04-23 22:35:55
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_c/component/image/image_view_gallery.dart';
+import 'package:taoju5_c/component/open_container/open_container.dart';
 
 class CarouselSlide extends StatefulWidget {
   final int itemCount;
@@ -17,7 +20,8 @@ class CarouselSlide extends StatefulWidget {
   final double itemWidth;
   final double containerHeight;
   final IndexedWidgetBuilder itemBuilder;
-
+  final List<String> thunmbnails;
+  final List<String> bigImages;
   CarouselSlide(
       {Key? key,
       this.loop = false,
@@ -27,7 +31,9 @@ class CarouselSlide extends StatefulWidget {
       required this.itemHeight,
       required this.itemWidth,
       required this.itemBuilder,
-      required this.containerHeight})
+      required this.containerHeight,
+      required this.thunmbnails,
+      required this.bigImages})
       : super(key: key);
 
   @override
@@ -68,7 +74,23 @@ class _CarouselSlideState extends State<CarouselSlide> {
             },
             itemCount: widget.itemCount,
             viewportFraction: widget.viewportFraction,
-            itemBuilder: widget.itemBuilder,
+            itemBuilder: (BuildContext context, int i) {
+              return OpenContainer<int?>(onClosed: (int? val) {
+                if (val == null) return;
+                if (_currentIndex != i) {
+                  _controller.move(i);
+                }
+                _currentIndex = i;
+              }, closedBuilder: (BuildContext context, _) {
+                return widget.itemBuilder(context, i);
+              }, openBuilder: (BuildContext context, _) {
+                return ImageViewGallery(
+                  currentIndex: _currentIndex,
+                  thumbnails: widget.thunmbnails,
+                  images: widget.bigImages,
+                );
+              });
+            },
             itemHeight: widget.itemHeight,
             itemWidth: widget.itemWidth,
           ),

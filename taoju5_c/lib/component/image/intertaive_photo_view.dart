@@ -2,7 +2,7 @@
  * @Description: 大图预览
  * @Author: iamsmiling
  * @Date: 2021-04-21 16:31:31
- * @LastEditTime: 2021-04-21 19:27:48
+ * @LastEditTime: 2021-04-22 10:03:18
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

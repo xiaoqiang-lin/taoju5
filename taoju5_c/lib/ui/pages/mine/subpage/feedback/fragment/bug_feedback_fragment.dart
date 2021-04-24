@@ -2,7 +2,7 @@
  * @Description: bug反馈
  * @Author: iamsmiling
  * @Date: 2021-04-19 09:49:56
- * @LastEditTime: 2021-04-19 12:31:22
+ * @LastEditTime: 2021-04-22 17:45:09
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,11 +24,17 @@ class BugFeedbackFragment extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("请具体描述问题（必填）"),
+              Container(
+                  margin:
+                      EdgeInsets.only(top: R.dimen.dp14, bottom: R.dimen.dp10),
+                  child: Text("请具体描述问题（必填）", style: R.style.h3)),
               FilledTextField(
                 maxLines: 4,
                 maxLength: 200,
+                onChanged: _.setDecription,
                 inputDecoration: InputDecoration(
+                  hintStyle: TextStyle(
+                      fontSize: R.dimen.sp12, color: R.color.ff999999),
                   hintText: "例如：您在什么页面进行了什么操作，遇到了什么问题",
                 ),
               ),
@@ -51,18 +57,63 @@ class BugFeedbackFragment extends StatelessWidget {
               //               fontSize: R.dimen.sp10,
               //               color: R.color.ff999999))),
               // ),
-              Text("上传凭证（非必填）"),
+              Container(
+                  margin:
+                      EdgeInsets.only(top: R.dimen.dp14, bottom: R.dimen.dp10),
+                  child: Text("上传凭证（非必填）", style: R.style.h3)),
 
               Container(
-                width: double.maxFinite,
-                height: R.dimen.dp80,
-                padding: EdgeInsets.all(R.dimen.dp10),
-                alignment: Alignment.centerLeft,
+                width: Get.width,
+                padding: EdgeInsets.only(
+                    left: R.dimen.dp10,
+                    right: R.dimen.dp10,
+                    bottom: R.dimen.dp10,
+                    top: R.dimen.dp3),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(R.dimen.sp7),
                     color: R.color.fff5f5f5),
-                child: UploadImageButton(),
-              )
+                child: Wrap(
+                  spacing: R.dimen.dp7,
+                  runSpacing: R.dimen.dp7,
+                  children: [
+                    for (Widget item in _.images)
+                      Stack(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(top: 7, right: 7),
+                              child: item),
+                          Positioned(
+                              top: 0,
+                              right: 0,
+                              child: GestureDetector(
+                                  onTap: () => _.delete(item),
+                                  child: Image.asset(R.image.delete)))
+                        ],
+                      ),
+                    Container(
+                      margin:
+                          EdgeInsets.only(top: R.dimen.dp7, right: R.dimen.dp7),
+                      child: UploadImageButton(
+                        onPressed: _.pickImage,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              Container(
+                  margin:
+                      EdgeInsets.only(top: R.dimen.dp14, bottom: R.dimen.dp10),
+                  child: Text("您的联系方式（必填）", style: R.style.h3)),
+
+              FilledTextField(
+                height: R.dimen.dp36,
+                padding: EdgeInsets.symmetric(horizontal: R.dimen.dp10),
+                inputDecoration: InputDecoration(
+                  hintText: "请输入手机号/邮箱",
+                ),
+                onChanged: _.setTelephone,
+              ),
             ],
           ),
         ));

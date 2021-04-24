@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:37:07
- * @LastEditTime: 2021-04-19 14:43:03
+ * @LastEditTime: 2021-04-22 15:41:25
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/netkit/http_kit.dart';
@@ -36,4 +36,8 @@ class MineAPI {
   ///修改用户信息
   Future<BaseEntity> modifyUserProfile(Map params, dynamic formData) =>
       _http.post("/app/user/editPerson", params: params, formData: formData);
+
+  ///删除地址
+  Future<BaseEntity> feedback({Map? params, dynamic formData}) =>
+      _http.post("/app/user/feedBack", params: params, formData: formData);
 }

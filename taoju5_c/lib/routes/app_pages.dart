@@ -2,12 +2,16 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-19 16:52:11
+ * @LastEditTime: 2021-04-23 17:56:14
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/article/article_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/article/article_detail_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_binding.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
+import 'package:taoju5_c/ui/pages/image_crop/image_crop_binding.dart';
+import 'package:taoju5_c/ui/pages/image_crop/image_crop_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_login_binding.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_password_login_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_sms_login_page.dart';
@@ -34,9 +38,18 @@ import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_avatar/modify_user_avatar_binding.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_avatar/modify_user_avatar_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_nickname_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_page.dart';
+import 'package:taoju5_c/ui/pages/product/product_list/product_list_binding.dart';
+import 'package:taoju5_c/ui/pages/product/product_list/product_list_controller.dart';
+import 'package:taoju5_c/ui/pages/product/product_list/product_list_page.dart';
+import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
+import 'package:taoju5_c/ui/pages/video/video_player_page.dart';
 
 import 'app_routes.dart';
 
@@ -102,6 +115,11 @@ class AppPages {
                   name: AppRoutes.modifyUserNickname,
                   page: () => ModifyUserNicknamePage(),
                   binding: ProfileBinding(),
+                ),
+                GetPage(
+                  name: AppRoutes.modifyUserAvatar,
+                  page: () => ModifyUserAvatarPage(),
+                  binding: ModifyUserAvatarBinding(),
                 )
               ]),
 
@@ -133,7 +151,32 @@ class AppPages {
     GetPage(
         name: AppRoutes.category,
         page: () => CategoryPage(),
-        binding: CategoryBinding())
+        binding: CategoryBinding(),
+        children: [
+          GetPage(
+              name: AppRoutes.productList,
+              page: () => ProductListPage(),
+              binding: ProductListBinding()),
+          GetPage(
+              name: AppRoutes.productDetail + "/:id",
+              page: () => ProductDetailPage(),
+              binding: ProductDetailBinding()),
+        ]),
+
+    GetPage(
+        name: AppRoutes.imageCrop,
+        page: () => ImageCropPage(),
+        binding: ImageCropBinding()),
+
+    GetPage(
+        name: AppRoutes.videoPlayer,
+        page: () => VideoPage(),
+        binding: VideoBinding()),
+
+    GetPage(
+        name: AppRoutes.articleDetail,
+        page: () => ArticleDetailPage(),
+        binding: ArticleDetailBinding()),
 
     // ///显示地图
     // GetPage(

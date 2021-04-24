@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
@@ -12,8 +11,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_) {
       return Scaffold(
-        appBar: PrimaryAppBar(
-          title: "个人资料",
+        appBar: AppBar(
+          title: Text("个人资料"),
         ),
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
@@ -23,7 +22,11 @@ class ProfilePage extends StatelessWidget {
                 ///头像
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: _.chooseAvatar,
+                  onTap: () => Get.toNamed(
+                      AppRoutes.mine +
+                          AppRoutes.profile +
+                          AppRoutes.modifyUserAvatar,
+                      parameters: {"avatar": _.user.avatar}),
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
                     child: Row(
@@ -97,22 +100,26 @@ class ProfilePage extends StatelessWidget {
                 ),
                 Divider(),
 
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                  child: Row(
-                    children: [
-                      Text(
-                        "生日",
-                        style: TextStyle(fontSize: R.dimen.sp14),
-                      ),
-                      Spacer(),
-                      Text("1988/08/08",
-                          style: TextStyle(fontSize: R.dimen.sp12)),
-                      Icon(R.icon.next)
-                    ],
+                GestureDetector(
+                  onTap: _.setBirthday,
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                    child: Row(
+                      children: [
+                        Text(
+                          "生日",
+                          style: TextStyle(fontSize: R.dimen.sp14),
+                        ),
+                        Spacer(),
+                        Text("1988/08/08",
+                            style: TextStyle(fontSize: R.dimen.sp12)),
+                        Icon(R.icon.next)
+                      ],
+                    ),
                   ),
                 ),
-                Divider()
+                Divider(),
               ],
             ),
           ),

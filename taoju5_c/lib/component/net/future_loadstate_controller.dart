@@ -2,7 +2,7 @@
  * @Description: 网络请求加载
  * @Author: iamsmiling
  * @Date: 2021-04-06 09:15:12
- * @LastEditTime: 2021-04-18 08:31:56
+ * @LastEditTime: 2021-04-22 13:00:07
  */
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -15,21 +15,25 @@ enum FutureLoadState {
   idle,
   busy, //加载中
   empty, //无数据
-  error, //加载失败
+  error //加载失败
 }
 
-enum AnimateTransitionType { none, fade, sharedAxis, hero, fadeThrough }
+abstract class BaseFutureLoadStateController<T> extends GetxController {
+  Future<T> loadData();
+  FutureLoadState loadState = FutureLoadState.busy;
+}
 
-abstract class FutureLoadStateController<T> extends GetxController {
+abstract class FutureLoadStateController<T>
+    extends BaseFutureLoadStateController {
   FutureLoadState loadState = FutureLoadState.busy;
 
-  AnimateTransitionType transitionType = AnimateTransitionType.none;
+  // AnimateTransitionType transitionType = AnimateTransitionType.none;
+
+  late WidgetBuilder builder;
 
   Future<T> loadData();
 
   Future<T> onSuccess(T data);
-
-  late WidgetBuilder builder;
 
   late WidgetBuilder? errorBuilder;
 

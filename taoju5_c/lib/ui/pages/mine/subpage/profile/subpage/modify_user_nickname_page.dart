@@ -2,10 +2,9 @@
  * @Description:修改用户昵称
  * @Author: iamsmiling
  * @Date: 2021-04-19 14:56:56
- * @LastEditTime: 2021-04-19 15:25:43
+ * @LastEditTime: 2021-04-22 18:58:35
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/appbar/primary_app_bar.dart';
 import 'package:taoju5_c/component/textfield/clearable_text_field.dart';
 import 'package:taoju5_c/domain/entity/params/user/modify_user_profile_params.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -19,8 +18,8 @@ class ModifyUserNicknamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_) {
       return Scaffold(
-        appBar: PrimaryAppBar(
-          title: "修改昵称",
+        appBar: AppBar(
+          title: Text("修改昵称"),
           actions: [
             TextButton(
                 onPressed: () => _

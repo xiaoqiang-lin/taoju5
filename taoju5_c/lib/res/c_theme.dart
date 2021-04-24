@@ -6,6 +6,45 @@ import 'package:taoju5_c/component/indicator/fixed_size_tab_indicator.dart';
 
 import 'R.dart';
 
+class NoSplashFactory extends InteractiveInkFeatureFactory {
+  const NoSplashFactory();
+
+  @factory
+  InteractiveInkFeature create({
+    required MaterialInkController controller,
+    required RenderBox referenceBox,
+    required Offset position,
+    required Color color,
+    required TextDirection textDirection,
+    bool containedInkWell = false,
+    RectCallback? rectCallback,
+    BorderRadius? borderRadius,
+    ShapeBorder? customBorder,
+    double? radius,
+    VoidCallback? onRemoved,
+  }) {
+    return new NoSplash(
+        controller: controller,
+        referenceBox: referenceBox,
+        color: Colors.transparent);
+  }
+}
+
+class NoSplash extends InteractiveInkFeature {
+  NoSplash({
+    required MaterialInkController controller,
+    required RenderBox referenceBox,
+    required Color color,
+    VoidCallback? onRemoved,
+  }) : super(
+            controller: controller,
+            referenceBox: referenceBox,
+            onRemoved: onRemoved,
+            color: Colors.transparent);
+  @override
+  void paintFeature(Canvas canvas, Matrix4 transform) {}
+}
+
 class CTheme {
   static CTheme _singleton = CTheme._();
   // ignore: unused_element
@@ -17,6 +56,8 @@ class CTheme {
       fontFamily: "PingFang SC",
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.ffffffff),
       scaffoldBackgroundColor: R.color.ffffffff,
+      splashFactory: const NoSplashFactory(),
+      highlightColor: R.color.transparent,
       toggleButtonsTheme: ToggleButtonsThemeData(),
       checkboxTheme: CheckboxThemeData(
           fillColor: MaterialStateProperty.all(R.color.ffee9b5f)),
@@ -53,6 +94,7 @@ class CTheme {
           TextTheme(bodyText2: TextStyle(color: R.color.ff333333)),
       appBarTheme: AppBarTheme(
           elevation: 0,
+          titleSpacing: 0,
           centerTitle: false,
           backgroundColor: R.color.ffffffff,
           titleTextStyle:
@@ -63,8 +105,12 @@ class CTheme {
               fontWeight: FontWeight.w500,
               color: R.color.ff999999,
               fontSize: R.dimen.sp13),
-          labelStyle:
-              TextStyle(fontWeight: FontWeight.w500, fontSize: R.dimen.sp13),
+          labelColor: R.color.ffee9b5f,
+          unselectedLabelColor: R.color.ff333333,
+          labelStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: R.dimen.sp13,
+              color: R.color.ffee9b5f),
           // labelPadding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
           indicator: FixedSizeUnderlineTabIndicator(
               insets: EdgeInsets.symmetric(horizontal: R.dimen.dp44),
