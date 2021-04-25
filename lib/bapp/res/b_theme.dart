@@ -2,7 +2,7 @@
  * @Description: 主题相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-23 17:07:11
- * @LastEditTime: 2021-02-02 18:05:44
+ * @LastEditTime: 2021-04-25 17:21:01
  */
 
 import 'package:flutter/cupertino.dart';
@@ -19,6 +19,7 @@ class BTheme {
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: BColors.foregroundColor,
       ),
+      brightness: Brightness.light,
       backgroundColor: BColors.foregroundColor,
       accentColor: BColors.foregroundColor,
       primaryColor: BColors.primaryColor,

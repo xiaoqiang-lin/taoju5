@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-20 15:47:28
+ * @LastEditTime: 2021-04-25 17:48:33
  */
 
 import 'dart:convert';
@@ -34,22 +34,10 @@ class XDio {
 
   XDio._internal() {
     netConfig = NetConfig(headers: {});
-    String token = StorageManager().sharedPreferences?.getString("token");
-    String deviceInfo =
-        StorageManager().sharedPreferences?.getString("device_info");
-    Map<String, String> headers = {};
-    if (g.GetPlatform.isAndroid || g.GetPlatform.isIOS) {
-      headers = {
-        'ACCEPT': 'application/json',
-        'equipment': deviceInfo,
-      };
-    }
 
     dio = Dio()
       ..options = BaseOptions(
           baseUrl: NetConfig.baseUrl,
-          headers: headers,
-          queryParameters: {"token": token},
           connectTimeout: netConfig.timeout,
           receiveTimeout: netConfig.timeout)
       ..interceptors.add(InterceptorsWrapper(
@@ -64,6 +52,23 @@ class XDio {
           // if (formData is Map) {
           //   options.data = _formatParams(formData);
           // }
+          List<String> _whiteList = ["/api/login/login"];
+
+          if (!_whiteList.contains(options.path)) {
+            String token =
+                StorageManager().sharedPreferences?.getString("token");
+            String deviceInfo =
+                StorageManager().sharedPreferences?.getString("device_info");
+            Map<String, String> headers = {};
+            if (g.GetPlatform.isAndroid || g.GetPlatform.isIOS) {
+              headers = {
+                'ACCEPT': 'application/json',
+                'equipment': deviceInfo,
+              };
+              options.headers = headers;
+            }
+            options.queryParameters["token"] = token;
+          }
           print(DateTime.now());
           print("--------------请求地址----------------");
           XLogger.v("${options.baseUrl + options.path}");
@@ -81,9 +86,9 @@ class XDio {
           XLogger.e(
               "*******************************请求结果*******************************\n${response.data}");
 
-          if (baseResponse.code == -999) {
+          if (baseResponse.code == -999 || baseResponse.code == -9999) {
             EasyLoading.showInfo("请重新登录");
-            g.Get.offAndToNamed(BAppRoutes.login);
+            g.Get.offAllNamed(BAppRoutes.login);
           }
           if (!baseResponse.isValid &&
               !_isInWhiteList(response.requestOptions.path)) {

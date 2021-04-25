@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:22:15
- * @LastEditTime: 2021-02-19 22:20:06
+ * @LastEditTime: 2021-04-25 17:29:07
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +64,7 @@ class $BApp extends StatelessWidget {
         unknownRoute: BAppPages.unkonw,
         getPages: BAppPages.pages,
         theme: BTheme.lightTheme,
+        darkTheme: BTheme.lightTheme,
         // themeMode: ThemeMode.dark,
         initialRoute: BAppPages.initial,
         initialBinding: TaojuwuBinding(),
