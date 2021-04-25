@@ -1,5 +1,6 @@
 package com.buyi.taojuwu;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
@@ -29,6 +30,7 @@ public class Taoju5Application extends TinkerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fresco.initialize(this);
         FlutterMain.startInitialization(this);
     }
 }

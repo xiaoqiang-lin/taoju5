@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-23 17:56:14
+ * @LastEditTime: 2021-04-24 21:03:09
  */
 
 import 'package:get/get.dart';
@@ -10,6 +10,7 @@ import 'package:taoju5_c/ui/pages/article/article_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/article/article_detail_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_binding.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
+import 'package:taoju5_c/ui/pages/fresco/fresco_page.dart';
 import 'package:taoju5_c/ui/pages/image_crop/image_crop_binding.dart';
 import 'package:taoju5_c/ui/pages/image_crop/image_crop_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_login_binding.dart';
@@ -55,6 +56,12 @@ import 'app_routes.dart';
 
 class AppPages {
   static final pages = [
+    ///登录
+    GetPage(
+      name: AppRoutes.fresco,
+      page: () => FrescoPage(),
+    ),
+
     ///登录
     GetPage(
         name: AppRoutes.loginGuide,

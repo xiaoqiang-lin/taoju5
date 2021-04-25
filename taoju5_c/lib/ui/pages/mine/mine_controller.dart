@@ -2,7 +2,7 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-19 14:23:36
+ * @LastEditTime: 2021-04-24 21:03:45
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
@@ -46,6 +46,10 @@ class MineController extends GetxController {
       ];
 
   List<MineTileEntity> get tiles => [
+        MineTileEntity(
+            icon: R.image.star,
+            label: "fresco",
+            onTap: () => Get.toNamed(AppRoutes.fresco)),
         MineTileEntity(icon: R.image.star, label: "我的收藏", onTap: () {}),
         MineTileEntity(icon: R.image.footprint, label: "我的足迹", onTap: () {}),
         MineTileEntity(
