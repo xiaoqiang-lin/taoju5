@@ -63,6 +63,7 @@ class $BApp extends StatelessWidget {
         unknownRoute: BAppPages.unkonw,
         getPages: BAppPages.pages,
         theme: BTheme.lightTheme,
+
         // themeMode: ThemeMode.dark,
         initialRoute: BAppPages.initial,
         initialBinding: TaojuwuBinding(),

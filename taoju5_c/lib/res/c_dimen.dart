@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-23 10:45:10
+ * @LastEditTime: 2021-04-25 14:36:03
  */
 // part of R;
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ class CDimen {
 
   final double dp1 = 1;
   final double width = Get.width;
+  final double height = Get.height;
 
   final double dp5 = 5;
   final double dp7 = 7;

@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:04:58
- * @LastEditTime: 2021-04-23 17:21:55
+ * @LastEditTime: 2021-04-25 14:32:44
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +12,7 @@ import 'product_detail_controller.dart';
 import 'section/product_detail_banner_section.dart';
 import 'section/product_detail_comment_section.dart';
 import 'section/product_detail_header_section.dart';
+import 'section/product_detail_image_section.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({Key? key}) : super(key: key);
@@ -45,7 +46,8 @@ class ProductDetailPage extends StatelessWidget {
                   child: ProductDetailCommentSection(comments: [
                 CommentEntity.sample(),
                 CommentEntity.sample()
-              ]))
+              ])),
+              // ProdictDetailImageSection(product: _.product)
             ],
           ),
         );

@@ -2,7 +2,7 @@
  * @Description: 登录控制器
  * @Author: iamsmiling
  * @Date: 2020-12-28 16:08:14
- * @LastEditTime: 2021-04-17 17:32:38
+ * @LastEditTime: 2021-04-25 17:15:01
  */
 
 import 'dart:convert';
@@ -63,7 +63,7 @@ class LoginController extends GetxController {
       Get.find<TaojuwuController>().loadData();
 
       ///页面跳转
-      Get.offNamed(BAppRoutes.home);
+      Get.offAndToNamed(BAppRoutes.home);
     });
   }
 

@@ -2,11 +2,13 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-04-23 17:09:33
+ * @LastEditTime: 2021-04-25 15:46:36
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_sku_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 
 abstract class BaseProductType {}
 
@@ -54,6 +56,14 @@ class ProductDetailEntity {
   late bool isFixedHeight;
   late List<PictureEntity> images;
 
+  late List<String>? detailImages;
+
+  late int skuId;
+
+  ///sku
+  late List<ProductSkuEntity> skus;
+
+  late List<ProductSpecEntity> specs;
   ProductDetailEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
@@ -68,10 +78,29 @@ class ProductDetailEntity {
     minPurchase = json["min_buy"];
     saleCount = json["sales"];
     isFixedHeight = JsonKit.asBool(json["fixed_height"]);
+    specs = JsonKit.asList(json["spec_list"])
+        .map((e) => ProductSpecEntity.fromJson(e))
+        .toList();
+    skus = JsonKit.asList(json["sku_list"])
+        .map((e) => ProductSkuEntity.fromJson(e))
+        .toList();
+    // detailImages = JsonKit.asList(JsonKit.asWebUrl(json["new_description"]))
+    //     .toList()
+    //     .cast<String>();
     images = JsonKit.asList(json["goods_img_list"])
         .map((e) => PictureEntity.fromJson(e))
         .toList();
+
+    skuId = json["sku_id"];
   }
 
   BaseProductType get productType => getProductType(type);
+
+  ProductSkuEntity? get currentSku {
+    if (skus.isEmpty) return null;
+    for (int i = 0; i < skus.length; i++) {
+      if (skuId == skus[i].id) return skus[i];
+    }
+    return null;
+  }
 }

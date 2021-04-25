@@ -2,7 +2,7 @@
  * @Description: 请求拦截器
  * @Author: iamsmiling
  * @Date: 2021-04-06 13:22:02
- * @LastEditTime: 2021-04-22 17:11:55
+ * @LastEditTime: 2021-04-25 14:27:08
  */
 import 'dart:convert';
 
@@ -57,7 +57,10 @@ class ApiInterceptor extends InterceptorsWrapper {
     if (!_noTokenList.contains(options.path)) {
       SharedPreferences _sp = await SharedPreferences.getInstance();
       String? token = _sp.getString("token");
-      options.queryParameters.addAll({"token": token});
+      options.queryParameters.addAll({
+        "token":
+            "MDAwMDAwMDAwMJjcemKSuIGetZ54rX53e6rAiXmVjbuGYY9ns9Gbi4XOgs11Y361l2W0royugIhzag"
+      });
     }
 
     debugPrint("请求时间:${DateTime.now()}");
