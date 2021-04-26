@@ -5,8 +5,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
@@ -39,9 +41,8 @@ public class Taoju5Channel implements  MethodChannel.MethodCallHandler {
     private  MethodChannel channel;
 
 
+    private HashMap<String,TextureRegistry.SurfaceTextureEntry> textureSurfaces = new HashMap<>();
 
-
-    private TextureRegistry.SurfaceTextureEntry surfaceTexture;
 
     Taoju5Channel(Activity activity,FlutterEngine engine){
         this.activity=activity;
@@ -53,14 +54,39 @@ public class Taoju5Channel implements  MethodChannel.MethodCallHandler {
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-    if(call.method=="loadImage"){
+        if(call.method.equals("loadImage")){
         String url = (String) ((Map) call.arguments).get("url");
+        TextureRegistry.SurfaceTextureEntry surfaceTextureEntry  = textureSurfaces.get(url);
+
         loadImage(url,result);
     }
+        else if (call.method.equals("release")) {
+            release(call,result);
+        } else {
+            result.notImplemented();
+        }
     }
 
 
     void loadImage(String url, @NonNull MethodChannel.Result result){
+        TextureRegistry.SurfaceTextureEntry surfaceTextureEntry  = textureSurfaces.get(url);
+        //不为空获取到textureId加载图片
+        if (surfaceTextureEntry != null) {
+            Map<String, Object> reply = new HashMap<>();
+            reply.put("textureId", surfaceTextureEntry.id());
+            _loadImage(reply, result, url, surfaceTextureEntry);
+        }else{
+            surfaceTextureEntry =engine.getRenderer().createSurfaceTexture();
+            Map<String, Object> reply = new HashMap<>();
+            reply.put("textureId", surfaceTextureEntry.id());
+            textureSurfaces.put(url,surfaceTextureEntry);
+            _loadImage(reply, result, url, surfaceTextureEntry);
+        }
+    }
+
+
+    private void _loadImage(final Map<String, Object> maps, final MethodChannel.Result result, String url, final TextureRegistry.SurfaceTextureEntry surfaceTextureEntry){
+
         ImageRequest imageRequest = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(url))
                 .setProgressiveRenderingEnabled(true)
@@ -69,41 +95,40 @@ public class Taoju5Channel implements  MethodChannel.MethodCallHandler {
         DataSource<CloseableReference<CloseableImage>>
                 dataSource = imagePipeline.fetchDecodedImage(imageRequest, this.activity);
 
-
         dataSource.subscribe(new BaseBitmapDataSubscriber() {
             @Override
             public void onNewResultImpl(Bitmap bitmap) {
                 if (bitmap == null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result.error("111","获取图片失败",null);
-                        }
-                    });
-                    // Log.e(TAG,"保存图片失败啦,无法下载图片");
-                return;
+//                    activity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            result.error("111","获取图片失败",null);
+//                        }
+//                    });
+//                    // Log.e(TAG,"保存图片失败啦,无法下载图片");
+                    return;
                 }
                 int imageWidth = bitmap.getWidth();
                 int imageHeight = bitmap.getHeight();
-                long textureId = surfaceTexture.id();
 
-                Map<String,Object> reply = new HashMap<>();
-                reply.put("textureId",textureId);
-                reply.put("width",imageWidth);
-                reply.put("height",imageHeight);
-                Log.i("fresco------------",reply.toString());
-                Log.i("fresco",reply.toString());
-                Rect rect = new Rect(0,0,200,200);
-                surfaceTexture.surfaceTexture().setDefaultBufferSize(imageWidth,imageHeight);
-                Surface surface = new Surface(surfaceTexture.surfaceTexture());
+                Rect rect = new Rect(0, 0, imageWidth, imageHeight);
+
+                SurfaceTexture surfaceTexture = surfaceTextureEntry.surfaceTexture();
+                surfaceTexture.setDefaultBufferSize(imageWidth, imageHeight);
+                Surface surface = new Surface(surfaceTexture);
                 Canvas canvas = surface.lockCanvas(rect);
-                canvas.drawBitmap(bitmap,null,rect,null);
-                bitmap.recycle();
+                canvas.drawBitmap(bitmap, null, rect, null);
                 surface.unlockCanvasAndPost(canvas);
+                long textureId  = surfaceTextureEntry.id();
+
+                maps.put("textureId", surfaceTextureEntry.id());
+                maps.put("width", imageWidth);
+                maps.put("height", imageHeight);
+                Log.i("fresco=========", "获取surface出错");
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        result.success(reply);
+                        result.success(maps);
                     }
                 });
 //             handler.post(new Runnable(){
@@ -126,11 +151,50 @@ public class Taoju5Channel implements  MethodChannel.MethodCallHandler {
                 });
             }
         }, CallerThreadExecutor.getInstance());
+    }
+
+    void _loadImage(String url, @NonNull MethodChannel.Result result){
+
+        ImageRequest imageRequest = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(url))
+                .setProgressiveRenderingEnabled(true)
+                .build();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        DataSource<CloseableReference<CloseableImage>>
+                dataSource = imagePipeline.fetchDecodedImage(imageRequest, this.activity);
 
     }
 
-    private void createSurfaceTextureEntry() {
-        if (this.surfaceTexture != null)return;
-        surfaceTexture = engine.getRenderer().createSurfaceTexture();
+
+
+    /**
+     * 释放
+     * @param call
+     * @param result
+     */
+    private  void release(
+            MethodCall call,
+            MethodChannel.Result result) {
+        String url = call.argument("url");
+
+        if (TextUtils.isEmpty(url)) {
+            Map<String, Object> maps = new HashMap<>();
+            result.error("error", "url is null", maps);
+            return;
+        }
+        try {
+            TextureRegistry.SurfaceTextureEntry surfaceTextureEntry = textureSurfaces.remove(url);
+            if (surfaceTextureEntry != null) {
+                //TODO 回收时怎么处理
+                surfaceTextureEntry.release();
+                result.success("1");
+            } else {
+                result.success("0");
+            }
+        } catch (Exception e) {
+            result.error("error", "relese fail", "");
+        }
+
+
     }
 }

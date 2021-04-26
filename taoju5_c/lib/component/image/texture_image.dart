@@ -2,7 +2,7 @@
  * @Description: 筒鼓外接纹理显示图片
  * @Author: iamsmiling
  * @Date: 2021-04-24 18:42:16
- * @LastEditTime: 2021-04-24 21:34:55
+ * @LastEditTime: 2021-04-25 22:39:15
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +23,8 @@ class _TextureImageState extends State<TextureImage> {
   int? _textureId;
   final MethodChannel _channel = MethodChannel("com.buyi.taoju5.fresco");
 
+  double? _width;
+  double? _height;
   @override
   void initState() {
     super.initState();
@@ -35,8 +37,13 @@ class _TextureImageState extends State<TextureImage> {
     _channel.invokeMethod("loadImage", {"url": widget.url}).then((value) {
       print(value);
       print("这个出错出错");
+      print(value is Map);
+      if (value is Map) {
+        _textureId = value["textureId"];
+        _width = double.parse(value["width"]);
+        _height = double.parse(value["height"]);
+      }
     }).catchError((err) {
-      print(err);
       print("出错啦啦啦啦啦");
     }).whenComplete(() {
       print("一直没有返回结果");
@@ -45,9 +52,15 @@ class _TextureImageState extends State<TextureImage> {
   }
 
   @override
+  void dispose() {
+    _channel.invokeMethod("release", {"url": widget.url});
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width,
+      width: _width,
       height: widget.height,
       child: _textureId == null
           ? Container(
