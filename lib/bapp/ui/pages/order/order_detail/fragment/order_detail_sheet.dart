@@ -2,11 +2,12 @@
  * @Description: 修改价格相关
  * @Author: iamsmiling
  * @Date: 2021-01-13 15:48:35
- * @LastEditTime: 2021-01-15 09:10:39
+ * @LastEditTime: 2021-04-26 10:42:07
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
 import 'package:taoju5/bapp/res/b_colors.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -35,6 +36,7 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
             MeasureOrderSheet()
           else
             SelectionOrderSheet(),
+
           // DefaultTextStyle(
           //   style:
           //       TextStyle(color: BColors.textColor, fontSize: BDimens.sp28),
@@ -208,6 +210,7 @@ class OrderDetailSheet extends GetView<OrderDetailController> {
               ),
             ),
           ),
+
           //     ],
           //   ),
           // )

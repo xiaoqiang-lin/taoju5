@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:26:35
- * @LastEditTime: 2021-04-20 15:01:45
+ * @LastEditTime: 2021-04-26 11:20:19
  */
 
 import 'package:get/get.dart';
@@ -91,7 +91,7 @@ class OrderDetailModel {
     shopName = json["shop_name"];
     balance = json["tail_money"];
     payAmount = json["reality_pay_money"];
-
+    note = json["buyer_message"];
     createTime = JsonKit.formatDateTime(
         JsonKit.getDateTimeFromMillseconds(json["create_time"]));
     actualInstallTime = JsonKit.formatDateTime(

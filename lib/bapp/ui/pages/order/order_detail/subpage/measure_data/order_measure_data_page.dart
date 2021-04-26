@@ -148,7 +148,7 @@ class OrderMeasureDataPage extends GetView<OrderMeasureDataController> {
                   Divider(),
                   Container(
                       margin: EdgeInsets.symmetric(vertical: BDimens.gap20),
-                      child: Text("测量备注记录:${measureData.note}")),
+                      child: Text("测量备注记录:${measureData.note ?? ""}")),
                   Divider(),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: BDimens.gap20),

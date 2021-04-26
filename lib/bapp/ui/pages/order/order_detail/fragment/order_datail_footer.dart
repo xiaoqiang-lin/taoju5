@@ -2,7 +2,7 @@
  * @Description: 订单详情底部
  * @Author: iamsmiling
  * @Date: 2021-01-06 14:23:12
- * @LastEditTime: 2021-01-14 15:04:38
+ * @LastEditTime: 2021-04-26 10:53:32
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,16 +48,20 @@ class OrderDetailFooter extends GetView<OrderDetailController> {
               child: Container(
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: BDimens.gap8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("订单备注:"),
-                          Text(GetUtils.isNullOrBlank(controller.order.note)
-                              ? "暂无备注"
-                              : "${controller.order.note}")
-                        ],
+                    Visibility(
+                      visible: controller.order.orderStatus !=
+                          OrderStatus.toBeSelected,
+                      child: Container(
+                        margin: EdgeInsets.only(top: BDimens.gap8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("订单备注:"),
+                            Text(GetUtils.isNullOrBlank(controller.order.note)
+                                ? "暂无备注"
+                                : "${controller.order.note}")
+                          ],
+                        ),
                       ),
                     ),
                     Container(

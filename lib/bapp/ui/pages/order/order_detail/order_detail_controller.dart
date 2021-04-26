@@ -2,7 +2,7 @@
  * @Description: OrderDetailController
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:35:30
- * @LastEditTime: 2021-01-28 14:01:08
+ * @LastEditTime: 2021-04-26 10:55:38
  */
 
 import 'dart:convert';
@@ -177,8 +177,8 @@ class OrderDetailController extends GetxController {
   }
 
   Future submitSelectedProduct() {
-    return _repository
-        .submitSelectedProduct(params: {"order_id": id}).then((value) {
+    return _repository.submitSelectedProduct(
+        params: {"order_id": id, "order_remark": order.note}).then((value) {
       loadData(showLoading: false);
       // Get.find<OrderListController>(tag: "${order.orderStatusCode}")
       //     .refreshData();

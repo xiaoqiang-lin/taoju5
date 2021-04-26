@@ -2,12 +2,13 @@
  * @Description: 商品详情页
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:35:39
- * @LastEditTime: 2021-01-28 14:00:08
+ * @LastEditTime: 2021-04-26 10:51:37
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/fragment/order_datail_footer.dart';
+import 'package:taoju5/bapp/ui/pages/order/order_detail/fragment/order_note_bar.dart';
 import 'package:taoju5/bapp/ui/pages/order/order_detail/order_detail_skeleton.dart';
 import 'package:taoju5/bapp/ui/widgets/base/x_loadstate_builder.dart';
 
@@ -60,11 +61,12 @@ class OrderDetailPage extends StatelessWidget {
                     ),
                     OrderDetailBody(),
                     OrderDetailSheet(),
+                    OrderNoteBar(),
+                    OrderManualScriptCard(),
                     Divider(
                       indent: BDimens.gap32,
                       endIndent: BDimens.gap32,
                     ),
-                    OrderManualScriptCard(),
                     OrderDetailFooter(),
                   ],
                 ),
