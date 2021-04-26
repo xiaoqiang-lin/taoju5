@@ -2,7 +2,7 @@
  * @Description: 成品弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:33:44
- * @LastEditTime: 2021-04-25 20:55:33
+ * @LastEditTime: 2021-04-26 10:24:48
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/product/component/product_spec_option_chip.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_controller.dart';
 
 Future openFinishedProductAttributeModal(BuildContext context,
@@ -108,15 +109,17 @@ Future openFinishedProductAttributeModal(BuildContext context,
                                         children: [
                                           for (ProductSpecOptionEntity option
                                               in spec.options)
-                                            Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: R.dimen.dp20),
-                                                child: Text(option.name))
+                                            ProductSpecOptionChip(
+                                                option: option)
                                         ],
                                       )
                                     ],
                                   ),
-                                )
+                                ),
+                              Text(
+                                "数量",
+                                style: R.style.h3,
+                              ),
                             ],
                           ),
                         ),

@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:16:47
- * @LastEditTime: 2021-04-25 09:41:36
+ * @LastEditTime: 2021-04-26 10:13:03
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/carousel/carousel_slide.dart';

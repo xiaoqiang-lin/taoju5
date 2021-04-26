@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-25 14:36:03
+ * @LastEditTime: 2021-04-26 09:41:30
  */
 // part of R;
 import 'package:get/get.dart';
@@ -16,6 +16,8 @@ class CDimen {
   factory CDimen() => _singleton;
 
   final double dp1 = 1;
+
+  final double dp2 = 2;
   final double width = Get.width;
   final double height = Get.height;
 
