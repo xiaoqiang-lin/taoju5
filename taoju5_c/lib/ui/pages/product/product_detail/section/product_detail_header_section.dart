@@ -2,7 +2,7 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-04-25 14:39:04
+ * @LastEditTime: 2021-04-26 14:48:22
  */
 
 import 'package:flutter/material.dart';
@@ -44,7 +44,8 @@ class ProductDetailHeaderSection extends StatelessWidget {
                           style: TextStyle(fontSize: R.dimen.sp10),
                           children: [
                             TextSpan(
-                              text: "${product.price.toStringAsFixed(2)}",
+                              text:
+                                  "${product.currentSku?.price.toStringAsFixed(2)}",
                               style: TextStyle(
                                   color: R.color.ff5005,
                                   fontSize: R.dimen.sp14),

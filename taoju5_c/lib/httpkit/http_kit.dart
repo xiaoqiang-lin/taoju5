@@ -11,7 +11,7 @@ import 'package:dio/dio.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/config/app_config.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
-import 'package:taoju5_c/netkit/exception.dart';
+import 'package:taoju5_c/httpkit/exception.dart';
 import 'package:taoju5_c/utils/toast.dart';
 import 'interceptor.dart';
 

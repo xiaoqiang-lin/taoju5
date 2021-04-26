@@ -2,12 +2,13 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:04:58
- * @LastEditTime: 2021-04-25 14:32:44
+ * @LastEditTime: 2021-04-26 16:06:20
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/comment/comment_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/section/proudct_detail_footer.dart';
 import 'product_detail_controller.dart';
 import 'section/product_detail_banner_section.dart';
 import 'section/product_detail_comment_section.dart';
@@ -50,6 +51,7 @@ class ProductDetailPage extends StatelessWidget {
               // ProdictDetailImageSection(product: _.product)
             ],
           ),
+          bottomNavigationBar: ProductDetailFooter(product: _.product),
         );
       },
     );

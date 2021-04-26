@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-04-25 15:46:36
+ * @LastEditTime: 2021-04-26 14:35:45
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -96,10 +96,17 @@ class ProductDetailEntity {
 
   BaseProductType get productType => getProductType(type);
 
+  String get currentSpecName {
+    if (specs.isEmpty) return "";
+    String name = specs.map((e) => e.selected?.name).join(" ");
+    return name;
+  }
+
   ProductSkuEntity? get currentSku {
     if (skus.isEmpty) return null;
     for (int i = 0; i < skus.length; i++) {
-      if (skuId == skus[i].id) return skus[i];
+      ProductSkuEntity item = skus[i];
+      if (currentSpecName == item.name || skuId == item.id) return item;
     }
     return null;
   }

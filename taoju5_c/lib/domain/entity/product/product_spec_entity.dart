@@ -2,7 +2,7 @@
  * @Description: 商品规格  对成品而言
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:50:54
- * @LastEditTime: 2021-04-25 16:50:38
+ * @LastEditTime: 2021-04-26 16:58:20
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -41,6 +41,9 @@ class ProductSpecOptionEntity {
   late int type;
   late String image;
 
+  ///是否缺货
+  late bool isOutofStock;
+
   OptionDisplayMode get mode =>
       {
         1: OptionDisplayMode.text,
@@ -56,5 +59,6 @@ class ProductSpecOptionEntity {
     disabled = json["disabled"];
     type = JsonKit.asInt(json["spec_show_type"]);
     image = JsonKit.asWebUrl(json["spec_value_data"]);
+    isOutofStock = json["disabled"];
   }
 }

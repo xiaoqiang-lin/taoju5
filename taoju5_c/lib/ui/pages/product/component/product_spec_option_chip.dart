@@ -2,108 +2,151 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-04-26 10:06:13
+ * @LastEditTime: 2021-04-26 17:25:17
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 
 class ProductSpecOptionChip extends StatelessWidget {
   final ProductSpecOptionEntity option;
-  const ProductSpecOptionChip({Key? key, required this.option})
+  final Function() onPressed;
+  const ProductSpecOptionChip(
+      {Key? key, required this.option, required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-            elevation: MaterialStateProperty.all(0),
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            minimumSize:
-                MaterialStateProperty.all(Size(R.dimen.dp72, R.dimen.dp32)),
-            foregroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled)) {
-                return null;
-              }
-              return R.color.ff666666;
-            }),
-            backgroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled)) {
-                return null;
-              }
-              return R.color.fff5f5f5;
-            }),
-          )),
-          outlinedButtonTheme: OutlinedButtonThemeData(
-              style: ButtonStyle(
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
-            foregroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled)) {
-                return null;
-              }
-              return R.color.ffee9b5f;
-            }),
-            side: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled)) {
-                return null;
-              }
-              return BorderSide(color: R.color.ffee9b5f);
-            }),
-            minimumSize:
-                MaterialStateProperty.all(Size(R.dimen.dp72, R.dimen.dp32)),
-          ))),
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: R.dimen.dp7),
-            child: option.selected
-                ? OutlinedButton(
-                    onPressed: () {},
-                    child: option.mode == OptionDisplayMode.text
-                        ? Text("${option.name}")
-                        : _ProductSpecImageChip(
-                            label: option.name, src: option.image))
-                : ElevatedButton(
-                    onPressed: () {},
-                    child: option.mode == OptionDisplayMode.text
-                        ? Text("${option.name}")
-                        : _ProductSpecImageChip(
-                            label: option.name, src: option.image)),
-          ),
-        ],
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: R.dimen.dp10, right: R.dimen.dp4),
+          child: option.mode == OptionDisplayMode.text
+              ? _ProductSpecLabelChip(
+                  onPressed: onPressed,
+                  label: option.name,
+                  highlighted: option.selected)
+              : _ProductSpecImageChip(
+                  onPressed: onPressed,
+                  highlighted: option.selected,
+                  label: option.name,
+                  src: option.image),
+        ),
+        Positioned(
+            top: R.dimen.dp5,
+            right: -R.dimen.dp2,
+            child: Visibility(
+                visible: !option.isOutofStock,
+                child: _OutOfStockTag(highlighted: option.selected)))
+      ],
+    );
+  }
+}
+
+class _OutOfStockTag extends StatelessWidget {
+  final String label;
+  final bool highlighted;
+  const _OutOfStockTag(
+      {Key? key, this.label = "暂时缺货", this.highlighted = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color:
+              highlighted ? const Color(0xFFEE9B5F) : const Color(0xFFC1C1C1)),
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 5, color: Colors.white),
       ),
     );
   }
 }
 
-class _ProductSpecImageChip extends StatelessWidget {
-  final String src;
+class _ProductSpecLabelChip extends StatelessWidget {
   final String label;
-  const _ProductSpecImageChip(
-      {Key? key, required this.src, required this.label})
+  final bool highlighted;
+  final Function()? onPressed;
+  const _ProductSpecLabelChip(
+      {Key? key, required this.label, this.highlighted = false, this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ChimeraImage(
-          imageUrl: src,
-          width: R.dimen.dp100,
-          height: R.dimen.dp100,
-          fit: BoxFit.cover,
-          enlarge: true,
-          showOpenButton: true,
+    return GestureDetector(
+      onTap: onPressed,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: R.dimen.dp8),
-          child: Text(label),
-        )
-      ],
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: highlighted ? Colors.white : const Color(0xffF5F5F5),
+            border: Border.all(
+                color: highlighted
+                    ? const Color(0xffee9b5f)
+                    : Colors.transparent)),
+        constraints: BoxConstraints(
+            minHeight: R.dimen.dp32,
+            maxWidth: R.dimen.dp72,
+            minWidth: R.dimen.dp72),
+      ),
+    );
+  }
+}
+
+///图片
+class _ProductSpecImageChip extends StatelessWidget {
+  final String src;
+  final String label;
+  final Function()? onPressed;
+  final bool highlighted;
+  const _ProductSpecImageChip(
+      {Key? key,
+      required this.src,
+      required this.label,
+      this.onPressed,
+      this.highlighted = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      behavior: HitTestBehavior.opaque,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(7),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              border: Border.all(
+                  color: highlighted
+                      ? Colors.transparent
+                      : const Color(0xFFFFEE9B5F))),
+          child: Column(
+            children: [
+              Image.network(
+                src,
+                width: R.dimen.dp100,
+                height: R.dimen.dp100,
+                fit: BoxFit.cover,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: R.dimen.dp8),
+                child: Text(label),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

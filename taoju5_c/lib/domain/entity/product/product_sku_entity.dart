@@ -2,7 +2,7 @@
  * @Description: 商品库存
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:54:49
- * @LastEditTime: 2021-04-25 15:45:48
+ * @LastEditTime: 2021-04-26 14:35:04
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -13,6 +13,7 @@ class ProductSkuEntity {
   late int id;
   late String name;
   late double marketPrice;
+  late double price;
   late double promotionPrice;
   late int stock;
 
@@ -20,7 +21,8 @@ class ProductSkuEntity {
 
   ProductSkuEntity.fromJson(Map json) {
     id = json["sku_id"];
-    name = json["sku_name"];
+    name = "${json["sku_name"]}".trim();
+    price = JsonKit.asDouble(json["price"]);
     marketPrice = JsonKit.asDouble(json["market_price"]);
     promotionPrice = JsonKit.asDouble(json["promote_price"]);
     stock = json["stock"];

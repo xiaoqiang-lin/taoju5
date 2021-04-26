@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-25 14:25:46
+ * @LastEditTime: 2021-04-26 14:50:05
  */
 // part of R;
 class CImage {
@@ -99,4 +99,7 @@ class CImage {
   final String find = "resources/images/search_black.png";
 
   final String closeModal = "resources/images/close_modal.png";
+
+  final String plus = "resources/images/plus.png";
+  final String substract = "resources/images/substract.png";
 }

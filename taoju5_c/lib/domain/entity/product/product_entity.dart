@@ -2,9 +2,10 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-04-23 20:35:12
+ * @LastEditTime: 2021-04-26 14:42:48
  */
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
 class ProductEntity {

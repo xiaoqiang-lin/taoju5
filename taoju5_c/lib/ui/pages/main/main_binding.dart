@@ -2,7 +2,7 @@
  * @Description:app程序入口
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-21 14:37:48
+ * @LastEditTime: 2021-04-26 17:37:19
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_controller.dart';

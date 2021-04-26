@@ -6,7 +6,7 @@
  */
 
 import 'package:taoju5_c/domain/entity/base_entity.dart';
-import 'package:taoju5_c/netkit/http_kit.dart';
+import 'package:taoju5_c/httpkit/http_kit.dart';
 
 class CategoryAPI {
   HttpKit _http = HttpKit();

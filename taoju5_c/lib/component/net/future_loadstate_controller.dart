@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/base/future_empty_view.dart';
 import 'package:taoju5_c/component/net/base/future_error_view.dart';
 import 'package:taoju5_c/component/net/base/future_loading_view.dart';
-import 'package:taoju5_c/netkit/exception.dart';
+import 'package:taoju5_c/httpkit/exception.dart';
 
 enum FutureLoadState {
   idle,
