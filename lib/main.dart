@@ -2,10 +2,12 @@
  * @Description: app入口
  * @Author: iamsmiling
  * @Date: 2020-12-15 12:05:52
- * @LastEditTime: 2021-04-22 13:39:41
+ * @LastEditTime: 2021-04-27 13:51:21
  */
 
 // import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,18 @@ import 'package:taoju5/app.dart';
 import 'app_initializer.dart';
 
 void main() {
-  _main();
+  runZonedGuarded(() {
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+      return Text(
+        details.exception.toString() + "\n " + details.stack.toString() + "自定义",
+      );
+    };
+    _main();
+  }, (Object obj, StackTrace stack) {
+    print(obj);
+    print(stack);
+  });
 }
 
 void _main() {

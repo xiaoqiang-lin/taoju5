@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_controller.dart';
+import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -89,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          "未选择",
+                          _.user.gender.name,
                           style: TextStyle(
                               fontSize: R.dimen.sp12, color: R.color.ffb4b4b4),
                         ),

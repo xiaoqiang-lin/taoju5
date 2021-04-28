@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-04-26 14:35:45
+ * @LastEditTime: 2021-04-27 15:47:42
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -55,6 +55,8 @@ class ProductDetailEntity {
   late String saleCount;
   late bool isFixedHeight;
   late List<PictureEntity> images;
+
+  late int count = 1;
 
   late List<String>? detailImages;
 

@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-23 17:56:14
+ * @LastEditTime: 2021-04-27 17:54:20
  */
 
 import 'package:get/get.dart';
@@ -26,6 +26,7 @@ import 'package:taoju5_c/ui/pages/login/modify_password/modify_password_second_p
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_binding.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_fisrt_page.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_second_page.dart';
+import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
@@ -43,15 +44,20 @@ import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_avata
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_nickname_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
+import 'package:taoju5_c/ui/pages/net_off/net_off_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_page.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_detail/product_comment_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_detail/product_comment_detail_page.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/product_comment_list_binding.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/product_comment_list_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_binding.dart';
-import 'package:taoju5_c/ui/pages/product/product_list/product_list_controller.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_page.dart';
 
 import 'app_routes.dart';
+import 'middleware/auth_middleware.dart';
 
 class AppPages {
   static final pages = [
@@ -99,7 +105,10 @@ class AppPages {
         binding: ModifyTelephoneBinding()),
 
     GetPage(
-        name: AppRoutes.main, page: () => MainPage(), binding: MineBinding()),
+        name: AppRoutes.main,
+        page: () => MainPage(),
+        binding: MainBinding(),
+        middlewares: [AuthMiddleware()]),
 
     GetPage(
         name: AppRoutes.mine,
@@ -160,7 +169,17 @@ class AppPages {
           GetPage(
               name: AppRoutes.productDetail + "/:id",
               page: () => ProductDetailPage(),
-              binding: ProductDetailBinding()),
+              binding: ProductDetailBinding(),
+              children: [
+                GetPage(
+                    name: AppRoutes.productCommentList,
+                    page: () => ProductCommentListPage(),
+                    binding: ProductCommentListBinding()),
+                GetPage(
+                    name: AppRoutes.productCommentDetail,
+                    page: () => ProductCommentDetailPage(),
+                    binding: ProductCommentDetailBinding()),
+              ]),
         ]),
 
     GetPage(
@@ -177,6 +196,11 @@ class AppPages {
         name: AppRoutes.articleDetail,
         page: () => ArticleDetailPage(),
         binding: ArticleDetailBinding()),
+
+    GetPage(
+      name: AppRoutes.netOff,
+      page: () => NetOffPage(),
+    ),
 
     // ///显示地图
     // GetPage(

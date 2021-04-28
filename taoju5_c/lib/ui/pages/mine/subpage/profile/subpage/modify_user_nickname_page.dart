@@ -2,7 +2,7 @@
  * @Description:修改用户昵称
  * @Author: iamsmiling
  * @Date: 2021-04-19 14:56:56
- * @LastEditTime: 2021-04-22 18:58:35
+ * @LastEditTime: 2021-04-27 15:03:13
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/textfield/clearable_text_field.dart';
@@ -36,6 +36,7 @@ class ModifyUserNicknamePage extends StatelessWidget {
                 ClearableTextField(
                   initialValue: _.user.name,
                   onChanged: _.setNickname,
+                  suffixIcon: Image.asset(R.image.clear),
                   decoration: InputDecoration(hintText: "请输入用户昵称"),
                 )
               ],

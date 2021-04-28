@@ -63,8 +63,9 @@ class PrimaryButton extends StatelessWidget {
       _constraints ??= BoxConstraints(minWidth: double.maxFinite);
     }
 
-    if (mode == PrimaryButtonMode.materialButton) {
-      _constraints ??= BoxConstraints(minWidth: 110, minHeight: 38);
+    if (size == PrimaryButtonSize.middle) {
+      _constraints ??=
+          BoxConstraints(minWidth: 110, minHeight: 38, maxHeight: 38);
     }
   }
 
@@ -81,7 +82,7 @@ class PrimaryButton extends StatelessWidget {
       _padding = EdgeInsets.symmetric(vertical: 13);
     }
     if (size == PrimaryButtonSize.middle) {
-      _padding = EdgeInsets.symmetric(horizontal: 40, vertical: 10);
+      _padding = EdgeInsets.zero;
     }
     _padding ??= padding ?? EdgeInsets.zero;
   }

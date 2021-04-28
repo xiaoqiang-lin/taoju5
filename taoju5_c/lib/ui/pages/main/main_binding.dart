@@ -2,9 +2,10 @@
  * @Description:app程序入口
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-26 17:37:19
+ * @LastEditTime: 2021-04-27 14:29:33
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/service/prefs_service.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_controller.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';
@@ -26,5 +27,7 @@ class MainBinding extends Bindings {
     Get.lazyPut(() => CartController());
 
     Get.lazyPut(() => MineController());
+
+    Get.lazyPut(() => PrefsService());
   }
 }

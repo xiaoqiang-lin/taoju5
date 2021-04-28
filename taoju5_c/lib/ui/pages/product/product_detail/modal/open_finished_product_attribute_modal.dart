@@ -2,7 +2,7 @@
  * @Description: 成品弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:33:44
- * @LastEditTime: 2021-04-26 16:47:59
+ * @LastEditTime: 2021-04-27 15:52:58
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_action_bar.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_spec_option_chip.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/finished_product_attribute_modal/finished_product_attribute_modal_controller.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_controller.dart';
 
 Future openFinishedProductAttributeModal(BuildContext context,
     {required ProductDetailEntity product}) {
@@ -192,7 +193,9 @@ Future openFinishedProductAttributeModal(BuildContext context,
                                   ],
                                 ),
                                 ProductActionBar(
-                                  onAddToCart: () {},
+                                  onAddToCart: () =>
+                                      Get.find<ProductDetailController>()
+                                          .addToCart,
                                   onPurchase: () {},
                                 )
                               ],

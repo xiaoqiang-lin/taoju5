@@ -2,10 +2,11 @@
  * @Description: 商品列表页面
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:28:28
- * @LastEditTime: 2021-04-25 13:40:50
+ * @LastEditTime: 2021-04-27 13:36:30
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/params/product/product_list_sort_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -56,49 +57,43 @@ class ProductListPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    // Text("默认",
-                    //     style:
-                    //         _getTextStyle(_.sortTye, ProductSortTye.dateSort)),
-                    // Text("销量排序",
-                    //     style: _getTextStyle(
-                    //         _.sortTye, ProductSortTye.saleCountSort)),
-                    // Text("新品优先",
-                    //     style:
-                    //         _getTextStyle(_.sortTye, ProductSortTye.dateSort)),
-                    // Row(
-                    //   children: [Text("价格排序"), Image.asset(R.image.priceAsc)],
-                    // ),
                     Image.asset(R.image.listMode)
                   ],
                 ),
               ),
-              Expanded(child: GetBuilder<ProductListController>(builder: (_) {
-                return GridView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: R.dimen.dp16,
-                        crossAxisCount: 2,
-                        childAspectRatio: 4 / 5,
-                        mainAxisSpacing: R.dimen.dp16),
-                    itemCount: _.products.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      ProductEntity item = _.products[i];
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(AppRoutes.category +
-                            AppRoutes.productDetail +
-                            "/${item.id}"),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(item.cover),
-                              Text(item.name),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              }))
+              Expanded(
+                  child: FutureLoadStateBuilder<ProductListController>(
+                      controller: Get.find<ProductListController>(),
+                      builder: (_) {
+                        return GridView.builder(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: R.dimen.dp16,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 4 / 5,
+                                    mainAxisSpacing: R.dimen.dp16),
+                            itemCount: _.products.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              ProductEntity item = _.products[i];
+                              return GestureDetector(
+                                onTap: () => Get.toNamed(AppRoutes.category +
+                                    AppRoutes.productDetail +
+                                    "/${item.id}"),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.network(item.cover),
+                                      Text(item.name),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      }))
             ],
           ),
         );

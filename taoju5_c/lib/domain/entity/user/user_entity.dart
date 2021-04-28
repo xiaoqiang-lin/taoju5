@@ -2,7 +2,7 @@
  * @Description: 用户模型
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-19 20:41:11
+ * @LastEditTime: 2021-04-27 15:34:18
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -14,8 +14,14 @@ extension GenderKit on Gender {
       {Gender.unknow: 0, Gender.male: 1, Gender.female: 2}[this] ?? 0;
 
   String get name =>
-      {Gender.unknow: "未知", Gender.male: "男", Gender.female: "女"}[this] ?? "未知";
+      {Gender.unknow: "未选择", Gender.male: "男", Gender.female: "女"}[this] ??
+      "未知";
 }
+
+///注册类型
+enum RegisterType { wechat, telephone }
+
+getRegisterType(int code) => [];
 
 class UserEntity {
   late String name;
@@ -23,8 +29,12 @@ class UserEntity {
   late String account;
   late String telephone;
   late Gender gender;
-
   late String? birthday;
+  late int registerTypeCode;
+
+  RegisterType get registerType =>
+      {1: RegisterType.telephone, 2: RegisterType.wechat}[registerTypeCode] ??
+      RegisterType.telephone;
 
   UserEntity.fromJson(Map json) {
     assert(json is Map);
@@ -34,6 +44,7 @@ class UserEntity {
     account = json["account"] ?? telephone;
     birthday = json["user_birth"];
     gender = Gender.female;
+    registerTypeCode = json["registered_type"];
   }
 
   UserEntity.smaple() {

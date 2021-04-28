@@ -2,12 +2,14 @@
  * @Description:商品详情客户评论
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:39:42
- * @LastEditTime: 2021-04-23 16:43:34
+ * @LastEditTime: 2021-04-27 16:33:18
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/comment/comment_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/product/component/comment_card.dart';
+import 'package:get/get.dart';
 
 class ProductDetailCommentSection extends StatelessWidget {
   final List<CommentEntity> comments;
@@ -35,12 +37,22 @@ class ProductDetailCommentSection extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  "查看更多",
-                  style: TextStyle(
-                      color: R.color.ffee9b5f, fontSize: R.dimen.sp12),
-                ),
-                Image.asset(R.image.next, color: R.color.ffee9b5f)
+                GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.category +
+                      AppRoutes.productDetail +
+                      "/3226" +
+                      AppRoutes.productCommentList),
+                  child: Row(
+                    children: [
+                      Text(
+                        "查看更多",
+                        style: TextStyle(
+                            color: R.color.ffee9b5f, fontSize: R.dimen.sp12),
+                      ),
+                      Image.asset(R.image.next, color: R.color.ffee9b5f)
+                    ],
+                  ),
+                )
               ],
             ),
           ),

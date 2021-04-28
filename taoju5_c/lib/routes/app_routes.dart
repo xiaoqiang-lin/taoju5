@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-04-23 17:55:54
+ * @LastEditTime: 2021-04-27 17:52:42
  */
 class AppRoutes {
   ///app程序入口
@@ -66,4 +66,10 @@ class AppRoutes {
   static const productList = '/product/list';
 
   static const productDetail = '/product/detail';
+
+  static const productCommentList = '/comment/list';
+
+  static const productCommentDetail = '/comment/detail';
+
+  static const netOff = '/netOff';
 }

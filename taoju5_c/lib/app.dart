@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-04-25 13:47:23
+ * @LastEditTime: 2021-04-27 14:29:03
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -28,6 +28,7 @@ class $CAPP extends StatelessWidget {
       key: ValueKey(AppEnv.$c),
       title: AppConfig.appName,
       getPages: AppPages.pages,
+
       home: MainPage(),
       initialBinding: MainBinding(),
       theme: R.theme.lightTheme,

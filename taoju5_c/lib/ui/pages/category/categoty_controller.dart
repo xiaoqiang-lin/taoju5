@@ -2,15 +2,18 @@
  * @Description: 分类控制
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-23 17:57:54
+ * @LastEditTime: 2021-04-27 15:38:04
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/repository/category_repository.dart';
 
-class CategoryController extends GetxController {
+class CategoryController
+    extends BaseFutureLoadStateController<List<CategoryEntity>> {
   List<CategoryEntity> categories = [];
 
   late CategoryEntity currentCategory;
@@ -19,18 +22,17 @@ class CategoryController extends GetxController {
 
   @override
   void onInit() {
-    loadData();
     pageController = PageController();
     super.onInit();
   }
 
-  Future loadData() {
+  @override
+  Future<List<CategoryEntity>> loadData({Map? params}) {
     CategoryRepository repository = CategoryRepository();
     return repository.getCategoryList().then((value) {
       categories = value;
       currentCategory = categories.first;
-
-      update();
+      return value;
     });
   }
 
@@ -41,8 +43,10 @@ class CategoryController extends GetxController {
 
   void onTabChanged(int i) {
     if (currentCategory == categories[i]) return;
-    pageController.animateTo(i * Get.height,
-        duration: Duration(milliseconds: 200), curve: Curves.ease);
+    pageController.animateTo(
+        i * Get.height - kBottomNavigationBarHeight - kToolbarHeight * 2,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease);
     currentCategory = categories[i];
     update(["tab"]);
   }

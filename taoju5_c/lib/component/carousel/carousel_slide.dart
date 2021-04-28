@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-04-23 22:35:55
+ * @LastEditTime: 2021-04-27 15:41:07
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -96,38 +96,41 @@ class _CarouselSlideState extends State<CarouselSlide> {
           ),
           Positioned(
             bottom: 5,
-            child: Container(
-              height: 7,
-              padding: EdgeInsets.only(left: 5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.black.withOpacity(.2)),
-              child: Row(
-                key: ValueKey(_currentIndex),
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                    widget.itemCount,
-                    (index) => GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () {
-                            setState(() {
-                              _currentIndex = index;
-                              _controller.move(index);
-                            });
-                          },
-                          child: AnimatedContainer(
-                            key: ValueKey(index),
-                            margin: EdgeInsets.only(right: 5),
-                            duration: const Duration(milliseconds: 275),
-                            width: _currentIndex == index ? 20 : 5,
-                            height: 5,
-                            decoration: BoxDecoration(
-                                color: _currentIndex == index
-                                    ? widget.paginationColor
-                                    : widget.paginationColor.withOpacity(.6),
-                                borderRadius: BorderRadius.circular(30)),
-                          ),
-                        )),
+            child: Visibility(
+              visible: widget.itemCount > 1,
+              child: Container(
+                height: 7,
+                padding: EdgeInsets.only(left: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.black.withOpacity(.2)),
+                child: Row(
+                  key: ValueKey(_currentIndex),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      widget.itemCount,
+                      (index) => GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              setState(() {
+                                _currentIndex = index;
+                                _controller.move(index);
+                              });
+                            },
+                            child: AnimatedContainer(
+                              key: ValueKey(index),
+                              margin: EdgeInsets.only(right: 5),
+                              duration: const Duration(milliseconds: 275),
+                              width: _currentIndex == index ? 20 : 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                  color: _currentIndex == index
+                                      ? widget.paginationColor
+                                      : widget.paginationColor.withOpacity(.6),
+                                  borderRadius: BorderRadius.circular(30)),
+                            ),
+                          )),
+                ),
               ),
             ),
           )

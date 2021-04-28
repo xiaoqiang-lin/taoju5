@@ -2,9 +2,10 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-04-25 14:03:32
+ * @LastEditTime: 2021-04-27 15:00:04
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/entity/params/product/product_list_sort_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
@@ -102,7 +103,8 @@ class ProductListParentController extends GetxController {
   }
 }
 
-class ProductListController extends GetxController {
+class ProductListController
+    extends BaseFutureLoadStateController<List<ProductEntity>> {
   ProductRepository repository = ProductRepository();
 
   CategoryEntity category;
@@ -111,15 +113,12 @@ class ProductListController extends GetxController {
 
   late List<ProductEntity> products;
 
-  Future loadData({Map? params}) {
+  @override
+  Future<List<ProductEntity>> loadData({Map? params}) {
+    update();
     return repository.productList({"category_id": category.id}).then((value) {
       products = value;
-    }).whenComplete(update);
-  }
-
-  @override
-  void onInit() {
-    loadData();
-    super.onInit();
+      return value;
+    });
   }
 }

@@ -2,7 +2,7 @@
  * @Description: 选择性别弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-19 15:28:33
- * @LastEditTime: 2021-04-19 16:14:32
+ * @LastEditTime: 2021-04-27 15:05:20
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +65,7 @@ class __ChooseGenderDialogState extends State<_ChooseGenderDialog> {
             topRight: Radius.circular(7), topLeft: Radius.circular(7)),
         color: Theme.of(context).scaffoldBackgroundColor,
       ),
-      height: MediaQuery.of(context).size.height * .18,
+      height: 248,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +75,7 @@ class __ChooseGenderDialogState extends State<_ChooseGenderDialog> {
             child: CupertinoPicker.builder(
               childCount: Gender.values.length,
               onSelectedItemChanged: _onSelectedItemChanged,
-              itemExtent: 30,
+              itemExtent: 48,
               itemBuilder: (BuildContext context, int i) {
                 return Center(
                   child: Text(Gender.values[i].name),
