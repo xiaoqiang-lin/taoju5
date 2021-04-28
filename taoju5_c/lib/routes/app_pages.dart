@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-28 11:20:13
+ * @LastEditTime: 2021-04-28 16:57:40
  */
 
 import 'package:get/get.dart';
@@ -33,6 +33,8 @@ import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/account/account_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/subpage/location/location_binding.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/subpage/location/location_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_binding.dart';
@@ -144,7 +146,13 @@ class AppPages {
           GetPage(
               name: AppRoutes.addressEdit,
               page: () => AddresseEditPage(),
-              binding: AddressEditBinding()),
+              binding: AddressEditBinding(),
+              children: [
+                GetPage(
+                    name: AppRoutes.location,
+                    page: () => LocationPage(),
+                    binding: LocationBinding())
+              ]),
           GetPage(
               name: AppRoutes.setting,
               page: () => SettingPage(),

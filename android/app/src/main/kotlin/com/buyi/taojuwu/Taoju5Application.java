@@ -4,7 +4,7 @@ import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import io.flutter.view.FlutterMain;
-
+import com.baidu.mapapi.SDKInitializer;
 /**
  * 自定义Application.
  *
@@ -20,7 +20,10 @@ import io.flutter.view.FlutterMain;
  * @since 2016/11/15
  */
 public class Taoju5Application extends TinkerApplication {
+
+
     public Taoju5Application() {
+
         super(ShareConstants.TINKER_ENABLE_ALL, "com.buyi.taojuwu.Taoju5ApplicationLike",
                 
                 "com.tencent.tinker.loader.TinkerLoader", false, true);
@@ -29,6 +32,7 @@ public class Taoju5Application extends TinkerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        SDKInitializer.initialize(this);
         FlutterMain.startInitialization(this);
     }
 }

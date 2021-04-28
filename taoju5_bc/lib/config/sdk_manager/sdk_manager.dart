@@ -2,8 +2,10 @@
  * @Description: sdk管理
  * @Author: iamsmiling
  * @Date: 2020-12-16 10:15:07
- * @LastEditTime: 2021-04-17 17:51:47
+ * @LastEditTime: 2021-04-28 16:46:26
  */
+
+import 'package:taoju5_bc/config/sdk_manager/sdk/baidu_map_sdk.dart';
 
 import 'i_sdk_initializer.dart';
 import 'sdk/amap_sdk.dart';
@@ -26,7 +28,8 @@ class SdkManager implements ISdkInitializer {
     BuglySdk(),
     WeChatSdk(),
     JPushSdk(),
-    AmapSdk()
+    AmapSdk(),
+    BaiduMapSdk()
   ];
   @override
   void init() {

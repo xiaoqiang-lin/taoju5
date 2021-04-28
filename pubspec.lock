@@ -225,6 +225,34 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  flutter_baidu_mapapi_base:
+    dependency: transitive
+    description:
+      name: flutter_baidu_mapapi_base
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
+  flutter_baidu_mapapi_map:
+    dependency: transitive
+    description:
+      path: "plugins/baidu_map/flutter_baidu_mapapi_map-2.0.1"
+      relative: true
+    source: path
+    version: "2.0.1"
+  flutter_baidu_mapapi_search:
+    dependency: transitive
+    description:
+      path: "plugins/baidu_map/flutter_baidu_mapapi_search-2.0.1"
+      relative: true
+    source: path
+    version: "2.0.1"
+  flutter_baidu_mapapi_utils:
+    dependency: transitive
+    description:
+      path: "plugins/baidu_map/flutter_baidu_mapapi_utils-2.0.1"
+      relative: true
+    source: path
+    version: "2.0.1"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -232,6 +260,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.0"
+  flutter_bmflocation:
+    dependency: transitive
+    description:
+      path: "plugins/baidu_map/flutter_bmflocation-1.0.4"
+      relative: true
+    source: path
+    version: "1.0.4"
   flutter_bugly:
     dependency: transitive
     description:

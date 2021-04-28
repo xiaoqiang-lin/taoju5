@@ -10,6 +10,11 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
@@ -33,12 +38,14 @@
     <provider android:name="androidx.core.content.FileProvider" android:authorities="com.buyi.taojuwu.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
     </provider>
+    <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="0HbLNqBeCFVPUCH3xIYiuhf5jvIUe3pw"/>
     <provider android:name="com.tencent.bugly.beta.utils.BuglyFileProvider" android:authorities="com.buyi.taojuwu.fileProvider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
     </provider>
     <provider android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider" android:authorities="com.buyi.taojuwu.flutter.image_provider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/flutter_image_picker_file_paths"/>
     </provider>
+    <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
     <activity android:name="com.jarvan.fluwx.wxapi.FluwxWXEntryActivity" android:launchMode="singleTask" android:taskAffinity="com.buyi.taojuwu" android:theme="@style/DisablePreviewTheme"/>
     <activity-alias android:name="com.buyi.taojuwu.wxapi.WXEntryActivity" android:exported="true" android:launchMode="singleTop" android:targetActivity="com.jarvan.fluwx.wxapi.FluwxWXEntryActivity" android:taskAffinity="com.buyi.taojuwu" android:theme="@style/DisablePreviewTheme">
       <intent-filter>
@@ -123,6 +130,6 @@
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_01_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_02_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="tinker_version" android:value="1.9.14.10"/>
-    <meta-data android:name="TINKER_ID" android:value="1.3.2.2023_0426-17-22-47"/>
+    <meta-data android:name="TINKER_ID" android:value="1.3.2.2023_0428-17-59-16"/>
   </application>
 </manifest>

@@ -2,7 +2,7 @@
  * @Description: 新增地址
  * @Author: iamsmiling
  * @Date: 2021-04-15 19:49:20
- * @LastEditTime: 2021-04-28 11:08:06
+ * @LastEditTime: 2021-04-28 17:00:46
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +10,7 @@ import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
 import 'package:taoju5_c/component/textfield/fixed_label_text_field.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_controller.dart';
 
 class AddresseEditPage extends StatelessWidget {
@@ -93,11 +94,22 @@ class AddresseEditPage extends StatelessWidget {
                               style: TextStyle(fontSize: R.dimen.sp13),
                             )),
                         Spacer(),
-                        Image.asset(R.image.locationAccent),
-                        Text(
-                          "获取定位",
-                          style: TextStyle(
-                              fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => Get.toNamed(AppRoutes.mine +
+                              AppRoutes.addressEdit +
+                              AppRoutes.location),
+                          child: Row(
+                            children: [
+                              Image.asset(R.image.locationAccent),
+                              Text(
+                                "获取定位",
+                                style: TextStyle(
+                                    fontSize: R.dimen.sp12,
+                                    color: R.color.ffee9b5f),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     )),

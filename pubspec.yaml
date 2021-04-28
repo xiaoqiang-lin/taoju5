@@ -19,7 +19,6 @@ version: 1.3.2+2023
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -38,6 +37,7 @@ dev_dependencies:
     path: ./taoju5_c
   taoju5_bc:
     path: ./taoju5_bc
+
   
   
 
