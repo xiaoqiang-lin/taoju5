@@ -2,12 +2,13 @@
  * @Description: 卷帘
  * @Author: iamsmiling
  * @Date: 2020-12-23 14:03:09
- * @LastEditTime: 2020-12-30 17:47:44
+ * @LastEditTime: 2021-04-28 14:54:44
  */
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/ui/dialog/order/edit_deltaY.dart';
 import 'package:taoju5/bapp/ui/dialog/product/size/eidt_size.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/fragment/product_attrs_selector/base/size/size_selector_controller.dart';
+import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_controller.dart';
 import 'package:taoju5/utils/common_kit.dart';
 
 class RollingCurtainProductAttrsSelectorController extends GetxController {
@@ -16,6 +17,8 @@ class RollingCurtainProductAttrsSelectorController extends GetxController {
 
   SizeSelectorController get _sizeController =>
       Get.find<SizeSelectorController>(tag: tag);
+
+  bool disabled = false;
 
   String get sizeValue => !(CommonKit.isNullOrZero(_sizeController.widthM) ||
           CommonKit.isNullOrZero(_sizeController.heightM))
@@ -34,6 +37,13 @@ class RollingCurtainProductAttrsSelectorController extends GetxController {
     return showEditDeltaYDialog(initialValue: _sizeController.deltaY)
         .then((value) {
       _sizeController.deltaY = value;
+      if (Get.isRegistered<ProductDetailController>(tag: tag)) {
+        Get.find<ProductDetailController>(tag: tag)
+            .selectProductEvent
+            .orderProduct
+            .measureData
+            .newDeltaY = value;
+      }
       update();
     });
   }

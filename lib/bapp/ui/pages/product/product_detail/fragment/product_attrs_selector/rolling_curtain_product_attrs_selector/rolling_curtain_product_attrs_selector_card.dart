@@ -2,7 +2,7 @@
  * @Description: 卷帘商品属性
  * @Author: iamsmiling
  * @Date: 2020-12-23 09:16:09
- * @LastEditTime: 2021-02-01 16:58:01
+ * @LastEditTime: 2021-04-28 14:31:22
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,6 +31,7 @@ class RollingCurtainProductAttrsSelectorCard extends StatelessWidget {
               initialValue: _.sizeValue,
               hintText: "请输入尺寸",
               key: ValueKey(_.sizeValue),
+              disabled: _.disabled,
               onFuture: _.openEditSizeDialog,
             ),
             XSelectorTextField(

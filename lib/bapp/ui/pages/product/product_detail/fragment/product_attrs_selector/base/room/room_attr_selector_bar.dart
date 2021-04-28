@@ -2,7 +2,7 @@
  * @Description: 空间选择器
  * @Author: iamsmiling
  * @Date: 2021-01-17 17:38:08
- * @LastEditTime: 2021-01-19 11:25:18
+ * @LastEditTime: 2021-04-28 14:28:17
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +29,7 @@ class RoomAttrSelectorBar extends StatelessWidget {
             label: Text("空间"),
             key: ValueKey(_?.value),
             initialValue: _?.value,
+            disabled: _.disabled,
             onFuture: () => _?.openRoomAttrSelectorModal(
                 tag: tag, onConfirm: _?.confirm, product: product),
             // onFuture: () =>

@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性
  * @Author: iamsmiling
  * @Date: 2020-12-23 10:20:26
- * @LastEditTime: 2021-04-20 14:52:59
+ * @LastEditTime: 2021-04-28 14:05:31
  */
 import 'package:taoju5/bapp/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5/bapp/interface/i_xselectable.dart';
@@ -36,6 +36,7 @@ class CurtainProductAttrModel {
   int type;
   String typeName;
   bool isMultiple;
+  bool disabled = false;
   List<CurtainProductAttrOptionModel> optionList;
 
   CurtainProductAttrModel.fromType(this.type, Map json, {isMultiple = false}) {

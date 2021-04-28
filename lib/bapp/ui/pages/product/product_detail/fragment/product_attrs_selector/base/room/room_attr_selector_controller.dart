@@ -2,7 +2,7 @@
  * @Description: 空间选择器
  * @Author: iamsmiling
  * @Date: 2021-01-18 10:24:16
- * @LastEditTime: 2021-02-01 16:04:01
+ * @LastEditTime: 2021-04-28 14:28:08
  */
 import 'package:flutter/foundation.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
@@ -15,6 +15,8 @@ import 'package:get/get.dart';
 
 class RoomAttrSelectorController extends BaseAttrSelectorController {
   CurtainProductAttrModel attr;
+
+  bool disabled = false;
 
   @override
   void onInit() {
@@ -49,7 +51,9 @@ class RoomAttrSelectorController extends BaseAttrSelectorController {
 
   void initWithMeasureData(OrderMeasureDataModel measureData) {
     attr?.optionList?.forEach((o) {
-      o.isChecked = o.name == measureData.room;
+      o.isChecked = o.name == measureData.room ||
+          o.name.contains(measureData.room) ||
+          measureData.room.contains(o.name);
     });
     update();
   }

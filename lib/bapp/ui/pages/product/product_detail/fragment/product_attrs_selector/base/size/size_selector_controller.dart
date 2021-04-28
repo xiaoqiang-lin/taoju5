@@ -2,7 +2,7 @@
  * @Description: 尺寸
  * @Author: iamsmiling
  * @Date: 2021-01-18 13:49:01
- * @LastEditTime: 2021-02-01 17:09:21
+ * @LastEditTime: 2021-04-28 14:29:47
  */
 
 import 'package:flutter/material.dart';
@@ -24,6 +24,7 @@ class SizeSelectorController extends GetxController {
 
   String defaultWidth;
   String defaultHeight;
+
   SizeSelectorController();
 
   double get widthCM => CommonKit.asDouble(width);
@@ -45,6 +46,8 @@ class SizeSelectorController extends GetxController {
 
   ///测装数据是否已确认
   bool hasChecked = false;
+
+  bool disabled = false;
 
   static const double MAX_HEIGHT = 350.0;
 
@@ -159,7 +162,9 @@ class SizeSelectorController extends GetxController {
     height = measureData.height;
     deltaY = measureData.newDeltaY;
     hasChecked = true;
+    disabled = true;
     Get.find<ProductDetailController>(tag: tag).updateTotalPrice();
+
     update(["size"]);
   }
 

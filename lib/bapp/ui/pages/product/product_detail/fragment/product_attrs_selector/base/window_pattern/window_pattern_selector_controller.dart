@@ -2,7 +2,7 @@
  * @Description: 窗型选择器
  * @Author: iamsmiling
  * @Date: 2021-01-18 13:52:13
- * @LastEditTime: 2021-01-19 14:59:20
+ * @LastEditTime: 2021-04-28 14:32:13
  */
 
 import 'package:flutter/foundation.dart';
@@ -28,6 +28,8 @@ class WindowPatternSelectorController extends GetxController {
   WindowPatternModel windowBay;
 
   WindowPatternModel windowBox;
+
+  bool disabled = false;
 
   List<WindowPatternModel> get styleList => [facade, windowBay, windowBox];
 

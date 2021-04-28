@@ -2,12 +2,13 @@
  * @Description: OrderDetailController
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:35:30
- * @LastEditTime: 2021-04-26 10:55:38
+ * @LastEditTime: 2021-04-28 15:18:08
  */
 
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/customer/customer_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_detail_model.dart';
@@ -15,6 +16,7 @@ import 'package:taoju5/bapp/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5/bapp/domain/model/order/order_price_model.dart';
 // import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/bapp/domain/repository/order/order_repository.dart';
+import 'package:taoju5/bapp/res/b_dimens.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
 import 'package:taoju5/bapp/ui/dialog/order/cancel_order.dart';
 import 'package:taoju5/bapp/ui/dialog/order/cancel_product.dart';
@@ -52,9 +54,11 @@ class SelectProductParamsModel {
   }
 
   Map get params {
+    Map data = {"goods_id": productId, "num": 1};
+    data.addAll(measureData.data);
     return {
       "vertical_ground_height": measureData.newDeltaY,
-      "data": jsonEncode(measureData.data),
+      "data": jsonEncode(data),
       "order_goods_id": orderProductId,
       "wc_attr": jsonEncode(_attribute.params)
     };
@@ -199,6 +203,35 @@ class OrderDetailController extends GetxController {
     SelectProductEvent event = SelectProductEvent(
         customer: CustomerModel(name: order.customerName, id: order.customerId),
         orderProduct: product);
+    if (product.categoryName != null && product.categoryName.isNotEmpty) {
+      return showDialog(
+          context: Get.context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                "温馨提示",
+                textAlign: TextAlign.center,
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "请选择${product.categoryName}",
+                    textAlign: TextAlign.center,
+                  ),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: BDimens.gap10),
+                      child: ElevatedButton(
+                          onPressed: Get.back, child: Text("我知道了")))
+                ],
+              ),
+            );
+          }).whenComplete(() {
+        return Get.toNamed(BAppRoutes.selectableProductList, arguments: event);
+      });
+    }
     return Get.toNamed(BAppRoutes.selectableProductList, arguments: event);
   }
 

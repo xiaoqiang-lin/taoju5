@@ -2,7 +2,7 @@
  * @Description: 订单商品卡片
  * @Author: iamsmiling
  * @Date: 2021-01-04 15:46:09
- * @LastEditTime: 2021-01-12 14:33:42
+ * @LastEditTime: 2021-04-28 15:20:38
  */
 import 'package:taoju5/bapp/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -301,7 +301,7 @@ class _SeletedMeasureOrderCard extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     vertical: BDimens.gap8),
                                 child: Text(
-                                  "宽:${product.width}米 高:${product.height}",
+                                  "宽:${(product.width / 100).toStringAsFixed(2)}米 高:${(product.height / 100).toStringAsFixed(2)}",
                                   style: TextStyle(
                                       fontSize: BDimens.sp24,
                                       color: BColors.tipTextColor),
@@ -407,7 +407,7 @@ class _UnselectedOrderCard extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     vertical: BDimens.gap8),
                                 child: Text(
-                                  "宽:${product.width}米 高:${product.height}",
+                                  "宽:${(product.width / 100).toStringAsFixed(2)}米 高:${(product.height / 100).toStringAsFixed(2)}米",
                                   style: TextStyle(
                                       fontSize: BDimens.sp28,
                                       color: BColors.textColor,

@@ -2,7 +2,7 @@
  * @Description: 订单详情商品
  * @Author: iamsmiling
  * @Date: 2021-01-06 14:51:04
- * @LastEditTime: 2021-01-15 13:56:49
+ * @LastEditTime: 2021-04-28 15:14:12
  */
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/bapp/domain/model/order/order_type.dart';
@@ -32,7 +32,7 @@ class OrderDetailProductModel {
   OrderMeasureDataModel measureData;
 
   String room;
-
+  String categoryName;
   OrderDetailProductModel.fromJson(Map json) {
     id = json["order_goods_id"];
     orderId = json["order_id"];
@@ -41,6 +41,7 @@ class OrderDetailProductModel {
     price = json["price"];
     typeCode = json["order_type"];
     orderStatusCode = json["order_status"];
+    categoryName = json["category_name"];
     refundStatusCode = json["refund_status"];
     image = JsonKit.asWebUrl(
         JsonKit.getValueInComplexMap(json, ["picture_info", "pic_cover_mid"]));

@@ -2,7 +2,7 @@
  * @Description:定金对话框
  * @Author: iamsmiling
  * @Date: 2021-01-11 15:51:59
- * @LastEditTime: 2021-01-11 16:05:34
+ * @LastEditTime: 2021-04-28 15:02:01
  */
 
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 Future<String> showEditDeltaYDialog({String initialValue}) {
   return showDialog<String>(
       context: Get.context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return _EditDeltaYDialog(initialValue: initialValue);
       });

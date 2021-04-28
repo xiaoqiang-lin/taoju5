@@ -1,3 +1,9 @@
+/*
+ * @Description: 
+ * @Author: iamsmiling
+ * @Date: 2021-04-28 13:45:32
+ * @LastEditTime: 2021-04-28 15:07:43
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/res/b_dimens.dart';
@@ -7,6 +13,7 @@ Future showEditSizeDialog(
     {@required String tag, String initialWidth, String initialHeight}) {
   return showDialog(
       context: Get.context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return GetBuilder<SizeSelectorController>(
             tag: tag,
@@ -26,7 +33,7 @@ Future showEditSizeDialog(
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             child: TextFormField(
-                              initialValue: _.width,
+                              // initialValue: _.width,
                               autofocus: true,
                               onChanged: _.setValue,
                               controller: _.widthController,
@@ -51,7 +58,7 @@ Future showEditSizeDialog(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               child: TextFormField(
-                                initialValue: _.height,
+                                // initialValue: _.height,
                                 autofocus: true,
                                 onChanged: _.setValue,
                                 controller: _.heightController,

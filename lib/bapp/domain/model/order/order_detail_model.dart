@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2020-12-22 14:26:35
- * @LastEditTime: 2021-04-26 11:20:19
+ * @LastEditTime: 2021-04-28 15:13:44
  */
 
 import 'package:get/get.dart';
@@ -73,6 +73,7 @@ class OrderDetailModel {
     title = json["order_title"];
     description = json["order_desc"];
     typeCode = json['order_type'];
+
     orderFlow = JsonKit.asInt(json["order_flow"]);
     orderStatusCode = json['order_status'];
     refundStatusCode = json["refund_status"];
@@ -197,6 +198,7 @@ class OrderMeasureDataModel {
 
   bool hasChecked = false;
   Map data = {};
+  String categoryName;
   OrderMeasureDataModel.fromJson(Map json) {
     id = json["id"];
     orderId = json["order_id"];
@@ -204,6 +206,7 @@ class OrderMeasureDataModel {
     orderProductId = json["order_goods_id"];
     note = json["remark"];
     room = json["install_room"];
+    categoryName = json["category_name"];
     windowType = json["window_measure_type"];
     windowPattern = json["window_type"];
     partType = JsonKit.asInt(json["parts_type"]);

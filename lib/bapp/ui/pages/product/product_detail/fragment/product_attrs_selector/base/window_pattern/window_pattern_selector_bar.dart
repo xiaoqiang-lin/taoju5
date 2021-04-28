@@ -29,6 +29,7 @@ class PatternSelectorBar extends StatelessWidget {
           child: XSelectorTextField(
             label: Text("窗型"),
             key: ValueKey(_?.value),
+            disabled: _.disabled,
             initialValue: _?.value,
             onFuture: () => showWindowPatternModal(tag: tag, product: product),
           ),

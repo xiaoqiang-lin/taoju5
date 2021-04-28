@@ -2,7 +2,7 @@
  * @Description: 选择器
  * @Author: iamsmiling
  * @Date: 2021-01-07 21:18:35
- * @LastEditTime: 2021-01-13 15:44:24
+ * @LastEditTime: 2021-04-28 14:05:06
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/bapp/res/b_icons.dart';
@@ -18,6 +18,7 @@ class XSelectorTextField<T> extends StatefulWidget {
   final Function(T value) onValueChange;
   final Widget divider;
   final double height;
+  final bool disabled;
   const XSelectorTextField(
       {Key key,
       @required this.label,
@@ -31,7 +32,8 @@ class XSelectorTextField<T> extends StatefulWidget {
       this.divider = const Divider(
         height: .5,
         thickness: .5,
-      )})
+      ),
+      this.disabled = false})
       : super(key: key);
 
   @override
@@ -72,7 +74,7 @@ class _XSelectorTextFieldState<T> extends State<XSelectorTextField<T>> {
         alignment: Alignment.center,
         children: [
           GestureDetector(
-            onTap: _onTap,
+            onTap: widget.disabled ? null : _onTap,
             behavior: HitTestBehavior.opaque,
             child: Container(
               child: Column(
@@ -84,7 +86,7 @@ class _XSelectorTextFieldState<T> extends State<XSelectorTextField<T>> {
                         flex: 2,
                         child: TextFormField(
                           readOnly: true,
-                          onTap: _onTap,
+                          onTap: widget.disabled ? null : _onTap,
                           textAlign: TextAlign.end,
                           textAlignVertical: TextAlignVertical.top,
                           textDirection: widget.contentTextTextDirection,
@@ -100,7 +102,7 @@ class _XSelectorTextFieldState<T> extends State<XSelectorTextField<T>> {
                           ),
                         ),
                       ),
-                      Icon(BIcons.next)
+                      widget.disabled ? SizedBox.shrink() : Icon(BIcons.next)
                     ],
                   ),
                   widget.divider

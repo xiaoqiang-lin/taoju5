@@ -2,7 +2,7 @@
  * @Description: 商品列表模型
  * @Author: iamsmiling
  * @Date: 2020-12-22 13:47:52
- * @LastEditTime: 2021-01-13 13:47:10
+ * @LastEditTime: 2021-04-28 14:25:42
  */
 import 'package:taoju5/bapp/domain/model/order/order_status.dart';
 import 'package:taoju5/utils/json_kit.dart';
@@ -121,6 +121,7 @@ class OrderProductModel {
     width = JsonKit.isNullOrBlank(list)
         ? 0.0
         : JsonKit.asDouble(JsonKit.getValueByKey(list?.first, "value"));
+
     height = JsonKit.isNullOrBlank(list)
         ? 0.0
         : JsonKit.asDouble(JsonKit.getValueByKey(list?.last, "value"));

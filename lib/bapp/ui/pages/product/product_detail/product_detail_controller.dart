@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 14:43:22
- * @LastEditTime: 2021-04-20 14:22:59
+ * @LastEditTime: 2021-04-28 14:41:41
  */
 import 'dart:async';
 import 'dart:convert';
@@ -44,6 +44,8 @@ import 'fragment/product_attrs_selector/base/valance/valance_attr_selector_contr
 import 'fragment/product_attrs_selector/base/window_pattern/window_pattern_selector_controller.dart';
 import 'fragment/product_attrs_selector/base/window_style/window_style_selector_controller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'fragment/product_attrs_selector/rolling_curtain_product_attrs_selector/rolling_curtain_product_attrs_selector_controller.dart';
 
 class EditMeasureDataParamsModel<T> {
   String width;
@@ -265,6 +267,26 @@ class ProductDetailController extends GetxController {
       product.detailImgList.forEach((e) {
         precacheImage(NetworkImage(e), Get.context);
       });
+
+      if (product.productType is RollingCurtainProductType) {
+        selectProductEvent.orderProduct.measureData.hasChecked = true;
+        if (Get.isRegistered<RoomAttrSelectorController>(tag: tag)) {
+          Get.find<RoomAttrSelectorController>(tag: tag).disabled = true;
+          Get.find<RoomAttrSelectorController>(tag: tag)
+              .initWithMeasureData(selectProductEvent.orderProduct.measureData);
+        }
+
+        if (Get.isRegistered<RollingCurtainProductAttrsSelectorController>(
+            tag: tag)) {
+          Get.find<RollingCurtainProductAttrsSelectorController>(tag: tag)
+              .disabled = true;
+          Get.find<SizeSelectorController>(tag: tag)
+              .initWithMeasureData(selectProductEvent.orderProduct.measureData);
+        }
+        if (Get.isRegistered<WindowPatternSelectorController>(tag: tag)) {
+          Get.find<WindowPatternSelectorController>(tag: tag).disabled = true;
+        }
+      }
     }).catchError((err) {
       loadState = XLoadState.error;
     }).whenComplete(update);
