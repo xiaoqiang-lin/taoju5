@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-27 17:01:32
+ * @LastEditTime: 2021-04-28 10:47:23
  */
 // part of R;
 class CImage {
@@ -108,4 +108,8 @@ class CImage {
   final String heartBlank = "resources/images/heart_blank.png";
 
   final String heartFilled = "resources/images/heart_filled.png";
+
+  final String noAddress = "resources/images/no_address.png";
+
+  final String empty = "resources/images/empty_collection.png";
 }

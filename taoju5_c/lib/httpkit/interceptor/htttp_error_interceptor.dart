@@ -2,7 +2,7 @@
  * @Description: 网络错误拦截
  * @Author: iamsmiling
  * @Date: 2021-04-26 18:00:32
- * @LastEditTime: 2021-04-27 16:05:02
+ * @LastEditTime: 2021-04-28 09:57:56
  */
 import 'dart:convert';
 
@@ -23,7 +23,7 @@ class HttpErrorInterceptor extends InterceptorsWrapper {
     //没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      return handler.reject(OfflineException("网络连接已断开", options));
+      return handler.reject(OfflineException("网络开小差了，点击屏幕重新加载~", options));
     }
     handler.next(options);
   }

@@ -2,7 +2,7 @@
  * @Description: 收货地址编辑页面
  * @Author: iamsmiling
  * @Date: 2021-04-16 09:16:27
- * @LastEditTime: 2021-04-18 08:29:35
+ * @LastEditTime: 2021-04-28 13:22:57
  */
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/component/picker/city_picker.dart';
 import 'package:taoju5_c/domain/entity/params/address/address_params.dart';
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_controller.dart';
 
 class AddressEditController extends GetxController {
   late AddressParamsEntity addressArg;
@@ -87,7 +88,7 @@ class AddressEditController extends GetxController {
 
   Future submit() {
     return _sendRequest().then((value) {
-      Get.back();
+      Get.find<AddressListController>().loadData().then((value) => Get.back());
     });
   }
 }

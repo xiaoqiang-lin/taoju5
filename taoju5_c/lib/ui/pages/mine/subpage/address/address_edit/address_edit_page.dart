@@ -2,7 +2,7 @@
  * @Description: 新增地址
  * @Author: iamsmiling
  * @Date: 2021-04-15 19:49:20
- * @LastEditTime: 2021-04-22 18:57:37
+ * @LastEditTime: 2021-04-28 11:08:06
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,9 +67,8 @@ class AddresseEditPage extends StatelessWidget {
                 TextFormField(
                     initialValue: _.addressArg.concreteInfo,
                     onChanged: _.setConcreteInfo,
-                    textAlignVertical: TextAlignVertical.bottom,
+                    textAlignVertical: TextAlignVertical.center,
                     style: TextStyle(fontSize: R.dimen.sp13),
-                    maxLines: 2,
                     decoration: InputDecoration(
                         prefixIcon: FixedLabelTextField(label: "详细地址"),
                         hintText: "请输入详细地址",

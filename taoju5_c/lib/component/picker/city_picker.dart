@@ -2,7 +2,7 @@
  * @Description: 城市选择
  * @Author: iamsmiling
  * @Date: 2020-11-28 23:11:50
- * @LastEditTime: 2021-04-22 10:06:44
+ * @LastEditTime: 2021-04-28 11:06:52
  */
 
 import 'dart:async';
@@ -206,7 +206,7 @@ class AddressModel {
     city = CityEntity(id: cityId, name: getCityNameById(provinceId, cityId));
     district = DistrictEntity(
         id: districtId,
-        name: getDistrictNameById(provinceId!, cityId!, districtId!));
+        name: getDistrictNameById(provinceId, cityId, districtId));
   }
 }
 

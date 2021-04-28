@@ -26,6 +26,7 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   # get: ^3.26.0
   get: ^4.1.4
+  get_storage: ^2.0.2
   logger: ^1.0.0
   path_provider: ^2.0.1
   flutter_bugly: ^0.3.1

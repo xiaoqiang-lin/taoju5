@@ -8,7 +8,7 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PrefsService extends GetxService {
+class GetS extends GetxService {
   late SharedPreferences prefs;
 
   bool authed = false;
