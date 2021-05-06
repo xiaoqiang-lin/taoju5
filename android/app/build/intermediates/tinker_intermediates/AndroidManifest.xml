@@ -10,12 +10,6 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-  <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-  <uses-permission android:name="android.permission.WAKE_LOCK"/>
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-feature android:name="android.hardware.camera" android:required="false"/>
@@ -59,8 +53,6 @@
     <provider android:name="com.jarvan.fluwx.FluwxFileProvider" android:authorities="com.buyi.taojuwu.fluwxprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/fluwx_file_provider_paths"/>
     </provider>
-    <meta-data android:name="com.amap.api.v2.apikey" android:value="c861bca41e4014c514a13ba71cce758a"/>
-    <service android:name="com.amap.api.location.APSService"/>
     <provider android:name="com.sangcomz.fishbun.FishBunFileProvider" android:authorities="com.buyi.taojuwu.fishbunfileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
     </provider>
@@ -127,6 +119,6 @@
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_01_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_02_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="tinker_version" android:value="1.9.14.10"/>
-    <meta-data android:name="TINKER_ID" android:value="tinker_id_0428-18-59-39"/>
+    <meta-data android:name="TINKER_ID" android:value="tinker_id_0506-10-01-06"/>
   </application>
 </manifest>
