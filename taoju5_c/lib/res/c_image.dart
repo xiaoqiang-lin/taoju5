@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-28 10:47:23
+ * @LastEditTime: 2021-04-30 11:11:22
  */
 // part of R;
 class CImage {
@@ -58,13 +58,19 @@ class CImage {
 
   ///是否选中
   final String checked = "resources/images/checked.png";
+  final String checkedMid = "resources/images/checked_mid.png";
   final String unchecked = "resources/images/unchecked.png";
+  final String uncheckedMid = "resources/images/unchecked_mid.png";
+  final String disabledCheckbox = "resources/images/disabled_checkbox.png";
 
   final String next = "resources/images/next.png";
 
   ///定位
+  final String dropdown = "resources/images/drop_down.png";
   final String locationAccent = "resources/images/location_accent.png";
   final String location = "resources/images/location.png";
+  final String locationMarker = "resources/images/location_marker.png";
+  final String locationSearch = "resources/images/location_search.png";
 
   final String camera = "resources/images/camera.png";
 
@@ -112,4 +118,10 @@ class CImage {
   final String noAddress = "resources/images/no_address.png";
 
   final String empty = "resources/images/empty_collection.png";
+
+  final String emptyCart = "resources/images/empty_cart.png";
+
+  final String wechatPay = "resources/images/wechat_pay.png";
+
+  final String aliPay = "resources/images/ali_pay.png";
 }

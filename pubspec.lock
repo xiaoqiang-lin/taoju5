@@ -150,6 +150,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.2"
+  date_format:
+    dependency: transitive
+    description:
+      name: date_format
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.9"
   device_info:
     dependency: transitive
     description:
@@ -171,6 +178,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
+  dokit:
+    dependency: transitive
+    description:
+      path: "plugins/dokit"
+      relative: true
+    source: path
+    version: "0.6.0"
   extended_image:
     dependency: transitive
     description:
@@ -396,6 +410,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.2"
+  google_fonts:
+    dependency: transitive
+    description:
+      name: google_fonts
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   html:
     dependency: transitive
     description:
@@ -459,6 +480,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.17.0"
+  isolate:
+    dependency: transitive
+    description:
+      name: isolate
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   js:
     dependency: transitive
     description:
@@ -870,6 +898,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  vm_service:
+    dependency: transitive
+    description:
+      name: vm_service
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.5.0"
   wakelock:
     dependency: transitive
     description:

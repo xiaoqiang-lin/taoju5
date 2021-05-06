@@ -1,0 +1,23 @@
+name: dokit_demo
+description: dokit测试工程
+version: 0.0.1
+homepage: http://flutter.intra.xiaojukeji.com/index.php
+publish_to: none
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dokit:
+    path: ..
+  dio: ^4.0.0
+  path_provider: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true

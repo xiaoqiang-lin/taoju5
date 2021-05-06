@@ -2,7 +2,7 @@
  * @Description: 圆形checkbox
  * @Author: iamsmiling
  * @Date: 2021-04-16 09:59:55
- * @LastEditTime: 2021-04-17 23:53:50
+ * @LastEditTime: 2021-04-29 16:17:33
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -10,7 +10,14 @@ import 'package:taoju5_c/res/R.dart';
 class RoundCheckbox extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
-  RoundCheckbox({Key? key, required this.value, required this.onChanged})
+  final Widget? checkedIcon;
+  final Widget? uncheckedIcon;
+  RoundCheckbox(
+      {Key? key,
+      required this.value,
+      required this.onChanged,
+      this.checkedIcon,
+      this.uncheckedIcon})
       : super(key: key);
 
   @override
@@ -36,8 +43,13 @@ class _RoundCheckboxState extends State<RoundCheckbox> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _switch,
-      child: Image.asset(_isChecked ? R.image.checked : R.image.unchecked),
-    );
+        onTap: _switch,
+        child: _isChecked
+            ? widget.checkedIcon == null
+                ? Image.asset(R.image.checked)
+                : widget.checkedIcon
+            : widget.uncheckedIcon == null
+                ? Image.asset(R.image.checked)
+                : widget.uncheckedIcon);
   }
 }

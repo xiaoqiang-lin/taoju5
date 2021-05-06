@@ -2,7 +2,7 @@
  * @Description: 商品相关
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:02:12
- * @LastEditTime: 2021-04-25 09:46:06
+ * @LastEditTime: 2021-04-30 09:05:14
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -28,6 +28,9 @@ class ProductRepository {
             .toList();
       });
 
-  ///商品详情
+  ///商品属性
   Future productAttribute(Map params) => _api.productAttribute(params);
+
+  ///商品浏览记录
+  Future addToHistory(Map params) => _api.addToHistory(params);
 }

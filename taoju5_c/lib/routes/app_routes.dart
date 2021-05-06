@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-04-28 16:57:53
+ * @LastEditTime: 2021-04-30 11:07:11
  */
 class AppRoutes {
   ///app程序入口
@@ -76,4 +76,6 @@ class AppRoutes {
   static const netOff = '/netOff';
 
   static const commitOrder = '/commitOrder';
+
+  static const pay = '/pay';
 }

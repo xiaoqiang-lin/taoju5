@@ -2,7 +2,7 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-04-26 14:48:22
+ * @LastEditTime: 2021-04-29 17:48:50
  */
 
 import 'package:flutter/material.dart';
@@ -69,7 +69,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
           Divider(),
           if (product.productType is FinishedProductType)
             GestureDetector(
-              onTap: _.selectAttr,
+              onTap: _.openFinishedProductAttributeModal,
               child: Container(
                 padding: EdgeInsets.symmetric(
                     vertical: R.dimen.dp20, horizontal: R.dimen.dp20),

@@ -1,3 +1,9 @@
+/*
+ * @Description:
+ * @Author: iamsmiling
+ * @Date: 2021-04-28 20:09:49
+ * @LastEditTime: 2021-04-29 10:48:11
+ */
 import 'dart:async';
 import 'dart:io';
 
@@ -56,15 +62,13 @@ class LocationFlutterPlugin {
   }
 
   /// 启动定位
-  void startLocation() {
-    _channel.invokeMethod('startLocation');
-    return;
+  Future startLocation() {
+    return _channel.invokeMethod('startLocation');
   }
 
   /// 停止定位
-  void stopLocation() {
-    _channel.invokeMethod('stopLocation');
-    return;
+  Future stopLocation() {
+    return _channel.invokeMethod('stopLocation');
   }
 
   /// 原生端回传键值对map到flutter端
@@ -80,13 +84,15 @@ class LocationFlutterPlugin {
   }
 
   /// 动态申请定位权限
-  void requestPermission() async {
+  requestPermission() async {
     // 申请权限
     final status = await Permission.location.request();
     if (status.isGranted) {
       print("定位权限申请通过");
+      return true;
     } else {
       print("定位权限申请不通过");
+      return false;
     }
   }
 }

@@ -2,11 +2,10 @@
  * @Description: 成品弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:33:44
- * @LastEditTime: 2021-04-27 15:52:58
+ * @LastEditTime: 2021-04-29 17:49:20
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/step_counter/step_counter.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
@@ -15,10 +14,11 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_action_bar.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_spec_option_chip.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/finished_product_attribute_modal/finished_product_attribute_modal_controller.dart';
-import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_controller.dart';
 
 Future openFinishedProductAttributeModal(BuildContext context,
-    {required ProductDetailEntity product}) {
+    {required ProductDetailEntity product,
+    required Function()? onAddToCart,
+    Function()? onPurchase}) {
   return showCupertinoModalPopup(
       context: context,
       barrierColor: R.color.ff00000.withOpacity(.6),
@@ -193,10 +193,8 @@ Future openFinishedProductAttributeModal(BuildContext context,
                                   ],
                                 ),
                                 ProductActionBar(
-                                  onAddToCart: () =>
-                                      Get.find<ProductDetailController>()
-                                          .addToCart,
-                                  onPurchase: () {},
+                                  onAddToCart: onAddToCart,
+                                  onPurchase: onPurchase,
                                 )
                               ],
                             ),

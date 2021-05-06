@@ -2,10 +2,11 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-28 16:57:40
+ * @LastEditTime: 2021-04-30 11:07:58
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5_c/routes/middleware/product_detail/product_browse_middleware.dart';
 import 'package:taoju5_c/ui/pages/article/article_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/article/article_detail_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_binding.dart';
@@ -49,6 +50,8 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
 import 'package:taoju5_c/ui/pages/net_off/net_off_page.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_binding.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commt_order_page.dart';
+import 'package:taoju5_c/ui/pages/pay/pay_binding.dart';
+import 'package:taoju5_c/ui/pages/pay/pay_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_detail/product_comment_detail_binding.dart';
@@ -180,6 +183,9 @@ class AppPages {
               name: AppRoutes.productDetail + "/:id",
               page: () => ProductDetailPage(),
               binding: ProductDetailBinding(),
+              middlewares: [
+                ProductBrowserMiddleware(priority: 9)
+              ],
               children: [
                 GetPage(
                     name: AppRoutes.productCommentList,
@@ -216,6 +222,9 @@ class AppPages {
         name: AppRoutes.commitOrder,
         page: () => CommitOrderPage(),
         binding: CommitOrderBinding()),
+
+    ///支付
+    GetPage(name: AppRoutes.pay, page: () => PayPage(), binding: PayBinding()),
 
     // ///显示地图
     // GetPage(

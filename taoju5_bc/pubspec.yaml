@@ -68,6 +68,8 @@ dependencies:
     path: ../plugins/baidu_map/flutter_baidu_mapapi_utils-2.0.1
   flutter_bmflocation:
     path: ../plugins/baidu_map/flutter_bmflocation-1.0.4
+  dokit: 
+    path: ../plugins/dokit
   # sqflite: ^1.3.2+4
   # dokit: ^0.2.14
   # geolocator: ^6.2.1
