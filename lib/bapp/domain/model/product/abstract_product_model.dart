@@ -2,7 +2,7 @@
  * @Description: 抽象商品
  * @Author: iamsmiling
  * @Date: 2021-01-15 22:12:52
- * @LastEditTime: 2021-01-15 22:13:21
+ * @LastEditTime: 2021-05-06 09:40:43
  */
 import 'product_detail_model.dart';
 
@@ -38,6 +38,8 @@ abstract class AbstractProdductModel {
   double doorWidth;
 
   double flowerSize;
+
+  double superHeight;
 
   ProductSkuModel get currentSku;
 }

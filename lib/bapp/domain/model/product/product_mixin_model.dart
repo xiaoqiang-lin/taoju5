@@ -69,6 +69,7 @@ class ProductMixinModel implements AbstractProdductModel {
   ProductMixinModel.fromJson(Map json) {
     id = json['goods_id'];
     name = json['goods_name'];
+    superHeight = json["super_height"];
     thumbnail = json['pic_cover_small'] ?? "";
     image = (json['pic_cover_mid'] ?? json['image'] ?? json['picture']);
     code = json["goods_type"];
@@ -203,6 +204,9 @@ class ProductMixinModel implements AbstractProdductModel {
 
   @override
   ProductSkuModel get currentSku => null;
+
+  @override
+  double superHeight;
 }
 
 extension ProductMixinModelKit on ProductMixinModel {

@@ -2,7 +2,7 @@
  * @Description: 商品详情数据模型
  * @Author: iamsmiling
  * @Date: 2020-12-21 14:44:38
- * @LastEditTime: 2021-01-25 09:49:04
+ * @LastEditTime: 2021-05-06 09:38:27
  */
 
 import 'package:get/utils.dart';
@@ -115,10 +115,13 @@ class ProductDetailModel implements AbstractProdductModel {
 
   int tagId;
 
+  double superHeight;
+
   ProductDetailModel.fromJson(Map json) {
     id = json['goods_id'];
     tagId = json["tag_id"];
     name = json['goods_name'];
+    superHeight = JsonKit.asDouble(json["super_height"]);
     fullName = json['show_name'];
     shopId = json['shop_id'];
     isCollect = json['is_collect'];

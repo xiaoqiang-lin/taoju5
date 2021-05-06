@@ -2,7 +2,7 @@
  * @Description: 商品价格计算代理
  * @Author: iamsmiling
  * @Date: 2020-12-23 17:43:03
- * @LastEditTime: 2021-02-01 17:01:54
+ * @LastEditTime: 2021-05-06 09:40:21
  */
 
 import 'package:get/get.dart';
@@ -47,12 +47,7 @@ abstract class BaseCurtainProuctPriceDelegator
 
   double get heightCM => product.heightCM;
 
-  double get maxHeightM {
-    if (product.isCustomSize) {
-      return 2.7;
-    }
-    return 2.76;
-  }
+  double get maxHeightM => product.superHeight;
 
   double get area {
     double _area = widthM * heightM;
