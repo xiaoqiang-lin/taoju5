@@ -2,7 +2,7 @@
  * @Description: app颜色
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-29 16:44:00
+ * @LastEditTime: 2021-05-07 17:13:08
  */
 // part of R;
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class CColor {
   ///主题色 应用程序主要部分的背景颜色(toolbars、tab bars 等)
   final Color ffee9b5f = const Color(0xFFEE9B5F);
   final Color ffb5b5b5 = const Color(0xFFB5B5B5);
-
+  final Color ffbcbcbc = const Color(0xffbcbcbc);
   final Color ff333333 = const Color(0xFF333333);
 
   final Color ffff5005 = const Color(0xFFFF5005);

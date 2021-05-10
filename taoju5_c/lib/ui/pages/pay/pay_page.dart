@@ -2,7 +2,7 @@
  * @Description: 支付页面
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:02:54
- * @LastEditTime: 2021-05-06 09:12:46
+ * @LastEditTime: 2021-05-06 10:31:05
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -53,39 +53,49 @@ class PayPage extends GetView<PayController> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            Column(
-              children: [
-                for (PayEntity item in controller.options)
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: R.dimen.dp22),
-                          child: Row(
-                            children: [
-                              Image.asset(item.icon),
-                              Container(
-                                margin: EdgeInsets.only(left: R.dimen.dp14),
-                                child: Text(
-                                  item.label,
-                                  style: TextStyle(
-                                      fontSize: R.dimen.sp14,
-                                      fontWeight: FontWeight.bold),
-                                ),
+            GetBuilder<PayController>(
+              id: "pay",
+              builder: (_) {
+                return Column(
+                  children: [
+                    for (PayEntity item in controller.options)
+                      Container(
+                        key: ValueKey(item.checked),
+                        margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: R.dimen.dp22),
+                              child: Row(
+                                children: [
+                                  Image.asset(item.icon),
+                                  Container(
+                                    margin: EdgeInsets.only(left: R.dimen.dp14),
+                                    child: Text(
+                                      item.label,
+                                      style: TextStyle(
+                                          fontSize: R.dimen.sp14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  RoundCheckbox(
+                                      key: ValueKey(item.checked),
+                                      value: item.checked,
+                                      onChanged: (bool flag) =>
+                                          _.selectPayMode(item, flag))
+                                ],
                               ),
-                              Spacer(),
-                              RoundCheckbox(
-                                  value: item.checked, onChanged: (_) {})
-                            ],
-                          ),
+                            ),
+                            Divider()
+                          ],
                         ),
-                        Divider()
-                      ],
-                    ),
-                  ),
-              ],
-            ),
+                      ),
+                  ],
+                );
+              },
+            )
           ],
         ),
       ),

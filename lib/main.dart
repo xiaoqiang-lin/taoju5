@@ -6,9 +6,7 @@
  */
 
 // import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/app.dart';

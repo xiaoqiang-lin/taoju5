@@ -2,7 +2,7 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-04-26 17:25:17
+ * @LastEditTime: 2021-05-10 10:14:35
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
@@ -79,27 +79,29 @@ class _ProductSpecLabelChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-        ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: highlighted ? Colors.white : const Color(0xffF5F5F5),
-            border: Border.all(
-                color: highlighted
-                    ? const Color(0xffee9b5f)
-                    : Colors.transparent)),
-        constraints: BoxConstraints(
-            minHeight: R.dimen.dp32,
-            maxWidth: R.dimen.dp72,
-            minWidth: R.dimen.dp72),
-      ),
-    );
+        onTap: onPressed,
+        behavior: HitTestBehavior.opaque,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: highlighted ? Colors.white : const Color(0xffF5F5F5),
+                  border: Border.all(
+                      color:
+                          highlighted ? R.color.ffee9b5f : Colors.transparent)),
+              constraints: BoxConstraints(
+                  minHeight: R.dimen.dp32, minWidth: R.dimen.dp70),
+            ),
+          ],
+        ));
   }
 }
 
@@ -123,10 +125,10 @@ class _ProductSpecImageChip extends StatelessWidget {
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: BorderRadius.circular(R.dimen.sp7),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(R.dimen.sp7),
               border: Border.all(
                   color: highlighted
                       ? Colors.transparent
@@ -141,7 +143,10 @@ class _ProductSpecImageChip extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: R.dimen.dp8),
-                child: Text(label),
+                child: Text(
+                  label,
+                  style: TextStyle(fontSize: R.dimen.sp12),
+                ),
               )
             ],
           ),

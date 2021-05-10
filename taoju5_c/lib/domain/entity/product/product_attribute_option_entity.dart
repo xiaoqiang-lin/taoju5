@@ -1,28 +1,32 @@
 /*
- * @Description: 商品属性选择项
+ * @Description:窗帘属性
  * @Author: iamsmiling
- * @Date: 2021-04-25 09:48:47
- * @LastEditTime: 2021-04-25 10:01:44
+ * @Date: 2021-05-06 10:06:30
+ * @LastEditTime: 2021-05-08 08:59:38
  */
-///属性类型
-enum ProductAttributeType {
-  ///测量数据
-  MeasurementDataType,
 
-  ///窗帘配套
-  CurtainMatchingSetType
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/utils/json_kit.dart';
+import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
+
+///定义一个接口 所有的属性类都必须实现这个接口
+abstract class BaseCurtainProductAttributeEntity {
+  late String title;
+
+  late String errorTip;
 }
 
-extension ProductAttributeTypeKit on ProductAttributeType {
-  String get name =>
-      {
-        ProductAttributeType.CurtainMatchingSetType: "窗帘配套",
-        ProductAttributeType.MeasurementDataType: "测量数据"
-      }[this] ??
-      "";
-}
-
-class ProductAttributeOptionEntity {
-  int? id;
-  int? type;
+class CurtainProductAttributeOptionEntity {
+  late int id;
+  late int type;
+  late String name;
+  PictureEntity? picture;
+  double? price;
+  CurtainProductAttributeOptionEntity.fromJson(Map json) {
+    id = json["id"];
+    type = json["type"];
+    name = json["name"];
+    picture = PictureEntity.fromJson(json["picture_main"]);
+    price = JsonKit.asDouble(json["price"]);
+  }
 }

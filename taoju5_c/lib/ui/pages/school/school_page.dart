@@ -2,7 +2,7 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-04-23 10:22:24
+ * @LastEditTime: 2021-05-06 10:58:06
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/school/school_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class SchoolPage extends StatelessWidget {
+class SchoolPage extends GetView<SchoolController> {
   const SchoolPage({Key? key}) : super(key: key);
 
   @override

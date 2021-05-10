@@ -2,7 +2,7 @@
  * @Description: cart
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:33:06
- * @LastEditTime: 2021-04-30 10:29:58
+ * @LastEditTime: 2021-05-06 14:34:45
  */
 
 import 'package:get/get.dart';
@@ -62,7 +62,47 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
 
   void select(CartEntity cart, bool checked) {
     cart.checked = checked;
+    totalPrice.value = caculate();
+    checkedAll.value = carts.every((e) => e.checked);
   }
 
-  final totalPrice = 0.00.obs;
+  void selectAll(bool flag) {
+    carts.forEach((e) {
+      e.checked = flag;
+      print("全选----$flag");
+    });
+    checkedAll.value = flag;
+    totalPrice.value = caculate();
+    update();
+    // checkedAll.value = carts.every((e) => e.checked);
+  }
+
+  Future modifyCartCount(CartEntity cart, int count) {
+    return _repository.modifyCartCount(params: {
+      "num": count,
+      "cart_id": cart.id,
+      "sku_id": cart.skuId
+    }).then((value) {
+      cart.count = count;
+      totalPrice.value = caculate();
+    });
+  }
+
+  final totalPrice = 0.0.obs;
+  final checkedAll = false.obs;
+
+  ///计算总价
+  double caculate() {
+    double t = 0;
+    for (int i = 0; i < carts.length; i++) {
+      CartEntity item = carts[i];
+      double price = !item.checked
+          ? 0
+          : item.productType is FinishedProductType
+              ? item.unitPrice * item.count
+              : item.totalPrice;
+      t += price;
+    }
+    return t;
+  }
 }

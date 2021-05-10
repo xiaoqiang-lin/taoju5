@@ -2,12 +2,14 @@
  * @Description: 地址管理逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-28 11:13:01
+ * @LastEditTime: 2021-05-07 15:38:53
  */
-import 'package:get/get.dart';
+import 'dart:convert';
+
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
+import 'package:taoju5_c/local_storage/local_storage.dart';
 
 class AddressListController
     extends BaseFutureLoadStateController<List<AddressEntity>> {
@@ -43,9 +45,15 @@ class AddressListController
     });
   }
 
-  @override
-  void onInit() {
-    loadData();
-    super.onInit();
+  AddressEntity? get defaultAddress {
+    if (addresses.isEmpty) return null;
+    for (int i = 0; i < addresses.length; i++) {
+      AddressEntity item = addresses[i];
+      if (item.isDefault) {
+        LocalStorage.save("defaultAddress", jsonEncode(item.toJson()));
+        return item;
+      }
+    }
+    return null;
   }
 }

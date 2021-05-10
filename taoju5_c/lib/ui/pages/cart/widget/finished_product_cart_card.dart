@@ -2,7 +2,7 @@
  * @Description:成品购物车卡片
  * @Author: iamsmiling
  * @Date: 2021-04-29 16:20:32
- * @LastEditTime: 2021-04-30 10:29:36
+ * @LastEditTime: 2021-05-06 14:21:11
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/rotate_button.dart';
@@ -20,6 +20,7 @@ class FinishedProductCartCard extends StatelessWidget {
   final Function()? onLongPress;
   final Future Function(CartEntity cart) onModifyAttribute;
   final Function(CartEntity cart, bool checked) onSelect;
+  final Function(CartEntity cart, int i) onCountChange;
   const FinishedProductCartCard(
       {Key? key,
       required this.cart,
@@ -27,7 +28,8 @@ class FinishedProductCartCard extends StatelessWidget {
       required this.onRemoveFromCart,
       required this.onLongPress,
       required this.onModifyAttribute,
-      required this.onSelect})
+      required this.onSelect,
+      required this.onCountChange})
       : super(key: key);
 
   @override
@@ -75,6 +77,7 @@ class FinishedProductCartCard extends StatelessWidget {
               Row(
                 children: [
                   RoundCheckbox(
+                    key: ValueKey(cart.checked),
                     checkedIcon: Image.asset(R.image.checkedMid),
                     uncheckedIcon: Image.asset(R.image.uncheckedMid),
                     onChanged: (bool flag) => onSelect(cart, flag),
@@ -135,7 +138,9 @@ class FinishedProductCartCard extends StatelessWidget {
                           ),
                         ),
                         StepCounter(
-                          initialValue: cart.count.value,
+                          key: ValueKey(cart.count),
+                          initialValue: cart.count,
+                          onChanged: (int i) => onCountChange(cart, i),
                         ),
                       ],
                     ),

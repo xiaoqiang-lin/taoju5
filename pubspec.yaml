@@ -60,6 +60,7 @@ flutter:
       - assets/images/curtain/
       - assets/flrs/
       - assets/data/curtain_mode.json
+      - assets/data/measure_data.json
 
       - resources/images/
       - resources/images/2.0x/

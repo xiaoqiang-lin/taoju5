@@ -2,11 +2,15 @@
  * @Description: 商品相关
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:02:12
- * @LastEditTime: 2021-04-30 09:05:14
+ * @LastEditTime: 2021-05-10 11:08:17
  */
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
+import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/domain/provider/product_api.dart';
@@ -29,7 +33,23 @@ class ProductRepository {
       });
 
   ///商品属性
-  Future productAttribute(Map params) => _api.productAttribute(params);
+  Future<CurtainAttributeEntity> productAttribute(Map params) async {
+    Map json1 = jsonDecode(
+        await rootBundle.loadString("assets/data/measure_data.json"));
+
+    Map json2 = (await _api.productAttribute(params)).data;
+    return CurtainAttributeEntity.fromJson(json1, json2);
+    // WindowRoomEntity room = WindowRoomEntity.fromJson(json1);
+
+    // CurtainMatchingSetAttributeEntity matchingSet =
+    //     CurtainMatchingSetAttributeEntity.fromJson(json1);
+    // CurtainMeasureDataAttributeEntity measureData =
+    //     CurtainMeasureDataAttributeEntity(
+    //         measureData: WindowMeasureDataEntity.fromJson(json2, room: room),
+    //         room: room);
+    // return CurtainAttributeEntity(
+    //     matchingSet: matchingSet, measureData: measureData);
+  }
 
   ///商品浏览记录
   Future addToHistory(Map params) => _api.addToHistory(params);

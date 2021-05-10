@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-30 11:11:22
+ * @LastEditTime: 2021-05-06 16:25:34
  */
 // part of R;
 class CImage {
@@ -124,4 +124,8 @@ class CImage {
   final String wechatPay = "resources/images/wechat_pay.png";
 
   final String aliPay = "resources/images/ali_pay.png";
+
+  final String fillAddress = "resources/images/fill_address.png";
+
+  final String orderProcessChart = "resources/images/flow_chart.png";
 }

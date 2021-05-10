@@ -2,7 +2,7 @@
  * @Description: 分类控制
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-28 10:06:37
+ * @LastEditTime: 2021-05-06 13:33:37
  */
 
 import 'package:flutter/cupertino.dart';
@@ -44,9 +44,14 @@ class CategoryController
   void onTabChanged(int i) {
     if (currentCategory == categories[i]) return;
     pageController.animateTo(
-        i * Get.height - kBottomNavigationBarHeight - kToolbarHeight * 2,
+        i == 0
+            ? 0
+            : i * Get.height -
+                kBottomNavigationBarHeight -
+                kToolbarHeight -
+                kTextTabBarHeight,
         duration: Duration(milliseconds: 200),
-        curve: Curves.ease);
+        curve: Curves.easeInOut);
     currentCategory = categories[i];
     update(["tab"]);
   }

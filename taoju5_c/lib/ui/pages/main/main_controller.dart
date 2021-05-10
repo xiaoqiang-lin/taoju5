@@ -2,7 +2,7 @@
  * @Description:
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-21 15:04:23
+ * @LastEditTime: 2021-05-06 11:13:07
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,15 +52,5 @@ class MainController extends GetxController {
     currentIndex = index;
 
     update();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

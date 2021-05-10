@@ -2,7 +2,7 @@
  * @Description: 购物车模型
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:55:21
- * @LastEditTime: 2021-04-30 10:26:38
+ * @LastEditTime: 2021-05-06 13:37:32
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -22,7 +22,7 @@ class CartEntity {
   late bool offShelves;
   late int skuId;
   late String skuName;
-  final count = 1.obs;
+  int count = 1;
   bool checked = false;
   late double totalPrice;
   late double unitPrice;
@@ -34,7 +34,6 @@ class CartEntity {
     productId = json["goods_id"];
     productName = json["goods_name"];
     productTypeCode = json["goods_type"];
-
     image = JsonKit.asWebUrl(json["pic_cover_small"]);
     stock = json["stock"];
     skuId = json["sku_id"];
@@ -42,7 +41,7 @@ class CartEntity {
     maxPurchase = json["max_buy"];
     minPurchase = json["min_buy"];
     offShelves = false;
-    count.value = JsonKit.asInt(json["num"]);
+    count = JsonKit.asInt(json["num"]);
     unitPrice = JsonKit.asDouble(json["price"]);
     totalPrice = JsonKit.asDouble(json["estimated_price"]);
   }

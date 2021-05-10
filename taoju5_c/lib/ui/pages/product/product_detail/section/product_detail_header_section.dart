@@ -2,13 +2,14 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-04-29 17:48:50
+ * @LastEditTime: 2021-05-10 11:20:20
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_curtain_product_attribute_modal.dart';
 
 import '../product_detail_controller.dart';
 
@@ -97,30 +98,35 @@ class ProductDetailHeaderSection extends StatelessWidget {
               ),
             ),
           if (product.productType is CustomProductType)
-            Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
-              child: Row(
-                children: [
-                  Text(
-                    "报价单",
-                    style: TextStyle(
-                        fontSize: R.dimen.sp12, fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  Text(
-                    "去填写",
-                    style: TextStyle(
-                        fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: R.dimen.dp6),
-                    child: Image.asset(
-                      R.image.next,
-                      color: R.color.ffee9b5f,
+            GestureDetector(
+              onTap: () => openCurtainProductAttributeModal(context,
+                  product: product,
+                  attribute: Get.find<ProductDetailController>().attribute),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
+                child: Row(
+                  children: [
+                    Text(
+                      "报价单",
+                      style: TextStyle(
+                          fontSize: R.dimen.sp12, fontWeight: FontWeight.bold),
                     ),
-                  )
-                ],
+                    Spacer(),
+                    Text(
+                      "去填写",
+                      style: TextStyle(
+                          fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: R.dimen.dp6),
+                      child: Image.asset(
+                        R.image.next,
+                        color: R.color.ffee9b5f,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           Divider(),

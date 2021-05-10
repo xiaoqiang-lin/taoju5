@@ -2,16 +2,13 @@
  * @Description: 购物车
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:32:36
- * @LastEditTime: 2021-04-30 11:10:06
+ * @LastEditTime: 2021-05-07 16:51:50
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
-import 'package:taoju5_c/component/button/rotate_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
-import 'package:taoju5_c/component/step_counter/step_counter.dart';
 import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -108,6 +105,7 @@ class CartPage extends GetView<CartController> {
                                 onModifyAttribute:
                                     _.openFinishedProductAttributeModal,
                                 onSelect: _.select,
+                                onCountChange: _.modifyCartCount,
                               )
                             : Container();
                       }),
@@ -124,12 +122,15 @@ class CartPage extends GetView<CartController> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RoundCheckbox(
-              checkedIcon: Image.asset(R.image.checkedMid),
-              uncheckedIcon: Image.asset(R.image.uncheckedMid),
-              onChanged: (bool flag) {},
-              value: true,
-            ),
+            Obx(() {
+              return RoundCheckbox(
+                key: ValueKey(controller.checkedAll.value),
+                checkedIcon: Image.asset(R.image.checkedMid),
+                uncheckedIcon: Image.asset(R.image.uncheckedMid),
+                onChanged: controller.selectAll,
+                value: controller.checkedAll.value,
+              );
+            }),
             Container(
               margin: EdgeInsets.only(left: R.dimen.dp8),
               child: Text(
@@ -163,7 +164,7 @@ class CartPage extends GetView<CartController> {
                 text: "结算(1)",
                 padding: EdgeInsets.symmetric(
                     horizontal: R.dimen.dp16, vertical: R.dimen.dp10),
-                onPressed: () => Get.toNamed(AppRoutes.pay))
+                onPressed: () => Get.toNamed(AppRoutes.commitOrder))
           ],
         ),
       ),

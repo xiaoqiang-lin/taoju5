@@ -2,7 +2,7 @@
  * @Description: 网络请求封装
  * @Author: iamsmiling
  * @Date: 2021-03-30 21:39:00
- * @LastEditTime: 2021-04-27 10:41:18
+ * @LastEditTime: 2021-05-06 11:18:12
  */
 import 'dart:convert';
 
@@ -12,6 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:taoju5_bc/config/app_config.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/exception/base_exception.dart';
+import 'package:taoju5_c/httpkit/interceptor/bloc_interceptor.dart';
 import 'package:taoju5_c/httpkit/interceptor/htttp_error_interceptor.dart';
 import 'package:taoju5_c/httpkit/interceptor/response_interceptor.dart';
 import 'package:taoju5_c/httpkit/interceptor/token_interceptor.dart';
@@ -63,8 +64,11 @@ class HttpKit {
     ///网络请求
     dio.interceptors.add(ResponseInterceptor());
 
-    ///打印请求信息
+    ///错误拦截
     dio.interceptors.add(HttpErrorInterceptor());
+
+    ///特殊的逻辑处理
+    dio.interceptors.add(BlocInterceptor());
   }
 
   Future<BaseEntity> get(String url, {Map? params, Options? options}) async {

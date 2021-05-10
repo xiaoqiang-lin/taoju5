@@ -2,12 +2,13 @@
  * @Description: 首页布艺定制板块
  * @Author: iamsmiling
  * @Date: 2021-04-15 11:13:42
- * @LastEditTime: 2021-04-21 10:40:26
+ * @LastEditTime: 2021-05-06 14:36:27
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class HomeCustomMadeSection extends StatelessWidget {
   const HomeCustomMadeSection({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class HomeCustomMadeSection extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () => Get.toNamed(AppRoutes.commitOrder),
             child: Container(
               width: double.maxFinite,
               margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),

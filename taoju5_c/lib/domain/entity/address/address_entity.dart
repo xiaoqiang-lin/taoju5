@@ -2,7 +2,7 @@
  * @Description: 地址
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-18 12:55:13
+ * @LastEditTime: 2021-05-07 15:56:51
  */
 
 class AddressEntity {
@@ -36,6 +36,12 @@ class AddressEntity {
     isDefault = json["is_default"] == 1;
     description = json["all_address"];
   }
+  Map toJson() => {
+        'consigner': receiverName,
+        'mobile': telephone,
+        'all_address': description,
+        'id': id
+      };
 
   AddressEntity.sample({required int id, bool isDefault = false}) {
     this.id = id;

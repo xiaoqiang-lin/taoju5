@@ -2,7 +2,7 @@
  * @Description: 计数器
  * @Author: iamsmiling
  * @Date: 2021-04-26 14:51:39
- * @LastEditTime: 2021-04-26 15:24:49
+ * @LastEditTime: 2021-05-06 13:54:44
  */
 
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class StepCounter extends StatefulWidget {
   final Widget? plusIcon;
   final int minValue;
   final int maxValue;
-
+  final Function(int) onChanged;
   final double width;
   final double height;
   const StepCounter(
@@ -25,7 +25,8 @@ class StepCounter extends StatefulWidget {
       this.minValue = 1,
       this.maxValue = 999,
       this.width = 100,
-      this.height = 28})
+      this.height = 28,
+      required this.onChanged})
       : super(key: key);
 
   @override
@@ -47,6 +48,7 @@ class _StepCounterState extends State<StepCounter> {
       return;
     }
     _value = int.parse(val);
+    widget.onChanged(_value);
     //
   }
 
@@ -57,6 +59,7 @@ class _StepCounterState extends State<StepCounter> {
     }
     setState(() {
       _value--;
+      widget.onChanged(_value);
     });
   }
 
@@ -67,6 +70,7 @@ class _StepCounterState extends State<StepCounter> {
     }
     setState(() {
       _value++;
+      widget.onChanged(_value);
     });
   }
 
