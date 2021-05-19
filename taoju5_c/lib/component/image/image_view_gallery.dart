@@ -2,7 +2,7 @@
  * @Description:大图查看可滑动
  * @Author: iamsmiling
  * @Date: 2021-04-23 09:14:01
- * @LastEditTime: 2021-04-23 22:36:45
+ * @LastEditTime: 2021-05-15 14:11:21
  */
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -11,16 +11,13 @@ import 'package:taoju5_c/component/indicator/image_load_progress_indicator.dart'
 class ImageViewGallery extends StatefulWidget {
   final int currentIndex;
 
-  ///缩略图
-  final List<String> thumbnails;
   //大图
   final List<String> images;
-  const ImageViewGallery(
-      {Key? key,
-      this.currentIndex = 0,
-      required this.thumbnails,
-      required this.images})
-      : super(key: key);
+  const ImageViewGallery({
+    Key? key,
+    this.currentIndex = 0,
+    required this.images,
+  }) : super(key: key);
 
   @override
   _ImageViewGalleryState createState() => _ImageViewGalleryState();
@@ -46,7 +43,9 @@ class _ImageViewGalleryState extends State<ImageViewGallery> {
   double progress = 0;
 
   void _onPageChanged(int i) {
-    _currentIndex = i;
+    setState(() {
+      _currentIndex = i;
+    });
   }
 
   Widget _loadingBuilder(BuildContext context, ImageChunkEvent? chunk) {
@@ -106,20 +105,20 @@ class _ImageViewGalleryState extends State<ImageViewGallery> {
               ),
             ),
             Positioned(
-                right: 10,
+                left: 24,
                 top: MediaQuery.of(context).padding.top,
                 child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(_currentIndex),
-                  child: CircleAvatar(
-                    radius: 16,
-                    // backgroundColor: BColors.maskColor,
-                    child: Icon(
-                      Icons.close,
-                      size: 24,
-                      color: Colors.white,
-                    ),
-                  ),
-                )),
+                    onTap: () => Navigator.of(context).pop(_currentIndex),
+                    child: Image.asset("resources/images/close_modal.png"))),
+            Positioned(
+                top: MediaQuery.of(context).padding.top + 5,
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "${_currentIndex + 1}/${widget.images.length}",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ))),
           ],
         ),
       ),

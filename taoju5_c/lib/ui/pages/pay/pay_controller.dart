@@ -2,11 +2,14 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:04:06
- * @LastEditTime: 2021-05-06 10:31:34
+ * @LastEditTime: 2021-05-17 11:28:08
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
 import 'package:taoju5_c/domain/entity/pay/pay_entity.dart';
+import 'package:taoju5_c/domain/repository/order_repository.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/utils/toast.dart';
 
 class PayController extends GetxController {
   double price = 1999.00;
@@ -34,6 +37,9 @@ class PayController extends GetxController {
         strategy: WechatPayStrategy())
   ];
 
+  PayStrategy get currentPayStrategy =>
+      options.firstWhere((e) => e.checked).strategy;
+
   void selectPayMode(PayEntity option, bool flag) {
     options.forEach((e) {
       e.checked = e == option;
@@ -47,5 +53,12 @@ class PayController extends GetxController {
     // update();
   }
 
-  void pay() {}
+  Future pay() {
+    OrderRepository repository = OrderRepository();
+    CreateOrderParamsEntity arg = Get.arguments;
+    ToastKit.loading();
+    return repository.createMeasureOrder(arg.params).then((value) {
+      currentPayStrategy.pay("");
+    }).whenComplete(ToastKit.dismiss);
+  }
 }

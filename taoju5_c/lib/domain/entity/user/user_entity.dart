@@ -2,10 +2,11 @@
  * @Description: 用户模型
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-27 15:34:18
+ * @LastEditTime: 2021-05-18 18:04:50
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
+import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 
 enum Gender { unknow, male, female }
 
@@ -31,6 +32,7 @@ class UserEntity {
   late Gender gender;
   late String? birthday;
   late int registerTypeCode;
+  late List<OrderTabEntity> kongos;
 
   RegisterType get registerType =>
       {1: RegisterType.telephone, 2: RegisterType.wechat}[registerTypeCode] ??
@@ -45,6 +47,9 @@ class UserEntity {
     birthday = json["user_birth"];
     gender = Gender.female;
     registerTypeCode = json["registered_type"];
+    kongos = JsonKit.asList(json["status"])
+        .map((e) => OrderTabEntity.fromJson(e))
+        .toList();
   }
 
   UserEntity.smaple() {

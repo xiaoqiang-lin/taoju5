@@ -2,12 +2,12 @@
  * @Description: 购物车模型
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:55:21
- * @LastEditTime: 2021-05-06 13:37:32
+ * @LastEditTime: 2021-05-14 16:52:26
  */
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
-import 'package:get/get.dart';
+import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 
 class CartEntity {
@@ -26,11 +26,16 @@ class CartEntity {
   bool checked = false;
   late double totalPrice;
   late double unitPrice;
+  late String description;
+  late List<CurtainAttributeKeyValuePairEntity> attributes;
+  late int measureId;
+  late Map args;
 
   BaseProductType get productType => getProductType(productTypeCode);
 
   CartEntity.fromJson(Map json) {
     id = json["cart_id"];
+    measureId = JsonKit.asInt(json["measure_id"]);
     productId = json["goods_id"];
     productName = json["goods_name"];
     productTypeCode = json["goods_type"];
@@ -44,5 +49,10 @@ class CartEntity {
     count = JsonKit.asInt(json["num"]);
     unitPrice = JsonKit.asDouble(json["price"]);
     totalPrice = JsonKit.asDouble(json["estimated_price"]);
+    description = json["goods_attr_str"];
+    attributes = JsonKit.asList(json["app_wc_attr"])
+        .map((e) => CurtainAttributeKeyValuePairEntity.fromJson(e))
+        .toList();
+    args = json["wc_attr"];
   }
 }

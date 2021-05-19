@@ -97,7 +97,7 @@ class OpenContainer<T extends Object?> extends StatefulWidget {
     this.useRootNavigator = false,
     this.routeSettings,
     this.clipBehavior = Clip.antiAlias,
-    this.showOpenButton = false,
+    this.scaleBuilder,
   }) : super(key: key);
 
   /// Background color of the container while it is closed.
@@ -127,8 +127,6 @@ class OpenContainer<T extends Object?> extends StatefulWidget {
   ///
   ///  * [Material.color], which is used to implement this property.
   final Color openColor;
-
-  final bool showOpenButton;
 
   /// The color to use for the background color during the transition
   /// with [ContainerTransitionType.fadeThrough].
@@ -178,6 +176,8 @@ class OpenContainer<T extends Object?> extends StatefulWidget {
   ///
   ///  * [Material.shape], which is used to implement this property.
   final ShapeBorder closedShape;
+
+  final Positioned Function(BuildContext)? scaleBuilder;
 
   /// Shape of the container while it is open.
   ///
@@ -313,30 +313,17 @@ class _OpenContainerState<T> extends State<OpenContainer<T?>> {
       child: GestureDetector(
         onTap: widget.tappable ? openContainer : null,
         child: Material(
-            clipBehavior: widget.clipBehavior,
-            color: widget.closedColor,
-            elevation: widget.closedElevation,
-            shape: widget.closedShape,
-            child: Stack(
-              children: [
-                Builder(
-                  key: _closedBuilderKey,
-                  builder: (BuildContext context) {
-                    return widget.closedBuilder(context, openContainer);
-                  },
-                ),
-                Positioned(
-                    right: -10,
-                    top: -10,
-                    child: Visibility(
-                      visible: widget.showOpenButton,
-                      child: IconButton(
-                        icon: Image.asset(("resources/images/scale.png")),
-                        onPressed: openContainer,
-                      ),
-                    ))
-              ],
-            )),
+          clipBehavior: widget.clipBehavior,
+          color: widget.closedColor,
+          elevation: widget.closedElevation,
+          shape: widget.closedShape,
+          child: Builder(
+            key: _closedBuilderKey,
+            builder: (BuildContext context) {
+              return widget.closedBuilder(context, openContainer);
+            },
+          ),
+        ),
       ),
     );
   }

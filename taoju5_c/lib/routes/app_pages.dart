@@ -2,13 +2,15 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-04-30 11:07:58
+ * @LastEditTime: 2021-05-18 15:35:19
  */
 
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/middleware/product_detail/product_browse_middleware.dart';
 import 'package:taoju5_c/ui/pages/article/article_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/article/article_detail_page.dart';
+import 'package:taoju5_c/ui/pages/cart/cart_binding.dart';
+import 'package:taoju5_c/ui/pages/cart/cart_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_binding.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
 import 'package:taoju5_c/ui/pages/image_crop/image_crop_binding.dart';
@@ -47,9 +49,14 @@ import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_avata
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_nickname_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/setting/subpage/about_app_page.dart';
 import 'package:taoju5_c/ui/pages/net_off/net_off_page.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_binding.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commt_order_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_list/order_list_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_list/order_list_page.dart';
 import 'package:taoju5_c/ui/pages/pay/pay_binding.dart';
 import 'package:taoju5_c/ui/pages/pay/pay_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_binding.dart';
@@ -60,6 +67,8 @@ import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/pr
 import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/product_comment_list_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_binding.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_page.dart';
+import 'package:taoju5_c/ui/pages/search/search_binding.dart';
+import 'package:taoju5_c/ui/pages/search/search_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_page.dart';
 
@@ -116,12 +125,18 @@ class AppPages {
         page: () => MainPage(),
         binding: MainBinding(),
         middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: AppRoutes.cart, page: () => CartPage(), binding: CartBinding()),
 
     GetPage(
         name: AppRoutes.mine,
         page: () => MinePage(),
         binding: MineBinding(),
         children: [
+          GetPage(
+              name: AppRoutes.orderList,
+              page: () => OrderListPage(),
+              binding: OrderListBinding()),
           GetPage(
               name: AppRoutes.profile,
               page: () => ProfilePage(),
@@ -159,7 +174,13 @@ class AppPages {
           GetPage(
               name: AppRoutes.setting,
               page: () => SettingPage(),
-              binding: SettingBinding()),
+              binding: SettingBinding(),
+              children: [
+                GetPage(
+                  name: AppRoutes.aboutApp,
+                  page: () => AboutAppPage(),
+                ),
+              ]),
           GetPage(
             name: AppRoutes.account,
             page: () => AccountPage(),
@@ -170,6 +191,7 @@ class AppPages {
               page: () => FeedbackPage(),
               binding: FeedbackBinding())
         ]),
+
     GetPage(
         name: AppRoutes.category,
         page: () => CategoryPage(),
@@ -198,6 +220,12 @@ class AppPages {
               ]),
         ]),
 
+    ///搜索
+    GetPage(
+        name: AppRoutes.search,
+        page: () => SearchPage(),
+        binding: SearchBinding()),
+
     GetPage(
         name: AppRoutes.imageCrop,
         page: () => ImageCropPage(),
@@ -222,6 +250,10 @@ class AppPages {
         name: AppRoutes.commitOrder,
         page: () => CommitOrderPage(),
         binding: CommitOrderBinding()),
+    GetPage(
+        name: AppRoutes.orderDetail + "/:id",
+        page: () => OrderDetailPage(),
+        binding: OrderDetailBinding()),
 
     ///支付
     GetPage(name: AppRoutes.pay, page: () => PayPage(), binding: PayBinding()),

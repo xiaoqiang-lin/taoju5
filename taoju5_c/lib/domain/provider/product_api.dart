@@ -2,7 +2,7 @@
  * @Description: 商品相关的接口
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:00:14
- * @LastEditTime: 2021-04-30 09:04:41
+ * @LastEditTime: 2021-05-13 10:42:29
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -25,4 +25,8 @@ class ProductAPI {
   ///商品浏览记录
   Future<BaseEntity> addToHistory(Map params) =>
       _http.get("/app/goods/addGoodsBrowse", params: params);
+
+  ///商品浏览记录
+  Future<BaseEntity> saveMeasureData(Map params) =>
+      _http.post("/app/order/saveMeasure", params: params);
 }

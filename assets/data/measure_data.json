@@ -216,811 +216,347 @@
                 }
             ]
         },
-        "open_mode": [
+        "size": {
+            "label": "宽高（CM）",
+            "width": null,
+            "height": null
+        },
+        "ground_clearance": {
+            "label": "离地距离（CM）",
+            "value": null
+        },
+        "room": {
+            "label": "空间"
+        },
+        "open_mode": {
+            "label": "打开方式",
+            "key":"open_type",
+            "options": [
+                {
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true,
+                    "window_option_id": 13
+                },
+                {
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false,
+                    "window_option_id": 13
+                },
+                {
+                    "window_option_id": 14,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 14,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 14,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 15,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 15,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 15,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 16,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 16,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 16,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 17,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 17,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 17,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 18,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 18,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 18,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 19,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 19,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 19,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 20,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 20,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 20,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 21,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 21,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 21,
+                    "id": 3,
+                    "name": "分墙面打开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 22,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 22,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 23,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 23,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                },
+                {
+                    "window_option_id": 24,
+                    "id": 1,
+                    "name": "整体对开",
+                    "selected": true
+                },
+                {
+                    "window_option_id": 24,
+                    "id": 2,
+                    "name": "整体单开",
+                    "selected": false
+                }
+            ]
+        },
+        "subopen_mode_options": [
             {
-                "window_option_id": 13,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
+                "window_id": [
+                    14,
+                    15,
+                    18,
+                    19
+                ],
+                "open_mode_id": 3,
                 "options": [
                     {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "window_option_id": 14,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
+                        "label": "A面打开方式",
+                        "key":"A",
+                        "size": {
+                            "label": "A面宽高（CM）",
+                            "width": null,
+                            "height": null
+                        },
+                        "options": [
                             {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 4,
+                                "name": "对开",
+                                "selected": true
+                            },
+                            {
+                                "id": 5,
+                                "name": "单开",
+                                "selected": false
+                            }
+                        ]
+                    },
+                    {
+                        "label": "B面打开方式",
+                        "key":"B",
+                        "size": {
+                            "label": "B面宽高（CM）",
+                            "width": null,
+                            "height": null
+                        },
+                        "options": [
+                            {
+                                "id": 4,
+                                "name": "对开",
+                                "selected": true
+                            },
+                            {
+                                "id": 5,
+                                "name": "单开",
+                                "selected": false
                             }
                         ]
                     }
+
                 ]
+            
             },
             {
-                "window_option_id": 15,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
+                "window_id": [
+                    16,
+                    17,
+                    20,
+                    21
+                ],
+                "open_mode_id": 3,
                 "options": [
                     {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
+                        "label": "A面打开方式",
+                        "key":"A",
+                        "size": {
+                            "label": "A面宽高（CM）",
+                            "width": null,
+                            "height": null
+                        },
+                        "options": [
                             {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 4,
+                                "name": "对开",
+                                "selected": true
                             },
                             {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 5,
+                                "name": "单开",
+                                "selected": false
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 16,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
                     },
                     {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
+                        "label": "B面打开方式",
+                        "key":"B",
+                        "size": {
+                            "label": "B面宽高（CM）",
+                            "width": null,
+                            "height": null
+                        },
+                        "options": [
                             {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 4,
+                                "name": "对开",
+                                "selected": true
                             },
                             {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "B面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "C面打开方式",
-                                "size": {
-                                    "label": "C面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 5,
+                                "name": "单开",
+                                "selected": false
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 17,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
                     },
                     {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
+                        "label": "C面打开方式",
+                        "key":"C",
+                        "size": {
+                            "label": "C面宽高（CM）",
+                            "width": null,
+                            "height": null
+                        },
+                        "options": [
                             {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 4,
+                                "name": "对开",
+                                "selected": true
                             },
                             {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "B面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "C面打开方式",
-                                "size": {
-                                    "label": "C面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
+                                "id": 5,
+                                "name": "单开",
+                                "selected": false
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 18,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
-                            {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 19,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
-                            {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 20,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
-                            {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "B面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "C面打开方式",
-                                "size": {
-                                    "label": "C面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 21,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    },
-                    {
-                        "name": "分墙面打开",
-                        "selected": false,
-                        "children": [
-                            {
-                                "label": "A面打开方式",
-                                "size": {
-                                    "label": "A面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "B面打开方式",
-                                "size": {
-                                    "label": "B面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            },
-                            {
-                                "label": "C面打开方式",
-                                "size": {
-                                    "label": "C面宽高（CM）",
-                                    "width": null,
-                                    "height": null
-                                },
-                                "ground_clearance": {
-                                    "label": "离地距离",
-                                    "value": null
-                                },
-                                "options": [
-                                    {
-                                        "name": "单开",
-                                        "selected": true,
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "对开",
-                                        "selected": false,
-                                        "children": []
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "window_option_id": 22,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "window_option_id": 23,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "window_option_id": 24,
-                "label": "打开方式",
-                "size": {
-                    "label": "宽高（CM）",
-                    "width": null,
-                    "height": null
-                },
-                "ground_clearance": {
-                    "label": "离地距离",
-                    "value": null
-                },
-                "options": [
-                    {
-                        "name": "整体对开",
-                        "selected": true,
-                        "children": []
-                    },
-                    {
-                        "name": "整体单开",
-                        "selected": false,
-                        "children": []
                     }
                 ]
             }
-        ],
-        "room": {
-            "label":"空间"
-        }
+        ]
     },
     "matching_set": {
         "label": "窗帘配套",
@@ -1037,7 +573,7 @@
             "label": "里布"
         },
         "valance": {
-            "label": "幔头"
+            "label": "窗幔"
         },
         "accessory": {
             "label": "配饰"

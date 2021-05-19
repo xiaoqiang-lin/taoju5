@@ -2,15 +2,13 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-05-10 11:20:20
+ * @LastEditTime: 2021-05-15 12:17:42
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_curtain_product_attribute_modal.dart';
-
 import '../product_detail_controller.dart';
 
 class ProductDetailHeaderSection extends StatelessWidget {
@@ -99,9 +97,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
             ),
           if (product.productType is CustomProductType)
             GestureDetector(
-              onTap: () => openCurtainProductAttributeModal(context,
-                  product: product,
-                  attribute: Get.find<ProductDetailController>().attribute),
+              onTap: _.openCurtainProductAttributeModal,
               child: Container(
                 padding: EdgeInsets.symmetric(
                     vertical: R.dimen.dp20, horizontal: R.dimen.dp20),

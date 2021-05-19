@@ -56,6 +56,7 @@ class _DrawArclinePageState extends BMFBaseMapState<DrawArclinePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          // ignore: deprecated_member_use
           RaisedButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -93,6 +94,7 @@ class _DrawArclinePageState extends BMFBaseMapState<DrawArclinePage> {
   }
 
   void addArline0() {
+    // ignore: deprecated_member_use
     List<BMFCoordinate> coordinates0 = List(3);
     coordinates0[0] = BMFCoordinate(40.065, 116.224);
     coordinates0[1] = BMFCoordinate(40.125, 116.404);
@@ -106,6 +108,7 @@ class _DrawArclinePageState extends BMFBaseMapState<DrawArclinePage> {
   }
 
   void addArcline1() {
+    // ignore: deprecated_member_use
     List<BMFCoordinate> coordinates1 = List(3);
     coordinates1[0] = BMFCoordinate(39.965, 116.324);
     coordinates1[1] = BMFCoordinate(39.825, 116.374);
@@ -119,6 +122,7 @@ class _DrawArclinePageState extends BMFBaseMapState<DrawArclinePage> {
   }
 
   void addArcline2() {
+    // ignore: deprecated_member_use
     List<BMFCoordinate> coordinates2 = List(3);
     coordinates2[0] = BMFCoordinate(39.975, 116.224);
     coordinates2[1] = BMFCoordinate(39.935, 116.404);

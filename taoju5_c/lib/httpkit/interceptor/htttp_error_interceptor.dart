@@ -2,16 +2,15 @@
  * @Description: 网络错误拦截
  * @Author: iamsmiling
  * @Date: 2021-04-26 18:00:32
- * @LastEditTime: 2021-04-28 09:57:56
+ * @LastEditTime: 2021-05-18 15:45:00
  */
-import 'dart:convert';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/exception/expired_token_exception.dart';
 import 'package:taoju5_c/httpkit/exception/invalid_params_exception.dart';
 import 'package:taoju5_c/httpkit/exception/offline_exception.dart';
+import 'package:taoju5_c/httpkit/exception/server_error_exception.dart';
 import 'package:taoju5_c/httpkit/exception/unlogin_exception.dart';
 import 'package:taoju5_c/httpkit/taoju5_http_code.dart';
 
@@ -30,6 +29,10 @@ class HttpErrorInterceptor extends InterceptorsWrapper {
 
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (response.statusCode == 500) {
+      return handler
+          .reject(ServerErrorException("服务器异常", response.requestOptions));
+    }
     BaseEntity result = response.data;
 
     int code = result.code;

@@ -2,12 +2,13 @@
  * @Description: cart
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:33:06
- * @LastEditTime: 2021-05-06 14:34:45
+ * @LastEditTime: 2021-05-14 16:57:34
  */
 
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/repository/cart_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
@@ -105,4 +106,9 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
     }
     return t;
   }
+
+  List<ProductAdaptorEntity> get selectedProducts => carts
+      .where((e) => e.checked)
+      .map((e) => ProductAdaptorEntity.fromCartEntity(e))
+      .toList();
 }

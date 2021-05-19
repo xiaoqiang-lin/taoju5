@@ -2,25 +2,14 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-19 14:23:36
+ * @LastEditTime: 2021-05-18 18:07:51
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
-
-class MineKongoEntity {
-  final String label;
-  final String icon;
-  final Function()? onTap;
-  final int count;
-  MineKongoEntity(
-      {required this.label,
-      this.count = 0,
-      required this.icon,
-      required this.onTap});
-}
 
 class MineTileEntity {
   final String label;
@@ -34,16 +23,7 @@ class MineTileEntity {
 class MineController extends GetxController {
   UserEntity user = UserEntity.smaple();
 
-  List<MineKongoEntity> get kongos => [
-        MineKongoEntity(icon: R.image.toBeMeasured, label: "待测量", onTap: () {}),
-        MineKongoEntity(
-            icon: R.image.toBeSelected, label: "待选品", count: 12, onTap: () {}),
-        MineKongoEntity(icon: R.image.toBePaid, label: "待付款", onTap: () {}),
-        MineKongoEntity(
-            icon: R.image.toBeDelivered, label: "待发货", onTap: () {}),
-        MineKongoEntity(
-            icon: R.image.toBeInstalled, label: "待安装", onTap: () {}),
-      ];
+  List<OrderTabEntity> kongos = [];
 
   List<MineTileEntity> get tiles => [
         MineTileEntity(icon: R.image.star, label: "我的收藏", onTap: () {}),
@@ -69,6 +49,7 @@ class MineController extends GetxController {
     MineRepository _repository = MineRepository();
     _repository.getUserInfo().then((UserEntity value) {
       user = value;
+      kongos = user.kongos;
       update();
     });
     super.onInit();

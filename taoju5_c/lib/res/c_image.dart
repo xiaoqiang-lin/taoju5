@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-06 16:25:34
+ * @LastEditTime: 2021-05-17 16:13:57
  */
 // part of R;
 class CImage {
@@ -44,6 +44,8 @@ class CImage {
 
   ///通用
   final String close = "resources/images/close.png";
+
+  final String back = "resources/images/back.png";
 
   ///登陆
   final String clear = "resources/images/clear.png";
@@ -128,4 +130,7 @@ class CImage {
   final String fillAddress = "resources/images/fill_address.png";
 
   final String orderProcessChart = "resources/images/flow_chart.png";
+
+  final String wechat = "resources/images/wechat.png";
+  final String wechatMoment = "resources/images/wechat_moment.png";
 }

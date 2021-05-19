@@ -2,13 +2,14 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-05-06 11:10:32
+ * @LastEditTime: 2021-05-17 14:58:41
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_custom_made_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_physicial_store_section.dart';
@@ -44,21 +45,24 @@ class HomePage extends StatelessWidget {
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
             alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(R.image.search),
-                Container(
-                  margin: EdgeInsets.only(left: R.dimen.dp3),
-                  child: Text(
-                    "搜索您想找的内容",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: R.dimen.sp10, color: R.color.ffffffff),
-                  ),
-                )
-              ],
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.search),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(R.image.search),
+                  Container(
+                    margin: EdgeInsets.only(left: R.dimen.dp3),
+                    child: Text(
+                      "搜索您想找的内容",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: R.dimen.sp10, color: R.color.ffffffff),
+                    ),
+                  )
+                ],
+              ),
             ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),

@@ -2,7 +2,7 @@
  * @Description: 首页轮播图
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-23 21:09:23
+ * @LastEditTime: 2021-05-15 10:08:11
  */
 import 'dart:ui';
 
@@ -42,7 +42,13 @@ class HomeBannerSection extends StatelessWidget {
                       width: Get.width,
                       height: R.dimen.dp184,
                       fit: BoxFit.fill,
-                      enlarge: false,
+                      enlarge: true,
+                      slidable: true,
+                      images: [
+                        "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
+                        "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
+                        "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
+                      ],
                       imageUrl:
                           "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png");
                 }),

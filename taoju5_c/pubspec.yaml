@@ -18,6 +18,9 @@ dependencies:
     path: ../taoju5_bc
   wechat_assets_picker: ^5.1.3
   video_player: ^2.1.1
+  shake_animation_widget: ^2.1.2
+  tobias: ^2.1.0
+  extended_image: ^4.1.0
 
   # flutter_baidu_mapapi_map: ^2.0.1
 

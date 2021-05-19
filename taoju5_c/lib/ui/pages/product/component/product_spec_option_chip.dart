@@ -2,9 +2,10 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-05-10 10:14:35
+ * @LastEditTime: 2021-05-17 09:39:36
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -23,10 +24,12 @@ class ProductSpecOptionChip extends StatelessWidget {
           margin: EdgeInsets.only(top: R.dimen.dp10, right: R.dimen.dp4),
           child: option.mode == OptionDisplayMode.text
               ? _ProductSpecLabelChip(
+                  key: ObjectKey(option),
                   onPressed: onPressed,
                   label: option.name,
                   highlighted: option.selected)
               : _ProductSpecImageChip(
+                  key: ObjectKey(option),
                   onPressed: onPressed,
                   highlighted: option.selected,
                   label: option.name,
@@ -130,13 +133,13 @@ class _ProductSpecImageChip extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(R.dimen.sp7),
               border: Border.all(
-                  color: highlighted
+                  color: !highlighted
                       ? Colors.transparent
                       : const Color(0xFFFFEE9B5F))),
           child: Column(
             children: [
-              Image.network(
-                src,
+              ChimeraImage(
+                imageUrl: src,
                 width: R.dimen.dp100,
                 height: R.dimen.dp100,
                 fit: BoxFit.cover,

@@ -30,7 +30,7 @@ class PrimaryButton extends StatelessWidget {
       this.constraints,
       required this.text,
       this.margin,
-      this.padding,
+      this.padding = EdgeInsets.zero,
       required this.onPressed,
       this.radius = 25,
       this.backgroundColor,
@@ -99,28 +99,55 @@ class PrimaryButton extends StatelessWidget {
     if (mode == PrimaryButtonMode.materialButton) {
       _textStyle ??= TextStyle(color: const Color(0xFF666666));
     }
+    if (size == PrimaryButtonSize.middle) {
+      _textStyle = _textStyle?.copyWith(fontSize: 14);
+    }
   }
 
   _initButtonMode() {
-    _child = Padding(
-      padding: _padding!,
-      child: Text(text, style: _textStyle),
-    );
+    _child = Text(text, style: _textStyle);
 
     switch (mode) {
       case PrimaryButtonMode.elevatedButton:
         {
-          _child = ElevatedButton(onPressed: onPressed, child: _child);
+          _child = ElevatedButton(
+            onPressed: onPressed,
+            child: _child,
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(padding),
+              minimumSize: MaterialStateProperty.all(Size(48, 30)),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius))),
+            ),
+          );
           break;
         }
       case PrimaryButtonMode.outlinedButton:
         {
-          _child = OutlinedButton(onPressed: onPressed, child: _child!);
+          _child = OutlinedButton(
+            onPressed: onPressed,
+            child: _child!,
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(padding),
+              minimumSize: MaterialStateProperty.all(Size(48, 30)),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius))),
+            ),
+          );
           break;
         }
       case PrimaryButtonMode.textButton:
         {
-          _child = TextButton(onPressed: onPressed, child: _child!);
+          _child = TextButton(
+            onPressed: onPressed,
+            child: _child!,
+            style: ButtonStyle(
+              padding: MaterialStateProperty.all(padding),
+              minimumSize: MaterialStateProperty.all(Size(48, 30)),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(radius))),
+            ),
+          );
           break;
         }
       case PrimaryButtonMode.materialButton:
@@ -137,7 +164,10 @@ class PrimaryButton extends StatelessWidget {
               hoverElevation: 0,
               disabledElevation: 0,
               onPressed: onPressed,
-              child: _child,
+              child: Padding(
+                padding: padding!,
+                child: _child,
+              ),
               constraints: _constraints!,
             ),
           );

@@ -2,28 +2,55 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:15:54
- * @LastEditTime: 2021-05-07 16:48:03
+ * @LastEditTime: 2021-05-17 14:11:24
  */
 import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
-import 'package:taoju5_c/domain/repository/order_repository.dart';
+import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 
 import 'package:taoju5_c/local_storage/local_storage.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
-import 'package:taoju5_c/utils/toast.dart';
 
 class CommitOrderController extends GetxController {
   AddressEntity? defaultAddress;
+
   late CreateOrderParamsEntity args;
+
+  List<ProductAdaptorEntity> products = Get.arguments;
+
+  List<ProductAdaptorEntity> get finishedProducts =>
+      products.where((e) => e.productType is FinishedProductType).toList();
+  List<ProductAdaptorEntity> get customProducts =>
+      products.where((e) => e.productType is! FinishedProductType).toList();
+
+  ///成品总价
+  double get finishedProductTotalPrice {
+    double t = 0;
+    for (ProductAdaptorEntity e in finishedProducts) {
+      t += e.unitPrice;
+    }
+    return t;
+  }
+
+  ///定制品总价
+  double get customProductTotalPrice {
+    double t = 0;
+    for (ProductAdaptorEntity e in customProducts) {
+      t += e.totalPrice;
+    }
+    return t;
+  }
+
   loadData() {
     LocalStorage.get("defaultAddress").then((val) {
       if (val != null) {
         defaultAddress = AddressEntity.fromJson(jsonDecode(val));
-        args = CreateOrderParamsEntity(addressId: defaultAddress!.id);
       }
+      args = CreateOrderParamsEntity(addressId: defaultAddress!.id);
     }).whenComplete(() {
       update(["defaultAddress"]);
     });
@@ -33,6 +60,7 @@ class CommitOrderController extends GetxController {
     return Get.toNamed(AppRoutes.mine + AppRoutes.addressList)?.then((value) {
       defaultAddress = value;
       update(["defaultAddress"]);
+      args = CreateOrderParamsEntity(addressId: defaultAddress!.id);
     });
   }
 
@@ -58,11 +86,7 @@ class CommitOrderController extends GetxController {
     super.onInit();
   }
 
-  Future submit() {
-    OrderRepository repository = OrderRepository();
-    ToastKit.loading();
-    return repository.createMeasureOrder(args.params).then((value) {
-      Get.toNamed(AppRoutes.pay);
-    }).whenComplete(ToastKit.dismiss);
+  Future? submit() {
+    return Get.toNamed(AppRoutes.pay, arguments: args);
   }
 }

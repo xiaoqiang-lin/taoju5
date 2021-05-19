@@ -2,7 +2,7 @@
  * @Description: 窗型
  * @Author: iamsmiling
  * @Date: 2021-05-08 11:14:08
- * @LastEditTime: 2021-05-08 11:23:00
+ * @LastEditTime: 2021-05-11 14:54:45
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -23,6 +23,32 @@ class WindowFacadeEntity {
         .map((e) => WindowFacadeEntity.fromJson(e))
         .toList();
   }
+
+  ///窗型名称
+  String get value {
+    List<String> val = [];
+    for (int i = 0; i < children.length; i++) {
+      WindowFacadeEntity child = children[i];
+      for (int i = 0; i < child.options.length; i++) {
+        WindowFacadeOptionEntity option = child.options[i];
+        if (option.selected) {
+          val.add(option.name);
+        }
+      }
+    }
+    return val.join("/");
+  }
+
+  /// 窗型id -1表示未找到匹配的窗型
+  int get windowOptionId {
+    for (int i = 0; i < options.length; i++) {
+      WindowFacadeOptionEntity o = options[i];
+      if (o.name == value) {
+        return o.id;
+      }
+    }
+    return -1;
+  }
 }
 
 class WindowFacadeOptionEntity {
@@ -33,7 +59,7 @@ class WindowFacadeOptionEntity {
   WindowFacadeOptionEntity.fromJson(Map json) {
     id = json["id"];
     name = json["name"];
-    image = json["image"];
+    image = json["img"];
     selected = json["selected"];
   }
 }

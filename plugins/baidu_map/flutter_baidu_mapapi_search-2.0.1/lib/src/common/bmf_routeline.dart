@@ -238,7 +238,7 @@ class BMFRidingRouteLine extends BMFRouteLine implements BMFModel {
   /// map => BMFRidingRouteLine
   BMFRidingRouteLine.fromMap(Map map) : super.fromMap(map) {
     if (map['steps'] != null) {
-      steps = new List<BMFRidingStep>();
+      steps = <BMFRidingStep>[];
       map['steps'].forEach((v) {
         steps.add(BMFRidingStep.fromMap(v as Map));
       });
@@ -302,13 +302,13 @@ class BMFDrivingRouteLine extends BMFRouteLine {
   /// map => BMFDrivingRouteLine
   BMFDrivingRouteLine.fromMap(Map map) : super.fromMap(map) {
     if (map['steps'] != null) {
-      steps = new List<BMFDrivingStep>();
+      steps = <BMFDrivingStep>[];
       map['steps'].forEach((v) {
         steps.add(BMFDrivingStep.fromMap(v as Map));
       });
     }
     if (map['wayPoints'] != null) {
-      wayPoints = new List<BMFPlanNode>();
+      wayPoints = <BMFPlanNode>[];
       map['wayPoints'].forEach((v) {
         wayPoints.add(BMFPlanNode.fromMap(v as Map));
       });
@@ -363,7 +363,7 @@ class BMFIndoorRouteLine extends BMFRouteLine implements BMFModel {
   /// map => BMFIndoorRouteLine
   BMFIndoorRouteLine.fromMap(Map map) : super.fromMap(map) {
     if (map['steps'] != null) {
-      steps = new List<BMFIndoorRouteStep>();
+      steps = <BMFIndoorRouteStep>[];
       map['steps'].forEach((v) {
         steps.add(BMFIndoorRouteStep.fromMap(v as Map));
       });

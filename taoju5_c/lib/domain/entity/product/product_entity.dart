@@ -2,11 +2,31 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-04-26 14:42:48
+ * @LastEditTime: 2021-05-18 17:40:04
  */
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
+
+class MallEntity {
+  late List<CategoryEntity> categories;
+
+  late List<ProductEntity> products;
+
+  MallEntity.fromJson(Map json) {
+    categories = json["category_list"];
+    products = json["goods_list"];
+  }
+}
+
+class CategoryEntity {
+  late String name;
+  late int id;
+  CategoryEntity.fromJson(Map json) {
+    name = json["category_name"];
+    id = json["category_id"];
+  }
+}
 
 class ProductEntity {
   late int id;

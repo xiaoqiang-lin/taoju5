@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-04-27 15:41:07
+ * @LastEditTime: 2021-05-18 15:09:03
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,8 +20,8 @@ class CarouselSlide extends StatefulWidget {
   final double itemWidth;
   final double containerHeight;
   final IndexedWidgetBuilder itemBuilder;
-  final List<String> thunmbnails;
-  final List<String> bigImages;
+  final List<String>? thunmbnails;
+  final List<String>? bigImages;
   CarouselSlide(
       {Key? key,
       this.loop = false,
@@ -32,8 +32,8 @@ class CarouselSlide extends StatefulWidget {
       required this.itemWidth,
       required this.itemBuilder,
       required this.containerHeight,
-      required this.thunmbnails,
-      required this.bigImages})
+      this.thunmbnails,
+      this.bigImages})
       : super(key: key);
 
   @override
@@ -86,8 +86,7 @@ class _CarouselSlideState extends State<CarouselSlide> {
               }, openBuilder: (BuildContext context, _) {
                 return ImageViewGallery(
                   currentIndex: _currentIndex,
-                  thumbnails: widget.thunmbnails,
-                  images: widget.bigImages,
+                  images: widget.bigImages ?? [],
                 );
               });
             },

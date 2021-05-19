@@ -2,11 +2,10 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-04-27 15:00:04
+ * @LastEditTime: 2021-05-18 17:44:41
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
-import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/entity/params/product/product_list_sort_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
@@ -117,8 +116,9 @@ class ProductListController
   Future<List<ProductEntity>> loadData({Map? params}) {
     update();
     return repository.productList({"category_id": category.id}).then((value) {
-      products = value;
-      return value;
+      products = value.products;
+      return products;
+      // return value;
     });
   }
 }

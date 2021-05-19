@@ -16,8 +16,11 @@ class ShowMapInteractPage extends StatefulWidget {
 }
 
 class _ShowMapInteractPageState extends BMFBaseMapState<ShowMapInteractPage> {
+  // ignore: unused_field
   BMFCoordinate _coordinate;
+  // ignore: unused_field
   BMFMapPoi _mapPoi;
+  // ignore: unused_field
   String _touchPointStr = '触摸点';
   @override
   void onBMFMapCreated(BMFMapController controller) {

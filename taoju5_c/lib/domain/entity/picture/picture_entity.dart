@@ -2,7 +2,7 @@
  * @Description: 图片
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:42:29
- * @LastEditTime: 2021-04-26 10:15:31
+ * @LastEditTime: 2021-05-11 17:30:02
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
@@ -17,7 +17,7 @@ class PictureEntity {
 
   PictureEntity.fromJson(Map json) {
     id = json["pic_id"];
-    cover = JsonKit.asWebUrl(json["pic_cover"]);
+    cover = JsonKit.asWebUrl(json["pic_cover"] ?? json["pic_cover_small"]);
     size = json["pic_spec"];
     bigImage = JsonKit.asWebUrl(json["pic_cover_long"]);
   }

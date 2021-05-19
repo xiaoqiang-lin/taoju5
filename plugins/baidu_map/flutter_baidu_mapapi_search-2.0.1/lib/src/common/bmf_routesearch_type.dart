@@ -375,31 +375,31 @@ class BMFSuggestAddrInfo implements BMFModel {
       : assert(map != null,
             'Construct a BMFSuggestAddrInfo，The parameter map cannot be null !') {
     if (map['startPoiList'] != null) {
-      startPoiList = new List<BMFPoiInfo>();
+      startPoiList = <BMFPoiInfo>[];
       map['startPoiList'].forEach((v) {
         startPoiList.add(BMFPoiInfo.fromMap(v as Map));
       });
     }
     if (map['startCityList'] != null) {
-      startCityList = new List<BMFCityListInfo>();
+      startCityList = <BMFCityListInfo>[];
       map['startCityList'].forEach((v) {
         startCityList.add(BMFCityListInfo.fromMap(v as Map));
       });
     }
     if (map['endPoiList'] != null) {
-      endPoiList = new List<BMFPoiInfo>();
+      endPoiList = <BMFPoiInfo>[];
       map['endPoiList'].forEach((v) {
         endPoiList.add(BMFPoiInfo.fromMap(v as Map));
       });
     }
     if (map['endCityList'] != null) {
-      endCityList = new List<BMFCityListInfo>();
+      endCityList = <BMFCityListInfo>[];
       map['endCityList'].forEach((v) {
         endCityList.add(BMFCityListInfo.fromMap(v as Map));
       });
     }
     if (map['wayPointPoiList'] != null) {
-      wayPointPoiList = new List<List<BMFPoiInfo>>();
+      wayPointPoiList = <List<BMFPoiInfo>>[];
       for (List item in map['wayPointPoiList'] as List) {
         List<BMFPoiInfo> list = new List();
         for (var ite in item) {

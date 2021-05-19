@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:16:47
- * @LastEditTime: 2021-04-26 10:13:03
+ * @LastEditTime: 2021-05-17 10:37:17
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/carousel/carousel_slide.dart';
@@ -40,6 +40,7 @@ class ProductDetailBannerSection extends StatelessWidget {
         PictureEntity item = product.images[i];
         return ChimeraImage(
             width: R.dimen.width,
+            cache: true,
             // height: R.dimen.width,
             borderRadius: BorderRadius.zero,
             fit: item.aspectRatio > 1 ? BoxFit.fitWidth : BoxFit.fitHeight,

@@ -10,6 +10,9 @@ class ClearableTextField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onSubmitted;
   final BoxConstraints constraints;
+  final BoxDecoration? boxDecoration;
+  final TextAlign textAlign;
+  final TextStyle? style;
   const ClearableTextField(
       {Key? key,
       this.initialValue,
@@ -23,7 +26,10 @@ class ClearableTextField extends StatefulWidget {
       this.keyboardType,
       this.validator,
       this.onSubmitted,
-      this.constraints = const BoxConstraints(maxHeight: 36)})
+      this.constraints = const BoxConstraints(maxHeight: 36),
+      this.boxDecoration,
+      this.textAlign = TextAlign.start,
+      this.style = const TextStyle(fontSize: 12)})
       : super(key: key);
 
   @override
@@ -76,11 +82,14 @@ class _ClearableTextFieldState extends State<ClearableTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
+    return Container(
+      decoration: widget.boxDecoration,
       constraints: widget.constraints,
       child: TextFormField(
-        style: TextStyle(fontSize: 12),
+        style: widget.style,
+        textAlign: widget.textAlign,
         validator: widget.validator,
+        textAlignVertical: TextAlignVertical.center,
         onFieldSubmitted: widget.onSubmitted,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: widget.keyboardType,

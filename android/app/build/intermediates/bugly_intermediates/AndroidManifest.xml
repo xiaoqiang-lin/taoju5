@@ -24,6 +24,7 @@
   <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
   <uses-feature android:name="android.hardware.screen.landscape" android:required="false"/>
   <uses-feature android:name="android.hardware.wifi" android:required="false"/>
+  <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true"/>
   <application android:name="com.buyi.taojuwu.Taoju5Application" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:icon="@mipmap/ic_launcher" android:label="淘居屋" android:networkSecurityConfig="@xml/network_security_config" android:usesCleartextTraffic="true">
     <activity android:name="com.buyi.taojuwu.MainActivity" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:windowSoftInputMode="adjustResize">
       <meta-data android:name="io.flutter.app.android.SplashScreenUntilFirstFrame" android:value="true"/>
@@ -77,6 +78,13 @@
     <activity android:name="com.tencent.bugly.beta.ui.BetaActiveAlertActivity"/>
     <service android:name="com.tencent.bugly.beta.tinker.TinkerResultService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
     <activity android:name="com.journeyapps.barcodescanner.CaptureActivity" android:clearTaskOnLaunch="true" android:screenOrientation="sensorLandscape" android:stateNotNeeded="true" android:theme="@style/zxing_CaptureTheme" android:windowSoftInputMode="stateAlwaysHidden"/>
+    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+    <activity android:name="com.alipay.sdk.app.H5PayActivity" android:configChanges="orientation|keyboardHidden|navigation" android:exported="false"/>
+    <activity android:name="com.alipay.sdk.app.H5AuthActivity" android:configChanges="orientation|keyboardHidden|navigation" android:exported="false"/>
+    <activity android:name="com.alipay.sdk.app.PayResultActivity" android:configChanges="orientation|keyboardHidden|navigation" android:exported="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    <activity android:name="com.alipay.sdk.app.AlipayResultActivity" android:exported="true" android:launchMode="singleTask" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    <activity android:name="com.alipay.sdk.app.H5OpenAuthActivity" android:configChanges="orientation|keyboardHidden|navigation|screenSize" android:exported="false" android:screenOrientation="behind" android:windowSoftInputMode="adjustResize|stateHidden"/>
+    <activity android:name="com.alipay.sdk.app.APayEntranceActivity" android:configChanges="orientation|keyboardHidden|navigation|screenSize" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_00"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_01"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$STDStub_02"/>
@@ -130,6 +138,6 @@
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_01_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <activity android:name="com.tencent.tinker.loader.hotplug.ActivityStubs$SIStub_02_T" android:launchMode="singleInstance" android:theme="@android:style/Theme.Translucent"/>
     <meta-data android:name="tinker_version" android:value="1.9.14.10"/>
-    <meta-data android:name="TINKER_ID" android:value="1.3.2.2023_0506-09-07-56"/>
+    <meta-data android:name="TINKER_ID" android:value="1.3.2.2023_0517-15-47-31"/>
   </application>
 </manifest>

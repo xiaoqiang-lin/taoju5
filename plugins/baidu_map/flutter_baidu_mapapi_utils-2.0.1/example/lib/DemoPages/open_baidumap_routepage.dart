@@ -23,7 +23,7 @@ class OpenBaiduMapRoutePage extends StatelessWidget {
 
   Column generateWidgetColumen() {
     return Column(children: <Widget>[
-      FlatButton(
+      TextButton(
           child: new Text("启动百度地图路线规划（Native）"),
           onPressed: () {
             onOpenBaiduMapRoute();

@@ -2,7 +2,7 @@
  * @Description: 提交订单ui
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:16:33
- * @LastEditTime: 2021-05-07 16:42:55
+ * @LastEditTime: 2021-05-18 10:38:40
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -12,10 +12,11 @@ import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order/section/custom_product_section.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order/section/finished_product_section.dart';
 import 'package:taoju5_c/ui/pages/order/widget/order_fulfillment_chart.dart';
+import 'package:taoju5_c/ui/pages/order/widget/order_note_fill_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/order_term_of_service.dart';
-
-import 'section/measure_order_sheet.dart';
 
 class CommitOrderPage extends GetView<CommitOrderController> {
   const CommitOrderPage({Key? key}) : super(key: key);
@@ -100,21 +101,48 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                         );
                       },
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: R.dimen.dp16, bottom: R.dimen.dp10),
-                      child: Divider(),
-                    ),
-                    MeasureOrderSheet(
-                      onMeasureTimeChange: controller.setMeasureTime,
-                      onInstallTimeChange: controller.setInstallTime,
-                      onWindowCountChange: controller.setWindowCount,
-                      onOrderRemarkChange: controller.setOrderRemark,
-                    ),
-                    OrderFulfillmentProcessChart(),
+
+                    // Container(
+                    //   margin: EdgeInsets.only(
+                    //       top: R.dimen.dp16, bottom: R.dimen.dp10),
+                    //   child: Divider(),
+                    // ),
+                    // MeasureOrderSheet(
+                    //   onMeasureTimeChange: controller.setMeasureTime,
+                    //   onInstallTimeChange: controller.setInstallTime,
+                    //   onWindowCountChange: controller.setWindowCount,
+                    //   onOrderRemarkChange: controller.setOrderRemark,
+                    // ),
                   ],
                 ),
               ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+                  child: CustomProductSection(
+                      products: controller.customProducts)),
+              Container(
+                height: R.dimen.dp10,
+                color: R.color.fff5f5f5,
+                width: R.dimen.width,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+                  child: FinishedProductSection(
+                      products: controller.finishedProducts)),
+              Container(
+                height: R.dimen.dp10,
+                color: R.color.fff5f5f5,
+                width: R.dimen.width,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+                  child: OrderNoteFillBar()),
+              Container(
+                height: R.dimen.dp10,
+                color: R.color.fff5f5f5,
+                width: R.dimen.width,
+              ),
+              OrderFulfillmentProcessChart(),
               OrderTermOfServiceSheet()
             ],
           ),

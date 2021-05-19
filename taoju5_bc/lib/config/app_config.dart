@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-04-25 18:43:27
+ * @LastEditTime: 2021-05-17 11:04:03
  */
 
 import 'package:flutter/foundation.dart';
@@ -35,6 +35,8 @@ class AppConfig {
   static const weChatAppId = 'wx1dda23b1cd57b8c2';
   static const weChatSecret = '7983b20cb37a9fd0fe19b406ce7725fd';
   static const weCharShareUniversalLink = 'https://ii1vy.share2dlink.com/';
+
+  static const aliPayAppId = "2021001187616842";
 
   static bool get isDebug => mode == AppMode.debug;
   static bool get isPro => bool.fromEnvironment('dart.vm.product');

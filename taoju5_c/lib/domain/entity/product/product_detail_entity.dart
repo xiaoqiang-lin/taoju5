@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-04-27 15:47:42
+ * @LastEditTime: 2021-05-12 15:40:49
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -53,7 +53,14 @@ class ProductDetailEntity {
   late int maxPurchase;
   late int minPurchase;
   late String saleCount;
-  late bool isFixedHeight;
+
+  late bool isFixedHeight; // 窗帘是否定高
+  late bool isFixedWidth; //窗帘是否定宽
+  late bool isCustomSize; //自定义宽高
+
+  late double doorWidth; //门幅
+  late double flowerSize; //花距
+  late bool hasFlower; // 窗帘是否有拼花
   late List<PictureEntity> images;
 
   late int count = 1;
@@ -66,6 +73,14 @@ class ProductDetailEntity {
   late List<ProductSkuEntity> skus;
 
   late List<ProductSpecEntity> specs;
+
+  double get doorWidthM => doorWidth / 100;
+
+  double get flowerSizeM => flowerSize / 100;
+
+  ///高度阈值
+  late double thresholdHeight;
+
   ProductDetailEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
@@ -80,6 +95,16 @@ class ProductDetailEntity {
     minPurchase = json["min_buy"];
     saleCount = json["sales"];
     isFixedHeight = JsonKit.asBool(json["fixed_height"]);
+    isFixedHeight = json['fixed_height'] == 1;
+    isFixedWidth = json['fixed_height'] == 2;
+    isCustomSize = json['fixed_height'] == 3;
+
+    ///后台数据以cm为单位
+    doorWidth = JsonKit.asDouble(json['larghezza_size']);
+    flowerSize = JsonKit.asDouble(json['flower_distance']);
+
+    hasFlower = json['is_flower'] == 1;
+
     specs = JsonKit.asList(json["spec_list"])
         .map((e) => ProductSpecEntity.fromJson(e))
         .toList();
@@ -94,6 +119,8 @@ class ProductDetailEntity {
         .toList();
 
     skuId = json["sku_id"];
+
+    thresholdHeight = JsonKit.asDouble(json["super_height"]);
   }
 
   BaseProductType get productType => getProductType(type);

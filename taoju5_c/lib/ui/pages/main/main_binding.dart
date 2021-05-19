@@ -5,7 +5,6 @@
  * @LastEditTime: 2021-04-28 10:21:13
  */
 import 'package:get/get.dart';
-import 'package:taoju5_c/service/prefs_service.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_controller.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';

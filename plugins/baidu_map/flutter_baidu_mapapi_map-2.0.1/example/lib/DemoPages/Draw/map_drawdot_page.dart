@@ -57,6 +57,7 @@ class _DrawDotPageState extends BMFBaseMapState<DrawDotPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          // ignore: deprecated_member_use
           RaisedButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),

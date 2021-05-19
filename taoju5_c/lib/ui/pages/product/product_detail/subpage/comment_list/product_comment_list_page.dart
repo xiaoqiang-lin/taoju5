@@ -2,7 +2,7 @@
  * @Description:商品评论列表
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:08:56
- * @LastEditTime: 2021-04-27 17:56:06
+ * @LastEditTime: 2021-05-15 10:24:48
  */
 import 'dart:math';
 
@@ -117,6 +117,11 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
                                                       : 0),
                                               child: ChimeraImage(
                                                 imageUrl: src,
+                                                enlarge: true,
+                                                slidable: true,
+                                                images: item.images,
+                                                currentIndex:
+                                                    item.images.indexOf(src),
                                                 width: (R.dimen.width -
                                                         R.dimen.dp24 * 2 -
                                                         R.dimen.dp14 * 2) /

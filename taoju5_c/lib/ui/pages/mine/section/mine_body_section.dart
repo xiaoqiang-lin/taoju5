@@ -2,16 +2,18 @@
  * @Description: 个人中心
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-18 00:27:01
+ * @LastEditTime: 2021-05-18 18:10:27
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
+import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:get/get.dart';
 
 class MineBodySection extends StatelessWidget {
-  final List<MineKongoEntity> kongos;
+  final List<OrderTabEntity> kongos;
   const MineBodySection({Key? key, required this.kongos}) : super(key: key);
 
   @override
@@ -26,7 +28,11 @@ class MineBodySection extends StatelessWidget {
               children: [
                 Text("我的订单", style: R.style.headline6),
                 Spacer(),
-                Text("查看全部", style: R.style.tileTip),
+                GestureDetector(
+                  onTap: () =>
+                      Get.toNamed(AppRoutes.mine + AppRoutes.orderList),
+                  child: Text("查看全部", style: R.style.tileTip),
+                ),
                 Icon(R.icon.next)
               ],
             ),
@@ -36,48 +42,52 @@ class MineBodySection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                for (MineKongoEntity item in kongos)
-                  GestureDetector(
-                    onTap: item.onTap,
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 5),
-                          child: Column(
-                            children: [
-                              Image.asset(item.icon),
-                              Container(
-                                margin: EdgeInsets.only(top: R.dimen.dp5),
-                                child: Text(
-                                  item.label,
-                                  style: TextStyle(fontSize: R.dimen.sp12),
-                                ),
-                              )
-                            ],
+                for (OrderTabEntity item in kongos)
+                  Visibility(
+                    visible: item.icon.isNotEmpty,
+                    child: GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.orderList,
+                          parameters: {"index": "${kongos.indexOf(item)}"}),
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Column(
+                              children: [
+                                Image.asset(item.icon),
+                                Container(
+                                  margin: EdgeInsets.only(top: R.dimen.dp5),
+                                  child: Text(
+                                    item.label,
+                                    style: TextStyle(fontSize: R.dimen.sp12),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Positioned(
-                            child: Visibility(
-                              visible: !CommonKit.isNullOrZero(item.count),
-                              child: Container(
-                                width: 16,
-                                height: 16,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${item.count}",
-                                  style: TextStyle(
-                                      fontSize: 8, color: R.color.ffff5005),
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(color: R.color.ffff5005),
+                          Positioned(
+                              child: Visibility(
+                                visible: !CommonKit.isNullOrZero(item.count),
+                                child: Container(
+                                  width: 16,
+                                  height: 16,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "${item.count}",
+                                    style: TextStyle(
+                                        fontSize: 8, color: R.color.ffff5005),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(color: R.color.ffff5005),
+                                  ),
                                 ),
                               ),
-                            ),
-                            top: 0,
-                            right: 0)
-                      ],
+                              top: 0,
+                              right: 0)
+                        ],
+                      ),
                     ),
                   )
               ],

@@ -2,7 +2,7 @@
  * @Description: 属性展开面板
  * @Author: iamsmiling
  * @Date: 2021-05-07 17:19:03
- * @LastEditTime: 2021-05-07 17:31:46
+ * @LastEditTime: 2021-05-11 15:31:26
  */
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -237,22 +237,30 @@ class _AttributeExpansionTileState extends State<AttributeExpansionTile>
           ListTileTheme.merge(
             iconColor: _iconColor.value,
             textColor: _headerColor.value,
-            child: ListTile(
-              onTap: _handleTap,
-              contentPadding: widget.tilePadding,
-              leading: widget.leading,
-              title: widget.title,
-              subtitle: widget.subtitle,
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  widget.trailingLabel ?? SizedBox.shrink(),
-                  widget.trailing ??
-                      RotationTransition(
-                        turns: _iconTurns,
-                        child: const Icon(Icons.expand_more),
-                      )
-                ],
+            child: Container(
+              height: 42,
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                onTap: _handleTap,
+                contentPadding: widget.tilePadding,
+                leading: widget.leading,
+                title: widget.title,
+                subtitle: widget.subtitle,
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    widget.trailingLabel ?? SizedBox.shrink(),
+                    widget.trailing ??
+                        RotationTransition(
+                          turns: _iconTurns,
+                          child: Image.asset(
+                            "resources/images/drop_down.png",
+                            width: 12,
+                            height: 12,
+                          ),
+                        )
+                  ],
+                ),
               ),
             ),
           ),

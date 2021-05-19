@@ -20,6 +20,7 @@ class DrawInfoWindowPage extends StatefulWidget {
 class _DrawInfoWindowPageState extends BMFBaseMapState<DrawInfoWindowPage> {
   /// 地图controller
   BMFInfoWindow _bmfInfoWindow;
+  // ignore: unused_field
   String _infoWindowId;
 
   bool _addState = false;
@@ -69,6 +70,7 @@ class _DrawInfoWindowPageState extends BMFBaseMapState<DrawInfoWindowPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          // ignore: deprecated_member_use
           RaisedButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),

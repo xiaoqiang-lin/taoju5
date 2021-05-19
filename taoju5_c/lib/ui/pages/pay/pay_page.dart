@@ -2,7 +2,7 @@
  * @Description: 支付页面
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:02:54
- * @LastEditTime: 2021-05-06 10:31:05
+ * @LastEditTime: 2021-05-17 11:16:44
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -60,7 +60,7 @@ class PayPage extends GetView<PayController> {
                   children: [
                     for (PayEntity item in controller.options)
                       Container(
-                        key: ValueKey(item.checked),
+                        key: ObjectKey(item),
                         margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
                         child: Column(
                           children: [
@@ -107,9 +107,9 @@ class PayPage extends GetView<PayController> {
             right: R.dimen.dp20),
         child: PrimaryButton(
           text: "确认支付",
-          onPressed: () {},
+          onPressed: controller.pay,
           margin: EdgeInsets.only(
-            bottom: Get.mediaQuery.padding.bottom,
+            bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8,
           ),
           padding: EdgeInsets.symmetric(vertical: R.dimen.dp13),
         ),

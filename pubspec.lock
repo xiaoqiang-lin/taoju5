@@ -191,14 +191,14 @@ packages:
       name: extended_image
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.1"
+    version: "4.1.0"
   extended_image_library:
     dependency: transitive
     description:
       name: extended_image_library
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -704,6 +704,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0-nullsafety.0"
+  shake_animation_widget:
+    dependency: transitive
+    description:
+      name: shake_animation_widget
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.2"
   shared_preferences:
     dependency: transitive
     description:
@@ -856,6 +863,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.19"
+  tobias:
+    dependency: transitive
+    description:
+      name: tobias
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:

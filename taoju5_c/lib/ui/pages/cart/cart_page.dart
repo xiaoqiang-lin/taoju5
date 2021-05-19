@@ -2,7 +2,7 @@
  * @Description: 购物车
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:32:36
- * @LastEditTime: 2021-05-07 16:51:50
+ * @LastEditTime: 2021-05-18 15:39:13
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +16,8 @@ import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_controller.dart';
 import 'package:taoju5_c/ui/pages/cart/widget/finished_product_cart_card.dart';
 
+import 'widget/curtain_product_cart_card.dart';
+
 class CartPage extends GetView<CartController> {
   const CartPage({Key? key}) : super(key: key);
 
@@ -25,28 +27,33 @@ class CartPage extends GetView<CartController> {
       appBar: AppBar(
         titleSpacing: 0,
         backgroundColor: R.color.ffee9b5f,
-        leadingWidth: 256,
+        leadingWidth: 300,
         leading: Container(
           padding: EdgeInsets.only(left: R.dimen.dp20),
           constraints: BoxConstraints(minHeight: 44),
           alignment: Alignment.center,
-          child: Text.rich(
-            TextSpan(
-                text: "购物车",
-                style: TextStyle(
-                    fontSize: R.dimen.sp18,
-                    fontWeight: FontWeight.bold,
-                    color: R.color.ffffffff),
-                children: [
-                  WidgetSpan(child: SizedBox(width: R.dimen.dp10)),
-                  TextSpan(
-                    text: "共3件商品",
+          child: Row(
+            children: [
+              BackButton(),
+              Text.rich(
+                TextSpan(
+                    text: "购物车",
                     style: TextStyle(
-                        color: R.color.ffffffff,
-                        fontSize: R.dimen.sp10,
-                        fontWeight: FontWeight.normal),
-                  )
-                ]),
+                        fontSize: R.dimen.sp18,
+                        fontWeight: FontWeight.bold,
+                        color: R.color.ffffffff),
+                    children: [
+                      WidgetSpan(child: SizedBox(width: R.dimen.dp10)),
+                      TextSpan(
+                        text: "共3件商品",
+                        style: TextStyle(
+                            color: R.color.ffffffff,
+                            fontSize: R.dimen.sp10,
+                            fontWeight: FontWeight.normal),
+                      )
+                    ]),
+              ),
+            ],
           ),
         ),
         actions: [
@@ -107,7 +114,17 @@ class CartPage extends GetView<CartController> {
                                 onSelect: _.select,
                                 onCountChange: _.modifyCartCount,
                               )
-                            : Container();
+                            : CurtainProductCartCard(
+                                cart: item,
+                                onLongPress: () =>
+                                    _.openRemoveFromCartDialog(item.id),
+                                onMoveToCollection: () {},
+                                onRemoveFromCart: () =>
+                                    _.removeFromCart(item.id),
+                                onModifyAttribute:
+                                    _.openFinishedProductAttributeModal,
+                                onSelect: _.select,
+                              );
                       }),
                 )
               ],
@@ -164,7 +181,8 @@ class CartPage extends GetView<CartController> {
                 text: "结算(1)",
                 padding: EdgeInsets.symmetric(
                     horizontal: R.dimen.dp16, vertical: R.dimen.dp10),
-                onPressed: () => Get.toNamed(AppRoutes.commitOrder))
+                onPressed: () => Get.toNamed(AppRoutes.commitOrder,
+                    arguments: controller.selectedProducts))
           ],
         ),
       ),
