@@ -2,13 +2,15 @@
  * @Description: 订单详情头部
  * @Author: iamsmiling
  * @Date: 2021-05-18 09:26:35
- * @LastEditTime: 2021-05-18 11:25:15
+ * @LastEditTime: 2021-05-20 16:57:18
  */
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:get/get.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class OrderDetailHeader extends StatelessWidget {
   final OrderDetailEntity order;
@@ -115,36 +117,43 @@ class OrderDetailHeader extends StatelessWidget {
                           EdgeInsets.only(bottom: R.dimen.dp18 - R.dimen.dp7),
                       child: Divider()),
                   for (OrderActionLogEntity o in order.logs)
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: R.dimen.dp7),
-                      child: Row(
-                        children: [
-                          Text(
-                            o.label,
-                            style: TextStyle(fontSize: R.dimen.sp13),
-                          ),
-                          Spacer(),
-                          Text(
-                            o.date,
-                            style: TextStyle(
-                                fontSize: R.dimen.sp13,
-                                color: R.color.ff999999),
-                          ),
-                          Visibility(
-                              visible: o.hasModified,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "已调整",
-                                    style: TextStyle(
-                                        fontSize: R.dimen.sp13,
-                                        color: R.color.ff999999),
-                                  ),
-                                  Image.asset(R.image.next,
-                                      color: R.color.ff999999)
-                                ],
-                              ))
-                        ],
+                    GestureDetector(
+                      onTap: o.hasModified
+                          ? () =>
+                              Get.toNamed(Get.currentRoute + AppRoutes.editLog)
+                          : () =>
+                              Get.toNamed(Get.currentRoute + AppRoutes.editLog),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: R.dimen.dp7),
+                        child: Row(
+                          children: [
+                            Text(
+                              o.label,
+                              style: TextStyle(fontSize: R.dimen.sp13),
+                            ),
+                            Spacer(),
+                            Text(
+                              o.date,
+                              style: TextStyle(
+                                  fontSize: R.dimen.sp13,
+                                  color: R.color.ff999999),
+                            ),
+                            Visibility(
+                                visible: o.hasModified,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "已调整",
+                                      style: TextStyle(
+                                          fontSize: R.dimen.sp13,
+                                          color: R.color.ff999999),
+                                    ),
+                                    Image.asset(R.image.next,
+                                        color: R.color.ff999999)
+                                  ],
+                                ))
+                          ],
+                        ),
                       ),
                     )
                 ],

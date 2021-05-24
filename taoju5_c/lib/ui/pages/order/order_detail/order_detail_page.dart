@@ -2,7 +2,7 @@
  * @Description: 订单详情页面
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:40
- * @LastEditTime: 2021-05-18 16:57:21
+ * @LastEditTime: 2021-05-24 15:04:44
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +10,7 @@ import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/section/order_detail_body.dart';
 
@@ -63,11 +64,20 @@ class OrderDetailPage extends GetView<OrderDetailController> {
               for (OrderActionButtonEntity a in _.actions)
                 PrimaryButton(
                   text: a.text,
-                  onPressed: () {},
+                  onPressed: _.actionMap[a.action],
                   margin: EdgeInsets.only(left: R.dimen.dp10),
                   size: PrimaryButtonSize.middle,
                   mode: a.mode,
-                )
+                ),
+              PrimaryButton(
+                text: "售后维权",
+                onPressed: () => Get.toNamed(
+                    Get.currentRoute + AppRoutes.afterSell,
+                    arguments: _.order),
+                margin: EdgeInsets.only(left: R.dimen.dp10),
+                size: PrimaryButtonSize.middle,
+                mode: PrimaryButtonMode.elevatedButton,
+              )
             ],
           ),
         );

@@ -2,10 +2,12 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-05-18 17:44:41
+ * @LastEditTime: 2021-05-19 15:05:27
  */
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
+import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
+import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/entity/params/product/product_list_sort_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
@@ -64,9 +66,12 @@ extension PeoductViewModeKit on PeoductViewMode {
       '';
 }
 
-class ProductListParentController extends GetxController {
+class ProductListParentController extends GetxController
+    with SingleGetTickerProviderMixin {
   ///默认为网格视图
   PeoductViewMode viewMode = PeoductViewMode.gridMode;
+
+  List<CategoryEntity> categories = [];
 
   ///默认排序
   ProductListSortParamsEntity sortTye = ProductListSortParamsEntity(name: "默认");
@@ -87,7 +92,16 @@ class ProductListParentController extends GetxController {
 
   ProductListParentController(this.category);
 
-  CategoryEntity category;
+  CategoryEntity category = Get.arguments;
+
+  int get _intialIndex {
+    for (int i = 0; i < categories.length; i++) {
+      if (categories[i].name == category.name) {
+        return i;
+      }
+    }
+    return 0;
+  }
 
   setSortType(ProductListSortParamsEntity type) {
     type.isAsc = !type.isAsc;
@@ -100,23 +114,42 @@ class ProductListParentController extends GetxController {
     if (!Get.isRegistered<ProductListController>()) return;
     return Get.find<ProductListController>().loadData();
   }
+
+  late TabController tabController;
+
+  initTabBarController(List<CategoryEntity> list) {
+    categories = list;
+    tabController = TabController(
+        initialIndex: _intialIndex, length: categories.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 }
 
 class ProductListController
-    extends BaseFutureLoadStateController<List<ProductEntity>> {
+    extends PullToRefreshListViewBuilderController<List<ProductEntity>> {
   ProductRepository repository = ProductRepository();
 
   CategoryEntity category;
 
   ProductListController(this.category);
 
-  late List<ProductEntity> products;
+  late List<ProductEntity> products = Get.arguments;
+
+  ProductListParentController get parentController =>
+      Get.find<ProductListParentController>();
 
   @override
   Future<List<ProductEntity>> loadData({Map? params}) {
-    update();
-    return repository.productList({"category_id": category.id}).then((value) {
+    Map map = {"category_id": category.id};
+    map.addAll(params ?? {});
+    return repository.productList(map).then((value) {
       products = value.products;
+      parentController.initTabBarController(value.categories);
       return products;
       // return value;
     });

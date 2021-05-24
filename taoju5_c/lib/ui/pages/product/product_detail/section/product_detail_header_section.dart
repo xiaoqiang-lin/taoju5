@@ -2,7 +2,7 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-05-15 12:17:42
+ * @LastEditTime: 2021-05-24 13:29:11
  */
 
 import 'package:flutter/material.dart';
@@ -63,6 +63,64 @@ class ProductDetailHeaderSection extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+          ),
+          Divider(),
+          GestureDetector(
+            onTap: _.openRollingCurtainProductAttributeDialog,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
+              child: Row(
+                children: [
+                  Text(
+                    "选择规格(卷帘)",
+                    style: TextStyle(fontSize: R.dimen.sp12),
+                  ),
+                  Spacer(),
+                  Text(
+                    "请填写测装数据",
+                    style: TextStyle(
+                        fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: R.dimen.dp6),
+                    child: Image.asset(
+                      R.image.next,
+                      color: R.color.ffee9b5f,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Divider(),
+          GestureDetector(
+            onTap: _.openSectionalbarProductAttributeDialog,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
+              child: Row(
+                children: [
+                  Text(
+                    "选择规格(型材)",
+                    style: TextStyle(fontSize: R.dimen.sp12),
+                  ),
+                  Spacer(),
+                  Text(
+                    "请填写测装数据",
+                    style: TextStyle(
+                        fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: R.dimen.dp6),
+                    child: Image.asset(
+                      R.image.next,
+                      color: R.color.ffee9b5f,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Divider(),

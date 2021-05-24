@@ -2,7 +2,7 @@
  * @Description: 窗帘属性
  * @Author: iamsmiling
  * @Date: 2021-05-08 15:22:03
- * @LastEditTime: 2021-05-14 15:09:36
+ * @LastEditTime: 2021-05-24 10:11:10
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -28,22 +28,36 @@ class CurtainAttributeEntity {
   ///json1 数据来自 assets/data/measure_data.json json2数据来自/app/goods/wcAttr接口
   CurtainAttributeEntity.fromJson(Map json1, Map json2) {
     ///空间
-    json1["measure_data"]["room"]?..addAll(json2["room_list"]);
+    if (!JsonKit.isNullOrBlank(json2["room_list"])) {
+      json1["measure_data"]["room"]?..addAll((json2["room_list"]));
+    }
 
     ///工艺
-    json1["matching_set"]["craft"]?..addAll(json2["craft_list"]);
+    if (!JsonKit.isNullOrBlank(json2["craft_list"])) {
+      json1["matching_set"]["craft"]
+        ?..addAll((json2["craft_list"] ?? {}) as Map<String, dynamic>);
+    }
 
     ///型材
-    json1["matching_set"]["sectionalbar"]?..addAll(json2["parts_list"]);
+    if (!JsonKit.isNullOrBlank(json2["parts_list"])) {
+      json1["matching_set"]["sectionalbar"]?..addAll((json2["parts_list"]));
+    }
 
-    ///窗纱
-    json1["matching_set"]["gauze"]?..addAll(json2["gauze_list"]);
+    if (!JsonKit.isNullOrBlank(json2["gauze_list"])) {
+      json1["matching_set"]["gauze"]?..addAll((json2["gauze_list"]));
+    }
 
-    ///里布
-    json1["matching_set"]["riboux"]?..addAll(json2["lining_list"]);
+    if (!JsonKit.isNullOrBlank(json2["lining_list"])) {
+      json1["matching_set"]["riboux"]?..addAll((json2["lining_list"]));
+    }
 
-    ///幔头
-    json1["matching_set"]["valance"]?..addAll(json2["curtain_list"]);
+    if (!JsonKit.isNullOrBlank(json2["curtain_list"])) {
+      json1["matching_set"]["valance"]?..addAll((json2["curtain_list"]));
+    }
+
+    // ///幔头
+    // json1["matching_set"]["valance"]
+    //   ?..addAll((json2["curtain_list"] ?? {}) as Map<String, dynamic>);
 
     ///配饰
     // json1["matching_set"]["accessory"]?..addAll(json2["accessory_list"]);

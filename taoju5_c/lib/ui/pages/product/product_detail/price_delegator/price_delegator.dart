@@ -2,7 +2,7 @@
  * @Description: 价格计算代理
  * @Author: iamsmiling
  * @Date: 2021-05-12 14:49:09
- * @LastEditTime: 2021-05-12 16:08:40
+ * @LastEditTime: 2021-05-24 10:43:45
  */
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
@@ -55,9 +55,18 @@ abstract class BaseCurtainProductPriceDelegator
   }
 }
 
-class FabriceCurtainProductPriceDelegator
+class RollingCurtainProductPriceDelegator
     extends BaseCurtainProductPriceDelegator {
-  FabriceCurtainProductPriceDelegator(
+  RollingCurtainProductPriceDelegator(
+      ProductDetailEntity product, CurtainAttributeEntity attribute)
+      : super(product, attribute: attribute);
+  @override
+  double get totalPrice => unitPrice * area;
+}
+
+class FabricCurtainProductPriceDelegator
+    extends BaseCurtainProductPriceDelegator {
+  FabricCurtainProductPriceDelegator(
       ProductDetailEntity product, CurtainAttributeEntity attribute)
       : super(product, attribute: attribute);
 

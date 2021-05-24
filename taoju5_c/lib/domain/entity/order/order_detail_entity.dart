@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-18 09:27:53
- * @LastEditTime: 2021-05-18 16:48:25
+ * @LastEditTime: 2021-05-21 15:44:56
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -22,6 +22,9 @@ class OrderDetailEntity {
   late OrderProductListWrapper wrapper;
   late List<OrderBillEntity> bills;
   late List<OrderActionButtonEntity> actions;
+
+  late CancelOrderReasonEntity cancelOrderReason;
+
   OrderDetailEntity.fromJson(Map json) {
     id = json["id"];
     actions = JsonKit.asList(json["button"])
@@ -30,7 +33,8 @@ class OrderDetailEntity {
     statusTip = OrderStatusTipEntity.fromJson(json["title_detail"]);
     receiver = OrderReceiverEntity.fromJson(json["receiver_detail"]);
     sheet = OrderSheetEnity.fromJson(json["order_message"]);
-    manuscript = OrderManuscriptEntity.fronJson(json["manuscripts"]);
+    manuscript =
+        OrderManuscriptEntity.fronJson(JsonKit.asMap(json["manuscripts"]));
 
     wrapper = OrderProductListWrapper.fromJson(json["order_goods"]);
     logs = JsonKit.asList(json["mes_int_detail"])
@@ -39,6 +43,8 @@ class OrderDetailEntity {
     bills = JsonKit.asList(json["money_list"])
         .map((e) => OrderBillEntity.fromJson(e))
         .toList();
+
+    cancelOrderReason = CancelOrderReasonEntity.fromJson(json["reason"]);
   }
 }
 
@@ -180,5 +186,17 @@ class OrderSheetItemEntity {
     key = json["name"];
     value = json["value"];
     canCopy = JsonKit.asBool(json["is_copy"]);
+  }
+}
+
+class CancelOrderReasonEntity {
+  late String title;
+  late String message;
+  late List<String> options;
+
+  CancelOrderReasonEntity.fromJson(Map json) {
+    title = json["name"];
+    message = json["message"];
+    options = JsonKit.asList(json["items"]).cast<String>();
   }
 }

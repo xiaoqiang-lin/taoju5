@@ -2,7 +2,7 @@
  * @Description: 某些接口需要提示操作成功的信息
  * @Author: iamsmiling
  * @Date: 2021-05-14 14:26:35
- * @LastEditTime: 2021-05-14 15:58:07
+ * @LastEditTime: 2021-05-19 10:07:01
  */
 import 'package:dio/dio.dart';
 import 'package:taoju5_c/utils/toast.dart';
@@ -10,7 +10,11 @@ import 'package:taoju5_c/utils/toast.dart';
 class ToastInterceptor extends InterceptorsWrapper {
   // List<_Taoju5Bloc> blocs = [AddToCartBloc()];
   // Map<String, _Taoju5Bloc> blocs = {"/app/user/addCart": _AddToCartBloc()};
-  List<String> paths = ["/app/user/addCart", "/app/goods/wcAttr"];
+  List<String> paths = [
+    "/app/user/addCart",
+    "/app/user/delCart",
+    "/app/goods/wcAttr"
+  ];
 
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {

@@ -2,7 +2,7 @@
  * @Description: sho
  * @Author: iamsmiling
  * @Date: 2021-05-17 16:50:40
- * @LastEditTime: 2021-05-18 18:01:00
+ * @LastEditTime: 2021-05-19 09:13:19
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -28,7 +28,7 @@ class OrderTabEntity {
   OrderTabEntity.fromJson(Map json) {
     label = json["status_name"];
     status = json["status"];
-    count = json["count"];
+    count = json["num"];
     visible = JsonKit.asBool(json["visible"]);
   }
 }

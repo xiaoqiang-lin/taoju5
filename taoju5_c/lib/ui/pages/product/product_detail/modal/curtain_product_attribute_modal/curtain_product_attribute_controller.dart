@@ -21,10 +21,10 @@ import 'package:taoju5_c/ui/pages/product/product_detail/price_delegator/price_d
 class CurtainProductAttributeController extends GetxController {
   ProductDetailEntity product;
   CurtainAttributeEntity atrribute;
-  late FabriceCurtainProductPriceDelegator priceDelegator;
+  late FabricCurtainProductPriceDelegator priceDelegator;
   CurtainProductAttributeController(
       {required this.product, required this.atrribute}) {
-    priceDelegator = FabriceCurtainProductPriceDelegator(product, atrribute);
+    priceDelegator = FabricCurtainProductPriceDelegator(product, atrribute);
   }
 
   ///当前编辑的属性下标

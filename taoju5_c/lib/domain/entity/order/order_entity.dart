@@ -2,7 +2,7 @@
  * @Description: 订单列表数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:49:46
- * @LastEditTime: 2021-05-18 16:40:23
+ * @LastEditTime: 2021-05-20 15:20:30
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -85,5 +85,6 @@ class OrderActionButtonEntity {
     enabled = JsonKit.asBool(json["enable"]);
     _modeCode = json["type"];
     text = json["name"];
+    action = 1;
   }
 }

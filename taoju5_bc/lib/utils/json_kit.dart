@@ -2,7 +2,7 @@
  * @Description: json转换工具类
  * @Author: iamsmiling
  * @Date: 2020-12-21 09:59:08
- * @LastEditTime: 2021-04-17 17:58:45
+ * @LastEditTime: 2021-05-21 15:44:36
  */
 
 import 'package:taoju5_bc/config/net_config.dart';
@@ -71,6 +71,11 @@ abstract class JsonKit {
     if (value is List) return value;
     if (value is Iterable) return value.toList();
     return [];
+  }
+
+  static Map asMap(dynamic value) {
+    if (value is Map) return value;
+    return {};
   }
 
   static dynamic getFirstItem(List list) {

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:04:06
- * @LastEditTime: 2021-05-17 11:28:08
+ * @LastEditTime: 2021-05-19 15:31:36
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
@@ -58,7 +58,7 @@ class PayController extends GetxController {
     CreateOrderParamsEntity arg = Get.arguments;
     ToastKit.loading();
     return repository.createMeasureOrder(arg.params).then((value) {
-      currentPayStrategy.pay("");
+      currentPayStrategy.pay(value);
     }).whenComplete(ToastKit.dismiss);
   }
 }

@@ -2,14 +2,17 @@
  * @Description: 订单详情主体
  * @Author: iamsmiling
  * @Date: 2021-05-18 11:26:16
- * @LastEditTime: 2021-05-18 16:27:21
+ * @LastEditTime: 2021-05-20 16:48:13
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_pages.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/widget/product_adaptor_card.dart';
+import 'package:get/get.dart';
 
 class OrderDetailBody extends StatelessWidget {
   final OrderDetailEntity order;
@@ -119,23 +122,27 @@ class OrderDetailBody extends StatelessWidget {
                       ],
                     ),
                   ),
-                Container(
-                  // width: R.dimen.width,
-                  // alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(vertical: R.dimen.dp15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        order.wrapper.tip,
-                        style: TextStyle(
-                            color: R.color.ff666666, fontSize: R.dimen.sp14),
-                      ),
-                      Image.asset(
-                        R.image.next,
-                        color: R.color.ff666666,
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () =>
+                      Get.toNamed(Get.currentRoute + AppRoutes.mainfest),
+                  child: Container(
+                    // width: R.dimen.width,
+                    // alignment: Alignment.centerRight,
+                    margin: EdgeInsets.symmetric(vertical: R.dimen.dp15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          order.wrapper.tip,
+                          style: TextStyle(
+                              color: R.color.ff666666, fontSize: R.dimen.sp14),
+                        ),
+                        Image.asset(
+                          R.image.next,
+                          color: R.color.ff666666,
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

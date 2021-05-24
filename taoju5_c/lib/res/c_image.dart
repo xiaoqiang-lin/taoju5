@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-17 16:13:57
+ * @LastEditTime: 2021-05-21 16:33:51
  */
 // part of R;
 class CImage {
@@ -133,4 +133,19 @@ class CImage {
 
   final String wechat = "resources/images/wechat.png";
   final String wechatMoment = "resources/images/wechat_moment.png";
+
+  final String mask = "resources/images/shadow_mask.png";
+
+  final String hotTag = "resources/images/hot_tag.png";
+
+  final String logisticsNodeHighlighted =
+      "resources/images/logistics_node_highlighted.png";
+
+  final String logisticsNode = "resources/images/logistics_node.png";
+
+  final String measureOrderButton = "resources/images/measure_order_button.png";
+
+  final String activityMessage = "resources/images/activity_message.png";
+
+  final String orderMessage = "resources/images/order_message.png";
 }

@@ -2,7 +2,7 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-18 18:07:51
+ * @LastEditTime: 2021-05-20 14:36:18
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
@@ -26,8 +26,14 @@ class MineController extends GetxController {
   List<OrderTabEntity> kongos = [];
 
   List<MineTileEntity> get tiles => [
-        MineTileEntity(icon: R.image.star, label: "我的收藏", onTap: () {}),
-        MineTileEntity(icon: R.image.footprint, label: "我的足迹", onTap: () {}),
+        MineTileEntity(
+            icon: R.image.star,
+            label: "我的收藏",
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.footPrint)),
+        MineTileEntity(
+            icon: R.image.footprint,
+            label: "我的足迹",
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.footPrint)),
         MineTileEntity(
             icon: R.image.address,
             label: "地址管理",
@@ -41,7 +47,11 @@ class MineController extends GetxController {
         MineTileEntity(
             icon: R.image.customerService, label: "客服", onTap: () {}),
         MineTileEntity(
-            icon: R.image.customerService, label: "售后申请", onTap: () {})
+            icon: R.image.customerService, label: "售后申请", onTap: () {}),
+        MineTileEntity(
+            icon: R.image.address,
+            label: "查看物流",
+            onTap: () => Get.toNamed(AppRoutes.logistics)),
       ];
 
   @override

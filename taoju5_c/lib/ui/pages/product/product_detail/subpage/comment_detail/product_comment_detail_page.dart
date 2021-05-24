@@ -2,10 +2,16 @@
  * @Description: 商品评论详情
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:10:41
- * @LastEditTime: 2021-04-27 17:57:21
+ * @LastEditTime: 2021-05-19 17:54:19
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/button/like_button.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
+import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_detail/section/comment_detail_body.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_detail/section/comment_detail_header.dart';
 
 import 'product_comment_detail_controller.dart';
 
@@ -18,8 +24,41 @@ class ProductCommentDetailPage extends GetView<ProductCommentDetailController> {
       appBar: AppBar(
         title: Text("评论详情"),
       ),
-      body: CustomScrollView(
-        slivers: [],
+      body: FutureLoadStateBuilder<ProductCommentDetailController>(
+          controller: controller,
+          builder: (ProductCommentDetailController _) {
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: CommentDetailHeader(comment: _.comment),
+                ),
+                SliverToBoxAdapter(
+                  child: CommentDetailBody(comment: _.comment),
+                ),
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int i) {
+                  return Container(
+                      margin: EdgeInsets.only(bottom: R.dimen.dp10),
+                      padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+                      child: ChimeraImage(imageUrl: _.comment.pictures[i]));
+                }, childCount: _.comment.pictures.length))
+              ],
+            );
+          }),
+      bottomNavigationBar: Container(
+        height: kBottomNavigationBarHeight,
+        margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LikeButton(),
+            Container(
+              margin: EdgeInsets.only(left: R.dimen.dp8),
+              child: Text("${controller.comment.likeCount}"),
+            )
+          ],
+        ),
       ),
     );
   }

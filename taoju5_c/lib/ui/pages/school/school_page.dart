@@ -2,7 +2,7 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-05-06 10:58:06
+ * @LastEditTime: 2021-05-19 10:50:15
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -76,9 +76,14 @@ class SchoolPage extends GetView<SchoolController> {
               children: [
                 Container(
                   margin: EdgeInsets.only(bottom: R.dimen.dp10),
-                  child: TabBar(isScrollable: true, tabs: [
-                    for (String item in _.tabs) Tab(child: Text(item))
-                  ]),
+                  child: Stack(
+                    children: [
+                      TabBar(isScrollable: true, tabs: [
+                        for (String item in _.tabs) Tab(child: Text(item))
+                      ]),
+                      Positioned(right: 0, child: Image.asset(R.image.mask))
+                    ],
+                  ),
                 ),
                 Expanded(
                     child: TabBarView(

@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-05-18 15:35:19
+ * @LastEditTime: 2021-05-20 16:54:52
  */
 
 import 'package:get/get.dart';
@@ -29,8 +29,16 @@ import 'package:taoju5_c/ui/pages/login/modify_password/modify_password_second_p
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_binding.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_fisrt_page.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_second_page.dart';
+import 'package:taoju5_c/ui/pages/logistics/logistcis_page.dart';
+import 'package:taoju5_c/ui/pages/logistics/logistics_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
+import 'package:taoju5_c/ui/pages/message/message_binding.dart';
+import 'package:taoju5_c/ui/pages/message/message_page.dart';
+import 'package:taoju5_c/ui/pages/message/subpage/activity_message/activity_message_binding.dart';
+import 'package:taoju5_c/ui/pages/message/subpage/activity_message/activity_message_page.dart';
+import 'package:taoju5_c/ui/pages/message/subpage/order_message_detail/order_message_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/message/subpage/order_message_detail/order_message_detail_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/account/account_page.dart';
@@ -42,6 +50,8 @@ import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/footprint/foot_print_binding.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/footprint/foot_print_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/profile_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/profile/subpage/modify_user_avatar/modify_user_avatar_binding.dart';
@@ -55,6 +65,12 @@ import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_binding.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commt_order_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/aftersell/aftersell_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/aftersell/aftersell_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/edit_log/order_edit_log_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/edit_log/order_edit_log_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_page.dart';
 import 'package:taoju5_c/ui/pages/pay/pay_binding.dart';
@@ -189,7 +205,11 @@ class AppPages {
           GetPage(
               name: AppRoutes.feedback,
               page: () => FeedbackPage(),
-              binding: FeedbackBinding())
+              binding: FeedbackBinding()),
+          GetPage(
+              name: AppRoutes.footPrint,
+              page: () => FootPrintPage(),
+              binding: FootPrintBinding())
         ]),
 
     GetPage(
@@ -253,7 +273,25 @@ class AppPages {
     GetPage(
         name: AppRoutes.orderDetail + "/:id",
         page: () => OrderDetailPage(),
-        binding: OrderDetailBinding()),
+        binding: OrderDetailBinding(),
+        children: [
+          GetPage(
+              name: AppRoutes.afterSell,
+              page: () => AfterSellPage(),
+              binding: AftersellBinding()),
+          GetPage(
+              name: AppRoutes.logistics,
+              page: () => LogisticsPage(),
+              binding: LogisticsBinding()),
+          GetPage(
+              name: AppRoutes.mainfest,
+              page: () => OrderMainfestPage(),
+              binding: OrderMainfestBinding()),
+          GetPage(
+              name: AppRoutes.editLog,
+              page: () => OrderEditLogPage(),
+              binding: OrderEditLogBinding())
+        ]),
 
     ///支付
     GetPage(name: AppRoutes.pay, page: () => PayPage(), binding: PayBinding()),
@@ -263,5 +301,21 @@ class AppPages {
     //     name: AppRoutes.amap,
     //     page: () => AMapViewPage(),
     //     binding: AMapViewBinding()),
+
+    ///消息中心
+    GetPage(
+        name: AppRoutes.message,
+        page: () => MessagePage(),
+        binding: MessageBinding(),
+        children: [
+          GetPage(
+              name: AppRoutes.orderMessage + "/:id",
+              page: () => OrderMessageDetailPage(),
+              binding: OrderMessageDetailBinding()),
+          GetPage(
+              name: AppRoutes.activityMessage + "/:id",
+              page: () => ActivityMessagePage(),
+              binding: ActivityMessageBinding())
+        ]),
   ];
 }

@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-05-17 14:58:41
+ * @LastEditTime: 2021-05-19 15:47:27
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
             IconButton(
                 padding: EdgeInsets.zero,
                 icon: Image.asset(R.image.message),
-                onPressed: () {})
+                onPressed: () => Get.toNamed(AppRoutes.message))
           ],
         ),
         body: CustomScrollView(

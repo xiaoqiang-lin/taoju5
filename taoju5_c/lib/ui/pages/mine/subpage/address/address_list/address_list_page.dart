@@ -2,7 +2,7 @@
  * @Description: 地址列表页
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-07 15:25:51
+ * @LastEditTime: 2021-05-19 13:20:54
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +53,8 @@ class AddressListPage extends GetView<AddressListController> {
           builder: (_) {
             return ListView.separated(
                 itemBuilder: (BuildContext context, int i) {
-                  return AddressCard(address: _.addresses[i]);
+                  return AddressCard(
+                      key: ObjectKey(_.addresses[i]), address: _.addresses[i]);
                 },
                 separatorBuilder: (BuildContext context, int i) =>
                     Divider(indent: R.dimen.dp24, endIndent: R.dimen.dp24),

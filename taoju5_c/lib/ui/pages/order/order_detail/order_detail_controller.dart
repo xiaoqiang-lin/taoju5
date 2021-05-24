@@ -2,7 +2,7 @@
  * @Description: 订单详情
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:05
- * @LastEditTime: 2021-05-18 16:35:41
+ * @LastEditTime: 2021-05-20 15:21:33
  */
 
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/domain/repository/order_repository.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/modal/cancel_order_modal.dart';
 
 class OrderDetailController
     extends BaseFutureLoadStateController<OrderDetailEntity> {
@@ -27,5 +28,11 @@ class OrderDetailController
       actions = order.actions;
       return value;
     });
+  }
+
+  Map<int, Function()> get actionMap => {1: cancelOrder};
+
+  Future cancelOrder() {
+    return openCancelOrderModal(Get.context!, order.cancelOrderReason);
   }
 }

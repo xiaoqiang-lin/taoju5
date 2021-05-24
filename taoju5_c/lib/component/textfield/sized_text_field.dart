@@ -2,7 +2,7 @@
  * @Description: 尺寸固定的输入框
  * @Author: iamsmiling
  * @Date: 2021-05-10 16:31:19
- * @LastEditTime: 2021-05-13 15:28:38
+ * @LastEditTime: 2021-05-24 10:50:57
  */
 
 import 'dart:ui';
@@ -21,6 +21,8 @@ class SizedTextField extends StatelessWidget {
   final ShakeAnimationController? shakeController;
   final Color borderColor;
   final Color hintColor;
+  final TextAlign textAlign;
+  final EdgeInsets padding;
   const SizedTextField(
       {Key? key,
       required this.decoration,
@@ -30,7 +32,9 @@ class SizedTextField extends StatelessWidget {
       this.initialValue,
       this.shakeController,
       this.borderColor = const Color(0xFFEE9B5F),
-      this.hintColor = const Color(0xFFBCBCBC)})
+      this.hintColor = const Color(0xFFBCBCBC),
+      this.textAlign = TextAlign.center,
+      this.padding = EdgeInsets.zero})
       : super(key: key);
 
   @override
@@ -41,6 +45,7 @@ class SizedTextField extends StatelessWidget {
       shakeAnimationType: ShakeAnimationType.LeftRightShake,
       child: Container(
         alignment: Alignment.center,
+        padding: padding,
         constraints: constraints ??
             BoxConstraints(maxHeight: 32, maxWidth: 84, minHeight: 32),
         decoration: boxDecoration ??
@@ -54,7 +59,7 @@ class SizedTextField extends StatelessWidget {
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
             buildCounter: null,
-            textAlign: TextAlign.center,
+            textAlign: textAlign,
             textAlignVertical: TextAlignVertical.center,
             style: const TextStyle(fontSize: 12, color: Color(0xFFEE9B5F)),
 

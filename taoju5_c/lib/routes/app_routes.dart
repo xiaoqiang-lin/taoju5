@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-05-18 15:34:44
+ * @LastEditTime: 2021-05-20 16:54:27
  */
 class AppRoutes {
   ///app程序入口
@@ -88,4 +88,18 @@ class AppRoutes {
   static const search = '/search';
 
   static const cart = '/cart';
+
+  static const footPrint = '/footPrint';
+
+  static const message = '/message';
+
+  static const orderMessage = '/orderMessage';
+
+  static const activityMessage = '/activityMessage';
+
+  static const logistics = "/logistics";
+
+  static const mainfest = "/mainfest";
+
+  static const editLog = "/editLog";
 }

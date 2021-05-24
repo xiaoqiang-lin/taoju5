@@ -2,11 +2,12 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-05-18 17:40:04
+ * @LastEditTime: 2021-05-19 10:31:42
  */
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
+import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 
 class MallEntity {
   late List<CategoryEntity> categories;
@@ -14,17 +15,12 @@ class MallEntity {
   late List<ProductEntity> products;
 
   MallEntity.fromJson(Map json) {
-    categories = json["category_list"];
-    products = json["goods_list"];
-  }
-}
-
-class CategoryEntity {
-  late String name;
-  late int id;
-  CategoryEntity.fromJson(Map json) {
-    name = json["category_name"];
-    id = json["category_id"];
+    categories = JsonKit.asList(json["category_list"])
+        .map((e) => CategoryEntity.fromJson(e))
+        .toList();
+    products = JsonKit.asList(json["goods_list"])
+        .map((e) => ProductEntity.fromJson(e))
+        .toList();
   }
 }
 
@@ -43,6 +39,13 @@ class ProductEntity {
 
   late bool isNew;
 
+  late String brand;
+
+  /// 材质名称
+  late String material;
+
+  late String price;
+
   ProductEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
@@ -51,5 +54,8 @@ class ProductEntity {
     unit = json["goods_unit"];
     isHot = JsonKit.asBool(json["is_hot"]);
     isNew = JsonKit.asBool(json["is_new"]);
+    brand = "品牌名称";
+    material = "材质名称";
+    price = json["price"];
   }
 }

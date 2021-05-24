@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-04-28 10:16:37
+ * @LastEditTime: 2021-05-24 09:25:05
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
