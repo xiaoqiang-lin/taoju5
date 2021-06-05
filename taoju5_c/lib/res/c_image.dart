@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-21 16:33:51
+ * @LastEditTime: 2021-06-02 19:37:39
  */
 // part of R;
 class CImage {
@@ -141,6 +141,9 @@ class CImage {
   final String logisticsNodeHighlighted =
       "resources/images/logistics_node_highlighted.png";
 
+  final String logisticsNodeWithTail =
+      "resources/images/logistics_node_with_tail.png";
+
   final String logisticsNode = "resources/images/logistics_node.png";
 
   final String measureOrderButton = "resources/images/measure_order_button.png";
@@ -148,4 +151,14 @@ class CImage {
   final String activityMessage = "resources/images/activity_message.png";
 
   final String orderMessage = "resources/images/order_message.png";
+
+  final String scoringStar = "resources/images/scoring_star.png";
+
+  final String greyScoringStar = "resources/images/scoring_star_grey.png";
+
+  final String commentEdit = "resources/images/comment_edit.png";
+
+  final String eye = "resources/images/eye.png";
+
+  final String notCollect = "resources/images/not_collect.png";
 }

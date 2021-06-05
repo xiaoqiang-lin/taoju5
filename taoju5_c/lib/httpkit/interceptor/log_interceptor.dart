@@ -2,7 +2,7 @@
  * @Description: 日志打印
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:58:16
- * @LastEditTime: 2021-04-27 10:09:20
+ * @LastEditTime: 2021-05-27 09:18:17
  */
 import 'package:dio/dio.dart';
 
@@ -18,6 +18,7 @@ class LogInterceptor extends InterceptorsWrapper {
     print("formdata参数:\n");
     print("${options.data}");
     print("----------------------------------------------------------------");
+
     handler.next(options);
   }
 

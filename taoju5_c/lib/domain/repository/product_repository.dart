@@ -2,7 +2,7 @@
  * @Description: 商品相关
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:02:12
- * @LastEditTime: 2021-05-18 17:40:49
+ * @LastEditTime: 2021-05-29 17:48:38
  */
 import 'dart:convert';
 
@@ -22,6 +22,12 @@ class ProductRepository {
   Future<ProductDetailEntity> productDetail(Map params) =>
       _api.productDetail(params).then((BaseEntity response) {
         return ProductDetailEntity.fromJson(response.data["goods_detail"]);
+      });
+
+  ///商品详情
+  Future<ProductDetailEntity> productDetailWithSkuId(Map params) =>
+      _api.productDetailWithSkuId(params).then((BaseEntity response) {
+        return ProductDetailEntity.fromJson(response.data);
       });
 
   ///商品详情

@@ -2,13 +2,14 @@
  * @Description: 消息中心
  * @Author: iamsmiling
  * @Date: 2021-05-19 15:41:40
- * @LastEditTime: 2021-05-19 16:22:09
+ * @LastEditTime: 2021-06-04 18:05:22
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/message/message_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/message/message_controller.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,7 @@ class MessagePage extends GetView<MessageController> {
                 MessageEntity item = _.messages[i];
                 return GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap: () => Get.toNamed(item.path),
+                  onTap: () => Get.toNamed(AppRoutes.prefix + item.path),
                   child: Container(
                     margin: EdgeInsets.only(top: R.dimen.dp10),
                     padding: EdgeInsets.symmetric(

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-06 10:40:06
- * @LastEditTime: 2021-05-18 16:29:49
+ * @LastEditTime: 2021-05-26 16:47:41
  */
 
 import 'package:flutter/material.dart';
@@ -59,10 +59,11 @@ abstract class ToastKit {
   }
 
   static dismiss({Duration? delay}) {
+    if (!EasyLoading.isShow) return;
     EasyLoading.dismiss();
   }
 
-  static error(String message) {
+  static error(String message, {bool autoDismiss = false}) {
     showDialog(
         context: Get.context!,
         builder: (BuildContext context) {
@@ -85,6 +86,8 @@ abstract class ToastKit {
             ),
           );
         });
-    Future.delayed(const Duration(milliseconds: 1000)).whenComplete(Get.back);
+    if (autoDismiss) {
+      Future.delayed(const Duration(milliseconds: 1000)).whenComplete(Get.back);
+    }
   }
 }

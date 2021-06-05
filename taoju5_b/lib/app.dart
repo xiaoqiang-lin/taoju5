@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:22:15
- * @LastEditTime: 2021-04-17 17:22:42
+ * @LastEditTime: 2021-06-04 17:33:02
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,6 @@ class $BApp extends StatelessWidget {
       ),
       // Configure d// Configure the defau
       child: GetMaterialApp(
-        key: ValueKey(AppEnv.$b),
         title: AppConfig.appName,
         unknownRoute: BAppPages.unkonw,
         getPages: BAppPages.pages,

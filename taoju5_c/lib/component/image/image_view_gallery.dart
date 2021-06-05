@@ -2,7 +2,7 @@
  * @Description:大图查看可滑动
  * @Author: iamsmiling
  * @Date: 2021-04-23 09:14:01
- * @LastEditTime: 2021-05-15 14:11:21
+ * @LastEditTime: 2021-05-26 14:06:20
  */
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -99,6 +99,7 @@ class _ImageViewGalleryState extends State<ImageViewGallery> {
                   builder: (BuildContext context, int i) {
                     return PhotoViewGalleryPageOptions(
                       imageProvider: NetworkImage(widget.images[i]),
+                      // heroAttributes: PhotoViewHeroAttributes(),
                     );
                   },
                 ),

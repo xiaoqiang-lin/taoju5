@@ -2,7 +2,7 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-15 13:11:15
- * @LastEditTime: 2021-04-17 18:49:18
+ * @LastEditTime: 2021-06-03 15:45:10
  */
 
 import 'dart:convert';
@@ -15,7 +15,7 @@ class LoginAPI {
   HttpKit _http = HttpKit();
 
   ///微信登录
-  Future<BaseEntity> weChatLogin(Map params) async {
+  Future<BaseEntity> weChatLogin(Map<String, dynamic> params) async {
     try {
       WeChatLoginEntity entity = await _getWeChatAccessToken(params);
       params.addAll({

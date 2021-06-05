@@ -2,7 +2,7 @@
 
 import 'c_color.dart';
 import 'c_dimen.dart';
-import 'c_icon.dart';
+// import 'c_icon.dart';
 import 'c_image.dart';
 import 'c_style.dart';
 import 'c_theme.dart';
@@ -18,5 +18,5 @@ class R {
 
   static CStyle style = CStyle();
 
-  static CIcon icon = CIcon();
+  // static CIcon icon = CIcon();
 }

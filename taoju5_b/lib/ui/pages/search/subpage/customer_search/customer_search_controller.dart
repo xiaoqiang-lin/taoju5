@@ -7,7 +7,7 @@
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/model/customer/customer_model.dart';
 import 'package:taoju5_b/domain/repository/customer/customer_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5_b/ui/widgets/base/x_view_state.dart';

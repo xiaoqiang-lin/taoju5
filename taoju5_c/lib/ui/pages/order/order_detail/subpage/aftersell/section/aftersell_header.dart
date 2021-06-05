@@ -2,13 +2,11 @@
  * @Description: 顶部
  * @Author: iamsmiling
  * @Date: 2021-05-24 15:05:37
- * @LastEditTime: 2021-05-24 15:15:31
+ * @LastEditTime: 2021-06-04 06:25:43
  */
 
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
-import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/order/widget/product_adaptor_card.dart';
 

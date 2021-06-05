@@ -2,15 +2,15 @@
  * @Description: 网络错误拦截
  * @Author: iamsmiling
  * @Date: 2021-04-26 18:00:32
- * @LastEditTime: 2021-05-18 15:45:00
+ * @LastEditTime: 2021-06-03 16:30:55
  */
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
+import 'package:taoju5_c/httpkit/exception/argument_exception.dart';
 import 'package:taoju5_c/httpkit/exception/expired_token_exception.dart';
-import 'package:taoju5_c/httpkit/exception/invalid_params_exception.dart';
 import 'package:taoju5_c/httpkit/exception/offline_exception.dart';
-import 'package:taoju5_c/httpkit/exception/server_error_exception.dart';
+import 'package:taoju5_c/httpkit/exception/server_exception.dart';
 import 'package:taoju5_c/httpkit/exception/unlogin_exception.dart';
 import 'package:taoju5_c/httpkit/taoju5_http_code.dart';
 
@@ -30,8 +30,7 @@ class HttpErrorInterceptor extends InterceptorsWrapper {
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) {
     if (response.statusCode == 500) {
-      return handler
-          .reject(ServerErrorException("服务器异常", response.requestOptions));
+      return handler.reject(ServerException("服务器异常", response.requestOptions));
     }
     BaseEntity result = response.data;
 
@@ -45,10 +44,19 @@ class HttpErrorInterceptor extends InterceptorsWrapper {
       return handler.reject(
           ExpiredTokenException(result.message, response.requestOptions));
     }
-    if (code == Taoju5HttpStatus.invalidParams.code) {
-      return handler.reject(
-          InvalidParamsException(result.message, response.requestOptions));
+    if (code != 0) {
+      return handler
+          .reject(ArgumentException(result.message, response.requestOptions));
     }
+    // if (code == Taoju5HttpStatus.invalidParams.code) {
+    //   return handler
+    //       .reject(ArgumentException(result.message, response.requestOptions));
+    // }
+    // if (code == Taoju5HttpStatus.outOfStock.code) {
+    //   return handler
+    //       .reject(ArgumentException(result.message, response.requestOptions));
+    // }
+
     handler.next(response);
   }
 }

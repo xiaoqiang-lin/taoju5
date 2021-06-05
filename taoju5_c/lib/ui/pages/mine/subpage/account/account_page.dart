@@ -17,9 +17,12 @@ class AccountPage extends StatelessWidget {
 
   static List<SettingTileEntity> tiles = [
     SettingTileEntity(
-        label: "修改手机号", onTap: () => Get.toNamed(AppRoutes.modifyTelephone1)),
+        label: "修改手机号",
+        onTap: () =>
+            Get.toNamed(AppRoutes.prefix + AppRoutes.modifyTelephone1)),
     SettingTileEntity(
-        label: "修改密码", onTap: () => Get.toNamed(AppRoutes.modifyPassword1)),
+        label: "修改密码",
+        onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.modifyPassword1)),
   ];
   @override
   Widget build(BuildContext context) {

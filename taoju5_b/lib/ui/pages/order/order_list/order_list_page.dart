@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/res/b_icons.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/order/order_list/order_list_controller.dart';
 import 'package:taoju5_b/ui/pages/order/order_list/order_list_skeleton.dart';
 import 'package:taoju5_b/ui/pages/search/search_controller.dart';

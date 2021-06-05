@@ -23,7 +23,7 @@ class CommentDetailBody extends StatelessWidget {
           Row(
             children: [
               ChimeraImage(
-                imageUrl: comment.userAvatar,
+                comment.userAvatar,
                 width: R.dimen.dp36,
                 height: R.dimen.dp36,
                 borderRadius: BorderRadius.circular(R.dimen.dp36 / 2),

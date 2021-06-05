@@ -2,7 +2,7 @@
  * @Description:修改头像逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-22 13:24:31
- * @LastEditTime: 2021-04-22 18:47:55
+ * @LastEditTime: 2021-06-04 12:50:55
  */
 import 'dart:typed_data';
 
@@ -40,7 +40,7 @@ class ModifyUserAvatarController extends GetxController {
     if (source == null) return;
     ImagePicker picker = ImagePicker();
     PickedFile? avatar = await picker.getImage(source: source);
-    await Get.toNamed(AppRoutes.imageCrop, arguments: avatar);
+    // await Get.toNamed(AppRoutes.imageCrop, arguments: avatar);
     if (avatar == null) return;
     return _upload(avatar);
   }
@@ -62,6 +62,8 @@ class ModifyUserAvatarController extends GetxController {
       {required ModifyUserProfileParamsEntity arg, dynamic formData}) {
     MineRepository _repository = MineRepository();
     ToastKit.loading(message: "正在上传");
+    print(arg.params);
+    print("参数---------");
     return _repository
         .modifyUserProfile(arg.params, formData: formData)
         .then((UserEntity val) {

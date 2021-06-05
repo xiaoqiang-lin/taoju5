@@ -2,7 +2,7 @@
  * @Description: app入口
  * @Author: iamsmiling
  * @Date: 2020-12-15 12:05:52
- * @LastEditTime: 2021-04-30 09:36:06
+ * @LastEditTime: 2021-06-04 13:10:53
  */
 
 // import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ void startApp() {
   DoKit.runApp(
       app: DoKitApp(TaojuwuApp()),
       // 是否在release包内使用，默认release包会禁用
-      useInRelease: true,
+      useInRelease: false,
       releaseAction: () => {
             // release模式下执行该函数，一些用到runZone之类实现的可以放到这里，该值为空则会直接调用系统的runApp(MyApp())，
           });

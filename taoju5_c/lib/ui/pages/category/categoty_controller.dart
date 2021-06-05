@@ -2,12 +2,11 @@
  * @Description: 分类控制
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-05-06 13:33:37
+ * @LastEditTime: 2021-06-04 11:05:47
  */
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/repository/category_repository.dart';
@@ -43,16 +42,18 @@ class CategoryController
 
   void onTabChanged(int i) {
     if (currentCategory == categories[i]) return;
-    pageController.animateTo(
-        i == 0
-            ? 0
-            : i * Get.height -
-                kBottomNavigationBarHeight -
-                kToolbarHeight -
-                kTextTabBarHeight,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeInOut);
+    pageController.animateToPage(i,
+        duration: Duration(milliseconds: 375), curve: Curves.easeInOut);
     currentCategory = categories[i];
     update(["tab"]);
+  }
+
+  @override
+  void onClose() {
+    if (pageController.hasClients) {
+      pageController.detach(pageController.position);
+    }
+    pageController.dispose();
+    super.onClose();
   }
 }

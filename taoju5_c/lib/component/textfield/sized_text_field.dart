@@ -2,7 +2,7 @@
  * @Description: 尺寸固定的输入框
  * @Author: iamsmiling
  * @Date: 2021-05-10 16:31:19
- * @LastEditTime: 2021-05-24 10:50:57
+ * @LastEditTime: 2021-05-29 17:10:35
  */
 
 import 'dart:ui';
@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shake_animation_widget/shake_animation_widget.dart';
 
-class SizedTextField extends StatelessWidget {
+class SizedTextField extends StatefulWidget {
   final InputDecoration decoration;
   final BoxDecoration? boxDecoration;
   final Function(String)? onChanged;
@@ -23,6 +23,7 @@ class SizedTextField extends StatelessWidget {
   final Color hintColor;
   final TextAlign textAlign;
   final EdgeInsets padding;
+
   const SizedTextField(
       {Key? key,
       required this.decoration,
@@ -38,39 +39,58 @@ class SizedTextField extends StatelessWidget {
       : super(key: key);
 
   @override
+  _SizedTextFieldState createState() => _SizedTextFieldState();
+}
+
+class _SizedTextFieldState extends State<SizedTextField> {
+  late String? _initialValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _initialValue = widget.initialValue;
+    if (_initialValue != null) {
+      if (_initialValue!.contains(".0")) {
+        _initialValue =
+            _initialValue!.substring(0, _initialValue!.indexOf(".0"));
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ShakeAnimationWidget(
       isForward: false,
-      shakeAnimationController: shakeController,
+      shakeAnimationController: widget.shakeController,
       shakeAnimationType: ShakeAnimationType.LeftRightShake,
       child: Container(
         alignment: Alignment.center,
-        padding: padding,
-        constraints: constraints ??
+        padding: widget.padding,
+        constraints: widget.constraints ??
             BoxConstraints(maxHeight: 32, maxWidth: 84, minHeight: 32),
-        decoration: boxDecoration ??
+        decoration: widget.boxDecoration ??
             BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: borderColor)),
+                border: Border.all(color: widget.borderColor)),
         child: TextFormField(
-            onChanged: onChanged,
+            onChanged: widget.onChanged,
             maxLines: 1,
-            initialValue: initialValue,
+            initialValue: _initialValue,
             maxLengthEnforcement:
                 MaxLengthEnforcement.truncateAfterCompositionEnds,
             buildCounter: null,
-            textAlign: textAlign,
+            textAlign: widget.textAlign,
             textAlignVertical: TextAlignVertical.center,
             style: const TextStyle(fontSize: 12, color: Color(0xFFEE9B5F)),
 
             // suffixIcon: Image.asset("resources/images/clear.png"),
-            decoration: decoration.copyWith(
+            decoration: widget.decoration.copyWith(
                 border: InputBorder.none,
                 isCollapsed: true,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 // counter: SizedBox.shrink(),
-                hintStyle: TextStyle(fontSize: 12, color: hintColor))),
+                hintStyle: TextStyle(fontSize: 12, color: widget.hintColor))),
       ),
     );
   }

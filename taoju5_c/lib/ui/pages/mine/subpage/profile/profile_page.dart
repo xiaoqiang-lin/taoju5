@@ -24,7 +24,8 @@ class ProfilePage extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.toNamed(
-                      AppRoutes.mine +
+                      AppRoutes.prefix +
+                          AppRoutes.mine +
                           AppRoutes.profile +
                           AppRoutes.modifyUserAvatar,
                       parameters: {"avatar": _.user.avatar}),
@@ -41,7 +42,7 @@ class ProfilePage extends StatelessWidget {
                           radius: 15,
                           backgroundImage: NetworkImage(_.user.avatar),
                         ),
-                        Icon(R.icon.next)
+                        Image.asset(R.image.next)
                       ],
                     ),
                   ),
@@ -52,7 +53,8 @@ class ProfilePage extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.toNamed(
-                      AppRoutes.mine +
+                      AppRoutes.prefix +
+                          AppRoutes.mine +
                           AppRoutes.profile +
                           AppRoutes.modifyUserNickname,
                       arguments: _.user),
@@ -69,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                           _.user.name,
                           style: TextStyle(fontSize: R.dimen.sp12),
                         ),
-                        Icon(R.icon.next)
+                        Image.asset(R.image.next)
                       ],
                     ),
                   ),
@@ -94,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                           style: TextStyle(
                               fontSize: R.dimen.sp12, color: R.color.ffb4b4b4),
                         ),
-                        Icon(R.icon.next)
+                        Image.asset(R.image.next)
                       ],
                     ),
                   ),
@@ -115,7 +117,7 @@ class ProfilePage extends StatelessWidget {
                         Spacer(),
                         Text("1988/08/08",
                             style: TextStyle(fontSize: R.dimen.sp12)),
-                        Icon(R.icon.next)
+                        Image.asset(R.image.next)
                       ],
                     ),
                   ),

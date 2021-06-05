@@ -2,7 +2,7 @@
  * @Description: 订单备注填写
  * @Author: iamsmiling
  * @Date: 2021-05-06 16:04:34
- * @LastEditTime: 2021-05-07 16:40:29
+ * @LastEditTime: 2021-06-02 18:41:19
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -19,6 +19,7 @@ class _OrderNoteFillBarState extends State<OrderNoteFillBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       // margin: EdgeInsets.only(top: R.dimen.dp10)
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

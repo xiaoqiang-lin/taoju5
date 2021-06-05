@@ -2,7 +2,7 @@
  * @Description: 购物车相关
  * @Author: iamsmiling
  * @Date: 2021-04-27 14:45:38
- * @LastEditTime: 2021-05-06 14:23:01
+ * @LastEditTime: 2021-05-29 14:46:56
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -17,7 +17,7 @@ class CartRepository {
 
   Future<List<CartEntity>> cartList({Map? params}) => _api
       .cartList(params: params)
-      .then((BaseEntity response) => JsonKit.asList(response.data)
+      .then((BaseEntity response) => JsonKit.asList(response.data["cart_list"])
           .map((e) => CartEntity.fromJson(e))
           .toList());
 
@@ -28,6 +28,8 @@ class CartRepository {
           .toList());
 
   ///修改购物车数量
-  Future<BaseEntity> modifyCartCount({Map? params}) =>
-      _api.modifyCartCount(params: params);
+  Future<double> modifyCartCount({Map? params}) =>
+      _api.modifyCartCount(params: params).then((BaseEntity response) {
+        return JsonKit.asDouble(response.data);
+      });
 }

@@ -58,7 +58,7 @@ class OrderMessageDetailPage extends GetView<OrderMessageDetailController> {
                         Row(
                           children: [
                             ChimeraImage(
-                              imageUrl: item.image,
+                              item.image,
                               width: R.dimen.dp50,
                               height: R.dimen.dp50,
                             ),

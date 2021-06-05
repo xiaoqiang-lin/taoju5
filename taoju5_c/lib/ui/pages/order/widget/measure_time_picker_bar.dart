@@ -2,7 +2,7 @@
  * @Description: 意向上门量尺时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 14:55:46
- * @LastEditTime: 2021-05-15 09:22:05
+ * @LastEditTime: 2021-06-01 16:43:59
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class _DateTimeQuantum {
       : CommonKit.formatDateTime(date, format: "MM-dd");
   @override
   String toString() {
-    return dateString + " $time";
+    return CommonKit.formatDateTime(date, format: "yyyy-MM-dd") + " $time";
   }
 }
 
@@ -89,7 +89,6 @@ Future<_DateTimeQuantum?> _showMeasureTimePicker(BuildContext context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: R.dimen.dp48),
           child: _MeasureTimePickerView(initialValue: initialValue),
         );
       });
@@ -151,7 +150,6 @@ class _MeasureTimePickerViewState extends State<_MeasureTimePickerView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: R.dimen.dp36),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -172,7 +170,7 @@ class _MeasureTimePickerViewState extends State<_MeasureTimePickerView> {
               children: [
                 Flexible(
                     child: CupertinoPicker.builder(
-                  itemExtent: 30,
+                  itemExtent: 36,
                   scrollController: dateController,
                   childCount: dateOptions.length,
                   onSelectedItemChanged: (int i) {
@@ -190,7 +188,7 @@ class _MeasureTimePickerViewState extends State<_MeasureTimePickerView> {
                 )),
                 Flexible(
                     child: CupertinoPicker.builder(
-                  itemExtent: 30,
+                  itemExtent: 36,
                   scrollController: timeController,
                   childCount: timeOptions.length,
                   onSelectedItemChanged: (int i) {

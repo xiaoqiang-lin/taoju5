@@ -2,7 +2,7 @@
  * @Description: app入口页面
  * @Author: iamsmiling
  * @Date: 2021-04-20 19:11:22
- * @LastEditTime: 2021-05-06 11:12:43
+ * @LastEditTime: 2021-06-04 10:55:53
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,13 @@ class MainPage extends StatelessWidget {
       return Scaffold(
         body: IndexedStack(
           index: _.currentIndex,
-          children: _.pages,
+          // children: _.pages,
+          children: [
+            for (Widget child in _.pages)
+              Visibility(
+                  visible: _.currentIndex == _.pages.indexOf(child),
+                  child: child)
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _.currentIndex,

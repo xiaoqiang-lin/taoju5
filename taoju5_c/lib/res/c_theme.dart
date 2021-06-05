@@ -1,4 +1,6 @@
 // part of R;
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -53,7 +55,7 @@ class CTheme {
   factory CTheme() => _singleton;
 
   final ThemeData lightTheme = ThemeData(
-      fontFamily: "PingFang SC",
+      fontFamily: "PingFang",
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.ffffffff),
       scaffoldBackgroundColor: R.color.ffffffff,
       splashFactory: const NoSplashFactory(),
@@ -90,15 +92,20 @@ class CTheme {
               fontSize: R.dimen.sp12),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(R.dimen.sp8))),
-      primaryTextTheme:
-          TextTheme(bodyText2: TextStyle(color: R.color.ff333333)),
+      primaryTextTheme: TextTheme(
+          headline6: TextStyle(
+              // foreground: Paint()..strokeWidth = .1,
+              // background: Paint()..strokeWidth = 1,
+              fontSize: R.dimen.sp18,
+              fontWeight: FontWeight.w600),
+          bodyText2: TextStyle(color: R.color.ff333333)),
       appBarTheme: AppBarTheme(
           elevation: 0,
           titleSpacing: 0,
           centerTitle: false,
           backgroundColor: R.color.ffffffff,
           titleTextStyle:
-              TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.bold)),
+              TextStyle(fontSize: R.dimen.sp10, fontWeight: FontWeight.w500)),
       tabBarTheme: TabBarTheme(
           indicatorSize: TabBarIndicatorSize.tab,
           unselectedLabelStyle: TextStyle(
@@ -108,9 +115,10 @@ class CTheme {
           labelColor: R.color.ffee9b5f,
           unselectedLabelColor: R.color.ff333333,
           labelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w800,
               fontSize: R.dimen.sp13,
-              color: R.color.ffee9b5f),
+              color: R.color.ff333333),
+
           // labelPadding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
           indicator: FixedSizeUnderlineTabIndicator(
               insets: EdgeInsets.symmetric(horizontal: R.dimen.dp44),

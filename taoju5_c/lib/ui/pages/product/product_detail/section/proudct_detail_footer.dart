@@ -2,18 +2,22 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-26 15:51:51
- * @LastEditTime: 2021-04-27 15:56:19
+ * @LastEditTime: 2021-05-31 16:01:33
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_action_bar.dart';
-import 'package:get/get.dart';
-import 'package:taoju5_c/ui/pages/product/product_detail/product_detail_controller.dart';
 
 class ProductDetailFooter extends StatelessWidget {
   final ProductDetailEntity product;
-  const ProductDetailFooter({Key? key, required this.product})
+  final Function()? purchase;
+  final Function()? addToCart;
+  const ProductDetailFooter(
+      {Key? key,
+      required this.product,
+      required this.purchase,
+      required this.addToCart})
       : super(key: key);
 
   @override
@@ -44,8 +48,8 @@ class ProductDetailFooter extends StatelessWidget {
             ],
           ),
           ProductActionBar(
-            onAddToCart: Get.find<ProductDetailController>().addToCart,
-            onPurchase: () {},
+            onAddToCart: addToCart,
+            onPurchase: purchase,
           )
         ],
       ),

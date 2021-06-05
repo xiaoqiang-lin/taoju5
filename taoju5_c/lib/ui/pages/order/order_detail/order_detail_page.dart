@@ -2,7 +2,7 @@
  * @Description: 订单详情页面
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:40
- * @LastEditTime: 2021-05-24 15:04:44
+ * @LastEditTime: 2021-06-04 06:33:21
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +12,7 @@ import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_controller.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_skeleton.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/section/order_detail_body.dart';
 
 import 'section/order_detail_footer.dart';
@@ -28,6 +29,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
       ),
       body: FutureLoadStateBuilder(
           controller: controller,
+          loadingBuilder: (BuildContext context) => OrderDetailSkeleton(),
           builder: (OrderDetailController _) {
             return SingleChildScrollView(
               child: Column(
@@ -67,17 +69,9 @@ class OrderDetailPage extends GetView<OrderDetailController> {
                   onPressed: _.actionMap[a.action],
                   margin: EdgeInsets.only(left: R.dimen.dp10),
                   size: PrimaryButtonSize.middle,
+                  textStyle: TextStyle(fontSize: R.dimen.sp13),
                   mode: a.mode,
                 ),
-              PrimaryButton(
-                text: "售后维权",
-                onPressed: () => Get.toNamed(
-                    Get.currentRoute + AppRoutes.afterSell,
-                    arguments: _.order),
-                margin: EdgeInsets.only(left: R.dimen.dp10),
-                size: PrimaryButtonSize.middle,
-                mode: PrimaryButtonMode.elevatedButton,
-              )
             ],
           ),
         );

@@ -2,7 +2,7 @@
  * @Description:搜索顶部
  * @Author: iamsmiling
  * @Date: 2021-05-24 16:15:07
- * @LastEditTime: 2021-05-24 17:50:33
+ * @LastEditTime: 2021-06-02 22:49:01
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/rotate_button.dart';
@@ -64,7 +64,7 @@ class SearchHeader extends StatelessWidget {
                         style: TextStyle(
                             fontSize: R.dimen.sp12,
                             color: R.color.ff666666,
-                            height: 2.1),
+                            height: 2.25),
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: R.dimen.dp20,

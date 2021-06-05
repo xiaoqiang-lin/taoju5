@@ -2,7 +2,7 @@
  * @Description: 自定义异常基类
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:13:57
- * @LastEditTime: 2021-04-27 10:26:41
+ * @LastEditTime: 2021-05-26 16:30:47
  */
 import 'package:dio/dio.dart';
 

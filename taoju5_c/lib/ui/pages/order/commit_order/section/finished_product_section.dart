@@ -2,7 +2,7 @@
  * @Description: 成品区域
  * @Author: iamsmiling
  * @Date: 2021-05-14 17:39:30
- * @LastEditTime: 2021-05-17 17:24:31
+ * @LastEditTime: 2021-05-28 17:39:44
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
@@ -24,23 +24,26 @@ class FinishedProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (ProductAdaptorEntity p in products)
-          ProductAdaptorCard(
-            product: p,
-            rightTopCorner: Text(
-              "¥${p.unitPrice.toStringAsFixed(2)}",
-              style: TextStyle(
-                fontSize: R.dimen.sp13,
+    return Visibility(
+      visible: products.isNotEmpty,
+      child: Column(
+        children: [
+          for (ProductAdaptorEntity p in products)
+            ProductAdaptorCard(
+              product: p,
+              rightTopCorner: Text(
+                "¥${p.unitPrice.toStringAsFixed(2)}",
+                style: TextStyle(
+                  fontSize: R.dimen.sp13,
+                ),
               ),
             ),
-          ),
-        TotalPriceTipBar(
-          label: "成品小计：",
-          totalPrice: totalPrice,
-        )
-      ],
+          TotalPriceTipBar(
+            label: "成品小计：",
+            totalPrice: totalPrice,
+          )
+        ],
+      ),
     );
     // return ListView.separated(
     //     shrinkWrap: true,

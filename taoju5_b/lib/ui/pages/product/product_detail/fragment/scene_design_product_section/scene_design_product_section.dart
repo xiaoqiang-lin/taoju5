@@ -11,7 +11,7 @@ import 'package:taoju5_b/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/res/b_icons.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/product/product_detail/widgets/x_title_bar.dart';
 import 'package:taoju5_b/ui/widgets/bloc/x_swiper.dart';
 import 'package:taoju5_b/ui/widgets/bloc/x_thumbnail_card.dart';

@@ -2,7 +2,7 @@
  * @Description:首页专题推荐
  * @Author: iamsmiling
  * @Date: 2021-04-21 11:07:29
- * @LastEditTime: 2021-04-21 11:16:10
+ * @LastEditTime: 2021-05-26 14:12:36
  */
 
 import 'package:flutter/material.dart';
@@ -35,13 +35,11 @@ class HomeSpecialTopicSection extends StatelessWidget {
             child: Column(
               children: [
                 ChimeraImage(
-                    imageUrl:
-                        "https://i.loli.net/2021/04/21/4omRiQL9BAKtqrh.png"),
+                    "https://i.loli.net/2021/04/21/4omRiQL9BAKtqrh.png"),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp14),
                   child: ChimeraImage(
-                      imageUrl:
-                          "https://i.loli.net/2021/04/21/UeBuqy6sDKGOQfX.png"),
+                      "https://i.loli.net/2021/04/21/UeBuqy6sDKGOQfX.png"),
                 )
               ],
             ),

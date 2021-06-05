@@ -65,8 +65,7 @@ class HomeSpecialOfferPrefectureSection extends StatelessWidget {
                               AspectRatio(
                                 aspectRatio: 1,
                                 child: ChimeraImage(
-                                    imageUrl:
-                                        "https://i.loli.net/2021/04/13/4djlszXmOnRDx7N.png"),
+                                    "https://i.loli.net/2021/04/13/4djlszXmOnRDx7N.png"),
                               ),
                               Container(
                                   margin: EdgeInsets.only(

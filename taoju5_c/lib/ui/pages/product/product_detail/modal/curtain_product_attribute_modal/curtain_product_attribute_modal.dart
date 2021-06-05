@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性选择
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:56:23
- * @LastEditTime: 2021-05-14 10:51:01
+ * @LastEditTime: 2021-05-31 15:24:19
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -178,7 +178,7 @@ class CurtainProductAttributeModal extends StatelessWidget {
                             child: Column(
                               children: [
                                 ChimeraImage(
-                                  imageUrl: option.image,
+                                  option.image,
                                   width: R.dimen.dp100,
                                   height: R.dimen.dp100,
                                   fit: BoxFit.fill,
@@ -215,182 +215,188 @@ class CurtainProductAttributeModal extends StatelessWidget {
       init: CurtainProductAttributeController(
           atrribute: attribute, product: product),
       builder: (_) {
-        return ModalWrapper(builder: (BuildContext context) {
-          return Scaffold(
-            body: Container(
-              color: R.color.ffffffff,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: R.dimen.dp12),
+        return WillPopScope(
+          onWillPop: () async {
+            _.hasFinished();
+            return true;
+          },
+          child: ModalWrapper(builder: (BuildContext context) {
+            return Scaffold(
+              body: Container(
+                color: R.color.ffffffff,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: R.dimen.dp12),
+                          child: IndexedStack(
+                            index: _.currentIndex,
+                            children: [
+                              Container(
+                                width: Get.width,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "测装数据",
+                                  style: TextStyle(
+                                      fontSize: R.dimen.sp14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width,
+                                alignment: Alignment.center,
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () => _.switchIndex(0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                  left: R.dimen.dp20),
+                                              child: Image.asset(R.image.back)),
+                                          Text(
+                                            "上一步",
+                                            style: TextStyle(
+                                                fontSize: R.dimen.sp14,
+                                                color: R.color.ffee9b5f),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: R.dimen.width / 2 -
+                                              R.dimen.dp56 -
+                                              R.dimen.dp20 -
+                                              R.dimen.dp14 * 2),
+                                      child: Text(
+                                        "窗帘配套",
+                                        style: TextStyle(
+                                            fontSize: R.dimen.sp14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        // Expanded(
+                        //   child: GestureDetector(
+                        //     onTap: () => _.switchIndex(0),
+                        //     child: Container(
+                        //       alignment: Alignment.center,
+                        //       color: _.currentIndex == 0
+                        //           ? R.color.ffffffff
+                        //           : R.color.fff5f5f5,
+                        //       padding:
+                        //           EdgeInsets.symmetric(vertical: R.dimen.dp12),
+                        //       child: Text(
+                        //         "测装数据",
+                        //         style: TextStyle(
+                        //             color: _.currentIndex == 0
+                        //                 ? R.color.ffee9b5f
+                        //                 : R.color.ffbcbcbc,
+                        //             fontSize: R.dimen.sp16,
+                        //             fontWeight: FontWeight.bold),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // Expanded(
+                        //   child: GestureDetector(
+                        //     onTap: () => _.switchIndex(1),
+                        //     child: Container(
+                        //       alignment: Alignment.center,
+                        //       color: _.currentIndex == 1
+                        //           ? R.color.ffffffff
+                        //           : R.color.fff5f5f5,
+                        //       padding:
+                        //           EdgeInsets.symmetric(vertical: R.dimen.dp12),
+                        //       child: Text(
+                        //         "窗帘配套",
+                        //         style: TextStyle(
+                        //             color: _.currentIndex == 1
+                        //                 ? R.color.ffee9b5f
+                        //                 : R.color.ffbcbcbc,
+                        //             fontSize: R.dimen.sp16,
+                        //             fontWeight: FontWeight.w400),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
                         child: IndexedStack(
+                          sizing: StackFit.passthrough,
                           index: _.currentIndex,
                           children: [
-                            Container(
-                              width: Get.width,
-                              alignment: Alignment.center,
-                              child: Text(
-                                "测装数据",
-                                style: TextStyle(
-                                    fontSize: R.dimen.sp14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Container(
-                              width: Get.width,
-                              alignment: Alignment.center,
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    behavior: HitTestBehavior.opaque,
-                                    onTap: () => _.switchIndex(0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            padding: EdgeInsets.only(
-                                                left: R.dimen.dp20),
-                                            child: Image.asset(R.image.back)),
-                                        Text(
-                                          "上一步",
-                                          style: TextStyle(
-                                              fontSize: R.dimen.sp14,
-                                              color: R.color.ffee9b5f),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        left: R.dimen.width / 2 -
-                                            R.dimen.dp56 -
-                                            R.dimen.dp20 -
-                                            R.dimen.dp14 * 2),
-                                    child: Text(
-                                      "窗帘配套",
-                                      style: TextStyle(
-                                          fontSize: R.dimen.sp14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
+                            _buildMeasureDataFragment(_),
+                            _buildMatchingSetFragment(_)
                           ],
                         ),
                       ),
-                      // Expanded(
-                      //   child: GestureDetector(
-                      //     onTap: () => _.switchIndex(0),
-                      //     child: Container(
-                      //       alignment: Alignment.center,
-                      //       color: _.currentIndex == 0
-                      //           ? R.color.ffffffff
-                      //           : R.color.fff5f5f5,
-                      //       padding:
-                      //           EdgeInsets.symmetric(vertical: R.dimen.dp12),
-                      //       child: Text(
-                      //         "测装数据",
-                      //         style: TextStyle(
-                      //             color: _.currentIndex == 0
-                      //                 ? R.color.ffee9b5f
-                      //                 : R.color.ffbcbcbc,
-                      //             fontSize: R.dimen.sp16,
-                      //             fontWeight: FontWeight.bold),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Expanded(
-                      //   child: GestureDetector(
-                      //     onTap: () => _.switchIndex(1),
-                      //     child: Container(
-                      //       alignment: Alignment.center,
-                      //       color: _.currentIndex == 1
-                      //           ? R.color.ffffffff
-                      //           : R.color.fff5f5f5,
-                      //       padding:
-                      //           EdgeInsets.symmetric(vertical: R.dimen.dp12),
-                      //       child: Text(
-                      //         "窗帘配套",
-                      //         style: TextStyle(
-                      //             color: _.currentIndex == 1
-                      //                 ? R.color.ffee9b5f
-                      //                 : R.color.ffbcbcbc,
-                      //             fontSize: R.dimen.sp16,
-                      //             fontWeight: FontWeight.w400),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: IndexedStack(
-                        sizing: StackFit.passthrough,
-                        index: _.currentIndex,
-                        children: [
-                          _buildMeasureDataFragment(_),
-                          _buildMatchingSetFragment(_)
-                        ],
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: R.color.ffe5e5e5))),
-              padding: EdgeInsets.only(
-                  left: R.dimen.dp20,
-                  right: R.dimen.dp20,
-                  top: R.dimen.dp8,
-                  bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Visibility(
-                    visible: attribute.measureData.sizeIsNotEmpty,
-                    child: Text.rich(TextSpan(
-                        text: "预计:\n",
-                        style: TextStyle(
-                            fontSize: R.dimen.sp12, color: R.color.ff333333),
-                        children: [
-                          TextSpan(
-                            text:
-                                "¥${_.priceDelegator.totalPrice.toStringAsFixed(2)}",
-                            style: TextStyle(
-                                fontSize: R.dimen.sp14,
-                                color: R.color.ffff5005),
-                          )
-                        ])),
-                  ),
-                  IndexedStack(
-                    index: _.currentIndex,
-                    children: [
-                      PrimaryButton(
-                        text: "下一步",
-                        onPressed: _.next,
-                        constraints: BoxConstraints(
-                            minHeight: 45,
-                            minWidth: 200,
-                            maxHeight: 45,
-                            maxWidth: 200),
-                      ),
-                      ProductActionBar(
-                        onAddToCart: _.addToCart,
-                        onPurchase: () {},
-                      )
-                    ],
-                  )
-                ],
+              bottomNavigationBar: Container(
+                decoration: BoxDecoration(
+                    border: Border(top: BorderSide(color: R.color.ffe5e5e5))),
+                padding: EdgeInsets.only(
+                    left: R.dimen.dp20,
+                    right: R.dimen.dp20,
+                    top: R.dimen.dp8,
+                    bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Visibility(
+                      visible: attribute.measureData.sizeIsNotEmpty,
+                      child: Text.rich(TextSpan(
+                          text: "预计:\n",
+                          style: TextStyle(
+                              fontSize: R.dimen.sp12, color: R.color.ff333333),
+                          children: [
+                            TextSpan(
+                              text:
+                                  "¥${_.priceDelegator.totalPrice.toStringAsFixed(2)}",
+                              style: TextStyle(
+                                  fontSize: R.dimen.sp14,
+                                  color: R.color.ffff5005),
+                            )
+                          ])),
+                    ),
+                    IndexedStack(
+                      index: _.currentIndex,
+                      children: [
+                        PrimaryButton(
+                          text: "下一步",
+                          onPressed: _.next,
+                          constraints: BoxConstraints(
+                              minHeight: 45,
+                              minWidth: 200,
+                              maxHeight: 45,
+                              maxWidth: 200),
+                        ),
+                        ProductActionBar(
+                          onAddToCart: _.addToCart,
+                          onPurchase: _.buy,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        });
+            );
+          }),
+        );
       },
     );
   }

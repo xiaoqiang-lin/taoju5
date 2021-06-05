@@ -2,7 +2,7 @@
  * @Description: 软装专区
  * @Author: iamsmiling
  * @Date: 2021-04-20 16:54:05
- * @LastEditTime: 2021-04-21 13:22:54
+ * @LastEditTime: 2021-05-26 14:11:28
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -41,11 +41,11 @@ class HomeDecorationPrefectureSection extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             ChimeraImage(
-                                width: R.dimen.dp90,
-                                height: R.dimen.dp90,
-                                fit: BoxFit.fill,
-                                imageUrl:
-                                    "https://i.loli.net/2021/04/13/67rn3TmJ1Y4RIlu.png"),
+                              "https://i.loli.net/2021/04/13/67rn3TmJ1Y4RIlu.png",
+                              width: R.dimen.dp90,
+                              height: R.dimen.dp90,
+                              fit: BoxFit.fill,
+                            ),
                             Text(
                               "沙发",
                               style: TextStyle(

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_b/domain/model/product/design_product_detail_model.dart';
 import 'package:taoju5_b/domain/model/product/product_model.dart';
 import 'package:taoju5_b/domain/repository/product/product_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/modal/product/design_product/design_product_modal.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';

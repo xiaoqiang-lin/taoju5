@@ -2,7 +2,7 @@
  * @Description:成品购物车卡片
  * @Author: iamsmiling
  * @Date: 2021-04-29 16:20:32
- * @LastEditTime: 2021-05-06 14:21:11
+ * @LastEditTime: 2021-05-31 09:40:03
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/rotate_button.dart';
@@ -87,7 +87,7 @@ class FinishedProductCartCard extends StatelessWidget {
                     margin:
                         EdgeInsets.only(left: R.dimen.dp15, right: R.dimen.dp8),
                     child: ChimeraImage(
-                      imageUrl: cart.image,
+                      cart.image,
                       width: R.dimen.dp84,
                       height: R.dimen.dp84,
                       fit: BoxFit.fill,
@@ -128,7 +128,7 @@ class FinishedProductCartCard extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("${cart.skuName}",
+                              Text("${cart.description}",
                                   style: TextStyle(
                                       fontSize: R.dimen.sp10,
                                       color: R.color.ff999999)),

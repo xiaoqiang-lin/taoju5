@@ -2,7 +2,7 @@
  * @Description: 物流包裹
  * @Author: iamsmiling
  * @Date: 2021-05-20 14:37:48
- * @LastEditTime: 2021-05-21 18:02:02
+ * @LastEditTime: 2021-05-25 17:57:12
  */
 
 import 'package:flutter/material.dart';
@@ -19,6 +19,14 @@ class PackageEntity {
   late String company;
 
   late List<PackageLogisticsNodeEntity> nodes;
+
+  double get lineHeight {
+    double h = 0.0;
+    for (PackageLogisticsNodeEntity node in nodes) {
+      h += node != nodes.last ? (node.renderBox?.size.height ?? 0) : 0;
+    }
+    return h;
+  }
 
   PackageEntity.fromJson(Map json) {
     productName = "BML200201";
@@ -92,14 +100,7 @@ class PackageLogisticsNodeEntity {
 
   Widget get icon {
     if (status.isEmpty) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: R.dimen.dp12),
-        width: R.dimen.dp10,
-        height: R.dimen.dp10,
-        decoration: BoxDecoration(
-            color: R.color.ffe5e5e5,
-            borderRadius: BorderRadius.circular(R.dimen.dp5)),
-      );
+      return Image.asset(R.image.logisticsNodeWithTail);
     }
     if (highlighted) {
       return Image.asset(R.image.logisticsNodeHighlighted);

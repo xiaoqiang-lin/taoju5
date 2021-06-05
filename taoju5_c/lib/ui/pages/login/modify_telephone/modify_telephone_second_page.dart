@@ -49,7 +49,8 @@ class ModifyTelephoneSecondPage extends StatelessWidget {
                 PrimaryButton(
                     size: PrimaryButtonSize.large,
                     text: "确定",
-                    onPressed: () => Get.toNamed(AppRoutes.modifyTelephone2))
+                    onPressed: () => Get.toNamed(
+                        AppRoutes.prefix + AppRoutes.modifyTelephone2))
               ],
             ),
           ),

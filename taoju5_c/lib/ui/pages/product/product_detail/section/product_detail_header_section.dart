@@ -2,7 +2,7 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-05-24 13:29:11
+ * @LastEditTime: 2021-06-04 07:23:02
  */
 
 import 'package:flutter/material.dart';
@@ -66,79 +66,21 @@ class ProductDetailHeaderSection extends StatelessWidget {
             ),
           ),
           Divider(),
-          GestureDetector(
-            onTap: _.openRollingCurtainProductAttributeDialog,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
-              child: Row(
-                children: [
-                  Text(
-                    "选择规格(卷帘)",
-                    style: TextStyle(fontSize: R.dimen.sp12),
-                  ),
-                  Spacer(),
-                  Text(
-                    "请填写测装数据",
-                    style: TextStyle(
-                        fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: R.dimen.dp6),
-                    child: Image.asset(
-                      R.image.next,
-                      color: R.color.ffee9b5f,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Divider(),
-          GestureDetector(
-            onTap: _.openSectionalbarProductAttributeDialog,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
-              child: Row(
-                children: [
-                  Text(
-                    "选择规格(型材)",
-                    style: TextStyle(fontSize: R.dimen.sp12),
-                  ),
-                  Spacer(),
-                  Text(
-                    "请填写测装数据",
-                    style: TextStyle(
-                        fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: R.dimen.dp6),
-                    child: Image.asset(
-                      R.image.next,
-                      color: R.color.ffee9b5f,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Divider(),
-          if (product.productType is FinishedProductType)
+          if (product.productType is RollingCurtainProductType)
             GestureDetector(
-              onTap: _.openFinishedProductAttributeModal,
+              onTap: _.openRollingCurtainProductAttributeDialog,
               child: Container(
                 padding: EdgeInsets.symmetric(
                     vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
                 child: Row(
                   children: [
                     Text(
-                      "选择规格",
+                      "选择规格(卷帘)",
                       style: TextStyle(fontSize: R.dimen.sp12),
                     ),
                     Spacer(),
                     Text(
-                      "请选择商品规格",
+                      "${product.specTip}",
                       style: TextStyle(
                           fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
                     ),
@@ -153,7 +95,67 @@ class ProductDetailHeaderSection extends StatelessWidget {
                 ),
               ),
             ),
-          if (product.productType is CustomProductType)
+          if (product.productType is SectionbarProductType)
+            GestureDetector(
+              onTap: _.openSectionalbarProductAttributeDialog,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
+                child: Row(
+                  children: [
+                    Text(
+                      "选择规格(型材)",
+                      style: TextStyle(fontSize: R.dimen.sp12),
+                    ),
+                    Spacer(),
+                    Text(
+                      "${product.specTip}",
+                      style: TextStyle(
+                          fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: R.dimen.dp6),
+                      child: Image.asset(
+                        R.image.next,
+                        color: R.color.ffee9b5f,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          if (product.productType is FinishedProductType &&
+              product.productType is! SectionbarProductType)
+            GestureDetector(
+              onTap: _.openFinishedProductAttributeModal,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: R.dimen.dp20, horizontal: R.dimen.dp20),
+                child: Row(
+                  children: [
+                    Text(
+                      "选择规格",
+                      style: TextStyle(fontSize: R.dimen.sp12),
+                    ),
+                    Spacer(),
+                    Text(
+                      "${product.specTip}",
+                      key: ValueKey("${product.specTip}"),
+                      style: TextStyle(
+                          fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: R.dimen.dp6),
+                      child: Image.asset(
+                        R.image.next,
+                        color: R.color.ffee9b5f,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          if (product.productType is FabricCurtainProductType)
             GestureDetector(
               onTap: _.openCurtainProductAttributeModal,
               child: Container(
@@ -168,7 +170,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      "去填写",
+                      "${product.specTip}",
                       style: TextStyle(
                           fontSize: R.dimen.sp12, color: R.color.ffee9b5f),
                     ),

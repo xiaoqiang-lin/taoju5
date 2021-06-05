@@ -12,7 +12,7 @@ import 'package:taoju5_b/domain/model/product/design_product_model.dart';
 import 'package:taoju5_b/domain/model/product/product_mixin_model.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_skeleton.dart';
 import 'package:taoju5_b/ui/pages/product/product_detail/widgets/mixin_product_grid_view.dart';

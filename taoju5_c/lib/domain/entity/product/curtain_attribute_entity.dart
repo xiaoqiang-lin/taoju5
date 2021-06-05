@@ -2,7 +2,7 @@
  * @Description: 窗帘属性
  * @Author: iamsmiling
  * @Date: 2021-05-08 15:22:03
- * @LastEditTime: 2021-05-24 10:11:10
+ * @LastEditTime: 2021-06-03 17:29:11
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -20,10 +20,22 @@ import 'package:taoju5_c/domain/entity/window/window_size_entity.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shake_animation_widget/shake_animation_widget.dart';
 
-class CurtainAttributeEntity {
+class ProductAttributeEntity {
+  bool finished = false;
+}
+
+class CurtainAttributeEntity extends ProductAttributeEntity {
   late CurtainMeasureDataAttributeEntity measureData;
 
   late CurtainMatchingSetAttributeEntity matchingSet;
+  CurtainAttributeEntity();
+
+  String get brief => measureData.brief + "...";
+
+  List<CurtainAttributeKeyValuePairEntity> get list => matchingSet.attributes
+      .map((e) => CurtainAttributeKeyValuePairEntity(
+          key: e.label, value: e.selectedOption?.name ?? ""))
+      .toList();
 
   ///json1 数据来自 assets/data/measure_data.json json2数据来自/app/goods/wcAttr接口
   CurtainAttributeEntity.fromJson(Map json1, Map json2) {
@@ -68,6 +80,9 @@ class CurtainAttributeEntity {
     matchingSet =
         CurtainMatchingSetAttributeEntity.fromJson(json1["matching_set"]);
   }
+
+  List<CurtainAttributeKeyValuePairEntity> adapt() =>
+      matchingSet.attributes.map((e) => e.adapt()).toList();
 }
 
 class CurtainMeasureDataAttributeEntity {
@@ -86,6 +101,19 @@ class CurtainMeasureDataAttributeEntity {
   late WindowSizeEntity size;
 
   late WindowGroundClearanceEntity groundClearance;
+
+  String get openModeDescription {
+    String s = openMode.selectedOpenOption?.name ?? "";
+    for (WindowChildOpenModeEntity item in _childOpenModes) {
+      for (WindowOpenModeEntity o in item.options) {
+        s += " ${o.label.substring(0, 2)}${o.selectedOpenOption?.name}  ";
+      }
+    }
+    return s;
+  }
+
+  String get brief =>
+      "${room.selectedOption?.name},${facade.value},${openMode.selectedOpenOption?.name}";
 
   CurtainMeasureDataAttributeEntity.fromJson(Map json) {
     label = json["label"];
@@ -324,6 +352,11 @@ class CurtainAddtionalProductEntity {
     isMultiple = JsonKit.asBool(json["is_multiple"]);
   }
 
+  CurtainAttributeKeyValuePairEntity adapt() {
+    return CurtainAttributeKeyValuePairEntity(
+        key: label, value: selectedOption?.name ?? "");
+  }
+
   CurtainAddtionalProductOptionEntity? get selectedOption {
     if (initialOptions.isEmpty) return null;
     if (initialOptions.every((e) => !e.selected)) return null;
@@ -390,4 +423,6 @@ class CurtainAttributeKeyValuePairEntity {
     key = json["name"];
     value = json["value"];
   }
+
+  CurtainAttributeKeyValuePairEntity({required this.key, required this.value});
 }

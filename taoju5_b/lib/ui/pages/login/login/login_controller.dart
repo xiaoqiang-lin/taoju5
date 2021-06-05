@@ -2,7 +2,7 @@
  * @Description: 登录控制器
  * @Author: iamsmiling
  * @Date: 2020-12-28 16:08:14
- * @LastEditTime: 2021-04-25 17:15:01
+ * @LastEditTime: 2021-06-04 15:54:39
  */
 
 import 'dart:convert';
@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/model/user/user_info_model.dart';
 import 'package:taoju5_b/domain/repository/login/login_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/dialog/auth.dart';
 import 'package:taoju5_b/ui/pages/home/taojuwu_controller.dart';
 import 'package:taoju5_b/ui/pages/home/user_provider_controller.dart';
@@ -63,7 +63,7 @@ class LoginController extends GetxController {
       Get.find<TaojuwuController>().loadData();
 
       ///页面跳转
-      Get.offAndToNamed(BAppRoutes.home);
+      Get.offAndToNamed(BAppRoutes.prefix + BAppRoutes.home);
     });
   }
 

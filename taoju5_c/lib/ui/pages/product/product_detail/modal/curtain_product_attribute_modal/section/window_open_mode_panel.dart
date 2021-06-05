@@ -2,7 +2,7 @@
  * @Description: 窗户打开方式
  * @Author: iamsmiling
  * @Date: 2021-05-11 15:17:09
- * @LastEditTime: 2021-05-14 09:51:45
+ * @LastEditTime: 2021-05-29 15:59:08
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -191,7 +191,7 @@ class WindowOpenModePanel extends StatelessWidget {
                               measureData.size.widthShakeController,
                           hintColor: measureData.size.heightError
                               ? R.color.ffff5005
-                              : Color(0xFFBCBCBC),
+                              : R.color.ffbcbcbc,
                           decoration: InputDecoration(
                             hintText: "请输入宽",
                           ),

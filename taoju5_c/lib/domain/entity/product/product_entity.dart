@@ -2,7 +2,7 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-05-19 10:31:42
+ * @LastEditTime: 2021-05-29 10:37:43
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -49,7 +49,7 @@ class ProductEntity {
   ProductEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
-    cover = JsonKit.asWebUrl(json["pic_cover_mid"]);
+    cover = JsonKit.asWebUrl(json["pic_cover_mid"] ?? json["image"]);
     saleCount = json["sales"];
     unit = json["goods_unit"];
     isHot = JsonKit.asBool(json["is_hot"]);

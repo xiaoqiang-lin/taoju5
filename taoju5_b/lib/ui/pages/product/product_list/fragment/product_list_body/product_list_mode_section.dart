@@ -10,7 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/product/widgets/product_onsale_tag.dart';
 
 class ProductListModeSection extends StatelessWidget {

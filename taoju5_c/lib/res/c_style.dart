@@ -2,7 +2,7 @@
  * @Description: 字体
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-23 16:38:51
+ * @LastEditTime: 2021-06-02 20:11:58
  */
 import 'dart:ui';
 
@@ -21,7 +21,7 @@ class CStyle {
       fontSize: R.dimen.sp16,
       color: R.color.ff333333,
       fontFamily: "PingFang",
-      fontWeight: FontWeight.w700);
+      fontWeight: FontWeight.w600);
 
   TextStyle tileTip = TextStyle(
       fontSize: R.dimen.sp12, fontFamily: "PingFang", color: R.color.ffb4b4b4);
@@ -43,7 +43,7 @@ class CStyle {
       fontSize: R.dimen.sp14,
       fontFamily: "PingFang",
       color: R.color.ff333333,
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.w700);
 
   ///次要标题/加入购物车选项模块标题/弹窗按钮文字等
   TextStyle primaryText =

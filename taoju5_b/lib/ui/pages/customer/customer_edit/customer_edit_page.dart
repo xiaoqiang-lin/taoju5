@@ -2,16 +2,16 @@
  * @Description: 编辑客户页面
  * @Author: iamsmiling
  * @Date: 2020-12-22 09:59:00
- * @LastEditTime: 2021-04-17 17:28:40
+ * @LastEditTime: 2021-06-04 14:24:47
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/constants/x_gender.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_edit/customer_edit_controller.dart';
 import 'package:taoju5_b/ui/widgets/bloc/city_picker/x_city_picker.dart';
 import 'package:taoju5_b/ui/widgets/bloc/x_count_picker.dart';

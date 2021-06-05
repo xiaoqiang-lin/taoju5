@@ -7,7 +7,7 @@
 import 'package:get/get.dart';
 import 'package:scan/scan.dart';
 import 'package:taoju5_b/domain/repository/product/product_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_bc/utils/permission_kit.dart';
 import 'package:taoju5_b/xdio/x_dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

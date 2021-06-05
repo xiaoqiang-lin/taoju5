@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-26 16:00:04
- * @LastEditTime: 2021-04-27 15:53:32
+ * @LastEditTime: 2021-05-31 15:03:52
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -39,7 +39,7 @@ class ProductActionBar extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              onTap: onAddToCart,
+              onTap: onPurchase,
               child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(

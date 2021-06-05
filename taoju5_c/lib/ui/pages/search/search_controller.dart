@@ -2,7 +2,7 @@
  * @Description: 商品搜索
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:50:59
- * @LastEditTime: 2021-05-24 17:15:38
+ * @LastEditTime: 2021-05-27 18:00:59
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
@@ -49,8 +49,12 @@ class SearchController extends BaseFutureLoadStateController {
       if (startIndex != -1) {
         List<String> arr = [];
         arr.add(e.substring(0, startIndex));
-        arr.add(e.substring(startIndex, startIndex + keyword.length));
-        arr.add(e.substring(startIndex + keyword.length));
+        int len = e.length > startIndex + keyword.length
+            ? startIndex + keyword.length
+            : e.length;
+        print(len);
+        arr.add(e.substring(startIndex, len));
+        arr.add(e.substring(len));
         list.add(arr);
       }
     });

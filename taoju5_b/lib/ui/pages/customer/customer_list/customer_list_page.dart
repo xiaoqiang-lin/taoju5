@@ -2,7 +2,7 @@
  * @Description: 客户列表页
  * @Author: iamsmiling
  * @Date: 2020-12-21 17:18:59
- * @LastEditTime: 2021-02-01 14:15:40
+ * @LastEditTime: 2021-06-04 14:25:29
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ import 'package:taoju5_b/domain/model/customer/customer_category_model.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/res/b_icons.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_controller.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/customer_list_skeleton.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_list/fragment/customer_list_section_view.dart';

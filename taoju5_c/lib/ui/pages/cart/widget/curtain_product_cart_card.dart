@@ -2,7 +2,7 @@
  * @Description: 窗帘商品购物车卡片
  * @Author: iamsmiling
  * @Date: 2021-05-14 14:43:49
- * @LastEditTime: 2021-05-14 17:28:06
+ * @LastEditTime: 2021-05-28 09:18:52
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
@@ -84,7 +84,7 @@ class CurtainProductCartCard extends StatelessWidget {
                     margin:
                         EdgeInsets.only(left: R.dimen.dp15, right: R.dimen.dp8),
                     child: ChimeraImage(
-                      imageUrl: cart.image,
+                      cart.image,
                       width: R.dimen.dp84,
                       height: R.dimen.dp84,
                       fit: BoxFit.fill,
@@ -134,26 +134,29 @@ class CurtainProductCartCard extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
-                width: double.maxFinite,
-                margin: EdgeInsets.only(left: R.dimen.dp57 - R.dimen.dp20),
-                child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    CurtainAttributeKeyValueCard(
-                        attributes: cart.attributes,
-                        itemWidth: (R.dimen.width -
-                                R.dimen.dp57 -
-                                R.dimen.dp20 -
-                                R.dimen.dp12 * 2) /
-                            2),
-                    // Positioned(
-                    //   child: RotateButton(
-                    //       onPressed: () =>
-                    //           Future.delayed(const Duration(seconds: 2))),
-                    //   right: 0,
-                    // )
-                  ],
+              Visibility(
+                visible: cart.attributes.isNotEmpty,
+                child: Container(
+                  width: double.maxFinite,
+                  margin: EdgeInsets.only(left: R.dimen.dp57 - R.dimen.dp20),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CurtainAttributeKeyValueCard(
+                          attributes: cart.attributes,
+                          itemWidth: (R.dimen.width -
+                                  R.dimen.dp57 -
+                                  R.dimen.dp20 -
+                                  R.dimen.dp12 * 2) /
+                              2),
+                      // Positioned(
+                      //   child: RotateButton(
+                      //       onPressed: () =>
+                      //           Future.delayed(const Duration(seconds: 2))),
+                      //   right: 0,
+                      // )
+                    ],
+                  ),
                 ),
               )
             ],

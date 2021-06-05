@@ -7,7 +7,7 @@
 
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/model/user/user_info_model.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/dialog/clear_cache.dart';
 import 'package:taoju5_b/ui/dialog/logout.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';

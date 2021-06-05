@@ -2,13 +2,15 @@
  * @Description: 网络请求加载
  * @Author: iamsmiling
  * @Date: 2021-04-06 09:15:12
- * @LastEditTime: 2021-05-19 14:39:53
+ * @LastEditTime: 2021-06-01 16:39:42
  */
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 import 'package:taoju5_c/httpkit/exception/base_exception.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import 'package:taoju5_c/httpkit/exception/data_format_exception.dart';
 // class PullToRefreshMixin {
 
 // late RefreshController refreshController;
@@ -27,7 +29,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 abstract class BaseFutureLoadStateController<T> extends GetxController
     with StateMixin<T> {
   Future<T> loadData({Map? params});
-  late dynamic data;
+
   @mustCallSuper
   @override
   void onInit() {
@@ -47,86 +49,26 @@ abstract class BaseFutureLoadStateController<T> extends GetxController
   }
 
   Future fetchData() {
-    return loadData().then((T value) {
+    return loadData().then((
+      T value,
+    ) {
       if (value is Iterable && value.isEmpty) {
         change(value, status: RxStatus.empty());
       } else {
         change(value, status: RxStatus.success());
       }
-      data = value;
+    }, onError: (err, StackTrace stackTrace) {
+      String e = "$stackTrace".substring(0, 99);
+      print(stackTrace);
+      throw DataFormatException(
+          "$T json转模型失败  数据格式异常$err\n $e", RequestOptions(path: ""));
     }).catchError((err) {
+      if (err is BaseHttpException) {
+        err.onException();
+      }
       change(null,
           status: RxStatus.error(
               err is BaseHttpException ? err.message : err.toString()));
     });
-  }
-}
-
-abstract class PullToRefreshListLoadStateController<T>
-    extends BaseFutureLoadStateController<T> {
-  late RefreshController refreshController;
-
-  String pageIndexKey = "page_index";
-
-  String pageSizeKey = "page_size";
-
-  int pageSize = 20;
-
-  int currentPage = 1;
-
-  @override
-  void onInit() {
-    refreshController = RefreshController();
-    super.onInit();
-  }
-
-  Future refreshData({Map? params}) {
-    Map map = {pageIndexKey: currentPage, pageSizeKey: pageSize};
-    map.addAll(params ?? {});
-    return loadData(params: map).then((value) {
-      if (value is Iterable) {
-        if (value.isEmpty) {
-          change(value, status: RxStatus.empty());
-          refreshController.loadNoData();
-        } else {
-          refreshController.refreshCompleted();
-        }
-      }
-    }).catchError((err) {
-      refreshController.refreshFailed();
-    }).whenComplete(update);
-  }
-
-  Future loadMoreData({Map? params}) {
-    currentPage++;
-    Map map = {pageIndexKey: currentPage, pageSizeKey: pageSize};
-    map.addAll(params ?? {});
-    return loadData(params: map).then((value) {
-      if (value is Iterable) {
-        if (value.isEmpty) {
-          refreshController.loadNoData();
-        } else {
-          refreshController.loadComplete();
-          if (data is List) {
-            List list = data as List;
-            list.addAll(value);
-            data = list.toSet().toList() as T;
-            print("____________________+++++++++++");
-            print((data as List).length);
-          } else {
-            data = value;
-          }
-        }
-      }
-    }).catchError((err) {
-      print(err);
-      refreshController.loadFailed();
-    }).whenComplete(update);
-  }
-
-  @override
-  onClose() {
-    refreshController.dispose();
-    return super.onClose();
   }
 }

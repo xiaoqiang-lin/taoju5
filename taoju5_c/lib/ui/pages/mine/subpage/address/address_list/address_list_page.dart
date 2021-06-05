@@ -2,7 +2,7 @@
  * @Description: 地址列表页
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-19 13:20:54
+ * @LastEditTime: 2021-06-04 10:41:56
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +29,7 @@ class AddressListPage extends GetView<AddressListController> {
         ),
         body: FutureLoadStateBuilder<AddressListController>(
           controller: controller,
+          loadingBuilder: (BuildContext context) => SizedBox.shrink(),
           emptyBuilder: (BuildContext context) {
             return Container(
               height: R.dimen.height,
@@ -51,6 +52,13 @@ class AddressListPage extends GetView<AddressListController> {
             );
           },
           builder: (_) {
+            // return AutoList(
+            //   duration: Duration(milliseconds: 375),
+            //   items: _.addresses,
+            //   itemBuilder: (BuildContext context, AddressEntity address) {
+            //     return AddressCard(address: address);
+            //   },
+            // );
             return ListView.separated(
                 itemBuilder: (BuildContext context, int i) {
                   return AddressCard(
@@ -62,19 +70,22 @@ class AddressListPage extends GetView<AddressListController> {
           },
         ),
         bottomNavigationBar: Container(
-          width: Get.width,
-          height: kBottomNavigationBarHeight,
+          // height: kBottomNavigationBarHeight,
           margin: EdgeInsets.only(
-              top: R.dimen.dp8,
+              // bottom: Get.mediaQuery.padding.bottom,
               left: R.dimen.dp20,
-              right: R.dimen.dp20,
-              bottom: R.dimen.dp20),
+              right: R.dimen.dp20),
           child: PrimaryButton(
-            onPressed: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressEdit)
+            text: "+ 新增收货地址",
+            onPressed: () => Get.toNamed(
+                    AppRoutes.prefix + AppRoutes.mine + AppRoutes.addressEdit)
                 ?.then((value) {
               controller.loadData();
             }),
-            text: "+ 新增收货地址",
+            margin: EdgeInsets.only(
+              bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8,
+            ),
+            padding: EdgeInsets.symmetric(vertical: R.dimen.dp13),
           ),
         ),
       ),

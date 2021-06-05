@@ -2,7 +2,7 @@
  * @Description: 路由中间件
  * @Author: iamsmiling
  * @Date: 2021-01-04 17:03:50
- * @LastEditTime: 2021-04-17 17:30:22
+ * @LastEditTime: 2021-06-04 14:24:01
  */
 
 import 'package:flutter/cupertino.dart';
@@ -11,7 +11,7 @@ import 'package:get/get_navigation/src/routes/observers/route_observer.dart';
 import 'package:taoju5_b/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5_b/xdio/x_dio.dart';
 
-import 'bapp_pages.dart';
+import 'bapp_routes.dart';
 
 class BAppRouteMiddleWare extends RouteObserver {
   static observer(Routing routing) {

@@ -2,7 +2,7 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-04-27 13:29:05
+ * @LastEditTime: 2021-06-04 09:57:01
  */
 import 'dart:ui';
 
@@ -20,57 +20,61 @@ class CategoryPage extends GetView<CategoryController> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureLoadStateBuilder<CategoryController>(
-        controller: controller,
-        builder: (_) {
-          return Scaffold(
-            appBar: AppBar(
-              titleSpacing: 0,
-              backgroundColor: R.color.ffee9b5f,
-              leading: Container(
-                constraints: BoxConstraints(minHeight: 44),
-                alignment: Alignment.center,
-                child: Text(
-                  "分类",
-                  style: TextStyle(
-                      fontSize: R.dimen.sp18,
-                      fontWeight: FontWeight.bold,
-                      color: R.color.ffffffff),
-                ),
-              ),
-              title: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
-                margin: EdgeInsets.only(left: R.dimen.dp18),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(R.image.search),
-                    Container(
-                      margin: EdgeInsets.only(left: R.dimen.dp3),
-                      child: Text(
-                        "搜索您想找的内容",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: R.dimen.sp10, color: R.color.ffffffff),
-                      ),
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: R.color.ffffffff.withOpacity(.3)),
-              ),
-              actions: [
-                IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Image.asset(R.image.message),
-                    onPressed: () {})
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        backgroundColor: R.color.ffee9b5f,
+        leading: Container(
+          constraints: BoxConstraints(minHeight: 44),
+          alignment: Alignment.center,
+          child: Text(
+            "分类",
+            style: TextStyle(
+                fontSize: R.dimen.sp18,
+                fontWeight: FontWeight.bold,
+                color: R.color.ffffffff),
+          ),
+        ),
+        title: GestureDetector(
+          onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+          child: Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
+            margin: EdgeInsets.only(left: R.dimen.dp18),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(R.image.search),
+                Container(
+                  margin: EdgeInsets.only(left: R.dimen.dp3),
+                  child: Text(
+                    "搜索您想找的内容",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: R.dimen.sp10, color: R.color.ffffffff),
+                  ),
+                )
               ],
             ),
-            body: Row(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: R.color.ffffffff.withOpacity(.3)),
+          ),
+        ),
+        actions: [
+          IconButton(
+              padding: EdgeInsets.zero,
+              icon: Image.asset(R.image.message),
+              onPressed: () {})
+        ],
+      ),
+      body: FutureLoadStateBuilder<CategoryController>(
+          controller: controller,
+          loadingBuilder: (BuildContext context) => SizedBox.shrink(),
+          builder: (_) {
+            return Row(
               children: [
                 Expanded(
                     flex: 1,
@@ -81,6 +85,33 @@ class CategoryPage extends GetView<CategoryController> {
                           height: Get.height,
                           decoration:
                               BoxDecoration(color: const Color(0xFFEEEEEE)),
+                          // child: Column(
+                          //   children: [
+                          //     for (CategoryEntity item in _.categories)
+                          //       GestureDetector(
+                          //         onTap: () => _
+                          //             .onTabChanged(_.categories.indexOf(item)),
+                          //         child: Container(
+                          //           alignment: Alignment.center,
+                          //           padding: EdgeInsets.symmetric(
+                          //               vertical: R.dimen.dp20),
+                          //           child: AnimatedDefaultTextStyle(
+                          //               child: Text(item.name),
+                          //               style: item == _.currentCategory
+                          //                   ? TextStyle(
+                          //                       fontSize: R.dimen.sp12,
+                          //                       fontWeight: FontWeight.w800,
+                          //                       color: R.color.ff333333)
+                          //                   : TextStyle(
+                          //                       color: R.color.ff333333,
+                          //                       fontSize: R.dimen.sp12,
+                          //                       fontWeight: FontWeight.w500),
+                          //               duration:
+                          //                   const Duration(milliseconds: 200)),
+                          //         ),
+                          //       )
+                          //   ],
+                          // ),
                           child: ListView.builder(
                               itemCount: _.categories.length,
                               itemBuilder: (BuildContext context, int i) {
@@ -122,6 +153,7 @@ class CategoryPage extends GetView<CategoryController> {
                           double assignableWidth =
                               R.dimen.width * (4 / 5) - R.dimen.dp20 * 2;
                           double factor = 3.001;
+
                           return Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: R.dimen.dp20),
@@ -132,10 +164,10 @@ class CategoryPage extends GetView<CategoryController> {
                                   margin: EdgeInsets.symmetric(
                                       vertical: R.dimen.dp20),
                                   child: ChimeraImage(
-                                    imageUrl: item.image,
+                                    item.image,
                                     width: assignableWidth,
                                     height: assignableWidth * (120 / 235),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fitWidth,
                                   ),
                                 ),
                                 Wrap(
@@ -145,7 +177,8 @@ class CategoryPage extends GetView<CategoryController> {
                                     for (CategoryEntity child in item.children)
                                       GestureDetector(
                                         onTap: () => Get.toNamed(
-                                            AppRoutes.category +
+                                            AppRoutes.prefix +
+                                                AppRoutes.category +
                                                 AppRoutes.productList,
                                             arguments: child),
                                         child: Container(
@@ -159,11 +192,13 @@ class CategoryPage extends GetView<CategoryController> {
                                                 child: Stack(
                                                   children: [
                                                     ChimeraImage(
-                                                        width: (assignableWidth -
-                                                                R.dimen.dp15 *
-                                                                    2) /
-                                                            factor,
-                                                        imageUrl: child.image),
+                                                      child.image,
+                                                      height: (assignableWidth -
+                                                              R.dimen.dp15 *
+                                                                  2) /
+                                                          factor,
+                                                      fit: BoxFit.fitHeight,
+                                                    ),
                                                     Positioned.fill(
                                                         child: Visibility(
                                                       visible: child ==
@@ -217,8 +252,8 @@ class CategoryPage extends GetView<CategoryController> {
                           );
                         }))
               ],
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 }

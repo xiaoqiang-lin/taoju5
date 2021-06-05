@@ -55,8 +55,8 @@ class BusinessPasswordLoginPage extends StatelessWidget {
                                   fontSize: R.dimen.sp12,
                                   color: R.color.ffee9b5f),
                             ),
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.businessSmsLogin),
+                            onTap: () => Get.toNamed(
+                                AppRoutes.prefix + AppRoutes.businessSmsLogin),
                           ),
                         ),
                       ],

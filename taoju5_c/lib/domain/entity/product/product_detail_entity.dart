@@ -2,13 +2,18 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-05-12 15:40:49
+ * @LastEditTime: 2021-06-03 16:54:49
  */
+// ignore: import_of_legacy_library_into_null_safe
+// ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_sku_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
+
+import 'curtain_attribute_entity.dart';
 
 abstract class BaseProductType {}
 
@@ -78,8 +83,28 @@ class ProductDetailEntity {
 
   double get flowerSizeM => flowerSize / 100;
 
+  double? length;
+
+  double? width;
+
+  double? height;
+
   ///高度阈值
   late double thresholdHeight;
+
+  String attributeDesc = "";
+
+  ///规格信息
+  String specTip = "去填写";
+
+  int measureId = -1;
+
+  ///型材id
+  int craftId = -1;
+
+  Map args = {};
+
+  ProductDetailEntity();
 
   ProductDetailEntity.fromJson(Map json) {
     id = json["goods_id"];
@@ -118,9 +143,17 @@ class ProductDetailEntity {
         .map((e) => PictureEntity.fromJson(e))
         .toList();
 
-    skuId = json["sku_id"];
+    skuId = JsonKit.asInt(json["sku_id"]);
 
     thresholdHeight = JsonKit.asDouble(json["super_height"]);
+
+    if (productType is RollingCurtainProductType) {
+      specTip = "请填写测装数据";
+    } else if (productType is FabricCurtainProductType) {
+      specTip = "去填写";
+    } else if (productType is FinishedProductType) {
+      specTip = "请选择商品规格";
+    }
   }
 
   BaseProductType get productType => getProductType(type);
@@ -138,5 +171,15 @@ class ProductDetailEntity {
       if (currentSpecName == item.name || skuId == item.id) return item;
     }
     return null;
+  }
+
+  double get totalPrice {
+    if (currentSku == null) return 0;
+    return (currentSku?.price ?? 0) * count;
+  }
+
+  ProductAdaptorEntity adapt(
+      List<CurtainAttributeKeyValuePairEntity> attributes) {
+    return ProductAdaptorEntity.fromProductWithAttribute(this, attributes);
   }
 }

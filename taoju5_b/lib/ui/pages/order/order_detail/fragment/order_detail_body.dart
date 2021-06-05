@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5_b/ui/pages/order/order_detail/widget/order_detail_product_card.dart';
 

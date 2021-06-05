@@ -2,7 +2,7 @@
  * @Description:客户列表
  * @Author: iamsmiling
  * @Date: 2020-12-21 17:09:30
- * @LastEditTime: 2021-02-01 14:21:03
+ * @LastEditTime: 2021-06-04 14:25:13
  */
 
 import 'package:flutter/cupertino.dart';
@@ -11,7 +11,7 @@ import 'package:taoju5_b/domain/model/customer/customer_category_model.dart';
 import 'package:taoju5_b/domain/model/customer/customer_detail_model.dart';
 import 'package:taoju5_b/domain/model/customer/customer_model.dart';
 import 'package:taoju5_b/domain/repository/customer/customer_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5_b/ui/widgets/base/x_view_state.dart';
 

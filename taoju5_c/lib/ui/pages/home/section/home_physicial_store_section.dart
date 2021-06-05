@@ -2,7 +2,7 @@
  * @Description: 线下门店
  * @Author: iamsmiling
  * @Date: 2021-04-20 17:10:50
- * @LastEditTime: 2021-04-21 10:50:30
+ * @LastEditTime: 2021-05-26 14:11:38
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -47,11 +47,10 @@ class HomePhysicialStoreSection extends StatelessWidget {
                         Column(
                           children: [
                             ChimeraImage(
+                              "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(R.dimen.sp7),
                                   topRight: Radius.circular(R.dimen.sp7)),
-                              imageUrl:
-                                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
                               height: R.dimen.dp90,
                               width: R.dimen.dp200,
                               fit: BoxFit.fill,

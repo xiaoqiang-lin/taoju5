@@ -2,7 +2,7 @@
  * @Description:定制品区域
  * @Author: iamsmiling
  * @Date: 2021-05-14 17:39:30
- * @LastEditTime: 2021-05-17 17:24:06
+ * @LastEditTime: 2021-06-01 16:07:03
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,15 @@ import 'package:taoju5_c/ui/pages/order/widget/total_price_tip_bar.dart';
 
 class CustomProductSection extends StatelessWidget {
   final List<ProductAdaptorEntity> products;
-  const CustomProductSection({Key? key, required this.products})
+  final Function(String?)? onMeasureTimeChanged;
+  final Function(String?)? onInstallTimeChanged;
+  final ValueChanged<bool> onNeedMeasureChanged;
+  const CustomProductSection(
+      {Key? key,
+      required this.products,
+      this.onMeasureTimeChanged,
+      this.onInstallTimeChanged,
+      required this.onNeedMeasureChanged})
       : super(key: key);
 
   double get totalPrice {
@@ -72,12 +80,14 @@ class CustomProductSection extends StatelessWidget {
               );
             },
           ),
-        OrderMeasurementNeedSwitchBar(),
+        OrderMeasurementNeedSwitchBar(
+          onChanged: onNeedMeasureChanged,
+        ),
         MeasureTimePickerBar(
-          onValueChanged: (_) {},
+          onValueChanged: onMeasureTimeChanged,
         ),
         InstallTimePickerBar(
-          onValueChanged: (_) {},
+          onValueChanged: onInstallTimeChanged,
         ),
         DepositTipBar(),
         LessThanTwoWindowTipBar(),

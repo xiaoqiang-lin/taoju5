@@ -2,14 +2,14 @@
  * @Description: 首页顶部
  * @Author: iamsmiling
  * @Date: 2021-01-12 09:50:13
- * @LastEditTime: 2021-02-02 14:15:03
+ * @LastEditTime: 2021-06-04 14:26:06
  */
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/widgets/common/x_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
 import 'package:taoju5_b/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';
 

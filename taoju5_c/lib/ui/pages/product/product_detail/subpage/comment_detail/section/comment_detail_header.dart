@@ -2,7 +2,7 @@
  * @Description: 评论头部
  * @Author: iamsmiling
  * @Date: 2021-05-19 17:10:25
- * @LastEditTime: 2021-05-19 17:31:11
+ * @LastEditTime: 2021-05-26 14:09:47
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -23,7 +23,7 @@ class CommentDetailHeader extends StatelessWidget {
           child: Row(
             children: [
               ChimeraImage(
-                imageUrl: comment.product.image,
+                comment.product.image,
                 width: R.dimen.dp60,
                 height: R.dimen.dp60,
               ),

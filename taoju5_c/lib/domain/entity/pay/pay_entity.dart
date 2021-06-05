@@ -2,26 +2,40 @@
  * @Description: 支付
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:17:24
- * @LastEditTime: 2021-05-19 15:34:32
+ * @LastEditTime: 2021-06-04 10:27:09
  */
 
-import 'dart:convert';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter/rendering.dart';
+import 'package:taoju5_bc/utils/json_kit.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 
-import 'package:taoju5_c/utils/toast.dart';
 import 'package:tobias/tobias.dart' as tobias;
 
 abstract class PayStrategy {
   Future pay(PayOrderEntity order);
 
   Future auth();
+
+  int get code;
+
+  operator ==(p) {
+    return this == p;
+  }
+
+  @override
+  int get hashCode => hashValues(code, 0);
+
+  late bool selected;
 }
 
 class AliPayStrategy implements PayStrategy {
   @override
   Future pay(PayOrderEntity order) {
     // tobias.aliPayAuth(jso)
+    order = order as AliPayOrderEntity;
 
-    return tobias.aliPay(jsonEncode(order.params)).then((value) {
+    return tobias.aliPay(order.params).then((value) {
       print(value);
       print("支付成功");
       // ToastKit.warning(message)
@@ -31,47 +45,111 @@ class AliPayStrategy implements PayStrategy {
   }
 
   @override
-  Future auth() {
-    // TODO: implement auth
-    throw UnimplementedError();
-  }
+  Future auth() => Future.value(true);
+
+  @override
+  int get code => 1;
+
+  @override
+  bool selected = true;
 }
 
 class WechatPayStrategy implements PayStrategy {
   @override
   Future pay(PayOrderEntity order) {
-    // TODO: implement pay
-    throw UnimplementedError();
+    order = order as WxPayOrderEntity;
+    print(order);
+    return fluwx
+        .payWithWeChat(
+      appId: order.appId,
+      nonceStr: order.nonceStr,
+      packageValue: order.package,
+      partnerId: order.partnerid,
+      prepayId: order.prepayId,
+      sign: order.sign,
+      timeStamp: order.timestamp,
+    )
+        .then((value) {
+      print(value);
+    });
   }
 
   @override
-  Future auth() {
-    // TODO: implement auth
-    throw UnimplementedError();
-  }
+  Future auth() => Future.value(true);
+
+  @override
+  int get code => 2;
+
+  @override
+  bool selected = false;
 }
 
 class PayEntity {
   late String label;
   late String icon;
   late double price;
-  late bool checked;
+
   late PayStrategy strategy;
 
+  late bool selected;
+
   PayEntity(
-      {this.checked = false,
-      required this.label,
+      {required this.label,
       required this.icon,
       required this.price,
+      this.selected = false,
       required this.strategy});
+
+  operator ==(p) {
+    if (p is PayEntity) {
+      return this.label == p.label;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => hashValues(label, icon);
 }
 
-class PayOrderEntity {
-  late String url;
-  late Map params;
+abstract class PayOrderEntity {}
 
-  PayOrderEntity.fromJson(Map json) {
-    url = json["url"];
-    params = json["params"];
+class AliPayOrderEntity implements PayOrderEntity {
+  late String url;
+  late dynamic params;
+
+  AliPayOrderEntity.fromJson(dynamic json) {
+    params = json;
+  }
+}
+
+class WxPayOrderEntity implements PayOrderEntity {
+  late String appId;
+  late String mchId;
+  late String nonceStr;
+  late String prepayId;
+  late String resultCode;
+  late String returnCode;
+  late String returnMsg;
+  late String sign;
+  late String tradeType;
+  late String partnerid;
+  late String package;
+  late int timestamp;
+  late int timeExpire;
+
+  WxPayOrderEntity.fromJson(Map json) {
+    appId = json["appid"];
+    mchId = json["mch_id"];
+    nonceStr = json["nonce_str"];
+    prepayId = json["prepay_id"];
+    resultCode = json["result_code"];
+    resultCode = json["return_code"];
+    returnMsg = json["return_msg"];
+    sign = json["sign"];
+    tradeType = json["trade_type"];
+    timeExpire = JsonKit.asInt(json["time_expire"]);
+    partnerid = "${json["partnerid"]}";
+    package = json["package"];
+    timestamp = JsonKit.asInt(json["timestamp"]);
   }
 }

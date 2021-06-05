@@ -16,7 +16,7 @@ import 'package:taoju5_b/domain/model/product/product_adapter_model.dart';
 import 'package:taoju5_b/domain/model/product/product_type.dart';
 import 'package:taoju5_b/domain/model/user/user_info_model.dart';
 import 'package:taoju5_b/domain/repository/order/order_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
 import 'package:taoju5_b/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5_b/ui/pages/product/product_detail/subpage/product_share/product_share_controller.dart';

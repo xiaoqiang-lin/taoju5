@@ -2,12 +2,12 @@
  * @Description: 首页
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:19:50
- * @LastEditTime: 2021-04-17 17:31:42
+ * @LastEditTime: 2021-06-04 14:26:28
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/home/fragment/home_page_body.dart';
 import 'package:taoju5_b/ui/pages/home/fragment/home_page_header.dart';
 import 'package:taoju5_b/ui/pages/home/home_controller.dart';

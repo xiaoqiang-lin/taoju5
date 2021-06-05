@@ -2,7 +2,7 @@
  * @Description: 安装时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 15:56:45
- * @LastEditTime: 2021-05-07 16:42:04
+ * @LastEditTime: 2021-06-01 16:44:54
  */
 import 'dart:async';
 
@@ -34,7 +34,7 @@ class _InstallTimePickerBarState extends State<InstallTimePickerBar> {
         _value = CommonKit.formatDateTime(value, format: "yyyy-MM-dd");
         if (widget.onValueChanged != null) {
           widget.onValueChanged!(
-              CommonKit.formatDateTime(value, format: "yyyy年MM月dd日"));
+              CommonKit.formatDateTime(value, format: "yyyy-MM-dd"));
         }
       });
     });
@@ -189,7 +189,6 @@ class _InstallTimePickerViewState extends State<_InstallTimePickerView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: R.dimen.dp36),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

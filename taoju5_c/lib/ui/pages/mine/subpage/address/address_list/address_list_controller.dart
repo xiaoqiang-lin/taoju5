@@ -2,7 +2,7 @@
  * @Description: 地址管理逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-07 15:38:53
+ * @LastEditTime: 2021-06-03 14:27:40
  */
 import 'dart:convert';
 
@@ -14,12 +14,7 @@ import 'package:taoju5_c/local_storage/local_storage.dart';
 class AddressListController
     extends BaseFutureLoadStateController<List<AddressEntity>> {
   MineRepository _repository = MineRepository();
-  List<AddressEntity> addresses = [
-    AddressEntity.sample(id: 1, isDefault: true),
-    AddressEntity.sample(id: 2),
-    AddressEntity.sample(id: 3),
-    AddressEntity.sample(id: 4),
-  ];
+  List<AddressEntity> addresses = [];
 
   AddressListController();
 
@@ -29,11 +24,15 @@ class AddressListController
         e.isDefault = e == target;
       });
     } else {}
-    _repository.setDefaultAddress({"id": target.id});
+    _repository.setDefaultAddress({"id": target.id}).then((value) {
+      addresses = value;
+    }).whenComplete(update);
   }
 
   void delAddress(AddressEntity target) {
-    _repository.delAddress({"id": target.id});
+    _repository.delAddress({"id": target.id}).then((value) {
+      addresses = value;
+    }).whenComplete(update);
   }
 
   @override

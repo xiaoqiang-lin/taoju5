@@ -2,7 +2,7 @@
  * @Description: 请求数据拦截器
  * @Author: iamsmiling
  * @Date: 2021-04-27 10:09:54
- * @LastEditTime: 2021-04-27 10:17:06
+ * @LastEditTime: 2021-06-03 15:50:03
  */
 import 'dart:convert';
 
@@ -23,9 +23,11 @@ class ResponseInterceptor extends InterceptorsWrapper {
     if (_isThirdPartyUrl(response.realUri.toString())) {
       response.data = BaseEntity(data);
       // return Future.value(response);
+    } else {
+      BaseEntity entity = BaseEntity.fromJson(data);
+      response.data = entity;
     }
-    BaseEntity entity = BaseEntity.fromJson(data);
-    response.data = entity;
+
     handler.next(response);
   }
 }

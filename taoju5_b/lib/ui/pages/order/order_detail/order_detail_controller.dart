@@ -15,7 +15,7 @@ import 'package:taoju5_b/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5_b/domain/model/order/order_price_model.dart';
 // import 'package:taoju5_b/domain/model/order/order_status.dart';
 import 'package:taoju5_b/domain/repository/order/order_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/dialog/order/cancel_order.dart';
 import 'package:taoju5_b/ui/dialog/order/cancel_product.dart';
 import 'package:taoju5_b/ui/dialog/order/order_remind.dart';

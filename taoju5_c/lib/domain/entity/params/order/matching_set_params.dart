@@ -2,7 +2,7 @@
  * @Description: 窗帘配套参数校验
  * @Author: iamsmiling
  * @Date: 2021-05-14 10:10:21
- * @LastEditTime: 2021-05-14 11:41:17
+ * @LastEditTime: 2021-06-03 16:48:46
  */
 
 import 'dart:convert';
@@ -14,18 +14,20 @@ import 'package:taoju5_c/validator/validator.dart';
 class MatchingSetParamsEntity extends BaseParamsEntity {
   late CurtainMatchingSetAttributeEntity attribute;
 
-  MatchingSetParamsEntity({required this.attribute});
+  MatchingSetParamsEntity({required this.attribute, this.finished = false});
   @override
   Map get params => {
         "craft_id": attribute.craft.selectedOption?.id ?? 0,
-        "process_method": attribute.craft.selectedOption?.id ?? 0,
+        "process_method": "${attribute.craft.selectedOption?.id ?? 0}",
         "wc_attr": jsonEncode({
+          "craft_id": [attribute.craft.selectedOption?.id ?? 0],
           "gauze_id": [attribute.gauze.selectedOption?.id ?? 0],
-          "parts_id": [attribute.craft.selectedOption?.id ?? 0],
+          "parts_id": [attribute.sectionalbar.selectedOption?.id ?? 0],
           "curtain_id": [attribute.valance.selectedOption?.id ?? 0],
           "lining_id": [attribute.riboux.selectedOption?.id ?? 0],
         })
       };
+  bool finished = false;
 
   @override
   bool validate() {

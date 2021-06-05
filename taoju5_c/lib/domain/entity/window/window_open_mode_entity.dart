@@ -2,7 +2,7 @@
  * @Description: 窗帘打开方式
  * @Author: iamsmiling
  * @Date: 2021-05-08 11:24:01
- * @LastEditTime: 2021-05-13 15:05:26
+ * @LastEditTime: 2021-06-03 17:22:04
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -32,6 +32,12 @@ class WindowOpenModeEntity {
       if (o.selected) return o;
     }
     return null;
+  }
+
+  String get description {
+    String s = selectedOpenOption?.name ?? "";
+
+    return s;
   }
 }
 

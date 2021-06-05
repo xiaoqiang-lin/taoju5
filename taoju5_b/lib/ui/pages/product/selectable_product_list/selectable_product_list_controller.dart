@@ -12,7 +12,7 @@ import 'package:taoju5_b/domain/model/order/order_detail_model.dart';
 import 'package:taoju5_b/domain/model/order/order_detail_product_model.dart';
 import 'package:taoju5_b/domain/model/order/order_type.dart';
 import 'package:taoju5_b/domain/model/product/product_sort_model.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/product/product_list/product_list_controller.dart';
 import 'package:taoju5_b/ui/pages/search/search_controller.dart';
 

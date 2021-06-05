@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
+import 'package:taoju5_c/component/checkbox/round_checked_box.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,8 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AddressListController>(builder: (_) {
       return GestureDetector(
-        onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressEdit,
+        onTap: () => Get.toNamed(
+            AppRoutes.prefix + AppRoutes.mine + AppRoutes.addressEdit,
             arguments: address),
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -45,7 +46,8 @@ class AddressCard extends StatelessWidget {
                       style: TextStyle(
                           fontSize: R.dimen.sp12, color: R.color.ff999999),
                     ),
-                    Icon(R.icon.next)
+                    Image.asset(R.image.next)
+                    // Icon(R.icon.next)
                   ],
                 ),
               ),
@@ -118,7 +120,7 @@ class AddressCard extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(right: R.dimen.dp5),
                       child: RoundCheckbox(
-                          key: ValueKey(address.isDefault),
+                          key: ObjectKey(address),
                           value: address.isDefault,
                           onChanged: (bool flag) =>
                               _.setDefaultAddress(flag, address)),

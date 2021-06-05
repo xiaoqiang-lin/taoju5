@@ -2,7 +2,7 @@
  * @Description: 窗帘安装方式
  * @Author: iamsmiling
  * @Date: 2021-05-08 12:12:01
- * @LastEditTime: 2021-05-12 11:14:20
+ * @LastEditTime: 2021-06-03 17:18:14
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -16,6 +16,13 @@ class WindowInstalllModeEntity {
     options = JsonKit.asList(json["options"])
         .map((e) => WindowInstallModeOptionEntity.fromJson(e))
         .toList();
+  }
+
+  WindowInstallModeOptionEntity? get selectedOption {
+    for (WindowInstallModeOptionEntity o in options) {
+      if (o.selected) return o;
+    }
+    return null;
   }
 
   ///返回窗型图片

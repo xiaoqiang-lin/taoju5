@@ -2,7 +2,7 @@
  * @Description: 定金
  * @Author: iamsmiling
  * @Date: 2021-05-06 16:10:03
- * @LastEditTime: 2021-05-17 14:18:30
+ * @LastEditTime: 2021-06-03 16:15:41
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -14,6 +14,7 @@ class FreightTipBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             margin: EdgeInsets.only(right: R.dimen.dp5),
@@ -35,7 +36,7 @@ class FreightTipBar extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(right: 7),
+
                       // constraints: BoxConstraints(maxHeight: 12, maxWidth: 12),
                       child: Text(
                         "¥20.0",

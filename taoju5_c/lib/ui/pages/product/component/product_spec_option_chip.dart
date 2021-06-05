@@ -2,7 +2,7 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-05-17 09:39:36
+ * @LastEditTime: 2021-06-04 06:09:37
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -21,7 +21,7 @@ class ProductSpecOptionChip extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(top: R.dimen.dp10, right: R.dimen.dp4),
+          margin: EdgeInsets.only(top: R.dimen.dp10),
           child: option.mode == OptionDisplayMode.text
               ? _ProductSpecLabelChip(
                   key: ObjectKey(option),
@@ -124,6 +124,11 @@ class _ProductSpecImageChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double w = (R.dimen.width -
+            R.dimen.dp20 * 2 -
+            R.dimen.dp18 * 2 -
+            R.dimen.dp1 * 6) /
+        3.0001;
     return GestureDetector(
       onTap: onPressed,
       behavior: HitTestBehavior.opaque,
@@ -139,10 +144,15 @@ class _ProductSpecImageChip extends StatelessWidget {
           child: Column(
             children: [
               ChimeraImage(
-                imageUrl: src,
-                width: R.dimen.dp100,
-                height: R.dimen.dp100,
+                src,
+                width: w,
+                height: w,
                 fit: BoxFit.cover,
+                enlarge: true,
+                // heroTag: src,
+                // magnifier: Image.asset(R.image.scale),
+                // magnifierMarginTop: R.dimen.dp7,
+                // magnifierMarginRight: R.dimen.dp7,
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: R.dimen.dp8),

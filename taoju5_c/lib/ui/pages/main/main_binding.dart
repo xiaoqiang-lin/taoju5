@@ -2,9 +2,10 @@
  * @Description:app程序入口
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-28 10:21:13
+ * @LastEditTime: 2021-06-03 15:09:10
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/service/prefs_service.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_controller.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';
@@ -15,6 +16,8 @@ import 'package:taoju5_c/ui/pages/school/school_controller.dart';
 class MainBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put(GetLocalStorage());
+
     Get.lazyPut(() => MainController());
 
     Get.lazyPut(() => HomeController());

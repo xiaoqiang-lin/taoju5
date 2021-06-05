@@ -2,9 +2,11 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-05-20 16:54:27
+ * @LastEditTime: 2021-06-04 15:08:52
  */
 class AppRoutes {
+  static const prefix = '/c';
+
   ///app程序入口
   static const main = '/main';
 
@@ -63,6 +65,8 @@ class AppRoutes {
 
   static const orderList = '/orderList';
 
+  static const orderComment = '/orderComment';
+
   static const orderDetail = '/orderDetail';
 
   static const imageCrop = '/imageCrop';
@@ -102,4 +106,10 @@ class AppRoutes {
   static const mainfest = "/mainfest";
 
   static const editLog = "/editLog";
+
+  static const sceneList = "/sceneList";
+
+  static const sceneCategoryList = "/sceneCategoryList";
+
+  static const sceneDetail = "/sceneDetail";
 }

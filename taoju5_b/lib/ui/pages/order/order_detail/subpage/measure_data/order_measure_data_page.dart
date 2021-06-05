@@ -4,7 +4,7 @@ import 'package:taoju5_b/domain/model/order/order_type.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/order/order_detail/subpage/measure_data/order_measure_data_controller.dart';
 import 'package:taoju5_b/ui/widgets/common/button/x_future_button.dart';
 import 'package:taoju5_b/ui/widgets/common/x_photo_gallery.dart';

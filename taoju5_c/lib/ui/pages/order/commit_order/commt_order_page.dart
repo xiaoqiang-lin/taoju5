@@ -2,7 +2,7 @@
  * @Description: 提交订单ui
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:16:33
- * @LastEditTime: 2021-05-18 10:38:40
+ * @LastEditTime: 2021-06-03 16:20:07
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -44,57 +44,68 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                           child: Row(
                             children: [
                               Image.asset(R.image.fillAddress),
-                              Container(
-                                  margin: EdgeInsets.only(left: R.dimen.dp10),
-                                  child: Column(
-                                    children: [
-                                      if (_.defaultAddress == null)
-                                        Text(
-                                          "请前往选择/添加收货地址",
-                                          style: TextStyle(
-                                              color: R.color.ffff5005,
-                                              fontSize: R.dimen.sp13,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      else
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  _.defaultAddress!
-                                                      .receiverName,
-                                                  style: TextStyle(
-                                                      fontSize: R.dimen.sp13,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      left: R.dimen.dp10),
-                                                  child: Text(
-                                                    _.defaultAddress!.telephone,
+                              Expanded(
+                                child: Container(
+                                    margin: EdgeInsets.only(left: R.dimen.dp10),
+                                    child: Column(
+                                      children: [
+                                        if (_.defaultAddress == null)
+                                          Text(
+                                            "请前往选择/添加收货地址",
+                                            style: TextStyle(
+                                                color: R.color.ffff5005,
+                                                fontSize: R.dimen.sp13,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        else
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    _.defaultAddress!
+                                                        .receiverName,
                                                     style: TextStyle(
                                                         fontSize: R.dimen.sp13,
-                                                        color:
-                                                            R.color.ff999999),
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                                margin: EdgeInsets.only(
-                                                    top: R.dimen.dp10),
-                                                child: Text(_
-                                                    .defaultAddress!.description
-                                                    .replaceAll(" ", "")))
-                                          ],
-                                        )
-                                    ],
-                                  )),
-                              Spacer(),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: R.dimen.dp10),
+                                                    child: Text(
+                                                      _.defaultAddress!
+                                                          .telephone,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              R.dimen.sp13,
+                                                          color:
+                                                              R.color.ff999999),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(
+                                                  margin: EdgeInsets.only(
+                                                      top: R.dimen.dp10),
+                                                  child: Text(
+                                                    _.defaultAddress!
+                                                        .description
+                                                        .replaceAll(" ", ""),
+                                                    maxLines: 1,
+                                                    style: TextStyle(
+                                                      fontSize: R.dimen.sp13,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ))
+                                            ],
+                                          )
+                                      ],
+                                    )),
+                              ),
                               Image.asset(R.image.next)
                             ],
                           ),
@@ -119,6 +130,9 @@ class CommitOrderPage extends GetView<CommitOrderController> {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
                   child: CustomProductSection(
+                      onNeedMeasureChanged: controller.setNeedMeasure,
+                      onInstallTimeChanged: controller.setInstallTime,
+                      onMeasureTimeChanged: controller.setMeasureTime,
                       products: controller.customProducts)),
               Container(
                 height: R.dimen.dp10,
@@ -136,7 +150,9 @@ class CommitOrderPage extends GetView<CommitOrderController> {
               ),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-                  child: OrderNoteFillBar()),
+                  child: OrderNoteFillBar(
+                    onValueChanged: controller.setOrderRemark,
+                  )),
               Container(
                 height: R.dimen.dp10,
                 color: R.color.fff5f5f5,
@@ -149,6 +165,12 @@ class CommitOrderPage extends GetView<CommitOrderController> {
         ),
       ),
       bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: R.color.ffffffff, boxShadow: [
+          BoxShadow(
+              spreadRadius: 1,
+              offset: Offset(0, -1),
+              color: Colors.black.withAlpha(18))
+        ]),
         margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
         padding: EdgeInsets.symmetric(
             horizontal: R.dimen.dp20, vertical: R.dimen.dp8),
@@ -167,7 +189,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
               onPressed: controller.submit,
               margin: EdgeInsets.only(left: R.dimen.dp12),
               padding: EdgeInsets.symmetric(
-                  vertical: R.dimen.dp13, horizontal: R.dimen.dp22),
+                  vertical: R.dimen.dp10, horizontal: R.dimen.dp22),
             )
           ],
         ),

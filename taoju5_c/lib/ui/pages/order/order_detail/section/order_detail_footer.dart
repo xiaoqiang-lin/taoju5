@@ -2,13 +2,11 @@
  * @Description: 订单详情底部
  * @Author: iamsmiling
  * @Date: 2021-05-18 14:38:11
- * @LastEditTime: 2021-05-18 15:16:53
+ * @LastEditTime: 2021-06-04 06:35:37
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/copy_button.dart';
-import 'package:taoju5_c/component/carousel/carousel_slide.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -31,24 +29,27 @@ class OrderDetailFooter extends StatelessWidget {
                 style:
                     TextStyle(fontSize: R.dimen.sp14, color: R.color.ff181818),
               ),
-              Visibility(
-                  visible: order.manuscript.pictures.isNotEmpty,
-                  child: Container(
-                    padding: EdgeInsets.only(top: R.dimen.dp10),
-                    child: CarouselSlide(
-                      itemCount: order.manuscript.pictures.length,
-                      viewportFraction: 1,
-                      itemHeight:
-                          (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
-                      itemWidth: R.dimen.width - R.dimen.dp24 * 2,
-                      itemBuilder: (BuildContext context, int i) {
-                        return ChimeraImage(
-                            imageUrl: order.manuscript.pictures[i].cover);
-                      },
-                      containerHeight:
-                          (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
-                    ),
-                  )),
+              // Visibility(
+              //     visible: order.manuscript.pictures.isNotEmpty,
+              //     child: Container(
+              //       padding: EdgeInsets.only(top: R.dimen.dp10),
+              //       child: CarouselSlide(
+              //         itemCount: order.manuscript.pictures.length,
+              //         viewportFraction: 1,
+              //         itemHeight:
+              //             (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
+              //         itemWidth: R.dimen.width - R.dimen.dp24 * 2,
+              //         itemBuilder: (BuildContext context, int i) {
+              //           return ChimeraImage(
+              //             order.manuscript.pictures[i].cover,
+              //             heroTag:
+              //                 "${order.manuscript.pictures[i].cover}" + "$i",
+              //           );
+              //         },
+              //         containerHeight:
+              //             (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
+              //       ),
+              //     )),
             ],
           ),
         ),

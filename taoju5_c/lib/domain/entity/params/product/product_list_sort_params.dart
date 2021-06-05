@@ -2,7 +2,7 @@
  * @Description: 商品列表排序
  * @Author: iamsmiling
  * @Date: 2021-04-25 12:20:34
- * @LastEditTime: 2021-04-25 13:39:32
+ * @LastEditTime: 2021-05-27 14:57:15
  */
 
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
@@ -33,4 +33,9 @@ class ProductListSortParamsEntity extends BaseParamsEntity {
 
   @override
   bool validate() => true;
+
+  @override
+  String toString() {
+    return name;
+  }
 }

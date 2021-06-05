@@ -2,7 +2,7 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-05-19 10:50:15
+ * @LastEditTime: 2021-06-03 17:50:59
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +20,7 @@ class SchoolPage extends GetView<SchoolController> {
   Widget build(BuildContext context) {
     double assignableWidth = R.dimen.width - R.dimen.dp20 * 2;
     return GetBuilder<SchoolController>(
+      autoRemove: false,
       builder: (_) {
         return DefaultTabController(
           length: _.tabs.length,
@@ -40,36 +41,40 @@ class SchoolPage extends GetView<SchoolController> {
                       color: R.color.ffffffff),
                 ),
               ),
-              title: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
-                margin: EdgeInsets.only(left: R.dimen.dp18),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(R.image.search),
-                    Container(
-                      margin: EdgeInsets.only(left: R.dimen.dp3),
-                      child: Text(
-                        "搜索您想找的内容",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: R.dimen.sp10, color: R.color.ffffffff),
-                      ),
-                    )
-                  ],
+              title: GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+                child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
+                  margin: EdgeInsets.only(left: R.dimen.dp18),
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(R.image.search),
+                      Container(
+                        margin: EdgeInsets.only(left: R.dimen.dp3),
+                        child: Text(
+                          "搜索您想找的内容",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: R.dimen.sp10, color: R.color.ffffffff),
+                        ),
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: R.color.ffffffff.withOpacity(.3)),
                 ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: R.color.ffffffff.withOpacity(.3)),
               ),
               actions: [
                 IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Image.asset(R.image.message),
-                    onPressed: () {})
+                  padding: EdgeInsets.zero,
+                  icon: Image.asset(R.image.message),
+                  onPressed: () {},
+                )
               ],
             ),
             body: Column(
@@ -104,8 +109,11 @@ class SchoolPage extends GetView<SchoolController> {
                             CourseEntity item = _.courses[i];
                             return GestureDetector(
                               onTap: item.isVideo
-                                  ? () => Get.toNamed(AppRoutes.videoPlayer)
-                                  : () => Get.toNamed(AppRoutes.articleDetail,
+                                  ? () => Get.toNamed(
+                                      AppRoutes.prefix + AppRoutes.videoPlayer)
+                                  : () => Get.toNamed(
+                                      AppRoutes.prefix +
+                                          AppRoutes.articleDetail,
                                       arguments: item.type),
                               child: Stack(
                                 children: [
@@ -121,7 +129,7 @@ class SchoolPage extends GetView<SchoolController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         ChimeraImage(
-                                          imageUrl: _.courses[i].cover,
+                                          _.courses[i].cover,
                                           width:
                                               (assignableWidth - R.dimen.dp15) /
                                                   2.00,

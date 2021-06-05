@@ -2,7 +2,7 @@
  * @Description: 购物车模型
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:55:21
- * @LastEditTime: 2021-05-14 16:52:26
+ * @LastEditTime: 2021-06-01 10:58:51
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -31,6 +31,12 @@ class CartEntity {
   late int measureId;
   late Map args;
 
+  late double length;
+
+  bool removed = false;
+
+  late int craftId;
+
   BaseProductType get productType => getProductType(productTypeCode);
 
   CartEntity.fromJson(Map json) {
@@ -46,13 +52,16 @@ class CartEntity {
     maxPurchase = json["max_buy"];
     minPurchase = json["min_buy"];
     offShelves = false;
+    length = JsonKit.asDouble(json["length"]);
     count = JsonKit.asInt(json["num"]);
     unitPrice = JsonKit.asDouble(json["price"]);
     totalPrice = JsonKit.asDouble(json["estimated_price"]);
     description = json["goods_attr_str"];
-    attributes = JsonKit.asList(json["app_wc_attr"])
+    attributes = JsonKit.asList(json["goods_accessory"])
         .map((e) => CurtainAttributeKeyValuePairEntity.fromJson(e))
         .toList();
-    args = json["wc_attr"];
+    args = JsonKit.asMap(json["wc_attr"]);
+    craftId = JsonKit.asInt(json["process_method"]);
+    print("***********************--------------------------");
   }
 }

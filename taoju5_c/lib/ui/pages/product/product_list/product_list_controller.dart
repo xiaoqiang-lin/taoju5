@@ -2,14 +2,16 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-05-19 15:05:27
+ * @LastEditTime: 2021-05-27 17:19:18
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/entity/params/product/product_list_sort_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
+import 'package:taoju5_c/domain/repository/category_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -66,12 +68,16 @@ extension PeoductViewModeKit on PeoductViewMode {
       '';
 }
 
-class ProductListParentController extends GetxController
+class ProductListParentController
+    extends BaseFutureLoadStateController<List<CategoryEntity>>
     with SingleGetTickerProviderMixin {
   ///默认为网格视图
   PeoductViewMode viewMode = PeoductViewMode.gridMode;
 
-  List<CategoryEntity> categories = [];
+  List<CategoryEntity> _categories = [];
+
+  List<CategoryEntity> get categories =>
+      _categories.length > 1 ? _categories : [CategoryEntity(id: -1, name: "")];
 
   ///默认排序
   ProductListSortParamsEntity sortTye = ProductListSortParamsEntity(name: "默认");
@@ -95,8 +101,8 @@ class ProductListParentController extends GetxController
   CategoryEntity category = Get.arguments;
 
   int get _intialIndex {
-    for (int i = 0; i < categories.length; i++) {
-      if (categories[i].name == category.name) {
+    for (int i = 0; i < _categories.length; i++) {
+      if (_categories[i].name == category.name) {
         return i;
       }
     }
@@ -111,14 +117,32 @@ class ProductListParentController extends GetxController
   }
 
   refreshData() {
-    if (!Get.isRegistered<ProductListController>()) return;
-    return Get.find<ProductListController>().loadData();
+    if (!Get.isRegistered<ProductListController>(tag: currentTag)) return;
+    return Get.find<ProductListController>(tag: currentTag)
+        .refreshData(params: {
+      "sort": sortTye.sort,
+      "order": sortTye.order,
+    });
+  }
+
+  String get currentTag {
+    if (categories.length > 1) {
+      return "${categories[tabController.index].id}";
+    }
+    return "${category.id}";
+  }
+
+  switchViewMode() {
+    viewMode = viewMode == PeoductViewMode.gridMode
+        ? PeoductViewMode.listMode
+        : PeoductViewMode.gridMode;
+    update();
   }
 
   late TabController tabController;
 
   initTabBarController(List<CategoryEntity> list) {
-    categories = list;
+    _categories = list;
     tabController = TabController(
         initialIndex: _intialIndex, length: categories.length, vsync: this);
   }
@@ -128,17 +152,32 @@ class ProductListParentController extends GetxController
     tabController.dispose();
     super.dispose();
   }
+
+  Future<List<CategoryEntity>> loadData({Map? params}) {
+    CategoryRepository repository = CategoryRepository();
+    return repository.categoryList(params: {"category_id": category.id}).then(
+        (List<CategoryEntity> list) {
+      // data = value.products;
+      initTabBarController(list);
+      for (CategoryEntity c in list) {
+        Get.lazyPut(() => ProductListController(c), tag: "${c.id}");
+      }
+      return list;
+      // return value;
+    }).catchError((err) {
+      print(err);
+      print("出现错误");
+    });
+  }
 }
 
 class ProductListController
-    extends PullToRefreshListViewBuilderController<List<ProductEntity>> {
+    extends PullToRefreshListViewBuilderController<ProductEntity> {
   ProductRepository repository = ProductRepository();
 
   CategoryEntity category;
 
   ProductListController(this.category);
-
-  late List<ProductEntity> products = Get.arguments;
 
   ProductListParentController get parentController =>
       Get.find<ProductListParentController>();
@@ -146,12 +185,17 @@ class ProductListController
   @override
   Future<List<ProductEntity>> loadData({Map? params}) {
     Map map = {"category_id": category.id};
-    map.addAll(params ?? {});
     return repository.productList(map).then((value) {
-      products = value.products;
-      parentController.initTabBarController(value.categories);
-      return products;
+      list = value.products;
+      print("++++++++__________");
+      print("yyyyyyyy-----------");
+      return list;
       // return value;
     });
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
   }
 }

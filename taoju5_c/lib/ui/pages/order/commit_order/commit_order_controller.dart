@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:15:54
- * @LastEditTime: 2021-05-17 14:11:24
+ * @LastEditTime: 2021-06-03 16:21:53
  */
 import 'dart:convert';
 
@@ -18,14 +18,18 @@ import 'package:taoju5_c/routes/app_routes.dart';
 class CommitOrderController extends GetxController {
   AddressEntity? defaultAddress;
 
-  late CreateOrderParamsEntity args;
+  CreateOrderParamsEntity args =
+      CreateOrderParamsEntity(products: Get.arguments ?? []);
 
-  List<ProductAdaptorEntity> products = Get.arguments;
+  List<ProductAdaptorEntity> products = Get.arguments ?? [];
 
   List<ProductAdaptorEntity> get finishedProducts =>
       products.where((e) => e.productType is FinishedProductType).toList();
   List<ProductAdaptorEntity> get customProducts =>
       products.where((e) => e.productType is! FinishedProductType).toList();
+
+  ///订单总价
+  double get totalPrice => finishedProductTotalPrice + customProductTotalPrice;
 
   ///成品总价
   double get finishedProductTotalPrice {
@@ -49,8 +53,8 @@ class CommitOrderController extends GetxController {
     LocalStorage.get("defaultAddress").then((val) {
       if (val != null) {
         defaultAddress = AddressEntity.fromJson(jsonDecode(val));
+        args.addressId = defaultAddress!.id;
       }
-      args = CreateOrderParamsEntity(addressId: defaultAddress!.id);
     }).whenComplete(() {
       update(["defaultAddress"]);
     });
@@ -60,12 +64,16 @@ class CommitOrderController extends GetxController {
     return Get.toNamed(AppRoutes.mine + AppRoutes.addressList)?.then((value) {
       defaultAddress = value;
       update(["defaultAddress"]);
-      args = CreateOrderParamsEntity(addressId: defaultAddress!.id);
+      args.addressId = defaultAddress!.id;
     });
   }
 
   setMeasureTime(String? val) {
     args.extra.measureTime = val;
+  }
+
+  setNeedMeasure(bool flag) {
+    args.needMeasure = flag;
   }
 
   setInstallTime(String? val) {
@@ -87,6 +95,7 @@ class CommitOrderController extends GetxController {
   }
 
   Future? submit() {
-    return Get.toNamed(AppRoutes.pay, arguments: args);
+    args.totalPrice = totalPrice;
+    return Get.toNamed(AppRoutes.prefix + AppRoutes.pay, arguments: args);
   }
 }

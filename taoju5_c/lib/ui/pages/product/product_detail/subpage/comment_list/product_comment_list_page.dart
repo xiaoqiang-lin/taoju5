@@ -2,13 +2,13 @@
  * @Description:商品评论列表
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:08:56
- * @LastEditTime: 2021-05-15 10:24:48
+ * @LastEditTime: 2021-06-04 06:10:06
  */
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/button/like_button.dart';
+import 'package:taoju5_c/component/button/animated_button.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/product/product_comment_entity.dart';
@@ -40,7 +40,8 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
 
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () => Get.toNamed(AppRoutes.category +
+                      onTap: () => Get.toNamed(AppRoutes.prefix +
+                          AppRoutes.category +
                           AppRoutes.productDetail +
                           "/3226" +
                           AppRoutes.productCommentDetail),
@@ -116,12 +117,13 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
                                                       ? R.dimen.dp14
                                                       : 0),
                                               child: ChimeraImage(
-                                                imageUrl: src,
+                                                src,
                                                 enlarge: true,
-                                                slidable: true,
-                                                images: item.images,
-                                                currentIndex:
-                                                    item.images.indexOf(src),
+                                                // slidable: true,
+                                                // images: item.images,
+                                                // heroTag: src,
+                                                // initialIndex:
+                                                // item.images.indexOf(src),
                                                 width: (R.dimen.width -
                                                         R.dimen.dp24 * 2 -
                                                         R.dimen.dp14 * 2) /
@@ -141,7 +143,12 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
-                                              LikeButton(),
+                                              AnimatedButton(
+                                                activeWidget: Image.asset(
+                                                    R.image.heartFilled),
+                                                deactiveWidget: Image.asset(
+                                                    R.image.heartBlank),
+                                              ),
                                               Container(
                                                 margin: EdgeInsets.only(
                                                     left: R.dimen.dp5),

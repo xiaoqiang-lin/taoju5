@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/repository/login/login_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 
 class ModifyPasswordController extends GetxController {
   LoginRepository _repository = LoginRepository();

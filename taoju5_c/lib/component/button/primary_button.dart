@@ -60,7 +60,8 @@ class PrimaryButton extends StatelessWidget {
   _initSize() {
     _constraints = constraints;
     if (size == PrimaryButtonSize.large || size == PrimaryButtonSize.big) {
-      _constraints ??= BoxConstraints(minWidth: double.maxFinite);
+      _constraints ??=
+          BoxConstraints(minWidth: double.maxFinite, minHeight: 45);
     }
 
     if (size == PrimaryButtonSize.middle) {
@@ -70,7 +71,6 @@ class PrimaryButton extends StatelessWidget {
     if (size == PrimaryButtonSize.small) {
       _constraints ??= BoxConstraints(
           minWidth: 60, minHeight: 30, maxHeight: 30, maxWidth: 60);
-      print("设置大小为最小");
     }
     _constraints ??= BoxConstraints(minWidth: 30, minHeight: 30);
   }
@@ -93,7 +93,6 @@ class PrimaryButton extends StatelessWidget {
 
     if (size == PrimaryButtonSize.small) {
       _padding = EdgeInsets.zero;
-      print("设置内边距为0");
     }
 
     _padding ??= padding;
@@ -112,7 +111,7 @@ class PrimaryButton extends StatelessWidget {
       _textStyle ??= TextStyle(color: const Color(0xFF666666));
     }
     if (size == PrimaryButtonSize.middle) {
-      _textStyle = _textStyle?.copyWith(fontSize: 14);
+      _textStyle = _textStyle?.copyWith(fontSize: 12);
     }
     if (size == PrimaryButtonSize.small) {
       _textStyle =
@@ -131,7 +130,6 @@ class PrimaryButton extends StatelessWidget {
             onPressed: onPressed,
             child: _child,
             style: ButtonStyle(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: MaterialStateProperty.all(padding),
               minimumSize: MaterialStateProperty.all(Size(48, 30)),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(

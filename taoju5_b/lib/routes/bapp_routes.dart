@@ -2,11 +2,12 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-18 16:16:31
- * @LastEditTime: 2021-02-19 22:19:28
+ * @LastEditTime: 2021-06-04 15:49:59
  */
-part of 'bapp_pages.dart';
 
 abstract class BAppRoutes {
+  static const prefix = "/b";
+
   static const home = '/home';
 
   static const debug = '/debug';

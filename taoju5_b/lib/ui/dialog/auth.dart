@@ -2,13 +2,13 @@
  * @Description: 授权
  * @Author: iamsmiling
  * @Date: 2021-01-10 15:19:44
- * @LastEditTime: 2021-01-10 16:33:32
+ * @LastEditTime: 2021-06-04 14:24:26
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/dialog/reauth.dart';
 import 'package:taoju5_b/ui/pages/home/app_controller.dart';
 

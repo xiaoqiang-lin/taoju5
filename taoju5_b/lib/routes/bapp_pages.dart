@@ -2,10 +2,11 @@
  * @Descripon: app页面
  * @Author: iamsmiling
  * @Date: 2020-12-18 16:11:26
- * @LastEditTime: 2021-04-17 17:29:56
+ * @LastEditTime: 2021-06-04 14:23:21
  */
 
 import 'package:get/get.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/after_sell/after_sell_binding.dart';
 import 'package:taoju5_b/ui/pages/after_sell/after_sell_page.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_address_edit/customer_address_edit_binding.dart';
@@ -84,8 +85,6 @@ import 'package:taoju5_b/ui/pages/setting/setting/setting_page.dart';
 import 'package:taoju5_b/ui/pages/user_protocol/user_protocol_binding.dart';
 import 'package:taoju5_b/ui/pages/user_protocol/user_protocol_page.dart';
 import 'package:taoju5_bc/storage/storage_manager.dart';
-
-part 'bapp_routes.dart';
 
 class BAppPages {
   static get initial {

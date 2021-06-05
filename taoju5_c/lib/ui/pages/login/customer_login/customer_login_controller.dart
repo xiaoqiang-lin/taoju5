@@ -2,7 +2,7 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-14 12:11:34
- * @LastEditTime: 2021-04-21 11:21:29
+ * @LastEditTime: 2021-06-04 11:15:44
  */
 import 'dart:async';
 
@@ -22,9 +22,12 @@ abstract class LoginStrategy {
   CLoginRepository repository = CLoginRepository();
 
   late Function(BaseEntity entity) onSuccess;
-  Future login(Map params) {
+  Future login(Map<String, dynamic> params) {
     ToastKit.loading(message: "正在登录");
-    return repository.login(params).then(onSuccess);
+    return repository
+        .login(params)
+        .then(onSuccess)
+        .whenComplete(ToastKit.dismiss);
   }
 
   void setSuccessHandler(Function(BaseEntity entity) handler) {
@@ -49,7 +52,7 @@ class WeChatLoginStrategy extends LoginStrategy {
   late StreamSubscription? _subscription;
 
   @override
-  Future login(params) {
+  Future login(Map<String, dynamic> params) {
     _subscription = fluwx.weChatResponseEventHandler
         .distinct((a, b) => a == b)
         .listen((res) {
@@ -57,17 +60,17 @@ class WeChatLoginStrategy extends LoginStrategy {
         if (res.isSuccessful) {
           // ToastKit.success("授权成功");
           ToastKit.loading(message: "正在登录");
-          params.addAll({
+
+          params.addAll(Map<String, dynamic>.from({
             "appid": AppConfig.weChatAppId,
             "code": res.code,
             "secret": AppConfig.weChatSecret,
             "grant_type": "authorization_code"
-          });
+          }));
           repository.weChatLogin(params).then(onSuccess).whenComplete(() {
-            ToastKit.dismiss();
             _subscription?.cancel();
             _subscription = null;
-          });
+          }).whenComplete(ToastKit.dismiss);
         }
       }
     });
@@ -86,7 +89,7 @@ class CustomerLoginController extends GetxController {
   void _onLoginSuccess(BaseEntity entity) async {
     SharedPreferences _sp = await SharedPreferences.getInstance();
     await _sp.setString("token", entity.data);
-    Get.offAndToNamed(AppRoutes.main);
+    Get.offAllNamed(AppRoutes.main);
   }
 
   void setPassword(String val) {
@@ -104,7 +107,7 @@ class CustomerLoginController extends GetxController {
   Future getSmsCode() {
     CLoginRepository _repository = CLoginRepository();
     CSmsParamsEntity _smsArg =
-        CSmsParamsEntity(telephone: _loginArg.telephone!, type: CSmsType.login);
+        CSmsParamsEntity(telephone: _loginArg.telephone, type: CSmsType.login);
     if (_smsArg.validate()) {
       return _repository.getSmsCode(_smsArg.params);
     }

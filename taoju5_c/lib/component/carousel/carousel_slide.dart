@@ -2,14 +2,17 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-05-18 15:09:03
+ * @LastEditTime: 2021-05-28 09:22:44
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:taoju5_c/component/image/chimera_image.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_c/component/image/image_view_gallery.dart';
 import 'package:taoju5_c/component/open_container/open_container.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class CarouselSlide extends StatefulWidget {
   final int itemCount;
@@ -64,6 +67,17 @@ class _CarouselSlideState extends State<CarouselSlide> {
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
+          // PhotoViewGallery.builder(
+          //   itemCount: widget.thunmbnails!.length,
+          //   builder: (BuildContext context, int index) {
+          //     return PhotoViewGalleryPageOptions(
+          //       imageProvider: NetworkImage(widget.thunmbnails![index]),
+          //       initialScale: PhotoViewComputedScale.contained,
+          //       heroAttributes:
+          //           PhotoViewHeroAttributes(tag: widget.thunmbnails![index]),
+          //     );
+          //   },
+          // ),
           Swiper(
             controller: _controller,
             loop: widget.loop,
@@ -72,23 +86,30 @@ class _CarouselSlideState extends State<CarouselSlide> {
                 _currentIndex = i;
               });
             },
-            itemCount: widget.itemCount,
+            itemCount: widget.thunmbnails!.length,
             viewportFraction: widget.viewportFraction,
             itemBuilder: (BuildContext context, int i) {
-              return OpenContainer<int?>(onClosed: (int? val) {
-                if (val == null) return;
-                if (_currentIndex != i) {
-                  _controller.move(i);
-                }
-                _currentIndex = i;
-              }, closedBuilder: (BuildContext context, _) {
-                return widget.itemBuilder(context, i);
-              }, openBuilder: (BuildContext context, _) {
-                return ImageViewGallery(
-                  currentIndex: _currentIndex,
-                  images: widget.bigImages ?? [],
-                );
-              });
+              return ChimeraImage(
+                widget.thunmbnails![i],
+                borderRadius: BorderRadius.zero,
+                enlarge: true,
+                fit: BoxFit.cover,
+                // heroTag: widget.bigImages![i],
+              );
+              // return OpenContainer<int?>(onClosed: (int? val) {
+              //   if (val == null) return;
+              //   if (_currentIndex != i) {
+              //     _controller.move(i);
+              //   }
+              //   _currentIndex = i;
+              // }, closedBuilder: (BuildContext context, _) {
+              //   return widget.itemBuilder(context, i);
+              // }, openBuilder: (BuildContext context, _) {
+              //   return ImageViewGallery(
+              //     currentIndex: _currentIndex,
+              //     images: widget.bigImages ?? [],
+              //   );
+              // });
             },
             itemHeight: widget.itemHeight,
             itemWidth: widget.itemWidth,

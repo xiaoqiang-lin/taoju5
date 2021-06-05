@@ -2,10 +2,11 @@
  * @Description: 首页布艺定制板块
  * @Author: iamsmiling
  * @Date: 2021-04-15 11:13:42
- * @LastEditTime: 2021-05-06 14:36:27
+ * @LastEditTime: 2021-06-04 07:53:50
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
@@ -32,49 +33,57 @@ class HomeCustomMadeSection extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
             child: Row(
               children: [
-                Column(
-                  children: [
-                    ChimeraImage(
-                      imageUrl:
-                          "https://i.loli.net/2021/04/15/yDbnXQmZTH6tu5I.png",
-                      width: assignableWidth / 2,
-                      height: assignableWidth / 2 * (3 / 4),
-                      fit: BoxFit.fill,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: R.dimen.dp10, bottom: R.dimen.dp12),
-                      child: Text(
-                        "布艺定制窗帘",
-                        style: TextStyle(fontSize: R.dimen.sp13),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: R.dimen.dp15),
+                GestureDetector(
+                  onTap: () => Get.toNamed(
+                      AppRoutes.prefix + "/category/product/list",
+                      arguments: CategoryEntity(id: 2, name: "全部窗帘")),
                   child: Column(
                     children: [
                       ChimeraImage(
-                        imageUrl:
-                            "https://i.loli.net/2021/04/13/4djlszXmOnRDx7N.png",
+                        "https://i.loli.net/2021/04/15/yDbnXQmZTH6tu5I.png",
                         width: assignableWidth / 2,
                         height: assignableWidth / 2 * (3 / 4),
                         fit: BoxFit.fill,
                       ),
                       Container(
-                          margin: EdgeInsets.only(
-                              top: R.dimen.dp10, bottom: R.dimen.dp12),
-                          child: Text("窗纱",
-                              style: TextStyle(fontSize: R.dimen.sp13)))
+                        margin: EdgeInsets.only(
+                            top: R.dimen.dp10, bottom: R.dimen.dp12),
+                        child: Text(
+                          "布艺定制窗帘",
+                          style: TextStyle(fontSize: R.dimen.sp13),
+                        ),
+                      )
                     ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: R.dimen.dp15),
+                  child: GestureDetector(
+                    onTap: () => Get.toNamed(
+                        AppRoutes.prefix + "/category/product/list",
+                        arguments: CategoryEntity(id: 20, name: "窗纱")),
+                    child: Column(
+                      children: [
+                        ChimeraImage(
+                          "https://i.loli.net/2021/04/13/4djlszXmOnRDx7N.png",
+                          width: assignableWidth / 2,
+                          height: assignableWidth / 2 * (3 / 4),
+                          fit: BoxFit.fill,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(
+                                top: R.dimen.dp10, bottom: R.dimen.dp12),
+                            child: Text("窗纱",
+                                style: TextStyle(fontSize: R.dimen.sp13)))
+                      ],
+                    ),
                   ),
                 )
               ],
             ),
           ),
           GestureDetector(
-            onTap: () => Get.toNamed(AppRoutes.commitOrder),
+            onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder),
             child: Container(
               width: double.maxFinite,
               margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),

@@ -10,7 +10,7 @@ import 'package:taoju5_b/domain/model/search/search_model.dart';
 import 'package:taoju5_b/domain/repository/search/search_repository.dart';
 import 'dart:math' as math;
 
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_bc/extensions/string_kit.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';
 

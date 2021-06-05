@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-05-19 15:47:27
+ * @LastEditTime: 2021-06-03 17:50:25
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,62 +31,65 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0,
-          backgroundColor: R.color.ffee9b5f,
-          leading: IconButton(
-            padding: EdgeInsets.zero,
-            icon: Image.asset(R.image.location),
-            onPressed: () {},
-          ),
-          title: Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
-            alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () => Get.toNamed(AppRoutes.search),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(R.image.search),
-                  Container(
-                    margin: EdgeInsets.only(left: R.dimen.dp3),
-                    child: Text(
-                      "搜索您想找的内容",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: R.dimen.sp10, color: R.color.ffffffff),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: R.color.ffffffff.withOpacity(.3)),
-          ),
-          actions: [
-            IconButton(
+    return GetBuilder<HomeController>(
+        autoRemove: false,
+        builder: (_) {
+          return Scaffold(
+            appBar: AppBar(
+              titleSpacing: 0,
+              backgroundColor: R.color.ffee9b5f,
+              leading: IconButton(
                 padding: EdgeInsets.zero,
-                icon: Image.asset(R.image.message),
-                onPressed: () => Get.toNamed(AppRoutes.message))
-          ],
-        ),
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: HomeBannerSection()),
-            SliverToBoxAdapter(child: HomeSceneSection()),
-            SliverToBoxAdapter(child: HomeCustomMadeSection()),
-            SliverToBoxAdapter(child: HomeDecorationPrefectureSection()),
-            SliverToBoxAdapter(child: HomePhysicialStoreSection()),
-            SliverToBoxAdapter(child: HomeSpecialOfferPrefectureSection()),
-            SliverToBoxAdapter(child: HomeSpecialTopicSection()),
-          ],
-        ),
-      );
-    });
+                icon: Image.asset(R.image.location),
+                onPressed: () {},
+              ),
+              title: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(R.image.search),
+                      Container(
+                        margin: EdgeInsets.only(left: R.dimen.dp3),
+                        child: Text(
+                          "搜索您想找的内容",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: R.dimen.sp10, color: R.color.ffffffff),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: R.color.ffffffff.withOpacity(.3)),
+              ),
+              actions: [
+                IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: Image.asset(R.image.message),
+                    onPressed: () =>
+                        Get.toNamed(AppRoutes.prefix + AppRoutes.message))
+              ],
+            ),
+            body: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: HomeBannerSection()),
+                SliverToBoxAdapter(child: HomeSceneSection()),
+                SliverToBoxAdapter(child: HomeCustomMadeSection()),
+                SliverToBoxAdapter(child: HomeDecorationPrefectureSection()),
+                SliverToBoxAdapter(child: HomePhysicialStoreSection()),
+                SliverToBoxAdapter(child: HomeSpecialOfferPrefectureSection()),
+                SliverToBoxAdapter(child: HomeSpecialTopicSection()),
+              ],
+            ),
+          );
+        });
   }
 }

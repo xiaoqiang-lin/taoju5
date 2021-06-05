@@ -7,7 +7,8 @@
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/model/customer/customer_detail_model.dart';
 import 'package:taoju5_b/domain/repository/customer/customer_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/widgets/base/x_view_state.dart';
 
 class CustomerDetailKongoModel {

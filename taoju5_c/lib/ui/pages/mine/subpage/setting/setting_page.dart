@@ -2,7 +2,7 @@
  * @Description: 设置页面
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-22 13:45:57
+ * @LastEditTime: 2021-06-03 14:53:20
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -53,7 +53,7 @@ class SettingPage extends StatelessWidget {
                           top: R.dimen.dp100,
                           left: R.dimen.dp32,
                           right: R.dimen.dp32),
-                      onPressed: () {}),
+                      onPressed: _.logout),
                 )
               ],
             ),

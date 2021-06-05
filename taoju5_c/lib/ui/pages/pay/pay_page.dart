@@ -2,7 +2,7 @@
  * @Description: 支付页面
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:02:54
- * @LastEditTime: 2021-05-17 11:16:44
+ * @LastEditTime: 2021-06-04 10:37:07
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -81,10 +81,11 @@ class PayPage extends GetView<PayController> {
                                   ),
                                   Spacer(),
                                   RoundCheckbox(
-                                      key: ValueKey(item.checked),
-                                      value: item.checked,
+                                      key: ValueKey(
+                                          "${item.label}${item.selected}"),
+                                      value: item.selected,
                                       onChanged: (bool flag) =>
-                                          _.selectPayMode(item, flag))
+                                          _.selectPayStrategy(item,flag))
                                 ],
                               ),
                             ),
@@ -102,7 +103,7 @@ class PayPage extends GetView<PayController> {
       bottomNavigationBar: Container(
         // height: kBottomNavigationBarHeight,
         margin: EdgeInsets.only(
-            bottom: Get.mediaQuery.padding.bottom,
+            // bottom: Get.mediaQuery.padding.bottom,
             left: R.dimen.dp20,
             right: R.dimen.dp20),
         child: PrimaryButton(

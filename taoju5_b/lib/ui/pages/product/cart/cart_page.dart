@@ -15,7 +15,7 @@ import 'package:taoju5_b/domain/model/product/product_type.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/res/b_icons.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/modal/product/finished_product.dart';
 import 'package:taoju5_b/ui/pages/product/cart/cart_list_controller.dart';
 

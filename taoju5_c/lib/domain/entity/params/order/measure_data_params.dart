@@ -2,7 +2,7 @@
  * @Description: 测装数据参数
  * @Author: iamsmiling
  * @Date: 2021-05-12 18:02:03
- * @LastEditTime: 2021-05-14 10:44:19
+ * @LastEditTime: 2021-05-31 10:36:08
  */
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
@@ -13,9 +13,11 @@ import 'package:taoju5_c/validator/validator.dart';
 class MeasureDataParamsEntity extends BaseParamsEntity {
   CurtainMeasureDataAttributeEntity measureData;
 
-  MeasureDataParamsEntity({required this.measureData});
+  MeasureDataParamsEntity({required this.measureData, this.finished = false});
   @override
   Map get params => measureData.params;
+
+  bool finished = false;
 
   @override
   bool validate() {
@@ -33,14 +35,6 @@ class MeasureDataParamsEntity extends BaseParamsEntity {
           })),
 
       ///校验高
-      EmptyValidator(
-          field: measureData.size.height?.toString(),
-          errorMessage: message,
-          callback: VerifyCallback(onSuccess: () {
-            measureData.size.heightError = false;
-          }, onFailure: () {
-            measureData.size.onHeightError();
-          })),
       EmptyValidator(
           field: measureData.size.height?.toString(),
           errorMessage: message,
@@ -75,12 +69,13 @@ class MeasureDataParamsEntity extends BaseParamsEntity {
             })));
       }
     }
+
     bool flag = ValidatorManager()
 
         ///检验空间是否为空
         .addValidator(EmptyValidator(
             field: measureData.room.selectedOption?.name,
-            errorMessage: message,
+            errorMessage: "请选择空间",
             callback: VerifyCallback(onFailure: () {
               measureData.room.onError();
             })))

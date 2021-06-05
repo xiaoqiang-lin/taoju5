@@ -2,11 +2,11 @@
  * @Description: 商品评论详情
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:10:41
- * @LastEditTime: 2021-05-19 17:54:19
+ * @LastEditTime: 2021-05-26 14:09:59
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/button/like_button.dart';
+import 'package:taoju5_c/component/button/animated_button.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -41,7 +41,7 @@ class ProductCommentDetailPage extends GetView<ProductCommentDetailController> {
                   return Container(
                       margin: EdgeInsets.only(bottom: R.dimen.dp10),
                       padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-                      child: ChimeraImage(imageUrl: _.comment.pictures[i]));
+                      child: ChimeraImage(_.comment.pictures[i]));
                 }, childCount: _.comment.pictures.length))
               ],
             );
@@ -52,7 +52,10 @@ class ProductCommentDetailPage extends GetView<ProductCommentDetailController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LikeButton(),
+            AnimatedButton(
+              activeWidget: Image.asset(R.image.heartFilled),
+              deactiveWidget: Image.asset(R.image.heartBlank),
+            ),
             Container(
               margin: EdgeInsets.only(left: R.dimen.dp8),
               child: Text("${controller.comment.likeCount}"),

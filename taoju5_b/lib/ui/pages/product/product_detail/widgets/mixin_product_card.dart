@@ -3,7 +3,7 @@ import 'package:taoju5_b/domain/model/product/product_mixin_model.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';
 
 class MixinProductCard extends StatelessWidget {

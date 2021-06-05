@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-19 14:02:44
+ * @LastEditTime: 2021-06-04 15:56:25
  */
 
 import 'dart:convert';
@@ -34,7 +34,8 @@ class XDio {
 
   XDio._internal() {
     netConfig = NetConfig(headers: {});
-    String token = StorageManager().sharedPreferences?.getString("token");
+    // String token = StorageManager().sharedPreferences?.getString("token");
+    String token = "";
     String deviceInfo =
         StorageManager().sharedPreferences?.getString("device_info");
     Map<String, String> headers = {};

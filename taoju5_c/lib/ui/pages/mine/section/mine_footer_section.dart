@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-04-18 00:26:28
+ * @LastEditTime: 2021-06-03 09:12:38
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -20,7 +20,10 @@ class MineFooterSection extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.symmetric(vertical: R.dimen.dp5),
-            child: Text("其他", style: R.style.headline6),
+            child: Text(
+              "其他",
+              style: R.style.headline6,
+            ),
           ),
           for (MineTileEntity item in tiles)
             GestureDetector(
@@ -41,7 +44,7 @@ class MineFooterSection extends StatelessWidget {
                           ),
                         ),
                         Spacer(),
-                        Icon(R.icon.next)
+                        Image.asset(R.image.next)
                       ],
                     ),
                   ),

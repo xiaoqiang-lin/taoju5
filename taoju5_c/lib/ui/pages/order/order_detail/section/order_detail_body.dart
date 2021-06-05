@@ -2,14 +2,13 @@
  * @Description: 订单详情主体
  * @Author: iamsmiling
  * @Date: 2021-05-18 11:26:16
- * @LastEditTime: 2021-05-20 16:48:13
+ * @LastEditTime: 2021-05-28 18:05:34
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/app_pages.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/widget/product_adaptor_card.dart';
 import 'package:get/get.dart';
@@ -123,8 +122,8 @@ class OrderDetailBody extends StatelessWidget {
                     ),
                   ),
                 GestureDetector(
-                  onTap: () =>
-                      Get.toNamed(Get.currentRoute + AppRoutes.mainfest),
+                  onTap: () => Get.toNamed(
+                      AppRoutes.prefix + Get.currentRoute + AppRoutes.mainfest),
                   child: Container(
                     // width: R.dimen.width,
                     // alignment: Alignment.centerRight,

@@ -1,7 +1,13 @@
+/*
+ * @Description:
+ * @Author: iamsmiling
+ * @Date: 2021-05-06 10:06:30
+ * @LastEditTime: 2021-06-04 14:26:46
+ */
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/repository/login/login_repository.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 
 class ForgetPasswordController extends GetxController {
   LoginRepository _repository = LoginRepository();

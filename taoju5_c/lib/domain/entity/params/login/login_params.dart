@@ -2,7 +2,7 @@
  * @Description: 登陆参数
  * @Author: iamsmiling
  * @Date: 2021-04-15 16:03:15
- * @LastEditTime: 2021-04-21 11:33:40
+ * @LastEditTime: 2021-06-03 15:28:47
  */
 
 import '../base_params_entity.dart';
@@ -11,15 +11,15 @@ enum CLoginMode { password, sms, wechat }
 
 extension CLoginModeKit on CLoginMode {
   int get code {
-    return {CLoginMode.password: 1, CLoginMode.sms: 2}[this]!;
+    return {CLoginMode.password: 1, CLoginMode.sms: 2}[this] ?? 0;
   }
 }
 
 class LoginParamsEntity extends BaseParamsEntity {
-  late CLoginMode mode;
-  late String? telephone;
-  late String password = '';
-  late String? code;
+  CLoginMode mode = CLoginMode.password;
+  String telephone = "";
+  String password = '';
+  String code = "";
 
   LoginParamsEntity();
 

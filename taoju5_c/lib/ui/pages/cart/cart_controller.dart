@@ -2,16 +2,21 @@
  * @Description: cart
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:33:06
- * @LastEditTime: 2021-05-14 16:57:34
+ * @LastEditTime: 2021-05-31 16:34:42
  */
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
+import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/repository/cart_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
+import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/dialog/sectionalbar_product_attribute/sectionalbar_product_attribute_dialog.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_finished_product_attribute_modal.dart'
     as modal;
 import 'package:taoju5_c/utils/toast.dart';
@@ -30,16 +35,20 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
     });
   }
 
-  Future openRemoveFromCartDialog(int id) {
+  Future openRemoveFromCartDialog(CartEntity cart) {
     return dialog.openRemoveFromCartDialog(Get.context!,
         onMoveToCollection: () {},
-        onRemoveFromCart: () => removeFromCart(id).whenComplete(Get.back));
+        onRemoveFromCart: () => removeFromCart(cart).whenComplete(Get.back));
   }
 
-  Future removeFromCart(int id) {
+  Future removeFromCart(CartEntity cart) {
     ToastKit.loading();
-    return _repository.removeFromCart(params: {"cart_id": id}).then((value) {
-      carts = value;
+
+    return _repository
+        .removeFromCart(params: {"cart_id": cart.id}).then((value) {
+      cart.removed = true;
+      carts = carts.where((e) => !e.removed).toList();
+      // carts = value;
       if (carts.isEmpty) {
         change([], status: RxStatus.empty());
       }
@@ -51,13 +60,69 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
   }
 
   Future openFinishedProductAttributeModal(CartEntity cart) {
+    if (cart.productType is SectionbarProductType) {
+      ProductDetailEntity product = ProductDetailEntity();
+      product.length = cart.length;
+      product.count = cart.count;
+      return openSectionalbarProductAttributeDialog(Get.context!,
+          attribute: CurtainAttributeEntity(),
+          product: product, footerBuilder: (BuildContext context) {
+        return Container(
+          alignment: Alignment.center,
+          child: PrimaryButton(
+            text: "确定",
+            onPressed: () {},
+            size: PrimaryButtonSize.large,
+          ),
+        );
+      });
+    }
     ProductRepository productRepository = ProductRepository();
-    ToastKit.loading();
-    return productRepository.productDetail({"goods_id": cart.productId}).then(
-        (ProductDetailEntity value) {
-      ToastKit.dismiss();
-      modal.openFinishedProductAttributeModal(Get.context!,
-          product: value, onAddToCart: () {});
+
+    return productRepository.productDetailWithSkuId({
+      "goods_id": cart.productId,
+      "sku_id": cart.skuId
+    }).then((ProductDetailEntity product) {
+      product.count = cart.count;
+
+      modal.openFinishedProductAttributeModal(Get.context!, product: product,
+          footerBuilder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: R.color.ffe5e5e5))),
+          height: kBottomNavigationBarHeight,
+          padding: EdgeInsets.symmetric(
+              horizontal: R.dimen.dp20, vertical: R.dimen.dp7),
+          margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "小计：",
+                    style: TextStyle(fontSize: R.dimen.sp12),
+                  ),
+                  Text(
+                    "¥${product.totalPrice.toStringAsFixed(2)}",
+                    key: ValueKey(product.totalPrice),
+                    style: TextStyle(
+                        color: R.color.ffff5005, fontSize: R.dimen.sp14),
+                  )
+                ],
+              ),
+              PrimaryButton(
+                text: "确定",
+                onPressed: () {},
+                constraints: BoxConstraints(
+                    minHeight: R.dimen.dp45, minWidth: R.dimen.dp200),
+              )
+            ],
+          ),
+        );
+      });
     });
   }
 
@@ -85,6 +150,7 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
       "sku_id": cart.skuId
     }).then((value) {
       cart.count = count;
+      cart.totalPrice = value;
       totalPrice.value = caculate();
     });
   }
@@ -104,6 +170,8 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
               : item.totalPrice;
       t += price;
     }
+    print("总价");
+    print(t);
     return t;
   }
 

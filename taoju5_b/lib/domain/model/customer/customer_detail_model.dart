@@ -2,10 +2,11 @@
  * @Description: 用户信息详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 16:34:44
- * @LastEditTime: 2021-02-02 17:53:50
+ * @LastEditTime: 2021-06-04 14:23:50
  */
 import 'package:get/get.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/widgets/bloc/city_picker/x_city_picker.dart';
 import 'package:taoju5_b/constants/x_gender.dart';
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -39,7 +40,7 @@ class CustomerDetailModel {
     CustomerDetailKongoModel(
         icon: "customer_order.png",
         title: "订单",
-        onTap: () => Get.toNamed(BAppRoutes.orderList)),
+        onTap: () => Get.toNamed(BAppRoutes.prefix + BAppRoutes.orderList)),
     CustomerDetailKongoModel(
         icon: "customer_cart.png", title: "退款/售后", onTap: () {}),
   ];

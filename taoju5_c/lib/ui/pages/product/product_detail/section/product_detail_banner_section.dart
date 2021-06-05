@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:16:47
- * @LastEditTime: 2021-05-17 10:37:17
+ * @LastEditTime: 2021-05-26 15:26:00
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/carousel/carousel_slide.dart';
@@ -39,12 +39,15 @@ class ProductDetailBannerSection extends StatelessWidget {
       itemBuilder: (BuildContext context, int i) {
         PictureEntity item = product.images[i];
         return ChimeraImage(
-            width: R.dimen.width,
-            cache: true,
-            // height: R.dimen.width,
-            borderRadius: BorderRadius.zero,
-            fit: item.aspectRatio > 1 ? BoxFit.fitWidth : BoxFit.fitHeight,
-            imageUrl: item.cover);
+          item.cover,
+          width: R.dimen.width,
+          // cache: true,
+          // // height: R.dimen.width,
+          // heroTag: item.bigImage,
+          borderRadius: BorderRadius.zero,
+          fit: item.aspectRatio > 1 ? BoxFit.fitWidth : BoxFit.fitHeight,
+          // images: product.images.map((e) => e.bigImage).toList(),
+        );
       },
       containerHeight: R.dimen.width * (1 / maxAspectRatio),
     );

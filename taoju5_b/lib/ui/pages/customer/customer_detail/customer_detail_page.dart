@@ -2,13 +2,13 @@
  * @Description: 客户详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 17:29:00
- * @LastEditTime: 2021-01-12 22:44:56
+ * @LastEditTime: 2021-06-04 14:24:39
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_detail/customer_detail_controller.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_detail/fragment/customer_detail_header.dart';
 import 'package:taoju5_b/ui/pages/customer/customer_detail/fragment/customer_detail_kongo.dart';

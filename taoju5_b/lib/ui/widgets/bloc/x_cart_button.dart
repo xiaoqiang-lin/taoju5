@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_b/domain/repository/product/product_repository.dart';
 import 'package:taoju5_b/res/b_colors.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:taoju5_bc/utils/common_kit.dart';

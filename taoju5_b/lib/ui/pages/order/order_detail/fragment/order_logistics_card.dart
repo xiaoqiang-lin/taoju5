@@ -11,7 +11,7 @@ import 'package:taoju5_b/domain/model/order/order_status.dart';
 import 'package:taoju5_b/res/b_colors.dart';
 import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/res/b_icons.dart';
-import 'package:taoju5_b/routes/bapp_pages.dart';
+import 'package:taoju5_b/routes/bapp_routes.dart';
 import 'package:taoju5_b/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5_b/domain/model/order/order_detail_model.dart';
 

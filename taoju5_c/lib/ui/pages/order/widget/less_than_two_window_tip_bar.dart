@@ -2,7 +2,7 @@
  * @Description: 小于两个窗提示信息
  * @Author: iamsmiling
  * @Date: 2021-05-15 09:09:32
- * @LastEditTime: 2021-05-15 09:15:59
+ * @LastEditTime: 2021-06-03 16:14:19
  */
 
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ class LessThanTwoWindowTipBar extends StatelessWidget {
           Expanded(
               child: TextFormField(
             readOnly: true,
+            textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
                 // hintText: "(包含测装费用，支付尾款时可抵货款)",
                 border: InputBorder.none,
@@ -36,7 +37,7 @@ class LessThanTwoWindowTipBar extends StatelessWidget {
                     data: IconThemeData(size: R.dimen.sp14),
                     child: Container(
                       padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(top: 12),
+                      alignment: Alignment.centerRight,
                       // constraints: BoxConstraints(maxHeight: 12, maxWidth: 12),
                       child: Text(
                         "¥100.0",

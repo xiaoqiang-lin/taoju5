@@ -97,7 +97,8 @@ class AddresseEditPage extends StatelessWidget {
                         Spacer(),
                         GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () => Get.toNamed(AppRoutes.mine +
+                          onTap: () => Get.toNamed(AppRoutes.prefix +
+                              AppRoutes.mine +
                               AppRoutes.addressEdit +
                               AppRoutes.location),
                           child: Row(

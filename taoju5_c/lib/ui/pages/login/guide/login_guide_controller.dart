@@ -7,10 +7,10 @@ class LoginGuideController extends GetxController {
   UserRole role = UserRole.customer;
 
   loginAsCustomer() {
-    return Get.toNamed(AppRoutes.customerPasswordLogin);
+    return Get.toNamed(AppRoutes.prefix + AppRoutes.customerPasswordLogin);
   }
 
   loginAsBussiness() {
-    return Get.toNamed(AppRoutes.businessPasswordLogin);
+    return Get.toNamed(AppRoutes.prefix + AppRoutes.businessPasswordLogin);
   }
 }

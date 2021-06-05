@@ -2,7 +2,7 @@
  * @Description: 大家都在搜
  * @Author: iamsmiling
  * @Date: 2021-05-24 16:18:40
- * @LastEditTime: 2021-05-24 16:21:12
+ * @LastEditTime: 2021-06-02 22:48:39
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -43,7 +43,7 @@ class HotSearchSection extends StatelessWidget {
                         style: TextStyle(
                             fontSize: R.dimen.sp12,
                             color: R.color.ff666666,
-                            height: 2.1),
+                            height: 2.25),
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: R.dimen.dp20,

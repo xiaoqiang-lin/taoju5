@@ -38,7 +38,8 @@ class ProductDetailCommentSection extends StatelessWidget {
                 ),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.category +
+                  onTap: () => Get.toNamed(AppRoutes.prefix +
+                      AppRoutes.category +
                       AppRoutes.productDetail +
                       "/3226" +
                       AppRoutes.productCommentList),

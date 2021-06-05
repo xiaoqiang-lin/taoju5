@@ -2,13 +2,11 @@
  * @Description: 搜索窗帘
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:02:50
- * @LastEditTime: 2021-05-24 17:08:14
+ * @LastEditTime: 2021-06-02 22:54:14
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
-import 'package:taoju5_c/component/button/rotate_button.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/search/search_controller.dart';
 import 'package:taoju5_c/ui/pages/search/section/hot_search_search_section.dart';
@@ -102,10 +100,13 @@ class SearchPage extends GetView<SearchController> {
                       EdgeInsets.only(left: R.dimen.dp10, right: R.dimen.dp20),
                   alignment: Alignment.center,
                   constraints: BoxConstraints(
-                      maxHeight: R.dimen.dp30, minHeight: R.dimen.dp30),
+                      maxWidth: R.dimen.dp60,
+                      maxHeight: R.dimen.dp30,
+                      minHeight: R.dimen.dp30),
                   child: PrimaryButton(
                     onPressed: () {},
                     text: "搜索",
+                    textStyle: TextStyle(fontSize: R.dimen.sp32),
                     size: PrimaryButtonSize.small,
                   ),
                 ),

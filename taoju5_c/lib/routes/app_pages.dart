@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-05-20 16:54:52
+ * @LastEditTime: 2021-05-29 09:38:45
  */
 
 import 'package:get/get.dart';
@@ -29,8 +29,6 @@ import 'package:taoju5_c/ui/pages/login/modify_password/modify_password_second_p
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_binding.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_fisrt_page.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_second_page.dart';
-import 'package:taoju5_c/ui/pages/logistics/logistcis_page.dart';
-import 'package:taoju5_c/ui/pages/logistics/logistics_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
 import 'package:taoju5_c/ui/pages/message/message_binding.dart';
@@ -69,8 +67,12 @@ import 'package:taoju5_c/ui/pages/order/order_detail/subpage/aftersell/aftersell
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/aftersell/aftersell_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/edit_log/order_edit_log_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/edit_log/order_edit_log_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/logistics/logistcis_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/logistics/logistics_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/order_comment/order_comment_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/order_comment/order_comment_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_page.dart';
 import 'package:taoju5_c/ui/pages/pay/pay_binding.dart';
@@ -83,6 +85,12 @@ import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/pr
 import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/product_comment_list_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_binding.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_page.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_category/scene_category_binding.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_category/scene_category_page.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_detail/scene_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_detail/scene_detail_page.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_binding.dart';
+import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_page.dart';
 import 'package:taoju5_c/ui/pages/search/search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/search_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
@@ -290,7 +298,11 @@ class AppPages {
           GetPage(
               name: AppRoutes.editLog,
               page: () => OrderEditLogPage(),
-              binding: OrderEditLogBinding())
+              binding: OrderEditLogBinding()),
+          GetPage(
+              name: AppRoutes.orderComment,
+              page: () => OrderCommentPage(),
+              binding: OrderCommentBinding())
         ]),
 
     ///支付
@@ -317,5 +329,25 @@ class AppPages {
               page: () => ActivityMessagePage(),
               binding: ActivityMessageBinding())
         ]),
+
+    ///场景分类
+
+    GetPage(
+        name: AppRoutes.sceneCategoryList,
+        page: () => SceneCategoryPage(),
+        binding: SceneCategoryBinding(),
+        children: [
+          GetPage(
+              name: AppRoutes.sceneList + "/:id",
+              page: () => SceneListPage(),
+              binding: SceneListBinding())
+        ]),
+
+    ///场景详情
+    GetPage(
+      name: AppRoutes.sceneDetail + "/:id",
+      page: () => SceneDetailPage(),
+      binding: SceneDetailBinding(),
+    ),
   ];
 }

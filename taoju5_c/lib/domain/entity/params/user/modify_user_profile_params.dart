@@ -2,7 +2,7 @@
  * @Description: 修改用户信息参数
  * @Author: iamsmiling
  * @Date: 2021-04-19 14:25:46
- * @LastEditTime: 2021-04-22 14:14:10
+ * @LastEditTime: 2021-06-04 12:55:09
  */
 
 import 'dart:convert';
@@ -49,7 +49,8 @@ class ModifyUserProfileParamsEntity extends BaseParamsEntity {
         "user_headimg": avatar,
         "user_name": nickname,
         "sex": gender?.code,
-        "user_bir": birthday
+        "user_bir": birthday,
+        "file_path": filePath
       };
 
   @override

@@ -2,7 +2,7 @@
  * @Description: 定金
  * @Author: iamsmiling
  * @Date: 2021-05-06 16:10:03
- * @LastEditTime: 2021-05-06 16:17:28
+ * @LastEditTime: 2021-06-03 16:12:29
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -25,6 +25,7 @@ class DepositTipBar extends StatelessWidget {
           Expanded(
               child: TextFormField(
             readOnly: true,
+            textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
                 hintText: "(包含测装费用，支付尾款时可抵货款)",
                 border: InputBorder.none,
@@ -33,9 +34,10 @@ class DepositTipBar extends StatelessWidget {
                 suffixIcon: IconTheme(
                     data: IconThemeData(size: R.dimen.sp14),
                     child: Container(
+                      alignment: Alignment.centerRight,
                       padding: EdgeInsets.zero,
-                      margin: EdgeInsets.only(top: 12),
-                      // constraints: BoxConstraints(maxHeight: 12, maxWidth: 12),
+                      // margin: EdgeInsets.only(top: 12),
+                      constraints: BoxConstraints(maxWidth: R.dimen.dp24),
                       child: Text(
                         "¥100.0",
                         style: TextStyle(
