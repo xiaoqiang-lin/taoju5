@@ -88,7 +88,7 @@ class CustomerLoginController extends GetxController {
 
   void _onLoginSuccess(BaseEntity entity) async {
     SharedPreferences _sp = await SharedPreferences.getInstance();
-    await _sp.setString("token", entity.data);
+    await _sp.setString("ctoken", entity.data);
     Get.offAllNamed(AppRoutes.main);
   }
 

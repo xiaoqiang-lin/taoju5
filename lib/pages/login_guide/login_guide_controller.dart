@@ -2,7 +2,7 @@
  * @Description: 登录引导控制器
  * @Author: iamsmiling
  * @Date: 2021-06-04 14:12:22
- * @LastEditTime: 2021-06-04 17:29:02
+ * @LastEditTime: 2021-06-07 09:43:54
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +43,6 @@ class LoginGuideController extends GetxController {
   loginAsBussiness() {
     // print(BAppRoutes.login);
     changeTheme(role: UserRole.business);
-    Get.toNamed('/b' + BAppRoutes.login);
+    Get.toNamed(BAppRoutes.login);
   }
 }

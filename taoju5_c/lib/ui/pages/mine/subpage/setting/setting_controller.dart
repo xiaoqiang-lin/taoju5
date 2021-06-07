@@ -39,7 +39,7 @@ class SettingController extends GetxController {
   ];
 
   void logout() {
-    LocalStorage.remove("token").then((_) {
+    LocalStorage.remove("ctoken").then((_) {
       Get.offAllNamed(AppRoutes.loginGuide);
     });
   }

@@ -2,9 +2,10 @@
  * @Description: app
  * @Author: iamsmiling
  *  @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-06-04 17:45:49
+ * @LastEditTime: 2021-06-07 10:21:45
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5/app/app_binding.dart';
 import 'package:taoju5/routes/app_pages.dart';
 import 'package:taoju5/routes/app_routes.dart';
 import 'package:taoju5_bc/config/app_env.dart';
@@ -15,7 +16,6 @@ import 'package:taoju5_c/app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:taoju5_c/res/R.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -44,7 +44,7 @@ class TaojuwuApp extends StatelessWidget {
           initialRoute: AppRoutes.loginGuide,
           getPages: AppPages.pages,
           builder: EasyLoading.init(),
-          initialBinding: TaojuwuBinding(),
+          initialBinding: AppBinding(),
           defaultTransition: Transition.cupertino,
         );
       },

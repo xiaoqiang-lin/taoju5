@@ -2,7 +2,7 @@
  * @Description: 本地存储
  * @Author: iamsmiling
  * @Date: 2021-04-27 14:22:40
- * @LastEditTime: 2021-06-03 15:14:27
+ * @LastEditTime: 2021-06-07 09:45:37
  */
 
 import 'package:get/get.dart';
@@ -17,9 +17,7 @@ class GetLocalStorage extends GetxService {
   void onInit() {
     SharedPreferences.getInstance().then((value) {
       prefs = value;
-      authed = prefs.getBool("token") != null;
-      print(authed);
-      print("是否登录");
+      authed = prefs.getBool("ctoken") != null;
     });
 
     super.onInit();

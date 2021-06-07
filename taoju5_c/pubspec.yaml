@@ -22,6 +22,7 @@ dependencies:
   tobias: ^2.1.0
   extended_image: ^4.1.0
   url_launcher: ^6.0.4
+  get_storage: ^2.0.2
 
   # flutter_baidu_mapapi_map: ^2.0.1
 

@@ -2,7 +2,7 @@
  * @Descripon: app页面
  * @Author: iamsmiling
  * @Date: 2020-12-18 16:11:26
- * @LastEditTime: 2021-06-04 14:23:21
+ * @LastEditTime: 2021-06-07 09:44:19
  */
 
 import 'package:get/get.dart';
@@ -23,6 +23,7 @@ import 'package:taoju5_b/ui/pages/customer/customer_table/customer_table_binding
 import 'package:taoju5_b/ui/pages/customer/customer_table/customer_table_page.dart';
 import 'package:taoju5_b/ui/pages/dashboard/data_dash_board_binding.dart';
 import 'package:taoju5_b/ui/pages/dashboard/data_dash_board_page.dart';
+import 'package:taoju5_b/ui/pages/home/home_binding.dart';
 import 'package:taoju5_b/ui/pages/home/home_page.dart';
 import 'package:taoju5_b/ui/pages/login/forget_pwd/forget_password_binding.dart';
 import 'package:taoju5_b/ui/pages/login/forget_pwd/forget_password_page.dart';
@@ -107,7 +108,7 @@ class BAppPages {
     GetPage(
         name: BAppRoutes.login,
         page: () => LoginPage(),
-        binding: LoginBinding()),
+        bindings: [LoginBinding(), TaojuwuBinding()]),
 
     GetPage(
         name: BAppRoutes.resetPassword,

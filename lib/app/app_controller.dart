@@ -1,27 +1,41 @@
 /*
  * @Description: app控制器
  * @Author: iamsmiling
- * @Date: 2021-01-11 17:32:04
- * @LastEditTime: 2021-06-07 09:38:17
+ * @Date: 2021-06-07 09:50:44
+ * @LastEditTime: 2021-06-07 10:28:14
  */
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_upgrade/flutter_app_upgrade.dart';
 import 'package:get/get.dart';
-// import 'package:install_plugin/install_plugin.dart';
-// import 'package:install_plugin/install_plugin.dart';
-import 'package:package_info/package_info.dart';
-import 'package:taoju5_b/domain/model/app/app_info_model.dart';
-import 'package:taoju5_b/domain/repository/app/app_repository.dart';
-import 'package:taoju5_b/ui/dialog/app/app_upgrade_dialog.dart';
 import 'package:dio/dio.dart';
-import 'package:taoju5_bc/storage/storage_manager.dart';
+import 'package:flutter_app_upgrade/flutter_app_upgrade.dart';
+import 'package:package_info/package_info.dart';
+import 'package:taoju5/app/app_manager.dart';
+
+class AppInfoModel {
+  int id;
+  String system;
+  String version;
+  String title;
+  String downloadUrl;
+  String log;
+  String createAt;
+  bool isForceUpdate;
+  AppInfoModel.fromJson(Map json) {
+    id = json['id'];
+    system = json['app_type'];
+    version = json['version_number'];
+    title = json['title'];
+    downloadUrl = json['download_address'];
+    log = json['update_log'];
+    isForceUpdate = json["is_force_update"];
+    createAt = json["create_time"];
+  }
+}
 
 class AppController extends GetxController {
-  AppRepository _repository = AppRepository();
-
   String apkName = '淘居屋.apk';
   AppInfoModel appInfoModel;
 
@@ -81,9 +95,10 @@ class AppController extends GetxController {
       params = {"app_type": "Android"};
     }
 
-    return _repository.appInfo(params: params).then((AppInfoModel value) {
-      appInfoModel = value;
-      return value.version;
+    return Dio().get("/api/Config/getAppUpgradeInfo").then((value) {
+      appInfoModel =
+          AppInfoModel.fromJson(value.data is Map ? value.data["data"] : {});
+      return appInfoModel.version;
     });
   }
 
@@ -119,50 +134,50 @@ class AppController extends GetxController {
     bool hasNewVersion = await _hasNewAppVersion();
 
     if (hasNewVersion) {
-      AppUpgrade.appUpgrade(
-        Get.context,
-        Future.value(AppUpgradeInfo(
-            force: true,
-            apkDownloadUrl: appInfoModel?.downloadUrl,
-            title: appInfoModel?.title,
-            contents: [appInfoModel?.log])),
-        okText: '马上升级',
-        cancelTextStyle: TextStyle(color: const Color(0xFF2196f3)),
-        okTextStyle: TextStyle(color: const Color(0xFF2196f3)),
-        okBackgroundColors: [Colors.white, Colors.white],
-        progressBarColor: Colors.blue,
-        iosAppId: 'id88888888',
+      // AppUpgrade.appUpgrade(
+      //   Get.context,
+      //   Future.value(AppUpgradeInfo(
+      //       force: true,
+      //       apkDownloadUrl: appInfoModel?.downloadUrl,
+      //       title: appInfoModel?.title,
+      //       contents: [appInfoModel?.log])),
+      //   okText: '马上升级',
+      //   cancelTextStyle: TextStyle(color: const Color(0xFF2196f3)),
+      //   okTextStyle: TextStyle(color: const Color(0xFF2196f3)),
+      //   okBackgroundColors: [Colors.white, Colors.white],
+      //   progressBarColor: Colors.blue,
+      //   iosAppId: 'id88888888',
 
-        // appMarketInfo: AppMarket.tencent,
-        borderRadius: 16.0,
-        builder: (BuildContext context) {
-          return AppUpgradeDialogBuilder(
-            appInfo: appInfoModel,
-          );
-        },
-        onCancel: () {
-          // print('onCancel');
-        },
-        onOk: () {
-          // print('onOk');
-        },
-        downloadProgress: (count, total) {
-          progress = count / total;
-          _updateDownloadStatus(DownloadStatus.downloading);
-          // print('count:$count,total:$total');
-        },
-        downloadStatusChange: (DownloadStatus status, {dynamic error}) {},
-      );
+      //   // appMarketInfo: AppMarket.tencent,
+      //   borderRadius: 16.0,
+      //   builder: (BuildContext context) {
+      //     return AppUpgradeDialogBuilder(
+      //       appInfo: appInfoModel,
+      //     );
+      //   },
+      //   onCancel: () {
+      //     // print('onCancel');
+      //   },
+      //   onOk: () {
+      //     // print('onOk');
+      //   },
+      //   downloadProgress: (count, total) {
+      //     progress = count / total;
+      //     _updateDownloadStatus(DownloadStatus.downloading);
+      //     // print('count:$count,total:$total');
+      //   },
+      //   downloadStatusChange: (DownloadStatus status, {dynamic error}) {},
+      // );
     }
+  }
+
+  Future cleanCache() {
+    return AppManager.clearCache();
   }
 
   @override
   void onInit() {
     // _hasNewAppVersion();
     super.onInit();
-  }
-
-  Future auth() {
-    return StorageManager().sharedPreferences?.setBool("hasAuth", true);
   }
 }

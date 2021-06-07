@@ -40,7 +40,7 @@ class CustomerDetailModel {
     CustomerDetailKongoModel(
         icon: "customer_order.png",
         title: "订单",
-        onTap: () => Get.toNamed(BAppRoutes.prefix + BAppRoutes.orderList)),
+        onTap: () => Get.toNamed(BAppRoutes.orderList)),
     CustomerDetailKongoModel(
         icon: "customer_cart.png", title: "退款/售后", onTap: () {}),
   ];

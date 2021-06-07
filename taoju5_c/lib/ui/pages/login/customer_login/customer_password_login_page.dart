@@ -2,7 +2,7 @@
  * @Description: 密码登录
  * @Author: iamsmiling
  * @Date: 2021-04-14 15:13:22
- * @LastEditTime: 2021-04-16 09:38:40
+ * @LastEditTime: 2021-06-07 09:31:52
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -55,7 +55,8 @@ class CustomerPasswordLoginPage extends StatelessWidget {
                                 fontSize: R.dimen.sp12,
                                 color: R.color.ffee9b5f),
                           ),
-                          onTap: () => Get.toNamed(AppRoutes.customerSmsLogin),
+                          onTap: () => Get.toNamed(
+                              AppRoutes.prefix + AppRoutes.customerSmsLogin),
                         ),
                       )
                     ],

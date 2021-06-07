@@ -11,7 +11,7 @@ import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/app.dart';
 
-import 'app_initializer.dart';
+import 'app/app_initializer.dart';
 import 'package:dokit/dokit.dart';
 
 void main() {

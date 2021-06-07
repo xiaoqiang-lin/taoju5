@@ -2,7 +2,7 @@
  * @Description: APP初始化配置
  * @Author: iamsmiling
  * @Date: 2021-01-12 22:34:48
- * @LastEditTime: 2021-04-17 21:48:11
+ * @LastEditTime: 2021-06-07 10:13:48
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +14,7 @@ import 'package:taoju5_bc/config/sdk_manager/sdk_manager.dart';
 import 'package:taoju5_bc/storage/storage_manager.dart';
 
 import 'package:taoju5_b/res/b_icons.dart';
+import 'package:get_storage/get_storage.dart';
 
 abstract class AppInitializer {
   static init() {
@@ -65,6 +66,7 @@ abstract class AppInitializer {
 
   static Future _initStorage() async {
     await StorageManager().init();
+    await GetStorage.init('c');
   }
 
   static Future _initAppConfig() async {

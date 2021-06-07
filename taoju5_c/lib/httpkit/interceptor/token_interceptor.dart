@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:38:48
- * @LastEditTime: 2021-06-04 12:25:53
+ * @LastEditTime: 2021-06-07 09:31:06
  */
 import 'dart:convert';
 
@@ -22,14 +22,14 @@ class TokenInterceptor extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     if (!_noTokenUrls.contains(options.path)) {
-      var token = await LocalStorage.get("token");
-      options.queryParameters.addAll({"token": token});
+      var token = await LocalStorage.get("ctoken");
+      options.queryParameters.addAll({"ctoken": token});
     }
     handler.next(options);
   }
 
   clearToken() {
-    LocalStorage.remove("token");
+    LocalStorage.remove("ctoken");
   }
 
   @override
@@ -38,7 +38,7 @@ class TokenInterceptor extends InterceptorsWrapper {
       var json = jsonDecode(response.data);
       String token = json["data"] ?? "";
       if (response.statusCode == 200 && token.isNotEmpty) {
-        await LocalStorage.save("token", token);
+        await LocalStorage.save("ctoken", token);
 
         g.Get.find<GetLocalStorage>().authed = true;
       }

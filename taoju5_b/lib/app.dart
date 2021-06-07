@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:22:15
- * @LastEditTime: 2021-06-04 17:33:02
+ * @LastEditTime: 2021-06-07 10:18:24
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:taoju5_bc/config/app_config.dart';
-import 'package:taoju5_bc/config/app_env.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:taoju5_b/bapp/ui/widgets/pages/home/home_page.dart';
 
