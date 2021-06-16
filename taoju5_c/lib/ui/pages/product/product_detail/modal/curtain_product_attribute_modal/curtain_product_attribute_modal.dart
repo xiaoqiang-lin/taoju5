@@ -86,7 +86,7 @@ class CurtainProductAttributeModal extends StatelessWidget {
                                 item.label,
                                 style: TextStyle(
                                     fontSize: R.dimen.sp14,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: R.color.ff333333),
                               ),
                               Visibility(
@@ -240,7 +240,7 @@ class CurtainProductAttributeModal extends StatelessWidget {
                                   "测装数据",
                                   style: TextStyle(
                                       fontSize: R.dimen.sp14,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                               Container(
@@ -276,7 +276,7 @@ class CurtainProductAttributeModal extends StatelessWidget {
                                         "窗帘配套",
                                         style: TextStyle(
                                             fontSize: R.dimen.sp14,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     )
                                   ],
@@ -302,7 +302,7 @@ class CurtainProductAttributeModal extends StatelessWidget {
                         //                 ? R.color.ffee9b5f
                         //                 : R.color.ffbcbcbc,
                         //             fontSize: R.dimen.sp16,
-                        //             fontWeight: FontWeight.bold),
+                        //             fontWeight: FontWeight.w600),
                         //       ),
                         //     ),
                         //   ),

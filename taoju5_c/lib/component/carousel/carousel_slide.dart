@@ -2,17 +2,13 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-05-28 09:22:44
+ * @LastEditTime: 2021-06-10 17:17:29
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:taoju5_c/component/image/image_view_gallery.dart';
-import 'package:taoju5_c/component/open_container/open_container.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 
 class CarouselSlide extends StatefulWidget {
   final int itemCount;
@@ -21,7 +17,7 @@ class CarouselSlide extends StatefulWidget {
   final double viewportFraction;
   final double itemHeight;
   final double itemWidth;
-  final double containerHeight;
+
   final IndexedWidgetBuilder itemBuilder;
   final List<String>? thunmbnails;
   final List<String>? bigImages;
@@ -34,7 +30,6 @@ class CarouselSlide extends StatefulWidget {
       required this.itemHeight,
       required this.itemWidth,
       required this.itemBuilder,
-      required this.containerHeight,
       this.thunmbnails,
       this.bigImages})
       : super(key: key);
@@ -63,7 +58,7 @@ class _CarouselSlideState extends State<CarouselSlide> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.containerHeight,
+      height: widget.itemHeight,
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [

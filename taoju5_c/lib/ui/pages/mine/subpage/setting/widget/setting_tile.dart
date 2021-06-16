@@ -2,7 +2,7 @@
  * @Description: 设置通用组件
  * @Author: iamsmiling
  * @Date: 2021-04-14 18:05:10
- * @LastEditTime: 2021-06-02 17:36:04
+ * @LastEditTime: 2021-06-08 09:41:13
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -10,7 +10,9 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/setting_controller.dart';
 
 class SettingListTile extends StatelessWidget {
   final SettingTileEntity entity;
-  const SettingListTile({Key? key, required this.entity}) : super(key: key);
+  final bool enable;
+  const SettingListTile({Key? key, required this.entity, this.enable = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,13 @@ class SettingListTile extends StatelessWidget {
                   entity.label,
                   style: TextStyle(fontSize: R.dimen.sp14),
                 ),
-                Image.asset(R.image.next)
+                Spacer(),
+                Text(
+                  entity.value,
+                  style: TextStyle(
+                      fontSize: R.dimen.sp12, color: R.color.ff999999),
+                ),
+                Visibility(visible: enable, child: Image.asset(R.image.next))
               ],
             ),
           ),

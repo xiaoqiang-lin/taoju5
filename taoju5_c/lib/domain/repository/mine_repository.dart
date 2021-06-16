@@ -2,11 +2,12 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:38:20
- * @LastEditTime: 2021-04-22 15:42:43
+ * @LastEditTime: 2021-06-08 14:22:38
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
 import 'package:taoju5_c/domain/entity/base_entity.dart';
+import 'package:taoju5_c/domain/entity/footprint/footprint_entity.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/provider/mine_api.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -56,4 +57,16 @@ class MineRepository {
   ///修改用户信息
   Future feedback({Map? params, dynamic formData}) =>
       _api.feedback(params: params, formData: formData);
+
+  ///我的足迹
+  Future<List<FootPrintEntity>> footprint({Map? params}) =>
+      _api.footprint(params: params).then((value) {
+        return JsonKit.asList(value.data["data"])
+            .map((e) => FootPrintEntity.fromJson(e))
+            .toList();
+      });
+
+  ///我的足迹
+  Future<BaseEntity> removeHistory({Map? params}) =>
+      _api.removeHistory(params: params);
 }

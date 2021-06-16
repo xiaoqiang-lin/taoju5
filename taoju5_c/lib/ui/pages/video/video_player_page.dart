@@ -78,7 +78,7 @@ class VideoPage extends StatelessWidget {
                                 style: TextStyle(
                                     color: R.color.ffffffff,
                                     fontSize: R.dimen.sp15,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               Container(
                                 margin: EdgeInsets.symmetric(

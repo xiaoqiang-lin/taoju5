@@ -2,7 +2,7 @@
  * @Description: 订单卡片
  * @Author: iamsmiling
  * @Date: 2021-05-17 17:33:37
- * @LastEditTime: 2021-06-04 10:52:38
+ * @LastEditTime: 2021-06-11 15:43:43
  */
 
 import 'package:flutter/material.dart';
@@ -22,8 +22,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () => Get.toNamed(
-          AppRoutes.prefix + AppRoutes.orderDetail + "/${order.id}"),
+      onTap: () => Get.toNamed(AppRoutes.orderDetail + "/${order.id}"),
       child: Column(
         children: [
           Container(
@@ -47,7 +46,7 @@ class OrderCard extends StatelessWidget {
                   child: Text(
                     order.tip,
                     style: TextStyle(
-                        fontSize: R.dimen.sp14, fontWeight: FontWeight.bold),
+                        fontSize: R.dimen.sp14, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
@@ -67,14 +66,14 @@ class OrderCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
-                  height: R.dimen.dp10,
-                  thickness: R.dimen.dp10,
-                  color: R.color.fff5f5f5,
-                )
               ],
             ),
           ),
+          Divider(
+            height: R.dimen.dp10,
+            thickness: R.dimen.dp10,
+            color: R.color.fff5f5f5,
+          )
         ],
       ),
     );

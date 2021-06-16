@@ -2,7 +2,7 @@
  * @Description: 订单评论
  * @Author: iamsmiling
  * @Date: 2021-05-26 09:33:25
- * @LastEditTime: 2021-05-27 16:43:46
+ * @LastEditTime: 2021-06-08 17:35:06
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,7 +37,7 @@ class OrderCommentPage extends GetView<OrderCommentController> {
                     style: TextStyle(
                         fontSize: R.dimen.sp14,
                         color: R.color.ff333333,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                   Row(
                       children: List.generate(
@@ -45,6 +45,7 @@ class OrderCommentPage extends GetView<OrderCommentController> {
                           (index) => Container(
                                 margin: EdgeInsets.only(left: R.dimen.dp8),
                                 child: AnimatedButton(
+                                    onPressed: () => Future.value(true),
                                     activeWidget:
                                         Image.asset(R.image.scoringStar),
                                     deactiveWidget:

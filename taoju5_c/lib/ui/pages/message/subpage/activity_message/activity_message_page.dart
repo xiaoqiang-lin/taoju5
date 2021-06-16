@@ -46,7 +46,7 @@ class ActivityMessagePage extends GetView<ActivityMessageController> {
                                 style: TextStyle(
                                     fontSize: R.dimen.sp14,
                                     color: R.color.ff333333,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               Row(
                                 children: [

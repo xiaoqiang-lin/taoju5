@@ -2,7 +2,7 @@
  * @Description: 订单详情页面
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:40
- * @LastEditTime: 2021-06-04 06:33:21
+ * @LastEditTime: 2021-06-11 15:23:40
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,6 @@ import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_controller.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_skeleton.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/section/order_detail_body.dart';

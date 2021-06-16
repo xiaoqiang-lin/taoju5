@@ -2,7 +2,7 @@
  * @Description: 订单详情主体
  * @Author: iamsmiling
  * @Date: 2021-05-18 11:26:16
- * @LastEditTime: 2021-05-28 18:05:34
+ * @LastEditTime: 2021-06-11 16:22:07
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -29,6 +29,31 @@ class OrderDetailBody extends StatelessWidget {
                 "¥${p.product.unitPrice.toStringAsFixed(2)}",
                 style: TextStyle(fontSize: R.dimen.sp12),
               ),
+              headerBuilder: (BuildContext context) {
+                return Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(width: .5, color: R.color.ffe5e5e5))),
+                  padding:
+                      EdgeInsets.only(top: R.dimen.dp15, bottom: R.dimen.dp9),
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                        fontSize: R.dimen.sp14, color: R.color.ff181818),
+                    child: Row(
+                      children: [
+                        Text("请确认测装数据"),
+                        Spacer(),
+                        Container(
+                          margin: EdgeInsets.only(right: R.dimen.dp2),
+                          child: Text("修改"),
+                        ),
+                        Image.asset(R.image.next)
+                      ],
+                    ),
+                  ),
+                );
+              },
               footerBuilder: (BuildContext context) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -105,14 +130,14 @@ class OrderDetailBody extends StatelessWidget {
                           style: TextStyle(
                               fontSize: R.dimen.sp14,
                               color: R.color.ff181818,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                         Text(
                           "  ¥${o.amount.value}",
                           style: TextStyle(
                               fontSize: R.dimen.sp14,
                               fontWeight: o.amount.bold
-                                  ? FontWeight.bold
+                                  ? FontWeight.w600
                                   : FontWeight.normal,
                               color: o.amount.highlighted
                                   ? R.color.ffff5005
@@ -122,8 +147,8 @@ class OrderDetailBody extends StatelessWidget {
                     ),
                   ),
                 GestureDetector(
-                  onTap: () => Get.toNamed(
-                      AppRoutes.prefix + Get.currentRoute + AppRoutes.mainfest),
+                  onTap: () =>
+                      Get.toNamed(Get.currentRoute + AppRoutes.mainfest),
                   child: Container(
                     // width: R.dimen.width,
                     // alignment: Alignment.centerRight,

@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-06-03 17:50:25
+ * @LastEditTime: 2021-06-11 17:55:23
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:taoju5_c/ui/pages/commendation/commendation_fragement.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_custom_made_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_physicial_store_section.dart';
@@ -48,7 +49,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+                  onTap: () => Get.toNamed(AppRoutes.search),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,8 +75,7 @@ class HomePage extends StatelessWidget {
                 IconButton(
                     padding: EdgeInsets.zero,
                     icon: Image.asset(R.image.message),
-                    onPressed: () =>
-                        Get.toNamed(AppRoutes.prefix + AppRoutes.message))
+                    onPressed: () => Get.toNamed(AppRoutes.message))
               ],
             ),
             body: CustomScrollView(
@@ -87,6 +87,9 @@ class HomePage extends StatelessWidget {
                 SliverToBoxAdapter(child: HomePhysicialStoreSection()),
                 SliverToBoxAdapter(child: HomeSpecialOfferPrefectureSection()),
                 SliverToBoxAdapter(child: HomeSpecialTopicSection()),
+                SliverToBoxAdapter(
+                  child: CommendationFragment(),
+                )
               ],
             ),
           );

@@ -105,7 +105,7 @@ class __WindowCountPickerViewState extends State<_WindowCountPickerView> {
                       style: TextStyle(
                           fontSize: R.dimen.sp15,
                           color: R.color.ff1b1b1b,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                   );
                 }),

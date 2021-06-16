@@ -2,7 +2,7 @@
  * @Description: 我的 头部
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-22 17:01:39
+ * @LastEditTime: 2021-06-07 17:40:43
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
@@ -49,6 +49,7 @@ class MineHeaderSection extends StatelessWidget {
                     ))
               ],
             )),
+            Image.asset(R.image.next)
           ],
         ),
       ),

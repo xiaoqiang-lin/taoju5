@@ -2,7 +2,7 @@
  * @Description: 商品评论详情
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:10:41
- * @LastEditTime: 2021-05-26 14:09:59
+ * @LastEditTime: 2021-06-08 17:35:54
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,6 +55,7 @@ class ProductCommentDetailPage extends GetView<ProductCommentDetailController> {
             AnimatedButton(
               activeWidget: Image.asset(R.image.heartFilled),
               deactiveWidget: Image.asset(R.image.heartBlank),
+              onPressed: () => Future.value(true),
             ),
             Container(
               margin: EdgeInsets.only(left: R.dimen.dp8),

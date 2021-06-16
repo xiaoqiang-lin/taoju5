@@ -90,8 +90,7 @@ class RollingCurtainProductAttributeController extends GetxController {
     return saveMeasureData().then((value) {
       ///此时还没有获取到测量id ，初始化为-1
 
-      return Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder,
-          arguments: [product.adapt([])]);
+      return Get.toNamed(AppRoutes.commitOrder, arguments: [product.adapt([])]);
     }).catchError((err) {
       print(err);
       throw err;

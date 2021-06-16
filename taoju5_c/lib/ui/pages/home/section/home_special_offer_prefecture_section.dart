@@ -33,7 +33,7 @@ class HomeSpecialOfferPrefectureSection extends StatelessWidget {
                           style: TextStyle(
                               color: R.color.ff00000,
                               fontSize: R.dimen.sp9,
-                              fontWeight: FontWeight.bold)),
+                              fontWeight: FontWeight.w600)),
                     ])),
                 // Text("特价专区", style: R.style.h2.copyWith(color: R.color.ff5005)),
                 // Container(
@@ -41,7 +41,7 @@ class HomeSpecialOfferPrefectureSection extends StatelessWidget {
                 //   child: Text(
                 //     "历史最低价速来抢购",
                 //     style: TextStyle(
-                //         fontSize: R.dimen.sp9, fontWeight: FontWeight.bold),
+                //         fontSize: R.dimen.sp9, fontWeight: FontWeight.w600),
                 //   ),
                 // ),
                 Spacer(),

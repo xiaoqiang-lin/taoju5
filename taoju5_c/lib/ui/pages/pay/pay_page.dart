@@ -50,7 +50,7 @@ class PayPage extends GetView<PayController> {
                 style: TextStyle(
                     fontSize: R.dimen.sp14,
                     color: R.color.ff333333,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w600),
               ),
             ),
             GetBuilder<PayController>(
@@ -76,7 +76,7 @@ class PayPage extends GetView<PayController> {
                                       item.label,
                                       style: TextStyle(
                                           fontSize: R.dimen.sp14,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                   Spacer(),
@@ -85,7 +85,7 @@ class PayPage extends GetView<PayController> {
                                           "${item.label}${item.selected}"),
                                       value: item.selected,
                                       onChanged: (bool flag) =>
-                                          _.selectPayStrategy(item,flag))
+                                          _.selectPayStrategy(item, flag))
                                 ],
                               ),
                             ),

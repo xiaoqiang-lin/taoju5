@@ -404,7 +404,7 @@ packages:
     source: hosted
     version: "4.1.4"
   get_storage:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: get_storage
       url: "https://pub.flutter-io.cn"

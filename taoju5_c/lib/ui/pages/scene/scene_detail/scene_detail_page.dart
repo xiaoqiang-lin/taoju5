@@ -2,7 +2,7 @@
  * @Description: 场景详情
  * @Author: iamsmiling
  * @Date: 2021-05-29 09:31:32
- * @LastEditTime: 2021-05-29 14:14:51
+ * @LastEditTime: 2021-06-08 17:36:04
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +26,7 @@ class SceneDetailPage extends GetView<SceneDetailController> {
       appBar: AppBar(
         actions: [
           AnimatedButton(
+              onPressed: () => Future.value(true),
               activeWidget: Image.asset(R.image.hasCollected),
               deactiveWidget: Image.asset(R.image.notCollect)),
           // IconButton(

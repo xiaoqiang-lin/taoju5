@@ -28,7 +28,7 @@ class OrderListPage extends GetView<OrderListParentController> {
         actions: [
           IconButton(
               icon: Image.asset(R.image.find),
-              onPressed: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search))
+              onPressed: () => Get.toNamed(AppRoutes.search))
         ],
       ),
       body: Column(

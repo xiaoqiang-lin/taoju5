@@ -2,7 +2,7 @@
  * @Description: 意见反馈页面
  * @Author: iamsmiling
  * @Date: 2021-04-19 09:35:08
- * @LastEditTime: 2021-04-22 18:00:01
+ * @LastEditTime: 2021-06-11 17:07:25
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,15 +40,17 @@ class FeedbackPage extends StatelessWidget {
               children: [BugFeedbackFragment(), FunctionSuggestionFragment()]),
           bottomNavigationBar: Container(
             width: Get.width,
-            height: kBottomNavigationBarHeight,
             margin: EdgeInsets.only(
-                top: R.dimen.dp8,
-                left: R.dimen.dp20,
-                right: R.dimen.dp20,
-                bottom: R.dimen.dp20),
+              left: R.dimen.dp20,
+              right: R.dimen.dp20,
+            ),
             child: PrimaryButton(
               onPressed: _.submit,
               text: "提交反馈",
+              margin: EdgeInsets.only(
+                bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8,
+              ),
+              padding: EdgeInsets.symmetric(vertical: R.dimen.dp13),
             ),
           ),
         );

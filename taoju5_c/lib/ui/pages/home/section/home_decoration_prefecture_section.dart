@@ -51,7 +51,7 @@ class HomeDecorationPrefectureSection extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: R.dimen.sp14,
                                   color: R.color.ffffffff,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                           ],
                         ));

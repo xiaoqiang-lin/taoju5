@@ -96,6 +96,6 @@ class CommitOrderController extends GetxController {
 
   Future? submit() {
     args.totalPrice = totalPrice;
-    return Get.toNamed(AppRoutes.prefix + AppRoutes.pay, arguments: args);
+    return Get.toNamed(AppRoutes.pay, arguments: args);
   }
 }

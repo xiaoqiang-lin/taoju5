@@ -2,7 +2,7 @@
  * @Description: 用户模型
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-05-18 18:04:50
+ * @LastEditTime: 2021-06-07 14:44:55
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -33,6 +33,7 @@ class UserEntity {
   late String? birthday;
   late int registerTypeCode;
   late List<OrderTabEntity> kongos;
+  late bool isPasswordEmpty;
 
   RegisterType get registerType =>
       {1: RegisterType.telephone, 2: RegisterType.wechat}[registerTypeCode] ??
@@ -50,6 +51,7 @@ class UserEntity {
     kongos = JsonKit.asList(json["status"])
         .map((e) => OrderTabEntity.fromJson(e))
         .toList();
+    isPasswordEmpty = "${json["is_set_password"]}" == "1";
   }
 
   UserEntity.smaple() {

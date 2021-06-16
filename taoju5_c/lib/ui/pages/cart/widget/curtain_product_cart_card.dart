@@ -102,7 +102,7 @@ class CurtainProductCartCard extends StatelessWidget {
                                 "${cart.productName}",
                                 style: TextStyle(
                                     fontSize: R.dimen.dp14,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "¥${cart.unitPrice.toStringAsFixed(2)}",

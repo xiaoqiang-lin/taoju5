@@ -2,7 +2,7 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-15 13:11:15
- * @LastEditTime: 2021-06-03 15:45:10
+ * @LastEditTime: 2021-06-07 17:18:42
  */
 
 import 'dart:convert';
@@ -71,4 +71,20 @@ class LoginAPI {
   ///获取验证码
   Future<BaseEntity> getSmsCode(Map params) =>
       _http.post("/app/login/sendConsumerPhoneCode", formData: params);
+
+  ///设置登录密码
+  Future<BaseEntity> setPassword(Map params) =>
+      _http.post("/app/user/setPassword", formData: params);
+
+  ///修改密码
+  Future<BaseEntity> modifyPassword(Map params) =>
+      _http.post("/app/user/changePassword", formData: params);
+
+  ///修改手机号
+  Future<BaseEntity> modifyTelephone(Map params) =>
+      _http.post("/app/user/changePhone", formData: params);
+
+  ///修改手机号
+  Future<BaseEntity> bindTelephone(Map params) =>
+      _http.post("/app/user/bindPhone", formData: params);
 }

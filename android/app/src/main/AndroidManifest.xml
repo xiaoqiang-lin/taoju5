@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:usesCleartextTraffic="true"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.buyi.taojuwu">
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
@@ -19,6 +20,7 @@
         android:name="com.buyi.taojuwu.Taoju5Application"
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_security_config"
+        tools:replace="android:label"
         android:label="淘居屋">
         <activity
             android:name=".MainActivity"

@@ -2,7 +2,7 @@
  * @Description: 商品列表页面 筛选 工具
  * @Author: iamsmiling
  * @Date: 2021-05-27 11:12:02
- * @LastEditTime: 2021-05-27 17:24:19
+ * @LastEditTime: 2021-06-08 11:03:25
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +15,7 @@ class ProductListToolBar extends StatelessWidget {
   TextStyle get _selectedTextStyle => TextStyle(
       color: R.color.ffff5005,
       fontSize: R.dimen.sp13,
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.w600);
 
   TextStyle get _unSelectedTextStyle => TextStyle(fontSize: R.dimen.sp13);
   @override

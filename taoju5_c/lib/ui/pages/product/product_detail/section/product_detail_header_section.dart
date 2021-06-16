@@ -32,7 +32,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
                   style: TextStyle(
                       color: R.color.ff333333,
                       fontSize: R.dimen.sp14,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w600),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp10),
@@ -166,7 +166,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
                     Text(
                       "报价单",
                       style: TextStyle(
-                          fontSize: R.dimen.sp12, fontWeight: FontWeight.bold),
+                          fontSize: R.dimen.sp12, fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
@@ -198,7 +198,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
                 Text(
                   "附近实体门店",
                   style: TextStyle(
-                      fontSize: R.dimen.sp12, fontWeight: FontWeight.bold),
+                      fontSize: R.dimen.sp12, fontWeight: FontWeight.w600),
                 ),
                 Spacer(),
                 Text(

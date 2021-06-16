@@ -77,8 +77,7 @@ class AddressListPage extends GetView<AddressListController> {
               right: R.dimen.dp20),
           child: PrimaryButton(
             text: "+ 新增收货地址",
-            onPressed: () => Get.toNamed(
-                    AppRoutes.prefix + AppRoutes.mine + AppRoutes.addressEdit)
+            onPressed: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressEdit)
                 ?.then((value) {
               controller.loadData();
             }),

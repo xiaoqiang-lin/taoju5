@@ -37,7 +37,7 @@ abstract class ToastKit {
                   ),
                   child: Text(
                     message,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                 )
               ],
@@ -79,7 +79,7 @@ abstract class ToastKit {
                   ),
                   child: Text(
                     message,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                 )
               ],

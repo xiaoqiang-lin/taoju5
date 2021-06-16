@@ -23,7 +23,7 @@ class HotSearchSection extends StatelessWidget {
             style: TextStyle(
                 fontSize: R.dimen.sp14,
                 color: R.color.ff333333,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w600),
           ),
           Container(
             margin: EdgeInsets.only(top: R.dimen.dp15),

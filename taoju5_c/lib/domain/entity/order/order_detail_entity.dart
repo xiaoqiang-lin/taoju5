@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-18 09:27:53
- * @LastEditTime: 2021-05-21 15:44:56
+ * @LastEditTime: 2021-06-11 14:45:26
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -90,7 +90,7 @@ class OrderProductEntity {
   String actions = "";
   String status = "";
   OrderProductEntity.fromJson(Map json) {
-    product = ProductAdaptorEntity.fromJson(json["goods_data"]);
+    product = ProductAdaptorEntity.fromJson(json);
   }
 }
 

@@ -330,34 +330,42 @@ import 'package:shimmer/shimmer.dart';
 import 'package:taoju5_c/component/image/intertaive_photo_view.dart';
 import 'package:taoju5_c/component/open_container/open_container.dart';
 
+import 'package:flutter/cupertino.dart';
+
 class ChimeraImage extends StatelessWidget {
   final String src;
   final Duration fadeInDuration;
   final Duration fadeOutDuration;
   final Duration? placeholderFadeInDuration;
-
   final double? width;
   final double? height;
   final BoxFit? fit;
   final BorderRadius? borderRadius;
   final Widget Function(BuildContext, String, dynamic)? errorWidget;
   final bool enlarge;
-  final bool showOpenButton;
   final Widget Function(BuildContext, String)? placeHolder;
-  const ChimeraImage(this.src,
-      {Key? key,
-      this.fadeInDuration = const Duration(milliseconds: 200),
-      this.width,
-      this.height,
-      this.fit,
-      this.borderRadius = const BorderRadius.all(Radius.circular(7)),
-      this.fadeOutDuration = const Duration(milliseconds: 275),
-      this.placeHolder,
-      this.placeholderFadeInDuration,
-      this.errorWidget,
-      this.enlarge = false,
-      this.showOpenButton = false})
-      : super(key: key);
+  final List<String> images;
+  final bool hiddenZoomIcon;
+  final String bigImageSrc;
+  final bool cache;
+  const ChimeraImage(
+    this.src, {
+    Key? key,
+    this.fadeInDuration = const Duration(milliseconds: 200),
+    this.width,
+    this.height,
+    this.fit,
+    this.borderRadius = const BorderRadius.all(Radius.circular(7)),
+    this.fadeOutDuration = const Duration(milliseconds: 275),
+    this.placeHolder,
+    this.placeholderFadeInDuration,
+    this.errorWidget,
+    this.enlarge = false,
+    this.images = const [],
+    this.hiddenZoomIcon = true,
+    this.bigImageSrc = "",
+    this.cache = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

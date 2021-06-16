@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-02 18:09:51
+ * @LastEditTime: 2021-06-07 14:21:11
  */
 // part of R;
 import 'package:get/get.dart';
@@ -75,7 +75,7 @@ class CDimen {
   final double dp100 = 100;
   final double dp132 = 132;
   final double dp200 = 200;
-
+  final double dp120 = 120;
   final double dp128 = 128;
   final double dp184 = 184;
   final double dp185 = 185;
@@ -95,7 +95,7 @@ class CDimen {
   final double sp15 = 15;
 
   final double sp16 = 16;
-
+  final double sp17 = 17;
   final double sp18 = 18;
 
   final double sp24 = 24;

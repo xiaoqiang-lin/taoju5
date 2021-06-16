@@ -2,7 +2,7 @@
  * @Description: 商品相关
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:02:12
- * @LastEditTime: 2021-05-29 17:48:38
+ * @LastEditTime: 2021-06-11 17:53:44
  */
 import 'dart:convert';
 
@@ -62,5 +62,13 @@ class ProductRepository {
   Future<int> saveMeasureData(Map params) =>
       _api.saveMeasureData(params).then((value) {
         return JsonKit.asInt(value.data);
+      });
+
+  ///保存测装数据
+  Future<List<ProductEntity>> commendation({Map? params}) =>
+      _api.commendation(params).then((value) {
+        return JsonKit.asList(value.data)
+            .map((e) => ProductEntity.fromJson(e))
+            .toList();
       });
 }

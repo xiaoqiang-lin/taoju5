@@ -2,7 +2,7 @@
  * @Description: 圆形checkbox
  * @Author: iamsmiling
  * @Date: 2021-04-16 09:59:55
- * @LastEditTime: 2021-04-29 16:17:33
+ * @LastEditTime: 2021-06-08 14:52:38
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -49,7 +49,7 @@ class _RoundCheckboxState extends State<RoundCheckbox> {
                 ? Image.asset(R.image.checked)
                 : widget.checkedIcon
             : widget.uncheckedIcon == null
-                ? Image.asset(R.image.checked)
+                ? Image.asset(R.image.unchecked)
                 : widget.uncheckedIcon);
   }
 }

@@ -23,7 +23,7 @@ Future openOutOfServiceAreaDialog(BuildContext context) {
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: R.dimen.sp15,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 color: R.color.ff1b1b1b),
           ),
           content: Text(

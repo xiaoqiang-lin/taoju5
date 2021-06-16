@@ -66,8 +66,7 @@ class SectionalbarController extends GetxController {
       arg.validate();
       attribute.finished = true;
       product.attributeDesc = "用料:${product.length}cm";
-      return Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder,
-          arguments: [product.adapt([])]);
+      return Get.toNamed(AppRoutes.commitOrder, arguments: [product.adapt([])]);
     } catch (err) {
       attribute.finished = false;
       print(err);
@@ -123,7 +122,7 @@ class SectionalbarProductAttributeDialog extends StatelessWidget {
                       style: TextStyle(
                           color: R.color.ff1b1b1b,
                           fontSize: R.dimen.sp15,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   Container(

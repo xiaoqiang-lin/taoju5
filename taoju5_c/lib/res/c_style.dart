@@ -2,7 +2,7 @@
  * @Description: 字体
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-02 20:11:58
+ * @LastEditTime: 2021-06-08 10:58:59
  */
 import 'dart:ui';
 
@@ -30,24 +30,24 @@ class CStyle {
   TextStyle h1 = TextStyle(
       fontSize: R.dimen.sp18,
       fontFamily: "PingFang",
-      fontWeight: FontWeight.w700);
+      fontWeight: FontWeight.w600);
 
   ///重要标题/首页模块标题/弹窗标题
   TextStyle h2 = TextStyle(
       fontSize: R.dimen.sp15,
       fontFamily: "PingFang",
-      fontWeight: FontWeight.w700);
+      fontWeight: FontWeight.w600);
 
   ///次要标题/加入购物车选项模块标题等
   TextStyle h3 = TextStyle(
       fontSize: R.dimen.sp14,
       fontFamily: "PingFang",
       color: R.color.ff333333,
-      fontWeight: FontWeight.w700);
+      fontWeight: FontWeight.w600);
 
   ///次要标题/加入购物车选项模块标题/弹窗按钮文字等
   TextStyle primaryText =
-      TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.w700);
+      TextStyle(fontSize: R.dimen.sp14, fontWeight: FontWeight.w600);
 
   //更多提示文字
   TextStyle moreTip =

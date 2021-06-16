@@ -207,7 +207,7 @@ class CurtainProductAttributeController extends GetxController {
       // ToastKit.loading();
       await saveMeasureData();
 
-      return Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder,
+      return Get.toNamed(AppRoutes.commitOrder,
           arguments: [product.adapt(atrribute.list)]);
     } catch (err, s) {
       print(err);

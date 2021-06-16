@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:37:07
- * @LastEditTime: 2021-05-07 16:03:18
+ * @LastEditTime: 2021-06-08 14:21:57
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -40,4 +40,12 @@ class MineAPI {
   ///删除地址
   Future<BaseEntity> feedback({Map? params, dynamic formData}) =>
       _http.post("/app/user/feedBack", params: params, formData: formData);
+
+  ///我的足迹
+  Future<BaseEntity> footprint({Map? params, dynamic formData}) =>
+      _http.get("/app/user/footprint", params: params);
+
+  ///删除足迹
+  Future<BaseEntity> removeHistory({Map? params, dynamic formData}) =>
+      _http.get("/app/user/deleteFootprint", params: params);
 }

@@ -40,7 +40,7 @@ class LogisticsNodeCard extends StatelessWidget {
                                 ? R.color.ffee9b5f
                                 : R.color.ff999999,
                             fontSize: R.dimen.sp14,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                       Container(
                         margin: EdgeInsets.only(

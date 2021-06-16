@@ -45,7 +45,7 @@ class OrderMessageDetailPage extends GetView<OrderMessageDetailController> {
                               item.status,
                               style: TextStyle(
                                   fontSize: R.dimen.sp14,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Text(
                               item.date,

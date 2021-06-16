@@ -2,7 +2,7 @@
  * @Description: 电话号码输入框封装
  * @Author: iamsmiling
  * @Date: 2021-04-14 14:05:35
- * @LastEditTime: 2021-04-23 17:23:49
+ * @LastEditTime: 2021-06-07 15:26:22
  */
 import 'package:flutter/material.dart';
 
@@ -12,6 +12,7 @@ class TelephoneTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final String hintText;
   final String errorText;
+  final String? initialValue;
 
   ///是否开启错误提示
   final bool autoValidate;
@@ -21,6 +22,7 @@ class TelephoneTextField extends StatefulWidget {
     this.hintText = "请输入手机号",
     this.errorText = "手机号错误",
     this.autoValidate = false,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -48,6 +50,7 @@ class _TelephoneTextFieldState extends State<TelephoneTextField> {
   Widget build(BuildContext context) {
     return ClearableTextField(
       onChanged: widget.onChanged,
+      initialValue: widget.initialValue,
       suffixIcon: Image.asset("resources/images/clear.png"),
       keyboardType: TextInputType.phone,
       onSubmitted: _validate,

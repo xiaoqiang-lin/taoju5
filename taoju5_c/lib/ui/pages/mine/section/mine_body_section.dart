@@ -2,7 +2,7 @@
  * @Description: 个人中心
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-03 18:00:52
+ * @LastEditTime: 2021-06-07 17:50:06
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -29,10 +29,8 @@ class MineBodySection extends StatelessWidget {
                 Text("我的订单", style: R.style.headline6),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Get.toNamed(
-                      AppRoutes.prefix + AppRoutes.mine + AppRoutes.orderList,
-                      arguments: kongos,
-                      parameters: {"index": "0"}),
+                  onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.orderList,
+                      arguments: kongos, parameters: {"index": "0"}),
                   child: Text("查看全部", style: R.style.tileTip),
                 ),
                 Image.asset(R.image.next)
@@ -48,13 +46,13 @@ class MineBodySection extends StatelessWidget {
                     in kongos.where((e) => e.icon.isNotEmpty))
                   GestureDetector(
                     onTap: () => Get.toNamed(
-                        AppRoutes.prefix + AppRoutes.mine + AppRoutes.orderList,
+                        AppRoutes.mine + AppRoutes.orderList,
                         arguments: kongos,
                         parameters: {"index": "${kongos.indexOf(item)}"}),
                     child: Stack(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(top: 5),
+                          padding: EdgeInsets.only(top: R.dimen.dp5),
                           child: Column(
                             children: [
                               Image.network(

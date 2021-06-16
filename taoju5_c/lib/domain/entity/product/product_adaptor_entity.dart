@@ -2,7 +2,7 @@
  * @Description: 商品适配器模型
  * @Author: iamsmiling
  * @Date: 2021-05-14 16:35:07
- * @LastEditTime: 2021-06-03 16:58:02
+ * @LastEditTime: 2021-06-11 16:09:08
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -27,6 +27,8 @@ class ProductAdaptorEntity {
   String status = "";
   int id = 0;
   double? length;
+
+  bool signet = false;
 
   late Map arg;
 
@@ -87,6 +89,7 @@ class ProductAdaptorEntity {
         .map((e) => CurtainAttributeKeyValuePairEntity.fromJson(e))
         .toList();
     status = json["status_name"];
+    signet = "${json["measure_status"]}" == "2";
     actions = JsonKit.asList(json["goods_button"])
         .map((e) => OrderActionButtonEntity.fromJson(e))
         .toList();

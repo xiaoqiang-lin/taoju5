@@ -2,7 +2,7 @@
  * @Description: 修改手机号
  * @Author: iamsmiling
  * @Date: 2021-04-14 17:33:34
- * @LastEditTime: 2021-04-15 17:57:27
+ * @LastEditTime: 2021-06-07 16:57:08
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -36,19 +36,23 @@ class ModifyTelephoneFirstPage extends StatelessWidget {
                     children: [
                       Text("修改手机号", style: R.style.h1),
                       Container(
-                        child: TelephoneTextField(),
+                        child: TelephoneTextField(
+                          initialValue: _.user.telephone,
+                        ),
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
                       ),
-                      SmsTextField(onPressed: () {}),
+                      SmsTextField(
+                          onChanged: _.setOldCaptcha, onPressed: _.getCaptcha),
                     ],
                   ),
                 ),
                 PrimaryButton(
+                    margin: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
                     size: PrimaryButtonSize.large,
                     text: "下一步",
-                    onPressed: () => Get.toNamed(
-                        AppRoutes.prefix + AppRoutes.modifyTelephone2))
+                    textStyle: TextStyle(fontSize: R.dimen.sp17),
+                    onPressed: () => Get.toNamed(AppRoutes.modifyTelephone2))
               ],
             ),
           ),

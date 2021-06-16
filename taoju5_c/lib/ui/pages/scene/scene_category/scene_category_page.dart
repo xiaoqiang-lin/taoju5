@@ -2,7 +2,7 @@
  * @Description: 场景分类页面
  * @Author: iamsmiling
  * @Date: 2021-05-28 10:03:19
- * @LastEditTime: 2021-05-28 14:47:22
+ * @LastEditTime: 2021-06-07 11:15:56
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,8 +60,7 @@ class SceneCategoryPage extends GetView<SceneCategoryListParentController> {
                         itemBuilder: (SceneCategoryEntity item) {
                           return GestureDetector(
                             onTap: () => Get.toNamed(
-                                AppRoutes.prefix +
-                                    Get.currentRoute +
+                                Get.currentRoute +
                                     AppRoutes.sceneList +
                                     "/${item.id}",
                                 arguments: c),
@@ -86,7 +85,7 @@ class SceneCategoryPage extends GetView<SceneCategoryListParentController> {
                                       item.name,
                                       style: TextStyle(
                                           fontSize: R.dimen.sp14,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.w600),
                                     ))
                               ],
                             ),

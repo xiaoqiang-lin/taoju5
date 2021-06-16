@@ -2,7 +2,7 @@
  * @Description: 大图预览
  * @Author: iamsmiling
  * @Date: 2021-04-21 16:31:31
- * @LastEditTime: 2021-05-15 18:06:14
+ * @LastEditTime: 2021-06-10 11:20:39
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class InteractivePhotoView extends StatelessWidget {
                 top: MediaQuery.of(context).padding.top,
                 child: GestureDetector(
                     onTap: Navigator.of(context).pop,
-                    child: Image.asset("resources/images/close_modal.png"))),
+                    child: Image.asset("resources/images/close_image.png"))),
           ],
         ),
       ),

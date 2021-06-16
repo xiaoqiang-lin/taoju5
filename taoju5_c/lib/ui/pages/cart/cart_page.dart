@@ -2,7 +2,7 @@
  * @Description: 购物车
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:32:36
- * @LastEditTime: 2021-05-29 14:54:03
+ * @LastEditTime: 2021-06-08 10:56:57
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,7 +60,7 @@ class CartPage extends GetView<CartController> {
                       text: "购物车",
                       style: TextStyle(
                           fontSize: R.dimen.sp18,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: R.color.ffffffff),
                       children: [
                         WidgetSpan(child: SizedBox(width: R.dimen.dp10)),
@@ -86,6 +86,7 @@ class CartPage extends GetView<CartController> {
           Expanded(
             child: FutureLoadStateBuilder<CartController>(
                 controller: controller,
+                loadingBuilder: (BuildContext context) => SizedBox.shrink(),
                 emptyBuilder: (BuildContext context) {
                   return Container(
                     height: R.dimen.height,
@@ -311,8 +312,7 @@ class CartPage extends GetView<CartController> {
                 text: "结算(1)",
                 padding: EdgeInsets.symmetric(
                     horizontal: R.dimen.dp16, vertical: R.dimen.dp10),
-                onPressed: () => Get.toNamed(
-                    AppRoutes.prefix + AppRoutes.commitOrder,
+                onPressed: () => Get.toNamed(AppRoutes.commitOrder,
                     arguments: controller.selectedProducts))
           ],
         ),

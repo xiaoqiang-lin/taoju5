@@ -2,7 +2,7 @@
  * @Description: 登录相关
  * @Author: iamsmiling
  * @Date: 2021-04-14 12:11:34
- * @LastEditTime: 2021-06-04 11:15:44
+ * @LastEditTime: 2021-06-07 15:12:18
  */
 import 'dart:async';
 
@@ -16,10 +16,9 @@ import 'package:taoju5_c/domain/entity/params/login/sms_params.dart';
 import 'package:taoju5_c/domain/repository/login_repository.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/utils/toast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginStrategy {
-  CLoginRepository repository = CLoginRepository();
+  LoginRepository repository = LoginRepository();
 
   late Function(BaseEntity entity) onSuccess;
   Future login(Map<String, dynamic> params) {
@@ -87,8 +86,6 @@ class CustomerLoginController extends GetxController {
   LoginParamsEntity _loginArg = LoginParamsEntity();
 
   void _onLoginSuccess(BaseEntity entity) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
-    await _sp.setString("ctoken", entity.data);
     Get.offAllNamed(AppRoutes.main);
   }
 
@@ -105,9 +102,9 @@ class CustomerLoginController extends GetxController {
   }
 
   Future getSmsCode() {
-    CLoginRepository _repository = CLoginRepository();
+    LoginRepository _repository = LoginRepository();
     CSmsParamsEntity _smsArg =
-        CSmsParamsEntity(telephone: _loginArg.telephone, type: CSmsType.login);
+        CSmsParamsEntity(telephone: _loginArg.telephone, type: SmsType.login);
     if (_smsArg.validate()) {
       return _repository.getSmsCode(_smsArg.params);
     }

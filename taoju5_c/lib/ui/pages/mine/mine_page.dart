@@ -2,13 +2,15 @@
  * @Description: 我的页面
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-03 17:49:05
+ * @LastEditTime: 2021-06-08 10:57:11
  */
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
+import 'package:taoju5_c/ui/pages/mine/mine_skeleton.dart';
 import 'package:taoju5_c/ui/pages/mine/section/mine_body_section.dart';
 import 'package:taoju5_c/ui/pages/mine/section/mine_footer_section.dart';
 import 'section/mine_header_section.dart';
@@ -36,23 +38,29 @@ class MinePage extends StatelessWidget {
               ),
               actions: [
                 GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AppRoutes.prefix + AppRoutes.mine + AppRoutes.setting),
+                    onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.setting,
+                        arguments: _.user),
                     child: Image.asset(R.image.setting))
               ],
             ),
-            body: Container(
-              margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    MineHeaderSection(user: _.user),
-                    MineBodySection(kongos: _.kongos),
-                    MineFooterSection(tiles: _.tiles)
-                  ],
-                ),
-              ),
-            ),
+            body: FutureLoadStateBuilder<MineController>(
+                controller: _,
+                loadingBuilder: (BuildContext context) => SizedBox.shrink(),
+                // loadingBuilder: (BuildContext context) => MineSkeleton(),
+                builder: (_) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          MineHeaderSection(user: _.user),
+                          MineBodySection(kongos: _.kongos),
+                          MineFooterSection(tiles: _.tiles)
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           );
         });
   }

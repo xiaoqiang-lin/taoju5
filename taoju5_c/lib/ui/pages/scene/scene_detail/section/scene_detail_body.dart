@@ -31,7 +31,7 @@ class SceneDetailBody extends StatelessWidget {
                 Text(
                   "包含商品",
                   style: TextStyle(
-                      fontSize: R.dimen.sp14, fontWeight: FontWeight.bold),
+                      fontSize: R.dimen.sp14, fontWeight: FontWeight.w600),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: R.dimen.dp6),
@@ -81,7 +81,7 @@ class SceneDetailBody extends StatelessWidget {
                 Text(
                   "#设计师说",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: R.dimen.sp14,
                       color: R.color.ff333333),
                 ),
@@ -133,7 +133,7 @@ class SceneDetailBody extends StatelessWidget {
                                   item.name,
                                   style: TextStyle(
                                       fontSize: R.dimen.sp12,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       color: R.color.ffee9b5f),
                                 ))
                           ],

@@ -62,6 +62,20 @@ android {
 
          manifestPlaceholders = [
                 AMAP_KEY : "c861bca41e4014c514a13ba71cce758a", /// 高德地图key
+
+                JPUSH_PKGNAME : "com.buyi.taojuwu",
+                JPUSH_APPKEY : "c35981f8bafb7c46f4f72909", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+
+                XIAOMI_APPID : "MI-2882303761518581560",
+                XIAOMI_APPKEY : "MI-5791858188560",
+
+                OPPO_APPKEY : "OP-c9622409803f41008804923a08f03cce",
+                OPPO_APPID : "OP-30325075",
+                OPPO_APPSECRET : "OP-5315f74c386b4be6bf709f3b965f3248",
+
+                VIVO_APPKEY : "f83c209f2465bcfed8247d59dcf26959", // VIVO平台注册的appkey
+                VIVO_APPID : "104200377", // VIVO平台注册的appid 
         ]
 
     }
@@ -79,8 +93,6 @@ android {
             // keyPassword keystoreProperties['debugKeyPassword']
             // storeFile file(keystoreProperties['debugStoreFile'])
             // storePassword keystoreProperties['debugStorePassword']
-
-
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
@@ -146,4 +158,18 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     implementation 'com.amap.api:location:latest.integration'
+
+    implementation 'cn.jiguang.sdk:jcore:2.7.2'  // 此处以JCore 2.7.2 版本为例。
+    implementation 'cn.jiguang.sdk:jpush:4.0.0'  // 此处以JPush 4.0.0 版本为例
+    // 接入华为厂商
+    implementation 'com.huawei.hms:push:4.0.2.300'
+    implementation 'cn.jiguang.sdk.plugin:huawei:4.0.0'// 极光厂商插件版本与接入 JPush 版本保持一致，下同
+    // 接入 VIVO 厂商
+    implementation 'cn.jiguang.sdk.plugin:vivo:4.0.0' 
+    // 接入 OPPO 厂商
+    implementation 'cn.jiguang.sdk.plugin:oppo:4.0.0' 
+    // 接入小米厂商
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.0.0' 
 }
+
+apply plugin: 'com.huawei.agconnect'

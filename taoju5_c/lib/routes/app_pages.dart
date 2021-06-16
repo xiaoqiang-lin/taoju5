@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-05-29 09:38:45
+ * @LastEditTime: 2021-06-08 17:01:09
  */
 
 import 'package:get/get.dart';
@@ -15,6 +15,8 @@ import 'package:taoju5_c/ui/pages/category/category_binding.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
 import 'package:taoju5_c/ui/pages/image_crop/image_crop_binding.dart';
 import 'package:taoju5_c/ui/pages/image_crop/image_crop_page.dart';
+import 'package:taoju5_c/ui/pages/login/bind_telephone/bind_telephone_binding.dart';
+import 'package:taoju5_c/ui/pages/login/bind_telephone/bind_telephone_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_login_binding.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_password_login_page.dart';
 import 'package:taoju5_c/ui/pages/login/bussiness_login/business_sms_login_page.dart';
@@ -29,6 +31,8 @@ import 'package:taoju5_c/ui/pages/login/modify_password/modify_password_second_p
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_binding.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_fisrt_page.dart';
 import 'package:taoju5_c/ui/pages/login/modify_telephone/modify_telephone_second_page.dart';
+import 'package:taoju5_c/ui/pages/login/set_password/set_password_binding.dart';
+import 'package:taoju5_c/ui/pages/login/set_password/set_password_page.dart';
 import 'package:taoju5_c/ui/pages/main/main_binding.dart';
 import 'package:taoju5_c/ui/pages/main/main_page.dart';
 import 'package:taoju5_c/ui/pages/message/message_binding.dart';
@@ -39,6 +43,7 @@ import 'package:taoju5_c/ui/pages/message/subpage/order_message_detail/order_mes
 import 'package:taoju5_c/ui/pages/message/subpage/order_message_detail/order_message_detail_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/account/account_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/account/account_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/address_edit_page.dart';
@@ -46,6 +51,8 @@ import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/subpage/loca
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_edit/subpage/location/location_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/address/address_list/address_list_page.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/collection/collection_binding.dart';
+import 'package:taoju5_c/ui/pages/mine/subpage/collection/collection_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_binding.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/feedback/feedback_page.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/footprint/foot_print_binding.dart';
@@ -93,6 +100,8 @@ import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_binding.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_page.dart';
 import 'package:taoju5_c/ui/pages/search/search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/search_page.dart';
+import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_page.dart';
 
@@ -114,6 +123,10 @@ class AppPages {
         name: AppRoutes.customerSmsLogin,
         page: () => CustomerSmsLoginPage(),
         binding: CustomerLoginBinding()),
+    GetPage(
+        name: AppRoutes.setPassword,
+        page: () => SetPasswordPage(),
+        binding: SetPasswordBinding()),
 
     GetPage(
         name: AppRoutes.businessPasswordLogin,
@@ -133,6 +146,11 @@ class AppPages {
         name: AppRoutes.modifyPassword2,
         page: () => ModifyPasswordSecondPage(),
         binding: ModifyPasswordBinding()),
+
+    GetPage(
+        name: AppRoutes.bindTelephone,
+        page: () => BindTelephonePage(),
+        binding: BindTelephoneBinding()),
 
     GetPage(
         name: AppRoutes.modifyTelephone1,
@@ -206,9 +224,9 @@ class AppPages {
                 ),
               ]),
           GetPage(
-            name: AppRoutes.account,
-            page: () => AccountPage(),
-          ),
+              name: AppRoutes.account,
+              page: () => AccountPage(),
+              binding: AccountBinding()),
 
           GetPage(
               name: AppRoutes.feedback,
@@ -217,7 +235,12 @@ class AppPages {
           GetPage(
               name: AppRoutes.footPrint,
               page: () => FootPrintPage(),
-              binding: FootPrintBinding())
+              binding: FootPrintBinding()),
+
+          GetPage(
+              name: AppRoutes.collection,
+              page: () => CollectionPage(),
+              binding: CollectionBinding())
         ]),
 
     GetPage(
@@ -348,6 +371,13 @@ class AppPages {
       name: AppRoutes.sceneDetail + "/:id",
       page: () => SceneDetailPage(),
       binding: SceneDetailBinding(),
+    ),
+
+    ///门店详情
+    GetPage(
+      name: AppRoutes.storeDetail,
+      page: () => StoreDetailPage(),
+      binding: StoreDetailBinding(),
     ),
   ];
 }

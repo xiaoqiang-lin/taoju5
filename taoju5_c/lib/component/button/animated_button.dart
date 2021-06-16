@@ -2,19 +2,19 @@
  * @Description: 点赞按钮
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:11:21
- * @LastEditTime: 2021-05-28 17:12:27
+ * @LastEditTime: 2021-06-08 17:30:00
  */
 import 'package:flutter/material.dart';
 
 class AnimatedButton extends StatefulWidget {
-  final Function()? onPressed;
+  final Future<bool> Function() onPressed;
   final bool active;
   final Widget activeWidget;
   final Widget deactiveWidget;
 
   const AnimatedButton(
       {Key? key,
-      this.onPressed,
+      required this.onPressed,
       this.active = false,
       required this.activeWidget,
       required this.deactiveWidget})
@@ -36,8 +36,10 @@ class _AnimatedButtonState extends State<AnimatedButton>
         _iconAnimation.status == AnimationStatus.reverse) {
       return;
     }
-    setState(() {
-      _like = !_like;
+    widget.onPressed().then((value) {
+      _like = value;
+    }).whenComplete(() {
+      setState(() {});
     });
     if (_iconAnimation.status == AnimationStatus.dismissed) {
       _animationController.forward();

@@ -2,19 +2,19 @@
  * @Description: 获取验证码参数
  * @Author: iamsmiling
  * @Date: 2021-04-15 17:12:00
- * @LastEditTime: 2021-04-18 00:15:23
+ * @LastEditTime: 2021-06-07 15:46:00
  */
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 
-enum CSmsType { login, forgetPassword, modifyPassword, modifyTelephone }
+enum SmsType { login, forgetPassword, modifyPassword, modifyTelephone }
 
-extension CSmsTypeKit on CSmsType {
+extension CSmsTypeKit on SmsType {
   int get code {
-    Map<CSmsType, int> map = {
-      CSmsType.login: 2,
-      CSmsType.forgetPassword: 3,
-      CSmsType.modifyPassword: 4,
-      CSmsType.modifyTelephone: 5
+    Map<SmsType, int> map = {
+      SmsType.login: 2,
+      SmsType.forgetPassword: 3,
+      SmsType.modifyPassword: 4,
+      SmsType.modifyTelephone: 5
     };
     return map[this]!;
   }
@@ -22,7 +22,7 @@ extension CSmsTypeKit on CSmsType {
 
 class CSmsParamsEntity extends BaseParamsEntity {
   late String telephone;
-  CSmsType? type;
+  SmsType? type;
 
   CSmsParamsEntity({required this.telephone, this.type});
 

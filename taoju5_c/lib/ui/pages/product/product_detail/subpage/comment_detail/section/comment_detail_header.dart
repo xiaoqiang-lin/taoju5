@@ -35,7 +35,7 @@ class CommentDetailHeader extends StatelessWidget {
                     Text(
                       comment.product.name,
                       style: TextStyle(
-                          fontSize: R.dimen.sp14, fontWeight: FontWeight.bold),
+                          fontSize: R.dimen.sp14, fontWeight: FontWeight.w600),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: R.dimen.dp10),

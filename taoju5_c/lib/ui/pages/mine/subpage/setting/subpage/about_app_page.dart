@@ -2,13 +2,33 @@
  * @Description: 关于淘居屋
  * @Author: iamsmiling
  * @Date: 2021-05-13 14:26:19
- * @LastEditTime: 2021-05-13 14:42:27
+ * @LastEditTime: 2021-06-08 10:01:05
  */
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/config/app_manager.dart';
 import 'package:taoju5_c/res/R.dart';
 
-class AboutAppPage extends StatelessWidget {
+class AboutAppPage extends StatefulWidget {
   const AboutAppPage({Key? key}) : super(key: key);
+
+  @override
+  _AboutAppPageState createState() => _AboutAppPageState();
+}
+
+class _AboutAppPageState extends State<AboutAppPage> {
+  late String version = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    AppManager.getAppVersion().then((value) {
+      setState(() {
+        version = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +58,7 @@ class AboutAppPage extends StatelessWidget {
                 margin:
                     EdgeInsets.only(top: R.dimen.dp15, bottom: R.dimen.dp50),
                 child: Text(
-                  "当前版本:1.3.4",
+                  "当前版本:$version",
                   style: TextStyle(
                       fontSize: R.dimen.sp12, color: R.color.ff666666),
                 ),

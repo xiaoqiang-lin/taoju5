@@ -2,9 +2,10 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-04 10:42:33
+ * @LastEditTime: 2021-06-08 16:29:54
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
@@ -23,7 +24,7 @@ class MineTileEntity {
       {required this.label, required this.icon, required this.onTap});
 }
 
-class MineController extends GetxController {
+class MineController extends BaseFutureLoadStateController {
   UserEntity user = UserEntity.smaple();
 
   List<OrderTabEntity> kongos = [];
@@ -32,24 +33,21 @@ class MineController extends GetxController {
         MineTileEntity(
             icon: R.image.star,
             label: "我的收藏",
-            onTap: () => Get.toNamed(
-                AppRoutes.prefix + AppRoutes.mine + AppRoutes.footPrint)),
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.collection)),
         MineTileEntity(
             icon: R.image.footprint,
             label: "我的足迹",
-            onTap: () => Get.toNamed(
-                AppRoutes.prefix + AppRoutes.mine + AppRoutes.footPrint)),
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.footPrint)),
         MineTileEntity(
             icon: R.image.address,
             label: "地址管理",
             onTap: () => Get.toNamed(
-                  AppRoutes.prefix + AppRoutes.mine + AppRoutes.addressList,
+                  AppRoutes.mine + AppRoutes.addressList,
                 )),
         MineTileEntity(
             icon: R.image.feedback,
             label: "意见反馈",
-            onTap: () => Get.toNamed(
-                AppRoutes.prefix + AppRoutes.mine + AppRoutes.feedback)),
+            onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.feedback)),
         MineTileEntity(
             icon: R.image.customerService,
             label: "客服",
@@ -63,18 +61,12 @@ class MineController extends GetxController {
       ];
 
   @override
-  void onInit() {
-    MineRepository _repository = MineRepository();
-
-    _repository.getUserInfo().then((UserEntity value) {
-      user = value;
-      kongos = user.kongos;
-      update();
-    });
-    OrderRepository().orderTabList().then((value) {
-      kongos = value;
-      update();
-    });
-    super.onInit();
+  Future loadData({Map? params}) {
+    return Future.wait(
+            [MineRepository().getUserInfo(), OrderRepository().orderTabList()])
+        .then((List list) {
+      user = list.first;
+      kongos = list.last;
+    }).whenComplete(update);
   }
 }

@@ -44,14 +44,14 @@ class OrderEditLogPage extends GetView<OrderEditLogController> {
                               style: TextStyle(
                                   fontSize: R.dimen.sp14,
                                   color: R.color.ff333333,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Text(
                               item.date,
                               style: TextStyle(
                                   fontSize: R.dimen.sp12,
                                   color: R.color.ff333333,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),

@@ -37,12 +37,12 @@ class SchoolPage extends GetView<SchoolController> {
                   "淘学院",
                   style: TextStyle(
                       fontSize: R.dimen.sp18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: R.color.ffffffff),
                 ),
               ),
               title: GestureDetector(
-                onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+                onTap: () => Get.toNamed(AppRoutes.search),
                 child: Container(
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
@@ -109,11 +109,8 @@ class SchoolPage extends GetView<SchoolController> {
                             CourseEntity item = _.courses[i];
                             return GestureDetector(
                               onTap: item.isVideo
-                                  ? () => Get.toNamed(
-                                      AppRoutes.prefix + AppRoutes.videoPlayer)
-                                  : () => Get.toNamed(
-                                      AppRoutes.prefix +
-                                          AppRoutes.articleDetail,
+                                  ? () => Get.toNamed(AppRoutes.videoPlayer)
+                                  : () => Get.toNamed(AppRoutes.articleDetail,
                                       arguments: item.type),
                               child: Stack(
                                 children: [

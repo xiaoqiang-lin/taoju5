@@ -40,8 +40,7 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
 
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () => Get.toNamed(AppRoutes.prefix +
-                          AppRoutes.category +
+                      onTap: () => Get.toNamed(AppRoutes.category +
                           AppRoutes.productDetail +
                           "/3226" +
                           AppRoutes.productCommentDetail),
@@ -144,6 +143,8 @@ class ProductCommentListPage extends GetView<ProductCommentListController> {
                                                 MainAxisAlignment.end,
                                             children: [
                                               AnimatedButton(
+                                                onPressed: () =>
+                                                    Future.value(true),
                                                 activeWidget: Image.asset(
                                                     R.image.heartFilled),
                                                 deactiveWidget: Image.asset(

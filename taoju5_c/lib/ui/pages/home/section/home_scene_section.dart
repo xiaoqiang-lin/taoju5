@@ -30,8 +30,7 @@ class HomeSceneSection extends StatelessWidget {
                 Text("场景搭配", style: R.style.h2),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Get.toNamed(
-                      AppRoutes.prefix + AppRoutes.sceneCategoryList),
+                  onTap: () => Get.toNamed(AppRoutes.sceneCategoryList),
                   child: Row(
                     children: [
                       Text("全部分类", style: R.style.moreTip),
@@ -43,8 +42,7 @@ class HomeSceneSection extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Get.toNamed(
-                AppRoutes.prefix + "/sceneCategoryList/sceneList/199",
+            onTap: () => Get.toNamed("/sceneCategoryList/sceneList/199",
                 arguments: CategoryEntity(id: 199, name: "风格分类", type: 2)),
             child: Container(
               height: assignableHeight,
@@ -53,8 +51,7 @@ class HomeSceneSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AppRoutes.prefix + "/sceneCategoryList/sceneList/199",
+                    onTap: () => Get.toNamed("/sceneCategoryList/sceneList/199",
                         arguments:
                             CategoryEntity(id: 199, name: "风格分类", type: 2)),
                     child: Stack(
@@ -132,7 +129,7 @@ class HomeSceneSection extends StatelessWidget {
                                     style: TextStyle(
                                         color: R.color.ffee7e2d,
                                         fontSize: R.dimen.sp15,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   Text(
                                     "生活需要更多点缀",
@@ -163,7 +160,7 @@ class HomeSceneSection extends StatelessWidget {
                         //         style: TextStyle(
                         //             color: R.color.ffee7e2d,
                         //             fontSize: R.dimen.sp15,
-                        //             fontWeight: FontWeight.bold),
+                        //             fontWeight: FontWeight.w600),
                         //       ),
                         //       Text(
                         //         "生活需要更多点缀",
@@ -205,7 +202,7 @@ class HomeSceneSection extends StatelessWidget {
                                         style: TextStyle(
                                             color: R.color.ffffffff,
                                             fontSize: R.dimen.sp15,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       Text(
                                         "用心打造家居之美",

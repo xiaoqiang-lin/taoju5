@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:22:15
- * @LastEditTime: 2021-06-07 10:18:24
+ * @LastEditTime: 2021-06-07 11:29:18
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class $BApp extends StatelessWidget {
         ],
         supportedLocales: [Locale("en"), Locale("zh")],
         routingCallback: BAppRouteMiddleWare.observer,
-        navigatorKey: Get.key,
+        // navigatorKey: Get.key,
       ),
     );
   }

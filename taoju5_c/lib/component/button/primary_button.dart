@@ -6,7 +6,8 @@ enum PrimaryButtonMode {
   elevatedButton,
   outlinedButton,
   textButton,
-  materialButton
+  materialButton,
+  inkwellButton
 }
 
 // ignore: must_be_immutable
@@ -23,6 +24,7 @@ class PrimaryButton extends StatelessWidget {
   final Color? foregroundColor;
   final Color? fillColor;
   final BoxConstraints? constraints;
+  final Color borderColor;
   PrimaryButton(
       {Key? key,
       this.size = PrimaryButtonSize.normal,
@@ -36,7 +38,8 @@ class PrimaryButton extends StatelessWidget {
       this.backgroundColor,
       this.foregroundColor,
       this.textStyle,
-      this.fillColor = const Color(0xFFF5F5F5)})
+      this.fillColor = const Color(0xFFF5F5F5),
+      this.borderColor = const Color(0xFFB4B4B4)})
       : assert((size != PrimaryButtonSize.custom) || (constraints == null),
             "please provide a concrete size for the button"),
         super(key: key) {
@@ -110,13 +113,15 @@ class PrimaryButton extends StatelessWidget {
     if (mode == PrimaryButtonMode.materialButton) {
       _textStyle ??= TextStyle(color: const Color(0xFF666666));
     }
+    if (mode == PrimaryButtonMode.inkwellButton) {
+      _textStyle ??= TextStyle(fontSize: 13, color: const Color(0xFF333333));
+    }
     if (size == PrimaryButtonSize.middle) {
       _textStyle = _textStyle?.copyWith(fontSize: 12);
     }
     if (size == PrimaryButtonSize.small) {
       _textStyle =
           _textStyle?.copyWith(fontSize: 12, fontWeight: FontWeight.w400);
-      print("设置字体大小");
     }
   }
 
@@ -188,6 +193,21 @@ class PrimaryButton extends StatelessWidget {
             ),
           );
           break;
+        }
+
+      case PrimaryButtonMode.inkwellButton:
+        {
+          _child = GestureDetector(
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: _color,
+                  borderRadius: BorderRadius.circular(radius),
+                  border: Border.all(color: borderColor)),
+              padding: padding!,
+              child: _child,
+            ),
+          );
         }
     }
   }

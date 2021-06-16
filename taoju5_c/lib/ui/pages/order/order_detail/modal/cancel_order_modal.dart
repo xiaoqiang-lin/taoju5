@@ -36,7 +36,7 @@ Future openCancelOrderModal<int>(
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: R.dimen.sp15,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                     Container(

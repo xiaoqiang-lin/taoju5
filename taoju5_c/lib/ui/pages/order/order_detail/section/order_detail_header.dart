@@ -36,7 +36,7 @@ class OrderDetailHeader extends StatelessWidget {
                   style: TextStyle(
                       color: R.color.ffffffff,
                       fontSize: R.dimen.sp16,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w600),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp12),
@@ -45,7 +45,7 @@ class OrderDetailHeader extends StatelessWidget {
                     style: TextStyle(
                         color: R.color.ffffffff,
                         fontSize: R.dimen.sp13,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 )
               ],
@@ -74,7 +74,7 @@ class OrderDetailHeader extends StatelessWidget {
                             order.receiver.name,
                             style: TextStyle(
                                 fontSize: R.dimen.sp13,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: R.dimen.dp10),

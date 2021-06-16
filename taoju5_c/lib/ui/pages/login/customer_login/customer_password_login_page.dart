@@ -55,8 +55,7 @@ class CustomerPasswordLoginPage extends StatelessWidget {
                                 fontSize: R.dimen.sp12,
                                 color: R.color.ffee9b5f),
                           ),
-                          onTap: () => Get.toNamed(
-                              AppRoutes.prefix + AppRoutes.customerSmsLogin),
+                          onTap: () => Get.toNamed(AppRoutes.customerSmsLogin),
                         ),
                       )
                     ],

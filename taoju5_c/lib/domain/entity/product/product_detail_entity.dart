@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-06-03 16:54:49
+ * @LastEditTime: 2021-06-08 17:41:59
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
@@ -92,6 +92,8 @@ class ProductDetailEntity {
   ///高度阈值
   late double thresholdHeight;
 
+  late bool like;
+
   String attributeDesc = "";
 
   ///规格信息
@@ -123,6 +125,7 @@ class ProductDetailEntity {
     isFixedHeight = json['fixed_height'] == 1;
     isFixedWidth = json['fixed_height'] == 2;
     isCustomSize = json['fixed_height'] == 3;
+    like = JsonKit.asBool(json["is_collect"]);
 
     ///后台数据以cm为单位
     doorWidth = JsonKit.asDouble(json['larghezza_size']);

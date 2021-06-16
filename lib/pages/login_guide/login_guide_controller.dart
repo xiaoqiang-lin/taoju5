@@ -2,7 +2,7 @@
  * @Description: 登录引导控制器
  * @Author: iamsmiling
  * @Date: 2021-06-04 14:12:22
- * @LastEditTime: 2021-06-07 09:43:54
+ * @LastEditTime: 2021-06-07 14:05:15
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,9 +27,11 @@ class LoginGuideController extends GetxController {
   UserRole role = UserRole.customer;
 
   changeTheme({UserRole role = UserRole.customer}) {
-    Get.rootController.restartApp();
+    // Get.rootController.restartApp();
     Get.changeTheme(role.theme);
-
+    Get.rootController.restartApp();
+    // Get.forceAppUpdate();
+    print("更换˙祖逖----");
     //
   }
 
@@ -37,7 +39,7 @@ class LoginGuideController extends GetxController {
     // Get.changeTheme(R.theme.lightTheme);
     changeTheme(role: UserRole.customer);
 
-    return Get.toNamed('/c' + AppRoutes.customerPasswordLogin);
+    return Get.toNamed(AppRoutes.customerPasswordLogin);
   }
 
   loginAsBussiness() {

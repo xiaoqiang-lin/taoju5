@@ -18,8 +18,7 @@ class SceneCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(
-          AppRoutes.prefix + AppRoutes.sceneDetail + "/${scene.id}"),
+      onTap: () => Get.toNamed(AppRoutes.sceneDetail + "/${scene.id}"),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
         child: Column(

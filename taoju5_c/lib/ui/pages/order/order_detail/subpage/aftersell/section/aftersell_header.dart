@@ -31,7 +31,7 @@ class AfterSellHeader extends StatelessWidget {
               style: TextStyle(
                   fontSize: R.dimen.sp14,
                   color: R.color.ff181818,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.w600),
             ),
             ProductAdaptorCard(
               product: p.product,

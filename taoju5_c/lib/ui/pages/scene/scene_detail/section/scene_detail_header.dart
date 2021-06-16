@@ -36,7 +36,7 @@ class SceneDetailHeader extends StatelessWidget {
                 child: Text(
                   scene.name,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: R.color.ff1b1b1b,
                       fontSize: R.dimen.sp14),
                 ),

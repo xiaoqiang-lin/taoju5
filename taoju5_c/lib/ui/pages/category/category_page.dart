@@ -2,7 +2,7 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-06-04 09:57:01
+ * @LastEditTime: 2021-06-08 11:00:16
  */
 import 'dart:ui';
 
@@ -13,6 +13,7 @@ import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:taoju5_c/ui/pages/category/category_skeleton.dart';
 import 'package:taoju5_c/ui/pages/category/categoty_controller.dart';
 
 class CategoryPage extends GetView<CategoryController> {
@@ -31,12 +32,12 @@ class CategoryPage extends GetView<CategoryController> {
             "分类",
             style: TextStyle(
                 fontSize: R.dimen.sp18,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 color: R.color.ffffffff),
           ),
         ),
         title: GestureDetector(
-          onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.search),
+          onTap: () => Get.toNamed(AppRoutes.search),
           child: Container(
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
@@ -72,7 +73,7 @@ class CategoryPage extends GetView<CategoryController> {
       ),
       body: FutureLoadStateBuilder<CategoryController>(
           controller: controller,
-          loadingBuilder: (BuildContext context) => SizedBox.shrink(),
+          loadingBuilder: (BuildContext context) => CategorySkeleton(),
           builder: (_) {
             return Row(
               children: [
@@ -127,7 +128,7 @@ class CategoryPage extends GetView<CategoryController> {
                                         style: item == _.currentCategory
                                             ? TextStyle(
                                                 fontSize: R.dimen.sp12,
-                                                fontWeight: FontWeight.w800,
+                                                fontWeight: FontWeight.w600,
                                                 color: R.color.ff333333)
                                             : TextStyle(
                                                 color: R.color.ff333333,
@@ -177,8 +178,7 @@ class CategoryPage extends GetView<CategoryController> {
                                     for (CategoryEntity child in item.children)
                                       GestureDetector(
                                         onTap: () => Get.toNamed(
-                                            AppRoutes.prefix +
-                                                AppRoutes.category +
+                                            AppRoutes.category +
                                                 AppRoutes.productList,
                                             arguments: child),
                                         child: Container(

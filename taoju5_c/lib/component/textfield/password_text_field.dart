@@ -2,7 +2,7 @@
  * @Description: 密码输入框
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-04-18 08:34:23
+ * @LastEditTime: 2021-06-07 15:00:12
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -12,12 +12,14 @@ class PasswordTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
   final BoxConstraints constraints;
+  final String hintText;
   const PasswordTextField(
       {Key? key,
       this.isPasswordVisible = false,
       this.onChanged,
       this.controller,
-      this.constraints = const BoxConstraints(maxHeight: 36)})
+      this.constraints = const BoxConstraints(maxHeight: 36),
+      this.hintText = "请输入密码"})
       : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         obscureText: _isPasswordVisible,
         obscuringCharacter: "*",
         decoration: InputDecoration(
-            hintText: "请输入密码",
+            hintText: widget.hintText,
             suffixIcon: IconButton(
               padding: EdgeInsets.zero,
               alignment: Alignment.centerRight,

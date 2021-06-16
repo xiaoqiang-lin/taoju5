@@ -2,24 +2,23 @@
  * @Description:本地存储
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:41:02
- * @LastEditTime: 2021-06-03 15:03:14
+ * @LastEditTime: 2021-06-11 17:04:37
  */
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 ///SharedPreferences
 class LocalStorage {
-  static save(String key, value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, value);
+  static GetStorage _box = GetStorage("c");
+
+  static get(String key) async {
+    return _box.read(key);
   }
 
-  static Future get(String key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(key);
+  static remove(String key) {
+    return _box.remove(key);
   }
 
-  static Future remove(String key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(key);
+  static save(String key, dynamic val) {
+    return _box.write(key, val);
   }
 }

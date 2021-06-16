@@ -55,7 +55,7 @@ Future openFinishedProductAttributeModal(BuildContext context,
                                         "¥${product.currentSku?.price.toStringAsFixed(2)}",
                                         style: TextStyle(
                                             color: R.color.ffff5005,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w600,
                                             fontSize: R.dimen.sp18),
                                       ),
                                       Text(

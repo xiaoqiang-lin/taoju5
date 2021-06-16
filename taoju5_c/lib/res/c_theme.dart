@@ -58,6 +58,7 @@ class CTheme {
       fontFamily: "PingFang",
       iconTheme: IconThemeData(size: R.dimen.sp16, color: R.color.ffffffff),
       scaffoldBackgroundColor: R.color.ffffffff,
+      accentColor: R.color.transparent,
       splashFactory: const NoSplashFactory(),
       highlightColor: R.color.transparent,
       toggleButtonsTheme: ToggleButtonsThemeData(),
@@ -87,7 +88,7 @@ class CTheme {
       // toggleButtonsTheme: ToggleButtonsThemeData(color: R.color.ffee9b5f),
       dialogTheme: DialogTheme(
           titleTextStyle: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               color: R.color.ff1b1b1b,
               fontSize: R.dimen.sp12),
           shape: RoundedRectangleBorder(
@@ -115,7 +116,7 @@ class CTheme {
           labelColor: R.color.ffee9b5f,
           unselectedLabelColor: R.color.ff333333,
           labelStyle: TextStyle(
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w600,
               fontSize: R.dimen.sp13,
               color: R.color.ff333333),
 
@@ -195,6 +196,7 @@ class CTheme {
       primaryColor: R.color.ffee9b5f,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
+          selectedItemColor: R.color.ffee9b5f,
           selectedIconTheme: IconThemeData(size: R.dimen.sp12),
           unselectedIconTheme: IconThemeData(size: R.dimen.sp12),
           selectedLabelStyle: TextStyle(fontSize: R.dimen.sp10),

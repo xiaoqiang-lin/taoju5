@@ -37,7 +37,7 @@ Future openCustomerServiceDialog(BuildContext context,
                   style: TextStyle(
                       fontSize: R.dimen.sp15,
                       color: R.color.ff1b1b1b,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w600),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp12),

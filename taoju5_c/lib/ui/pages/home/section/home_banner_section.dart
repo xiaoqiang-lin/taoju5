@@ -2,9 +2,8 @@
  * @Description: 首页轮播图
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-05-28 09:22:24
+ * @LastEditTime: 2021-06-10 17:18:24
  */
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,14 +26,13 @@ class HomeBannerSection extends StatelessWidget {
                 itemCount: 6,
                 paginationColor: Colors.white,
                 viewportFraction: 1.0,
-                containerHeight: R.dimen.dp184,
                 itemHeight: R.dimen.dp184,
                 itemWidth: Get.width,
                 thunmbnails: [
                   "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
                 ],
                 bigImages: [
-                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
+                  "https://i.loli.net/2021/04/15/AQdINn9CJXDilPU.png"
                 ],
                 itemBuilder: (BuildContext context, int i) {
                   return ChimeraImage(

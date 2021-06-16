@@ -55,7 +55,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                                             style: TextStyle(
                                                 color: R.color.ffff5005,
                                                 fontSize: R.dimen.sp13,
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.w600),
                                           )
                                         else
                                           Column(
@@ -70,7 +70,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                                                     style: TextStyle(
                                                         fontSize: R.dimen.sp13,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.w600),
                                                   ),
                                                   Container(
                                                     margin: EdgeInsets.only(

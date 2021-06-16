@@ -2,7 +2,7 @@
  * @Description: 商品卡片
  * @Author: iamsmiling
  * @Date: 2021-05-19 10:40:00
- * @LastEditTime: 2021-06-04 18:04:54
+ * @LastEditTime: 2021-06-08 14:50:41
  */
 
 import 'package:flutter/material.dart';
@@ -14,20 +14,20 @@ import 'package:taoju5_c/routes/app_routes.dart';
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
   final double? width;
-  final bool brandVisible;
+
+  final bool hiddenTag;
 
   const ProductCard(
-      {Key? key, required this.product, this.width, this.brandVisible = true})
+      {Key? key, required this.product, this.width, this.hiddenTag = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.prefix +
-          AppRoutes.category +
-          AppRoutes.productDetail +
-          "/${product.id}"),
+      onTap: () => Get.toNamed(
+          AppRoutes.category + AppRoutes.productDetail + "/${product.id}"),
       child: Container(
+        width: width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,7 +38,11 @@ class ProductCard extends StatelessWidget {
                   width: width,
                   height: width,
                 ),
-                Positioned(right: 0, child: Image.asset(R.image.hotTag))
+                Positioned(
+                    right: 0,
+                    child: Visibility(
+                        visible: !hiddenTag,
+                        child: Image.asset(R.image.hotTag)))
               ],
             ),
             Container(
@@ -48,7 +52,7 @@ class ProductCard extends StatelessWidget {
                 style: TextStyle(
                     color: R.color.ffee9b5f,
                     fontSize: R.dimen.sp13,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Container(
@@ -56,11 +60,8 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Visibility(
-                      visible: brandVisible,
-                      child: Text("【${product.brand}】",
-                          style: TextStyle(fontSize: R.dimen.sp12)),
-                    ),
+                    Text("【${product.brand}】",
+                        style: TextStyle(fontSize: R.dimen.sp12)),
                     Expanded(
                       child: Text("${product.name}",
                           overflow: TextOverflow.ellipsis,
@@ -112,10 +113,8 @@ class ProductPlusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.prefix +
-          AppRoutes.category +
-          AppRoutes.productDetail +
-          "/${product.id}"),
+      onTap: () => Get.toNamed(
+          AppRoutes.category + AppRoutes.productDetail + "/${product.id}"),
       child: Container(
         alignment: Alignment.center,
         child: Column(
@@ -137,7 +136,7 @@ class ProductPlusCard extends StatelessWidget {
                   backgroundColor: R.color.ffee9b5f.withOpacity(.08),
                   color: R.color.ffee9b5f,
                   fontSize: R.dimen.sp13,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.w600),
             ),
             Container(
                 margin: EdgeInsets.only(top: R.dimen.dp5),

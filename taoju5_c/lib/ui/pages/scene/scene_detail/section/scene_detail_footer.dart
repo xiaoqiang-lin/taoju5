@@ -27,7 +27,7 @@ class SceneDetailFooter extends StatelessWidget {
             child: Text(
               "更多场景",
               style: TextStyle(
-                  fontSize: R.dimen.sp14, fontWeight: FontWeight.bold),
+                  fontSize: R.dimen.sp14, fontWeight: FontWeight.w600),
             ),
           ),
           Flexible(fit: FlexFit.loose, child: MoreSceneSection())

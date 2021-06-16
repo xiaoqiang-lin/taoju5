@@ -14,8 +14,7 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AddressListController>(builder: (_) {
       return GestureDetector(
-        onTap: () => Get.toNamed(
-            AppRoutes.prefix + AppRoutes.mine + AppRoutes.addressEdit,
+        onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.addressEdit,
             arguments: address),
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -31,7 +30,7 @@ class AddressCard extends StatelessWidget {
                     Text(
                       address.receiverName,
                       style: TextStyle(
-                          fontSize: R.dimen.sp13, fontWeight: FontWeight.w700),
+                          fontSize: R.dimen.sp13, fontWeight: FontWeight.w600),
                     ),
                     Container(
                         margin: EdgeInsets.only(left: R.dimen.dp10),
@@ -128,7 +127,7 @@ class AddressCard extends StatelessWidget {
                     Text(
                       "设为默认地址",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: R.color.ffee9b5f,
                           fontSize: R.dimen.sp13),
                     ),

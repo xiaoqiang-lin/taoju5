@@ -2,7 +2,7 @@
  * @Description: 某些接口需要提示操作成功的信息
  * @Author: iamsmiling
  * @Date: 2021-05-14 14:26:35
- * @LastEditTime: 2021-06-03 14:23:43
+ * @LastEditTime: 2021-06-08 15:55:29
  */
 import 'package:dio/dio.dart';
 import 'package:taoju5_c/utils/toast.dart';
@@ -16,7 +16,9 @@ class ToastInterceptor extends InterceptorsWrapper {
     "/app/goods/wcAttr",
     "/app/cart/goodsSkuList",
     "/app/user/setDefaultAddress",
-    "/app/user/delAddress"
+    "/app/user/delAddress",
+    "/app/user/changePassword",
+    // "/app/user/deleteFootprint"
   ];
 
   @override

@@ -61,7 +61,7 @@ class OrderMainfestPage extends GetView<OrderMainfestController> {
                 Container(
                   child: Text("订单总金额：",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontSize: R.dimen.sp14,
                           color: R.color.ff181818)),
                 ),

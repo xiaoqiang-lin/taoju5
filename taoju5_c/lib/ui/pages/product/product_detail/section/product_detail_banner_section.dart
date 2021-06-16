@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:16:47
- * @LastEditTime: 2021-05-26 15:26:00
+ * @LastEditTime: 2021-06-10 17:17:39
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/carousel/carousel_slide.dart';
@@ -49,7 +49,6 @@ class ProductDetailBannerSection extends StatelessWidget {
           // images: product.images.map((e) => e.bigImage).toList(),
         );
       },
-      containerHeight: R.dimen.width * (1 / maxAspectRatio),
     );
   }
 }

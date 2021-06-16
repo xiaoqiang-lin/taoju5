@@ -31,7 +31,7 @@ class MessagePage extends GetView<MessageController> {
                 MessageEntity item = _.messages[i];
                 return GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap: () => Get.toNamed(AppRoutes.prefix + item.path),
+                  onTap: () => Get.toNamed(item.path),
                   child: Container(
                     margin: EdgeInsets.only(top: R.dimen.dp10),
                     padding: EdgeInsets.symmetric(
@@ -48,7 +48,7 @@ class MessagePage extends GetView<MessageController> {
                                 item.title,
                                 style: TextStyle(
                                     fontSize: R.dimen.sp14,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               Container(
                                   margin: EdgeInsets.only(top: R.dimen.dp10),

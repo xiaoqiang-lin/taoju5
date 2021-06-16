@@ -2,7 +2,7 @@
  * @Description: APP初始化配置
  * @Author: iamsmiling
  * @Date: 2021-01-12 22:34:48
- * @LastEditTime: 2021-06-07 10:13:48
+ * @LastEditTime: 2021-06-07 10:58:06
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,6 +67,7 @@ abstract class AppInitializer {
   static Future _initStorage() async {
     await StorageManager().init();
     await GetStorage.init('c');
+    await GetStorage.init('b');
   }
 
   static Future _initAppConfig() async {

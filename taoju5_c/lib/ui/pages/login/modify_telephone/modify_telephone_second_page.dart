@@ -2,19 +2,17 @@
  * @Description: 修改手机号
  * @Author: iamsmiling
  * @Date: 2021-04-14 17:33:34
- * @LastEditTime: 2021-04-17 18:36:09
+ * @LastEditTime: 2021-06-07 16:56:49
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/textfield/sms_text_field.dart';
 import 'package:taoju5_c/component/textfield/telephone_text_field.dart';
 import 'package:taoju5_c/res/R.dart';
-import 'package:taoju5_c/routes/app_routes.dart';
-
 import 'modify_telephone_controller.dart';
 import 'package:get/get.dart';
 
-class ModifyTelephoneSecondPage extends StatelessWidget {
+class ModifyTelephoneSecondPage extends GetView<ModifyTelephoneController> {
   const ModifyTelephoneSecondPage({Key? key}) : super(key: key);
 
   @override
@@ -38,19 +36,22 @@ class ModifyTelephoneSecondPage extends StatelessWidget {
                       Container(
                         child: TelephoneTextField(
                           hintText: "请输入需要绑定的新手机号",
+                          onChanged: _.setNewPhone,
                         ),
                         margin: EdgeInsets.only(
                             top: R.dimen.dp48, bottom: R.dimen.dp20),
                       ),
-                      SmsTextField(onPressed: () {}),
+                      SmsTextField(
+                          onChanged: _.setNewCaptcha, onPressed: _.getCaptcha),
                     ],
                   ),
                 ),
                 PrimaryButton(
+                    margin: EdgeInsets.symmetric(horizontal: R.dimen.dp56),
                     size: PrimaryButtonSize.large,
                     text: "确定",
-                    onPressed: () => Get.toNamed(
-                        AppRoutes.prefix + AppRoutes.modifyTelephone2))
+                    textStyle: TextStyle(fontSize: R.dimen.sp17),
+                    onPressed: _.submit)
               ],
             ),
           ),

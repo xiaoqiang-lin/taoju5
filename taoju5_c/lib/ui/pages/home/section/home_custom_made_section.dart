@@ -34,8 +34,7 @@ class HomeCustomMadeSection extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () => Get.toNamed(
-                      AppRoutes.prefix + "/category/product/list",
+                  onTap: () => Get.toNamed("/category/product/list",
                       arguments: CategoryEntity(id: 2, name: "全部窗帘")),
                   child: Column(
                     children: [
@@ -59,8 +58,7 @@ class HomeCustomMadeSection extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: R.dimen.dp15),
                   child: GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AppRoutes.prefix + "/category/product/list",
+                    onTap: () => Get.toNamed("/category/product/list",
                         arguments: CategoryEntity(id: 20, name: "窗纱")),
                     child: Column(
                       children: [
@@ -83,7 +81,7 @@ class HomeCustomMadeSection extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder),
+            onTap: () => Get.toNamed(AppRoutes.commitOrder),
             child: Container(
               width: double.maxFinite,
               margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
@@ -97,7 +95,7 @@ class HomeCustomMadeSection extends StatelessWidget {
                     "前往预约测量",
                     style: TextStyle(
                         fontSize: R.dimen.sp14,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         color: R.color.ffee9b5f),
                   ),
                   Text(

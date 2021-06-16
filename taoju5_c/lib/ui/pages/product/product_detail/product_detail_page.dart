@@ -2,11 +2,11 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:04:58
- * @LastEditTime: 2021-06-04 06:49:03
+ * @LastEditTime: 2021-06-08 17:35:35
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/button/animated_button.dart';
+import 'package:taoju5_c/component/button/bloc/collect_button.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/comment/comment_entity.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -34,9 +34,11 @@ class ProductDetailPage extends GetView<ProductDetailController> {
           appBar: AppBar(
             title: Text("商品详情"),
             actions: [
-              AnimatedButton(
-                  activeWidget: Image.asset(R.image.hasCollected),
-                  deactiveWidget: Image.asset(R.image.notCollect)),
+              CollectButton(
+                category: CollectionCategory.product,
+                id: _.id,
+                like: _.product.like,
+              ),
               // IconButton(
               //     icon: Image.asset(R.image.hasCollected), onPressed: () {}),
               IconButton(
@@ -44,8 +46,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   onPressed: () => openShareModal(context)),
               IconButton(
                   icon: Image.asset(R.image.cart, color: R.color.ff00000),
-                  onPressed: () =>
-                      Get.toNamed(AppRoutes.prefix + AppRoutes.cart))
+                  onPressed: () => Get.toNamed(AppRoutes.cart))
             ],
           ),
           body: CustomScrollView(

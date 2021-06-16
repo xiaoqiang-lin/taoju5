@@ -59,7 +59,7 @@ class _PackageLogisticsCardState extends State<PackageLogisticsCard> {
                             style: TextStyle(
                                 fontSize: R.dimen.sp14,
                                 color: R.color.ffee9b5f,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: R.dimen.dp10),
@@ -68,7 +68,7 @@ class _PackageLogisticsCardState extends State<PackageLogisticsCard> {
                               style: TextStyle(
                                   fontSize: R.dimen.sp14,
                                   color: R.color.ff333333,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                           )
                         ],

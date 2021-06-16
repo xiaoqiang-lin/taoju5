@@ -24,8 +24,7 @@ class ProfilePage extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.toNamed(
-                      AppRoutes.prefix +
-                          AppRoutes.mine +
+                      AppRoutes.mine +
                           AppRoutes.profile +
                           AppRoutes.modifyUserAvatar,
                       parameters: {"avatar": _.user.avatar}),
@@ -53,8 +52,7 @@ class ProfilePage extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => Get.toNamed(
-                      AppRoutes.prefix +
-                          AppRoutes.mine +
+                      AppRoutes.mine +
                           AppRoutes.profile +
                           AppRoutes.modifyUserNickname,
                       arguments: _.user),

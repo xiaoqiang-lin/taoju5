@@ -191,7 +191,7 @@ class ProductDetailController
         if (product.productType is! FinishedProductType) {
           return saveMeasureData().then((value) {
             product.measureId = value;
-            Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder, arguments: [
+            Get.toNamed(AppRoutes.commitOrder, arguments: [
               product.adapt((attribute as CurtainAttributeEntity)
                   .matchingSet
                   .attributes
@@ -202,7 +202,7 @@ class ProductDetailController
         }
         product.attributeDesc = "${product.currentSpecName} x${product.count}";
         product.specTip = "${product.currentSpecName} x${product.count}";
-        return Get.toNamed(AppRoutes.prefix + AppRoutes.commitOrder,
+        return Get.toNamed(AppRoutes.commitOrder,
             arguments: [product.adapt([])]);
       }
       return showAttributePicker();

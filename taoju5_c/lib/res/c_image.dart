@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-02 19:37:39
+ * @LastEditTime: 2021-06-11 15:55:40
  */
 // part of R;
 class CImage {
@@ -161,4 +161,8 @@ class CImage {
   final String eye = "resources/images/eye.png";
 
   final String notCollect = "resources/images/not_collect.png";
+
+  final String closeImage = "resources/images/close_image.png";
+
+  final String signet = "resources/images/signet.png";
 }

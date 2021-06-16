@@ -2,7 +2,7 @@
  * @Description: 订单列表数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:49:46
- * @LastEditTime: 2021-05-20 15:20:30
+ * @LastEditTime: 2021-06-11 15:01:50
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -75,9 +75,9 @@ class OrderActionButtonEntity {
 
   PrimaryButtonMode get mode =>
       {
-        1: PrimaryButtonMode.materialButton,
+        1: PrimaryButtonMode.inkwellButton,
         2: PrimaryButtonMode.elevatedButton,
-        3: PrimaryButtonMode.textButton
+        3: PrimaryButtonMode.textButton,
       }[_modeCode] ??
       PrimaryButtonMode.textButton;
 

@@ -48,7 +48,7 @@ Future openShareModal(BuildContext context) {
                           "分享至",
                           style: TextStyle(
                               fontSize: R.dimen.sp15,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         )),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: R.dimen.dp72),
