@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-28 13:45:32
- * @LastEditTime: 2021-04-28 15:07:43
+ * @LastEditTime: 2021-06-17 09:06:55
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,7 +85,16 @@ Future showEditSizeDialog(
                         SizedBox(
                           width: 24,
                         ),
-                        ElevatedButton(onPressed: _.setWH, child: Text("确定"))
+                        ElevatedButton(
+                            onPressed: () {
+                              try {
+                                _.setWH();
+                                Get.back();
+                              } catch (err) {
+                                print(err);
+                              }
+                            },
+                            child: Text("确定"))
                       ],
                     )
                   ],

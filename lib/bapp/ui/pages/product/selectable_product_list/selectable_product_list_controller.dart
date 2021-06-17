@@ -2,7 +2,7 @@
  * @Description: 选品控制器
  * @Author: iamsmiling
  * @Date: 2021-01-10 11:56:58
- * @LastEditTime: 2021-04-20 13:43:26
+ * @LastEditTime: 2021-06-16 18:29:43
  */
 
 import 'package:flutter/foundation.dart';
@@ -20,6 +20,7 @@ class SelectProductEvent {
   OrderDetailProductModel orderProduct;
   CustomerModel customer;
   OrderType orderType = OrderType.measureOrder;
+  SelectProductEvent.empty();
   SelectProductEvent({@required this.orderProduct, @required this.customer});
 }
 

@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 14:43:22
- * @LastEditTime: 2021-04-28 14:41:41
+ * @LastEditTime: 2021-06-16 18:35:32
  */
 import 'dart:async';
 import 'dart:convert';
@@ -268,7 +268,8 @@ class ProductDetailController extends GetxController {
         precacheImage(NetworkImage(e), Get.context);
       });
 
-      if (product.productType is RollingCurtainProductType) {
+      if (product.productType is RollingCurtainProductType &&
+          selectProductEvent != null) {
         selectProductEvent.orderProduct.measureData.hasChecked = true;
         if (Get.isRegistered<RoomAttrSelectorController>(tag: tag)) {
           Get.find<RoomAttrSelectorController>(tag: tag).disabled = true;

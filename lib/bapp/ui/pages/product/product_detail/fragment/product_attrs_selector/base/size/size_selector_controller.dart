@@ -2,7 +2,7 @@
  * @Description: 尺寸
  * @Author: iamsmiling
  * @Date: 2021-01-18 13:49:01
- * @LastEditTime: 2021-04-28 14:29:47
+ * @LastEditTime: 2021-06-17 09:04:33
  */
 
 import 'package:flutter/material.dart';
@@ -142,7 +142,7 @@ class SizeSelectorController extends GetxController {
     )();
   }
 
-  void setWH() {
+  setWH() {
     if (!validateWidth(widthController?.text) ||
         !validateHeight(heightController?.text)) {
       throw false;

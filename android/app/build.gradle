@@ -55,10 +55,10 @@ android {
         // JPUSH_APPKEY : "appkey", // NOTE: JPush 上注册的包名对应的 Appkey.
         // JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
 //         ]
-        // ndk {
-        //     //设置支持的SO库架构
-        //     abiFilters 'arm64-v8a' // 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        // }
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'arm64-v8a' // 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
 
          manifestPlaceholders = [
                 AMAP_KEY : "c861bca41e4014c514a13ba71cce758a", /// 高德地图key
