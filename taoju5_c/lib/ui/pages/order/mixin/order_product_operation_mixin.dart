@@ -2,7 +2,7 @@
  * @Description: 订单商品操作
  * @Author: iamsmiling
  * @Date: 2021-07-01 17:20:03
- * @LastEditTime: 2021-07-14 17:26:02
+ * @LastEditTime: 2021-07-15 18:22:46
  */
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
@@ -37,6 +37,7 @@ mixin OrderProductOperationMixin {
         2: pay,
         3: select,
         4: payBalance,
+        8: batchRefund,
         9: delete,
       };
 
@@ -167,6 +168,16 @@ mixin OrderProductOperationMixin {
 
   ///支付尾款
   Future pay(OrderEntity order) {
+    return Get.toNamed(AppRoutes.pay,
+            arguments: CreateOrderParamsEntity(
+                orderId: "${order.id}",
+                totalPrice: order.amount,
+                path: "/app/order/orderPay")) ??
+        Future.value();
+  }
+
+  ///批量退款
+  Future batchRefund(OrderEntity order) {
     return Get.toNamed(AppRoutes.pay,
             arguments: CreateOrderParamsEntity(
                 orderId: "${order.id}",

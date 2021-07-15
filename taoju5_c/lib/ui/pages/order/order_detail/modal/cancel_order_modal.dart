@@ -2,7 +2,7 @@
  * @Description:取消订单
  * @Author: iamsmiling
  * @Date: 2021-05-20 15:07:27
- * @LastEditTime: 2021-07-12 11:05:17
+ * @LastEditTime: 2021-07-15 17:40:36
  */
 
 import 'package:flutter/cupertino.dart';
@@ -66,7 +66,7 @@ Future openCancelOrderModal<int>(
                                   ),
                                   Spacer(),
                                   RoundCheckbox(
-                                      key: ValueKey(o),
+                                      key: UniqueKey(),
                                       value: o == currentOption,
                                       onChanged: (_) {
                                         print(o);

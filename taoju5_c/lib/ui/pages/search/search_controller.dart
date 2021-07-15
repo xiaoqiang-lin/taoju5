@@ -2,7 +2,7 @@
  * @Description: 商品搜索
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:50:59
- * @LastEditTime: 2021-07-15 16:09:58
+ * @LastEditTime: 2021-07-15 16:21:50
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
@@ -130,7 +130,6 @@ class SearchController extends BaseFutureLoadStateController {
   void onChanged(String val) {
     CommonKit.debounce(() {
       keyword = val;
-
       update(["keyword"]);
     }, Duration(milliseconds: 375))();
   }

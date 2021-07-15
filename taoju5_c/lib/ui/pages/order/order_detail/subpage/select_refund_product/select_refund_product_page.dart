@@ -2,7 +2,7 @@
  * @Description: 选择需要退款的商品
  * @Author: iamsmiling
  * @Date: 2021-07-12 16:41:16
- * @LastEditTime: 2021-07-14 16:22:22
+ * @LastEditTime: 2021-07-15 17:57:13
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -35,36 +35,48 @@ class SelectRefundProductPage extends StatelessWidget {
                       bottom: BorderSide(color: R.color.ffe5e5e5, width: .5))),
               margin: EdgeInsets.only(left: R.dimen.dp20, right: R.dimen.dp24),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RoundCheckbox(
-                      value: o.selected,
-                      onChanged: (bool flag) => _.select(o, flag)),
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: R.dimen.dp15, right: R.dimen.dp6),
-                    child: ChimeraImage(
-                      o.product.image,
-                      width: R.dimen.dp85,
-                      height: R.dimen.dp85,
-                      fit: BoxFit.fill,
-                    ),
+                  Row(
+                    children: [
+                      RoundCheckbox(
+                          key: ValueKey(o.selected),
+                          value: o.selected,
+                          onChanged: (bool flag) => _.select(o, flag)),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: R.dimen.dp15, right: R.dimen.dp6),
+                        child: ChimeraImage(
+                          o.product.image,
+                          width: R.dimen.dp85,
+                          height: R.dimen.dp85,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            o.product.name,
-                            style: TextStyle(
-                                fontSize: R.dimen.sp14,
-                                color: R.color.ff333333,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text("¥${o.product.totalPrice}")
-                        ],
+                      Container(
+                        margin: EdgeInsets.only(bottom: R.dimen.dp6),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              o.product.name,
+                              style: TextStyle(
+                                  fontSize: R.dimen.sp14,
+                                  color: R.color.ff333333,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "¥${o.product.totalPrice}",
+                              style: TextStyle(fontSize: R.dimen.sp12),
+                            )
+                          ],
+                        ),
                       ),
                       DefaultTextStyle(
                         style: TextStyle(
@@ -99,7 +111,12 @@ class SelectRefundProductPage extends StatelessWidget {
           ]),
           child: Row(
             children: [
-              RoundCheckbox(value: false, onChanged: (_) {}),
+              Obx(() {
+                return RoundCheckbox(
+                    key: ValueKey(_.isCheckedAll),
+                    value: _.isCheckedAll,
+                    onChanged: _.selectAll);
+              }),
               Container(
                 margin: EdgeInsets.only(left: R.dimen.dp8),
                 child: Text(

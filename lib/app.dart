@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  *  @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-07-14 09:45:00
+ * @LastEditTime: 2021-07-15 17:47:19
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/app/app_binding.dart';
