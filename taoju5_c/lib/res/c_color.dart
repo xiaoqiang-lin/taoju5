@@ -2,7 +2,7 @@
  * @Description: app颜色
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-05-29 15:59:00
+ * @LastEditTime: 2021-06-18 15:57:20
  */
 // part of R;
 import 'package:flutter/material.dart';
@@ -26,6 +26,8 @@ class CColor {
   final Color ffc7c8cc = const Color(0xFFC7C8CC);
 
   final Color ff999999 = const Color(0xFF999999);
+
+  final Color ff979797 = const Color(0xff979797);
 
   final Color ffff0000 = const Color(0xFFFF0000);
 

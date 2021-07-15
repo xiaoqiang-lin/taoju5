@@ -2,7 +2,7 @@
  * @Description: 商品评论
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:34:30
- * @LastEditTime: 2021-04-27 17:15:25
+ * @LastEditTime: 2021-06-21 16:46:24
  */
 
 class ProductCommentEntity {

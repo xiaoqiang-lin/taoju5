@@ -2,7 +2,7 @@
  * @Description: 搜索窗帘
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:02:50
- * @LastEditTime: 2021-06-02 22:54:14
+ * @LastEditTime: 2021-07-15 16:04:58
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -17,7 +17,7 @@ class SearchPage extends GetView<SearchController> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.history);
+    print(controller.historyList);
     return GetBuilder<SearchController>(builder: (_) {
       return GestureDetector(
         onTap: _.unfocus,
@@ -84,6 +84,7 @@ class SearchPage extends GetView<SearchController> {
                         color: R.color.fff5f5f5),
                     child: TextField(
                       onChanged: _.onChanged,
+                      onSubmitted: _.onSubmitted,
                       style: TextStyle(fontSize: R.dimen.sp12),
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -104,7 +105,7 @@ class SearchPage extends GetView<SearchController> {
                       maxHeight: R.dimen.dp30,
                       minHeight: R.dimen.dp30),
                   child: PrimaryButton(
-                    onPressed: () {},
+                    onPressed: controller.search,
                     text: "搜索",
                     textStyle: TextStyle(fontSize: R.dimen.sp32),
                     size: PrimaryButtonSize.small,
@@ -118,47 +119,61 @@ class SearchPage extends GetView<SearchController> {
                 CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
-                        child: SearchHeader(history: controller.history)),
+                        child: SearchHeader(
+                      history: controller.historyList,
+                      onRemove: controller.onRemove,
+                      onEmpty: controller.onEmpty,
+                      onSearch: controller.search,
+                    )),
                     SliverToBoxAdapter(
-                        child: HotSearchSection(hotWords: controller.history))
+                        child:
+                            HotSearchSection(hotWords: controller.historyList)),
                   ],
                 ),
                 GetBuilder<SearchController>(
                     id: "keyword",
                     builder: (_) {
-                      return ListView.builder(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: R.dimen.dp30),
-                          itemBuilder: (BuildContext context, int i) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: R.dimen.dp16),
-                                    child: Row(
-                                      children: [
-                                        for (String e in _.keyOptions[i])
-                                          Text(
-                                            e,
-                                            style: TextStyle(
-                                                color: !(GetUtils.isNullOrBlank(
-                                                                _.keyword) ??
-                                                            true) &&
-                                                        RegExp("${_.keyword}",
-                                                                caseSensitive:
-                                                                    false)
-                                                            .hasMatch(e)
-                                                    ? R.color.ffee9b5f
-                                                    : R.color.ff333333),
-                                          )
-                                      ],
-                                    )),
-                                Divider()
-                              ],
-                            );
-                          },
-                          itemCount: _.keyList.length);
+                      return Visibility(
+                        visible: _.keyOptions.isNotEmpty,
+                        child: ListView.builder(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: R.dimen.dp30),
+                            itemBuilder: (BuildContext context, int i) {
+                              return GestureDetector(
+                                onTap: () => controller.search(
+                                    _.keyOptions[i].reduce((a, b) => a + b)),
+                                // onTap:()=> controller.onItemTap(_.keyOptions),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: R.dimen.dp16),
+                                        child: Row(
+                                          children: [
+                                            for (String e in _.keyOptions[i])
+                                              Text(
+                                                e,
+                                                style: TextStyle(
+                                                    color: !(GetUtils.isNullOrBlank(_
+                                                                    .keyword) ??
+                                                                true) &&
+                                                            RegExp("${_.keyword}",
+                                                                    caseSensitive:
+                                                                        false)
+                                                                .hasMatch(e)
+                                                        ? R.color.ffee9b5f
+                                                        : R.color.ff333333),
+                                              )
+                                          ],
+                                        )),
+                                    Divider()
+                                  ],
+                                ),
+                              );
+                            },
+                            itemCount: _.keyOptions.length),
+                      );
                     })
               ],
             )),

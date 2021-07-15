@@ -2,20 +2,20 @@
  * @Description: cart
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:33:06
- * @LastEditTime: 2021-05-31 16:34:42
+ * @LastEditTime: 2021-07-05 09:55:05
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
-import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
+import 'package:taoju5_c/component/net/chimera_refresh_builder.dart';
 import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
-import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/repository/cart_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/dialog/sectionalbar_product_attribute/sectionalbar_product_attribute_dialog.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_finished_product_attribute_modal.dart'
     as modal;
@@ -23,10 +23,19 @@ import 'package:taoju5_c/utils/toast.dart';
 
 import 'dialog/remove_from_cart_dialog.dart' as dialog;
 
-class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
+class CartController extends ChimeraRefreshController<List<CartEntity>> {
   CartRepository _repository = CartRepository();
 
   List<CartEntity> carts = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    Get.lazyPut(() => CommendationController(controller: refreshController),
+        tag: "cart");
+  }
+
   @override
   Future<List<CartEntity>> loadData({Map? params}) {
     return _repository.cartList().then((value) {
@@ -65,7 +74,6 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
       product.length = cart.length;
       product.count = cart.count;
       return openSectionalbarProductAttributeDialog(Get.context!,
-          attribute: CurtainAttributeEntity(),
           product: product, footerBuilder: (BuildContext context) {
         return Container(
           alignment: Alignment.center,
@@ -179,4 +187,18 @@ class CartController extends BaseFutureLoadStateController<List<CartEntity>> {
       .where((e) => e.checked)
       .map((e) => ProductAdaptorEntity.fromCartEntity(e))
       .toList();
+
+  @override
+  Future loadMore({Map? params}) {
+    return Get.find<CommendationController>(tag: "cart").loadMore();
+  }
+
+  @override
+  Future refreshData() {
+    return loadData().then((value) {
+      refreshController.refreshCompleted();
+    }).catchError((err, s) {
+      refreshController.refreshFailed();
+    }).whenComplete(update);
+  }
 }

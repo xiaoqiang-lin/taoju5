@@ -2,7 +2,7 @@
  * @Description: 我的页面
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-08 10:57:11
+ * @LastEditTime: 2021-07-07 10:21:03
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
@@ -45,8 +45,7 @@ class MinePage extends StatelessWidget {
             ),
             body: FutureLoadStateBuilder<MineController>(
                 controller: _,
-                loadingBuilder: (BuildContext context) => SizedBox.shrink(),
-                // loadingBuilder: (BuildContext context) => MineSkeleton(),
+                loadingBuilder: (BuildContext context) => MineSkeleton(),
                 builder: (_) {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: R.dimen.dp20),

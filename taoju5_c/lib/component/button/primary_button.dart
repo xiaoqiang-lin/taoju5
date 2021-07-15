@@ -33,16 +33,13 @@ class PrimaryButton extends StatelessWidget {
       required this.text,
       this.margin,
       this.padding = EdgeInsets.zero,
-      required this.onPressed,
+      this.onPressed,
       this.radius = 25,
       this.backgroundColor,
       this.foregroundColor,
       this.textStyle,
       this.fillColor = const Color(0xFFF5F5F5),
-      this.borderColor = const Color(0xFFB4B4B4)})
-      : assert((size != PrimaryButtonSize.custom) || (constraints == null),
-            "please provide a concrete size for the button"),
-        super(key: key) {
+      this.borderColor = const Color(0xFFB4B4B4)}) {
     _initSize();
     _initMargin();
     _initPadding();
@@ -110,6 +107,7 @@ class PrimaryButton extends StatelessWidget {
 
   _initStyle() {
     _textStyle = textStyle;
+
     if (mode == PrimaryButtonMode.materialButton) {
       _textStyle ??= TextStyle(color: const Color(0xFF666666));
     }
@@ -131,14 +129,17 @@ class PrimaryButton extends StatelessWidget {
     switch (mode) {
       case PrimaryButtonMode.elevatedButton:
         {
-          _child = ElevatedButton(
-            onPressed: onPressed,
-            child: _child,
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(padding),
-              minimumSize: MaterialStateProperty.all(Size(48, 30)),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(radius))),
+          _child = Container(
+            constraints: constraints,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: _child,
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(padding),
+                minimumSize: MaterialStateProperty.all(Size(48, 30)),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius))),
+              ),
             ),
           );
           break;
@@ -173,31 +174,24 @@ class PrimaryButton extends StatelessWidget {
         }
       case PrimaryButtonMode.materialButton:
         {
-          _child = ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: RawMaterialButton(
-              fillColor: _color,
-              elevation: 0,
-              focusElevation: 0,
-              highlightColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              highlightElevation: 0,
-              hoverElevation: 0,
-              disabledElevation: 0,
-              onPressed: onPressed,
-              child: Padding(
-                padding: padding!,
-                child: _child,
-              ),
-              constraints: _constraints!,
-            ),
-          );
+          _child = GestureDetector(
+              onTap: onPressed,
+              child: Container(
+                  alignment: Alignment.center,
+                  constraints: constraints,
+                  padding: padding,
+                  decoration: BoxDecoration(
+                    color: _color,
+                    borderRadius: BorderRadius.circular(radius),
+                  ),
+                  child: _child));
           break;
         }
 
       case PrimaryButtonMode.inkwellButton:
         {
           _child = GestureDetector(
+            onTap: onPressed,
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(

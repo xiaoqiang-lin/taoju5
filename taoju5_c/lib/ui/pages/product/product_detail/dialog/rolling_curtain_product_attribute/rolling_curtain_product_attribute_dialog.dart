@@ -2,7 +2,7 @@
  * @Description: 卷帘属性弹窗
  * @Author: iamsmiling
  * @Date: 2021-05-24 09:33:04
- * @LastEditTime: 2021-06-01 16:14:11
+ * @LastEditTime: 2021-07-08 16:09:20
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -17,7 +17,9 @@ import 'package:taoju5_c/ui/pages/product/product_detail/dialog/rolling_curtain_
 Future openRollingCurtainProductAttributeDialog(BuildContext context,
     {required ProductDetailEntity product,
     required CurtainAttributeEntity attribute,
-    WidgetBuilder? footerBuilder}) {
+    WidgetBuilder? footerBuilder,
+    Function()? addToCart,
+    Function()? buy}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {

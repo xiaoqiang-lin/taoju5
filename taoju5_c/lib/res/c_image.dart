@@ -2,7 +2,7 @@
  * @Description: 图片资源
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-11 15:55:40
+ * @LastEditTime: 2021-06-30 14:07:49
  */
 // part of R;
 class CImage {
@@ -165,4 +165,5 @@ class CImage {
   final String closeImage = "resources/images/close_image.png";
 
   final String signet = "resources/images/signet.png";
+  final String noManuscript = "resources/images/no_manuscript.png";
 }

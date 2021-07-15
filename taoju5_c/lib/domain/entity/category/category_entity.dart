@@ -2,7 +2,7 @@
  * @Description: 商品分类
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:58:17
- * @LastEditTime: 2021-06-04 07:44:37
+ * @LastEditTime: 2021-07-08 10:49:15
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -18,7 +18,7 @@ class CategoryEntity {
   List<CategoryEntity> children = [];
 
   CategoryEntity.fromJson(Map json) {
-    id = JsonKit.asInt(json["category_id"]);
+    id = JsonKit.asInt(json["category_id"] ?? json["class_id"]);
     name = json["category_name"] ?? json["name"];
     image = JsonKit.asWebUrl(json["category_pic"]);
     children = JsonKit.asList(json["child_list"])

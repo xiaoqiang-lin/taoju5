@@ -2,7 +2,7 @@
  * @Description: 视屏播放页面
  * @Author: iamsmiling
  * @Date: 2021-04-22 22:20:46
- * @LastEditTime: 2021-04-24 13:02:42
+ * @LastEditTime: 2021-07-12 16:25:07
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ class VideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<VideoController>(
       builder: (_) {
+        print("-----------");
         return Scaffold(
           backgroundColor: R.color.ff00000,
           appBar: AppBar(

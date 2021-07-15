@@ -2,27 +2,43 @@
  * @Description: 订单详情主体
  * @Author: iamsmiling
  * @Date: 2021-05-18 11:26:16
- * @LastEditTime: 2021-06-11 16:22:07
+ * @LastEditTime: 2021-07-08 15:07:16
  */
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:shake_animation_widget/shake_animation_widget.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:taoju5_c/ui/pages/order/mixin/order_product_operation_mixin.dart';
+
 import 'package:taoju5_c/ui/pages/order/widget/product_adaptor_card.dart';
 import 'package:get/get.dart';
 
-class OrderDetailBody extends StatelessWidget {
+class ProductAdapterWithActionCard extends StatefulWidget {
+  final OrderProductWrapperEntity wrapper;
   final OrderDetailEntity order;
-  const OrderDetailBody({Key? key, required this.order}) : super(key: key);
+  const ProductAdapterWithActionCard(
+      {Key? key, required this.wrapper, required this.order})
+      : super(key: key);
 
-  Widget _buildProductSection(OrderProductWrapperEntity wrapper) {
+  @override
+  _ProductAdapterWithActionCardState createState() =>
+      _ProductAdapterWithActionCardState();
+}
+
+class _ProductAdapterWithActionCardState
+    extends State<ProductAdapterWithActionCard>
+    with OrderProductOperationMixin {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: R.dimen.dp15),
       child: Column(
         children: [
-          for (OrderProductEntity p in wrapper.products)
+          for (OrderProductEntity p in widget.wrapper.products)
             ProductAdaptorCard(
               product: p.product,
               rightTopCorner: Text(
@@ -30,26 +46,48 @@ class OrderDetailBody extends StatelessWidget {
                 style: TextStyle(fontSize: R.dimen.sp12),
               ),
               headerBuilder: (BuildContext context) {
-                return Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: .5, color: R.color.ffe5e5e5))),
-                  padding:
-                      EdgeInsets.only(top: R.dimen.dp15, bottom: R.dimen.dp9),
-                  child: DefaultTextStyle(
-                    style: TextStyle(
-                        fontSize: R.dimen.sp14, color: R.color.ff181818),
-                    child: Row(
-                      children: [
-                        Text("请确认测装数据"),
-                        Spacer(),
-                        Container(
-                          margin: EdgeInsets.only(right: R.dimen.dp2),
-                          child: Text("修改"),
+                return Visibility(
+                  visible: p.product.productMeasureStatus != null,
+                  child: ShakeAnimationWidget(
+                    shakeAnimationController:
+                        p.product.shakeAnimationController,
+                    isForward: false,
+                    shakeCount: 2,
+                    shakeAnimationType: ShakeAnimationType.LeftRightShake,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  width: .5, color: R.color.ffe5e5e5))),
+                      padding: EdgeInsets.only(
+                          top: R.dimen.dp10, bottom: R.dimen.dp9),
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                            fontSize: R.dimen.sp14, color: R.color.ff181818),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("${p.product.productMeasureStatus?.key}"),
+                            GestureDetector(
+                              onTap: () => Get.toNamed(Get.currentRoute +
+                                  AppRoutes.measureData +
+                                  "/${p.product.id}"),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: R.dimen.dp2),
+                                    child: Text(
+                                        "${p.product.productMeasureStatus?.value}"),
+                                  ),
+                                  Image.asset(R.image.next)
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        Image.asset(R.image.next)
-                      ],
+                      ),
                     ),
                   ),
                 );
@@ -58,17 +96,29 @@ class OrderDetailBody extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    for (OrderActionButtonEntity b in p.product.actions)
+                    for (OrderActionButtonEntity b
+                        in p.product.actions.reversed)
                       PrimaryButton(
-                          size: PrimaryButtonSize.middle,
-                          mode: b.mode,
-                          text: b.text,
-                          onPressed: () {})
+                        mode: b.mode,
+                        text: b.text,
+                        onPressed: () {
+                          Function.apply(actionMap[b.actionCode] ?? (_, __) {},
+                              [widget.order, p.product]);
+                        },
+                        margin: EdgeInsets.only(left: R.dimen.dp10),
+                        textStyle: TextStyle(
+                            fontSize: R.dimen.sp13,
+                            fontWeight: FontWeight.normal),
+                        constraints: BoxConstraints(
+                            minWidth: R.dimen.dp84, minHeight: R.dimen.dp32),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: R.dimen.dp16, vertical: R.dimen.dp7),
+                      )
                   ],
                 );
               },
             ),
-          for (OrderBillEntity b in wrapper.bills)
+          for (OrderBillEntity b in widget.wrapper.bills)
             Container(
               margin: EdgeInsets.only(top: R.dimen.dp15),
               child: Row(
@@ -104,6 +154,11 @@ class OrderDetailBody extends StatelessWidget {
       ),
     );
   }
+}
+
+class OrderDetailBody extends StatelessWidget {
+  final OrderDetailEntity order;
+  const OrderDetailBody({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +166,12 @@ class OrderDetailBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
       child: Column(
         children: [
-          _buildProductSection(order.wrapper.customProduct),
-          _buildProductSection(order.wrapper.finishedProduct),
+          ProductAdapterWithActionCard(
+              wrapper: order.wrapper.customProduct, order: order),
+          ProductAdapterWithActionCard(
+            wrapper: order.wrapper.finishedProduct,
+            order: order,
+          ),
           Divider(),
           Container(
             child: Column(

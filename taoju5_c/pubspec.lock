@@ -487,6 +487,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
+  jpush_flutter:
+    dependency: transitive
+    description:
+      name: jpush_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.2"
   js:
     dependency: transitive
     description:

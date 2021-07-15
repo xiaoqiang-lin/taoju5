@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-06-11 16:45:35
+ * @LastEditTime: 2021-06-28 11:08:00
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,7 +41,7 @@ class $CAPP extends StatelessWidget {
           //Setting font does not change with system font size
           data: MediaQuery.of(context).copyWith(
               boldText: false,
-              textScaleFactor: GetPlatform.isAndroid ? 1 : 1.0),
+              textScaleFactor: GetPlatform.isAndroid ? .88 : 1.0),
           child: FlutterEasyLoading(child: child!),
         );
       },

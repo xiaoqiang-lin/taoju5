@@ -2,7 +2,7 @@
  * @Description: 窗户离地距离
  * @Author: iamsmiling
  * @Date: 2021-05-10 17:59:59
- * @LastEditTime: 2021-05-12 11:30:26
+ * @LastEditTime: 2021-06-29 16:35:20
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
@@ -12,6 +12,8 @@ import 'package:taoju5_c/utils/toast.dart';
 class WindowGroundClearanceEntity {
   late String label;
   double? value;
+
+  WindowGroundClearanceEntity();
 
   WindowGroundClearanceEntity.fromJson(Map json) {
     label = json["label"];

@@ -2,7 +2,7 @@
  * @Description: 添加到购物车里面的参数
  * @Author: iamsmiling
  * @Date: 2021-04-27 15:44:23
- * @LastEditTime: 2021-05-31 11:23:00
+ * @LastEditTime: 2021-07-08 17:26:02
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -19,16 +19,9 @@ import 'package:get/get.dart';
 class AddToCartParamsEntity extends BaseParamsEntity {
   ProductDetailEntity product;
 
-  MatchingSetParamsEntity? matchingSet;
-
-  int? measureId;
-
   bool lengthError = false;
 
   ShakeAnimationController lengthController = ShakeAnimationController();
-
-  ///参数是否填写完整
-  bool finished = false;
 
   setLength(String val) {
     int maxLength = 99999;
@@ -45,11 +38,7 @@ class AddToCartParamsEntity extends BaseParamsEntity {
     product.length = tmp;
   }
 
-  AddToCartParamsEntity(
-      {required this.product,
-      this.matchingSet,
-      this.measureId,
-      this.finished = false});
+  AddToCartParamsEntity({required this.product});
   @override
   Map get params {
     Map map = {
@@ -58,18 +47,22 @@ class AddToCartParamsEntity extends BaseParamsEntity {
       "sku_id": product.currentSku?.id,
       "num": product.count,
       "sku_name": product.currentSku?.name,
-      "measure_id": measureId ?? -1,
+      "measure_id": product.measureId,
       "estimated_price": product.price,
       "length": product.length,
-      "process_method": matchingSet?.attribute.craft.selectedOption?.id
     };
     if (product.productType is FinishedProductType) {
       map.addAll({"estimated_price": product.currentSku?.price});
       return map;
     }
-    if (matchingSet != null) {
-      map.addAll(matchingSet!.params);
+    if (product.productType is FabricScreenProductType) {
+      map.addAll({
+        "process_method": product.attribute.matchingSet.craft.selectedOption?.id
+      });
     }
+    MatchingSetParamsEntity arg =
+        MatchingSetParamsEntity(attribute: product.attribute.matchingSet);
+    map.addAll(arg.params);
     return map;
   }
 
@@ -90,35 +83,12 @@ class AddToCartParamsEntity extends BaseParamsEntity {
               })))
           .executeAll();
     } else if (product.productType is RollingCurtainProductType) {
-      // flag = validatorManager.addValidators([
-      //   ///校验宽
-      //   EmptyValidator(
-      //       field:product.width?.toString(),
-      //       errorMessage: "宽度不能为空哦",
-      //       callback: VerifyCallback(onSuccess: () {
-      //         measureData.size.widthError = false;
-      //       }, onFailure: () {
-      //         measureData.size.onWidthError();
-      //       })),
-
-      //   ///校验高
-      //   EmptyValidator(
-      //       field: measureData.size.height?.toString(),
-      //       errorMessage: message,
-      //       callback: VerifyCallback(onSuccess: () {
-      //         measureData.size.heightError = false;
-      //       }, onFailure: () {
-      //         measureData.size.onHeightError();
-      //       })),
-      // ]).executeAll();
     } else if (product.productType is FabricCurtainProductType) {
-      flag = validatorManager
-              .addValidator(EmptyValidator(
-                  field: measureId?.toString(), errorMessage: "测量id不能为空"))
-              .executeAll() &&
-          (matchingSet == null ? true : matchingSet!.validate());
+      flag = validatorManager.executeAll() &&
+          MatchingSetParamsEntity(attribute: product.attribute.matchingSet)
+              .validate();
     }
-    finished = flag;
+
     if (flag) return true;
     throw ArgumentError("购物车参数错误");
   }

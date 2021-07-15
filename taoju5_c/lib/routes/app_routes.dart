@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-06-11 16:44:45
+ * @LastEditTime: 2021-07-15 15:47:46
  */
 
 class AppRoutes {
@@ -89,6 +89,7 @@ class AppRoutes {
   static const netOff = _prefix + '/netOff';
 
   static const commitOrder = _prefix + '/commitOrder';
+  static const commitOrderSuccess = _prefix + '/commitOrderSuccess';
 
   static const pay = _prefix + '/pay';
 
@@ -119,4 +120,18 @@ class AppRoutes {
   static const collection = _prefix + "/collection";
 
   static const storeDetail = _prefix + '/storeDetail';
+
+  static const measureData = _prefix + "/measureData";
+
+  static const selectProduct = _prefix + "/selectProduct";
+
+  static const refund = _prefix + "/refund";
+
+  static const selectRefundProduct = _prefix + "/selectRefundProduct";
+
+  static const searchProduct = _prefix + "/searchProduct";
+
+  static const searchOrder = _prefix + "/searchOrder";
+
+  static const searchArticle = _prefix + "/searchArticle";
 }

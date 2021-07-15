@@ -2,7 +2,7 @@
  * @Description: 商品列表
  * @Author: iamsmiling
  * @Date: 2021-05-27 16:05:29
- * @LastEditTime: 2021-06-02 09:15:22
+ * @LastEditTime: 2021-07-01 14:30:41
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

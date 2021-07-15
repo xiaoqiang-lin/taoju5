@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-29 18:11:15
- * @LastEditTime: 2021-04-30 09:12:58
+ * @LastEditTime: 2021-06-26 17:14:58
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';

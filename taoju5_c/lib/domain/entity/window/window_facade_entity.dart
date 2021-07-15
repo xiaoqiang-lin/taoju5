@@ -2,7 +2,7 @@
  * @Description: 窗型
  * @Author: iamsmiling
  * @Date: 2021-05-08 11:14:08
- * @LastEditTime: 2021-05-11 14:54:45
+ * @LastEditTime: 2021-06-30 10:49:51
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -43,11 +43,24 @@ class WindowFacadeEntity {
   int get windowOptionId {
     for (int i = 0; i < options.length; i++) {
       WindowFacadeOptionEntity o = options[i];
+
       if (o.name == value) {
         return o.id;
       }
     }
     return -1;
+  }
+
+  void init(int id, String name) {
+    List<String> list = name.split("/");
+    children.forEach((child) {
+      child.options.forEach((e) {
+        e.selected = list.contains(e.name);
+      });
+    });
+    options.forEach((e) {
+      e.selected = e.id == id;
+    });
   }
 }
 

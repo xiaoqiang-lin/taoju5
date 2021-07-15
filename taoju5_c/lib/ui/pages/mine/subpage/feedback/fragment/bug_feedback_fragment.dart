@@ -62,7 +62,7 @@ class BugFeedbackFragment extends StatelessWidget {
                       EdgeInsets.only(top: R.dimen.dp14, bottom: R.dimen.dp10),
                   child: Text("上传凭证（非必填）", style: R.style.h3)),
 
-              UploadImageButton(),
+              UploadImageButton(formData: _.arg.formData),
 
               Container(
                   margin:

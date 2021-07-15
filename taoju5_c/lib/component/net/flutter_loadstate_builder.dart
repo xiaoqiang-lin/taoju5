@@ -2,7 +2,7 @@
  * @Description: 网络请求封装
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:11:21
- * @LastEditTime: 2021-06-16 09:39:44
+ * @LastEditTime: 2021-07-01 15:46:38
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +59,7 @@ class FutureLoadStateBuilder<T extends BaseFutureLoadStateController>
   final GetControllerBuilder<T> builder;
   final TransitionAnimationType animationType;
   final Object? id;
+  final String? tag;
   const FutureLoadStateBuilder(
       {Key? key,
       required this.controller,
@@ -68,14 +69,19 @@ class FutureLoadStateBuilder<T extends BaseFutureLoadStateController>
       this.netoffBuilder,
       required this.builder,
       this.animationType = TransitionAnimationType.none,
-      this.id})
+      this.id,
+      this.tag})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Builder(
-            builder: (context) => GetBuilder<T>(builder: builder, id: id)),
+            builder: (context) => GetBuilder<T>(
+                  builder: builder,
+                  id: id,
+                  tag: tag,
+                )),
         onEmpty: Builder(builder: emptyBuilder ?? defaultEmptyBuilder),
         onError: (String? text) =>
             Builder(builder: errorBuilder ?? defaultErrorBuilder),

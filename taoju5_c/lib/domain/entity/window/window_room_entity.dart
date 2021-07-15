@@ -2,7 +2,7 @@
  * @Description:空间
  * @Author: iamsmiling
  * @Date: 2021-05-08 15:27:09
- * @LastEditTime: 2021-05-13 14:58:57
+ * @LastEditTime: 2021-06-30 11:06:06
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -16,6 +16,8 @@ class WindowRoomEntity {
   late String label;
   late List<WindowRoomOptionEntity> options;
 
+  String? _value;
+
   ShakeAnimationController shakeController = ShakeAnimationController();
   WindowRoomEntity.fromJson(Map json) {
     label = json["label"];
@@ -28,8 +30,13 @@ class WindowRoomEntity {
   }
 
   String get value {
+    if (_value != null) return _value!;
     if (selectedOption == null) return "";
     return selectedOption!.name;
+  }
+
+  setValue(String v) {
+    _value = v;
   }
 
   WindowRoomOptionEntity? get selectedOption {
@@ -38,6 +45,17 @@ class WindowRoomEntity {
       if (o.selected) return o;
     }
     return null;
+  }
+
+  initByName(String name) {
+    _value = name;
+    print("------$options");
+    options.forEach((e) {
+      print(e.name);
+      print(name);
+
+      e.selected = e.name.contains(name) || name.contains(e.name);
+    });
   }
 
   onError() {

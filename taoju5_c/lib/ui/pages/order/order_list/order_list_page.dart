@@ -2,7 +2,7 @@
  * @Description: 订单列表
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:43:30
- * @LastEditTime: 2021-06-04 10:51:48
+ * @LastEditTime: 2021-07-15 11:20:10
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/rotate_button.dart';
@@ -28,7 +28,8 @@ class OrderListPage extends GetView<OrderListParentController> {
         actions: [
           IconButton(
               icon: Image.asset(R.image.find),
-              onPressed: () => Get.toNamed(AppRoutes.search))
+              onPressed: () => Get.toNamed(AppRoutes.search,
+                  parameters: {"search_type": '2'}))
         ],
       ),
       body: Column(
@@ -88,148 +89,10 @@ class OrderListPage extends GetView<OrderListParentController> {
                   loadingBuilder: (BuildContext context) => OrderListSkeleton(),
                   itemBuilder: (OrderEntity o) => OrderCard(order: o),
                 )
-              // FutureLoadStateBuilder<OrderListController>(
-              //   controller: Get.find<OrderListController>(tag: item.status),
-              //   builder: (_) {
-              //     return ListView.separated(
-              //         itemCount: _.orders.length,
-              //         shrinkWrap: true,
-              //         separatorBuilder: (BuildContext context, int i) {
-              //           return Container(
-              //             height: R.dimen.dp10,
-              //             width: R.dimen.width,
-              //             color: R.color.fff5f5f5,
-              //           );
-              //         },
-              //         itemBuilder: (BuildContext context, int i) {
-              //           return OrderCard(order: _.orders[i]);
-              //         });
-              //   },
-              // )
             ],
           ))
         ],
       ),
     );
-    // body: FutureLoadStateBuilder(
-    //     controller: controller,
-    //     builder: (OrderListController _) {
-    //       // return DropSelectMenuContainer(
-    //       //   child: Column(children: [
-    //       //     Stack(
-    //       //       alignment: AlignmentDirectional.center,
-    //       //       children: [
-    //       //         Container(
-    //       //           padding: EdgeInsets.symmetric(horizontal: R.dimen.dp10),
-    //       //           child: TabBar(
-    //       //               isScrollable: true,
-    //       //               controller: _.tabController,
-    //       //               tabs: [
-    //       //                 for (OrderTabEntity item in _.tabs)
-    //       //                   Tab(child: Text(item.label))
-    //       //               ]),
-    //       //         ),
-    //       //         Positioned(
-    //       //             right: R.dimen.dp8, child: Image.asset(R.image.mask)),
-    //       //         Positioned(
-    //       //             right: R.dimen.dp10,
-    //       //             child: RotateButton(
-    //       //                 onPressed: () =>
-    //       //                     Future.delayed(Duration(seconds: 1))))
-    //       //       ],
-    //       //     ),
-    //       //     Expanded(
-    //       //         child: Stack(
-    //       //       children: [
-    //       //         TabBarView(
-    //       //           controller: _.tabController,
-    //       //           children: [
-    //       //             for (OrderTabEntity item in _.tabs)
-    //       //               ListView.separated(
-    //       //                   itemCount: _.orders.length,
-    //       //                   shrinkWrap: true,
-    //       //                   separatorBuilder: (BuildContext context, int i) {
-    //       //                     return Container(
-    //       //                       height: R.dimen.dp10,
-    //       //                       width: R.dimen.width,
-    //       //                       color: R.color.fff5f5f5,
-    //       //                     );
-    //       //                   },
-    //       //                   itemBuilder: (BuildContext context, int i) {
-    //       //                     return OrderCard(order: _.orders[i]);
-    //       //                   })
-    //       //           ],
-    //       //         ),
-    //       //         DropSelectMenu(
-    //       //           maxMenuHeight: MediaQuery.of(context).size.height * .5,
-    //       //           controller: null,
-    //       //         )
-    //       //       ],
-    //       //     ))
-    //       //   ]),
-    //       // );
-    //       return Column(children: [
-    //         Stack(
-    //           alignment: AlignmentDirectional.center,
-    //           children: [
-    //             IndexedStack(
-    //               alignment: AlignmentDirectional.center,
-    //               index: _.open ? 1 : 0,
-    //               children: [
-    //                 Container(
-    //                   padding: EdgeInsets.symmetric(horizontal: R.dimen.dp10),
-    //                   child: TabBar(
-    //                       isScrollable: true,
-    //                       controller: _.tabController,
-    //                       tabs: [
-    //                         for (OrderTabEntity item in _.tabs)
-    //                           Tab(child: Text(item.label))
-    //                       ]),
-    //                 ),
-    //                 Positioned(
-    //                     left: R.dimen.dp24,
-    //                     child: Text(
-    //                       "选择订单状态",
-    //                       style: TextStyle(
-    //                           fontWeight: FontWeight.w500,
-    //                           fontSize: R.dimen.sp13,
-    //                           color: R.color.ff999999),
-    //                     ))
-    //               ],
-    //             ),
-    //             Positioned(
-    //                 right: R.dimen.dp8, child: Image.asset(R.image.mask)),
-    //             Positioned(
-    //                 right: R.dimen.dp10,
-    //                 child: Builder(
-    //                   builder: (BuildContext context) {
-    //                     return RotateButton(
-    //                         onPressed: () => _.filter(context));
-    //                   },
-    //                 )),
-    //           ],
-    //         ),
-    //         Expanded(
-    //             child: TabBarView(
-    //           controller: _.tabController,
-    //           children: [
-    //             for (OrderTabEntity item in _.tabs)
-    //               ListView.separated(
-    //                   itemCount: _.orders.length,
-    //                   shrinkWrap: true,
-    //                   separatorBuilder: (BuildContext context, int i) {
-    //                     return Container(
-    //                       height: R.dimen.dp10,
-    //                       width: R.dimen.width,
-    //                       color: R.color.fff5f5f5,
-    //                     );
-    //                   },
-    //                   itemBuilder: (BuildContext context, int i) {
-    //                     return OrderCard(order: _.orders[i]);
-    //                   })
-    //           ],
-    //         ))
-    //       ]);
-    //     }),
   }
 }

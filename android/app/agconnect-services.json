@@ -1,4 +1,10 @@
 {
+	"agcgw":{
+		"backurl":"connect-drcn.dbankcloud.cn",
+		"url":"connect-drcn.hispace.hicloud.com",
+		"websocketbackurl":"connect-ws-drcn.hispace.dbankcloud.cn",
+		"websocketurl":"connect-ws-drcn.hispace.dbankcloud.com"
+	},
 	"agcgw_all":{
 		"CN":"connect-drcn.hispace.hicloud.com",
 		"CN_back":"connect-drcn.dbankcloud.cn",
@@ -12,8 +18,11 @@
 	"client":{
 		"cp_id":"2850086000403907550",
 		"product_id":"736430079244610031",
+		"client_id":"436013029327373440",
+		"client_secret":"A7ACECC1BB25C9EA44F3F25A647C60C1C9DBEDDE79FE3485DD25549209F14E1E",
 		"project_id":"736430079244610031",
 		"app_id":"102779221",
+		"api_key":"CgB6e3x9BM0m2q7s1ye8LZX/AJ27LQmlf273r4Bz67F7lEPms1IDyb7labkH+06SEvDkvtbcWD1FI++DyO2UVxUb",
 		"package_name":"com.buyi.taojuwu"
 	},
 	"oauth_client":{
@@ -24,6 +33,23 @@
 		"app_id":"102779221",
 		"package_name":"com.buyi.taojuwu"
 	},
+	"service":{
+		"analytics":{
+			"collector_url":"datacollector-drcn.dt.hicloud.com,datacollector-drcn.dt.dbankcloud.cn",
+			"resource_id":"p1",
+			"channel_id":""
+		},
+		"search":{
+			"url":"https://search-drcn.cloud.huawei.com"
+		},
+		"cloudstorage":{
+			"storage_url":"https://agc-storage-drcn.platform.dbankcloud.cn"
+		},
+		"ml":{
+			"mlservice_url":"ml-api-drcn.ai.dbankcloud.com,ml-api-drcn.ai.dbankcloud.cn"
+		}
+	},
+	"region":"CN",
 	"configuration_version":"3.0",
 	"appInfos":[
 		{

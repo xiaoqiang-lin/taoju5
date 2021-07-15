@@ -2,7 +2,7 @@
  * @Description:首页场景模块
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-06-04 07:46:22
+ * @LastEditTime: 2021-06-22 09:52:43
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -60,6 +60,8 @@ class HomeSceneSection extends StatelessWidget {
                           child: ChimeraImage(
                             "https://i.loli.net/2021/04/15/dmbHyWe5DNuc1oA.png",
                             width: assignableWidth * .6,
+                            cacheWidth: (assignableWidth * .6).toInt(),
+                            cacheHeight: (assignableWidth * .6).toInt(),
                           ),
                         ),
                         Container(

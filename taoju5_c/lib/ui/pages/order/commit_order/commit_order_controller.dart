@@ -2,34 +2,53 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:15:54
- * @LastEditTime: 2021-06-03 16:21:53
+ * @LastEditTime: 2021-07-14 14:43:23
  */
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
+import 'package:taoju5_c/domain/entity/order/preorder_info_entity.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
+import 'package:taoju5_c/domain/repository/order_repository.dart';
 
 import 'package:taoju5_c/local_storage/local_storage.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 
-class CommitOrderController extends GetxController {
+class CommitOrderController
+    extends BaseFutureLoadStateController<PreOrderInfoEntity> {
   AddressEntity? defaultAddress;
 
-  CreateOrderParamsEntity args =
-      CreateOrderParamsEntity(products: Get.arguments ?? []);
+  CreateOrderParamsEntity args = CreateOrderParamsEntity(
+    products: Get.arguments ?? [],
+  );
 
   List<ProductAdaptorEntity> products = Get.arguments ?? [];
+
+  late PreOrderInfoEntity? order;
+
+  double get totalPrice {
+    if (order == null) return 0;
+    double s = 0;
+    products.forEach((e) {
+      s += e.totalPrice;
+    });
+
+    ///运费
+    s += order?.freightFee ?? 0;
+
+    ///定金
+    s += order?.deposit ?? 0;
+    return s;
+  }
 
   List<ProductAdaptorEntity> get finishedProducts =>
       products.where((e) => e.productType is FinishedProductType).toList();
   List<ProductAdaptorEntity> get customProducts =>
       products.where((e) => e.productType is! FinishedProductType).toList();
-
-  ///订单总价
-  double get totalPrice => finishedProductTotalPrice + customProductTotalPrice;
 
   ///成品总价
   double get finishedProductTotalPrice {
@@ -49,7 +68,7 @@ class CommitOrderController extends GetxController {
     return t;
   }
 
-  loadData() {
+  Future<PreOrderInfoEntity> loadData({Map? params}) {
     LocalStorage.get("defaultAddress").then((val) {
       if (val != null) {
         defaultAddress = AddressEntity.fromJson(jsonDecode(val));
@@ -57,6 +76,12 @@ class CommitOrderController extends GetxController {
       }
     }).whenComplete(() {
       update(["defaultAddress"]);
+    });
+    OrderRepository repository = OrderRepository();
+    return repository.orderInfo(
+        {"goods_ids": products.map((e) => e.id).join(",")}).then((value) {
+      order = value;
+      return value;
     });
   }
 
@@ -96,6 +121,11 @@ class CommitOrderController extends GetxController {
 
   Future? submit() {
     args.totalPrice = totalPrice;
+
+    /// 如果商品的数量是0 说明是测量单 如果大于0 说明是选品单
+    args.path = products.length > 0
+        ? "/app/order/orderCreate"
+        : "/app/order/orderMeasureCreate";
     return Get.toNamed(AppRoutes.pay, arguments: args);
   }
 }

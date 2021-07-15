@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-18 09:27:53
- * @LastEditTime: 2021-06-11 14:45:26
+ * @LastEditTime: 2021-07-12 17:24:33
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -13,6 +13,7 @@ import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 
 class OrderDetailEntity {
   late int id;
+  late double amount;
   late OrderStatusTipEntity statusTip;
   late OrderReceiverEntity receiver;
   late OrderSheetEnity sheet;
@@ -25,8 +26,16 @@ class OrderDetailEntity {
 
   late CancelOrderReasonEntity cancelOrderReason;
 
+  List<OrderProductEntity> get products =>
+      [...wrapper.customProduct.products, ...wrapper.finishedProduct.products];
+
+  String reason = "";
+
+  String cancelOrderMessage = "";
+
   OrderDetailEntity.fromJson(Map json) {
-    id = json["id"];
+    id = json["order_id"];
+    amount = JsonKit.asDouble("${json["pay_money"]}");
     actions = JsonKit.asList(json["button"])
         .map((e) => OrderActionButtonEntity.fromJson(e))
         .toList();
@@ -45,6 +54,7 @@ class OrderDetailEntity {
         .toList();
 
     cancelOrderReason = CancelOrderReasonEntity.fromJson(json["reason"]);
+    cancelOrderMessage = json["refund_hint"];
   }
 }
 
@@ -89,6 +99,7 @@ class OrderProductEntity {
   late ProductAdaptorEntity product;
   String actions = "";
   String status = "";
+  late bool selected = false;
   OrderProductEntity.fromJson(Map json) {
     product = ProductAdaptorEntity.fromJson(json);
   }

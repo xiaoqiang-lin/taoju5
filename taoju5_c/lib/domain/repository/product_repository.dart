@@ -2,7 +2,7 @@
  * @Description: 商品相关
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:02:12
- * @LastEditTime: 2021-06-11 17:53:44
+ * @LastEditTime: 2021-07-15 09:33:24
  */
 import 'dart:convert';
 
@@ -67,8 +67,15 @@ class ProductRepository {
   ///保存测装数据
   Future<List<ProductEntity>> commendation({Map? params}) =>
       _api.commendation(params).then((value) {
-        return JsonKit.asList(value.data)
+        return JsonKit.asList(value.data["goods_list"])
             .map((e) => ProductEntity.fromJson(e))
             .toList();
+      });
+
+  ///搜索词
+  ///保存测装数据
+  Future<List<String>> keywords({Map? params}) =>
+      _api.keywords(params).then((value) {
+        return JsonKit.asList(value.data).cast<String>();
       });
 }

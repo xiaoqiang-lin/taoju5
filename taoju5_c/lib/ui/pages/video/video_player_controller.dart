@@ -2,12 +2,17 @@
  * @Description: 视屏播放逻辑处理
  * @Author: iamsmiling
  * @Date: 2021-04-22 22:21:17
- * @LastEditTime: 2021-04-24 13:06:14
+ * @LastEditTime: 2021-07-12 16:24:54
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
+import 'package:taoju5_c/domain/entity/school/article_detail_entity.dart';
+import 'package:taoju5_c/domain/repository/school_repository.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoController extends GetxController {
+class VideoController
+    extends BaseFutureLoadStateController<ArticleDetailEntity> {
+  SchoolRepository _repository = SchoolRepository();
   late VideoPlayerController videoPlayerController;
 
   final progress = 0.0.obs;
@@ -81,5 +86,10 @@ class VideoController extends GetxController {
     videoPlayerController.pause();
     videoPlayerController.dispose();
     super.onClose();
+  }
+
+  @override
+  Future<ArticleDetailEntity> loadData({Map? params}) {
+    return _repository.getArticleDetail({"article_id": Get.parameters["id"]});
   }
 }

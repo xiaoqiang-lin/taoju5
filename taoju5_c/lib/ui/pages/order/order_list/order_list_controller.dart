@@ -2,10 +2,11 @@
  * @Description: 订单列表
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:44:47
- * @LastEditTime: 2021-06-02 14:15:24
+ * @LastEditTime: 2021-07-07 15:19:01
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
+import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 import 'package:taoju5_c/domain/repository/order_repository.dart';
@@ -59,6 +60,11 @@ class OrderListParentController extends GetxController
       update();
     });
   }
+
+  void refreshData() {
+    Get.find<OrderListController>(tag: tabs[tabController.index].status)
+        .refreshOrderList();
+  }
 }
 
 class OrderListController
@@ -67,6 +73,8 @@ class OrderListController
 
   List<OrderEntity> orders = [];
 
+  late CancelOrderReasonEntity reason;
+
   late OrderTabEntity category;
 
   OrderListController({required this.category});
@@ -74,7 +82,12 @@ class OrderListController
   @override
   Future<List<OrderEntity>> loadData({Map? params}) {
     return _repository.orderList({"status": category.status}).then((value) {
+      orders = value;
       return value;
     });
+  }
+
+  Future? refreshOrderList() {
+    return refreshController?.requestRefresh();
   }
 }

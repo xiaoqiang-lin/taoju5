@@ -2,7 +2,7 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-05-27 17:19:18
+ * @LastEditTime: 2021-07-15 10:01:18
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,13 +68,19 @@ extension PeoductViewModeKit on PeoductViewMode {
       '';
 }
 
-class ProductListParentController
-    extends BaseFutureLoadStateController<List<CategoryEntity>>
-    with SingleGetTickerProviderMixin {
+abstract class AbstractProductListParentController extends GetxController {
   ///默认为网格视图
   PeoductViewMode viewMode = PeoductViewMode.gridMode;
 
+  late CategoryEntity category;
+}
+
+class ProductListParentController
+    extends BaseFutureLoadStateController<List<CategoryEntity>>
+    with SingleGetTickerProviderMixin
+    implements AbstractProductListParentController {
   List<CategoryEntity> _categories = [];
+  PeoductViewMode viewMode = PeoductViewMode.gridMode;
 
   List<CategoryEntity> get categories =>
       _categories.length > 1 ? _categories : [CategoryEntity(id: -1, name: "")];
@@ -98,7 +104,8 @@ class ProductListParentController
 
   ProductListParentController(this.category);
 
-  CategoryEntity category = Get.arguments;
+  CategoryEntity category =
+      Get.arguments is CategoryEntity ? Get.arguments : null;
 
   int get _intialIndex {
     for (int i = 0; i < _categories.length; i++) {
@@ -179,12 +186,15 @@ class ProductListController
 
   ProductListController(this.category);
 
-  ProductListParentController get parentController =>
-      Get.find<ProductListParentController>();
+  // ProductListParentController get parentController =>
+  //     Get.find<ProductListParentController>();
 
   @override
   Future<List<ProductEntity>> loadData({Map? params}) {
-    Map map = {"category_id": category.id};
+    Map map = {
+      "category_id": category.id,
+      "order_goods_id": Get.parameters["order_goods_id"]
+    };
     return repository.productList(map).then((value) {
       list = value.products;
       print("++++++++__________");
@@ -192,10 +202,5 @@ class ProductListController
       return list;
       // return value;
     });
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 }

@@ -2,7 +2,7 @@
  * @Description: 售后底部
  * @Author: iamsmiling
  * @Date: 2021-05-24 15:29:12
- * @LastEditTime: 2021-05-24 15:52:07
+ * @LastEditTime: 2021-07-12 15:12:19
  */
 
 import 'package:flutter/material.dart';
@@ -95,8 +95,8 @@ class AfterSellFooter extends StatelessWidget {
                         margin: EdgeInsets.only(
                             top: R.dimen.dp7, right: R.dimen.dp7),
                         child: UploadImageButton(
-                            // onPressed: _.pickImage,
-                            ),
+                          formData: controller.formData,
+                        ),
                       )
                     ],
                   ),

@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-06-03 13:58:29
+ * @LastEditTime: 2021-06-22 17:11:02
  */
 
 import 'package:flutter/foundation.dart';
@@ -37,6 +37,11 @@ class AppConfig {
   static const weCharShareUniversalLink = 'https://ii1vy.share2dlink.com/';
 
   static const aliPayAppId = "2021001187616842";
+
+  ///极光推送
+  static const String jpushAppKey = "a70c04782d38dd556eb9cb61";
+
+  static const String jpushAppSerect = "0a4407f6313b2f9552f22a8c";
 
   static bool get isDebug => mode == AppMode.debug;
   static bool get isPro => bool.fromEnvironment('dart.vm.product');

@@ -2,12 +2,13 @@
  * @Description: 商品清单
  * @Author: iamsmiling
  * @Date: 2021-05-20 16:41:12
- * @LastEditTime: 2021-06-04 10:47:48
+ * @LastEditTime: 2021-06-23 16:51:45
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
+import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_behavior.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_controller.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/widget/order_mainfest_card.dart';
@@ -25,18 +26,21 @@ class OrderMainfestPage extends GetView<OrderMainfestController> {
           controller: controller,
           loadingBuilder: (BuildContext context) => SizedBox.shrink(),
           builder: (_) {
-            return SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    OrderMainfestCard(mainfest: _.mainfest.customProduct),
-                    Divider(
-                      color: R.color.fff5f5f5,
-                      height: R.dimen.dp10,
-                      thickness: R.dimen.dp10,
-                    ),
-                    OrderMainfestCard(mainfest: _.mainfest.finishedProduct),
-                  ],
+            return ScrollConfiguration(
+              behavior: NoRippleScrollBehavior(),
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: [
+                      OrderMainfestCard(mainfest: _.mainfest.customProduct),
+                      Divider(
+                        color: R.color.fff5f5f5,
+                        height: R.dimen.dp10,
+                        thickness: R.dimen.dp10,
+                      ),
+                      OrderMainfestCard(mainfest: _.mainfest.finishedProduct),
+                    ],
+                  ),
                 ),
               ),
             );

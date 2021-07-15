@@ -2,13 +2,13 @@
  * @Description: 首页轮播图
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-06-10 17:18:24
+ * @LastEditTime: 2021-06-26 09:36:29
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/carousel/carousel_slide.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/component/carousel/carousel_image_slider.dart';
+import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/home/home_controller.dart';
 
@@ -22,34 +22,13 @@ class HomeBannerSection extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(bottom: R.dimen.dp10),
-            child: CarouselSlide(
-                itemCount: 6,
-                paginationColor: Colors.white,
-                viewportFraction: 1.0,
-                itemHeight: R.dimen.dp184,
-                itemWidth: Get.width,
-                thunmbnails: [
-                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
-                ],
-                bigImages: [
-                  "https://i.loli.net/2021/04/15/AQdINn9CJXDilPU.png"
-                ],
-                itemBuilder: (BuildContext context, int i) {
-                  return ChimeraImage(
-                    "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
-                    borderRadius: BorderRadius.zero,
-                    width: Get.width,
-                    height: R.dimen.dp184,
-                    fit: BoxFit.cover,
-                    enlarge: true,
-                    // slidable: true,
-                    // images: [
-                    //   "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
-                    //   "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
-                    //   "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png"
-                    // ],
-                  );
-                }),
+            child: CarouselImageSlider(
+              aspectRatio: 184 / 375,
+              width: R.dimen.width,
+              paginationColor: Colors.white,
+              viewportFraction: 1.0,
+              pictures: sliderSampleData,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

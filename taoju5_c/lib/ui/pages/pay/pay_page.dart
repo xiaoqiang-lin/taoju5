@@ -2,7 +2,7 @@
  * @Description: 支付页面
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:02:54
- * @LastEditTime: 2021-06-04 10:37:07
+ * @LastEditTime: 2021-06-28 15:16:09
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -42,7 +42,7 @@ class PayPage extends GetView<PayController> {
             Container(
               height: R.dimen.dp45,
               width: R.dimen.width,
-              color: R.color.ffee9b5f,
+              color: R.color.ffee9b5f.withOpacity(.15),
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: R.dimen.dp24),
               child: Text(

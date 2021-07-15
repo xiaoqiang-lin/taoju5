@@ -2,12 +2,15 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-06-04 06:09:37
+ * @LastEditTime: 2021-07-09 11:13:17
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/component/image/intertaive_photo_view.dart';
+import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:animations/animations.dart';
 
 class ProductSpecOptionChip extends StatelessWidget {
   final ProductSpecOptionEntity option;
@@ -143,16 +146,48 @@ class _ProductSpecImageChip extends StatelessWidget {
                       : const Color(0xFFFFEE9B5F))),
           child: Column(
             children: [
-              ChimeraImage(
-                src,
-                width: w,
-                height: w,
-                fit: BoxFit.cover,
-                enlarge: true,
-                // heroTag: src,
-                // magnifier: Image.asset(R.image.scale),
-                // magnifierMarginTop: R.dimen.dp7,
-                // magnifierMarginRight: R.dimen.dp7,
+              Stack(
+                children: [
+                  ChimeraImage(
+                    src,
+                    key: ValueKey(src),
+                    width: w,
+                    height: w,
+                    fit: BoxFit.cover,
+                    enlarge: false,
+                    picture: PictureEntity(id: src, cover: src, bigImage: src),
+                    cacheWidth: 1000,
+                    cacheHeight: 1000,
+                    // heroTag: src,
+                    // magnifier: Image.asset(R.image.scale),
+                    // magnifierMarginTop: R.dimen.dp7,
+                    // magnifierMarginRight: R.dimen.dp7,
+                  ),
+                  Positioned(
+                    right: R.dimen.dp7,
+                    top: R.dimen.dp7,
+                    child: OpenContainer(
+                      closedBuilder: (BuildContext context, _) {
+                        return Image.asset(
+                          R.image.scale,
+                        );
+                      },
+                      closedColor: Colors.transparent,
+                      closedElevation: 0,
+                      openColor: Colors.transparent,
+                      middleColor: Colors.transparent,
+                      openElevation: 0,
+                      openBuilder: (BuildContext context,
+                          void Function({Object? returnValue}) action) {
+                        return InteractivePhotoView(
+                          pictures: [
+                            PictureEntity(cover: src, bigImage: src, id: src)
+                          ],
+                        );
+                      },
+                    ),
+                  )
+                ],
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: R.dimen.dp8),

@@ -2,7 +2,7 @@
  * @Description: 可以旋转的按钮
  * @Author: iamsmiling
  * @Date: 2021-04-29 15:45:15
- * @LastEditTime: 2021-04-29 16:12:46
+ * @LastEditTime: 2021-06-21 13:25:35
  */
 import 'package:flutter/material.dart';
 
@@ -10,8 +10,14 @@ class RotateButton extends StatefulWidget {
   final Widget? label;
   final Widget? child;
   final Future Function() onPressed;
+  final bool collapse;
 
-  RotateButton({Key? key, this.label, this.child, required this.onPressed})
+  RotateButton(
+      {Key? key,
+      this.label,
+      this.child,
+      required this.onPressed,
+      this.collapse = true})
       : super(key: key);
 
   @override
@@ -25,7 +31,9 @@ class _RotateButtonState extends State<RotateButton>
 
   @override
   void initState() {
-    Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+    Animatable<double> _halfTween = widget.collapse
+        ? Tween<double>(begin: 0.0, end: 0.5)
+        : Tween<double>(begin: 0.5, end: 0.0);
     Animatable<double> _easeInTween = CurveTween(curve: Curves.linear);
     _controller =
         AnimationController(duration: Duration(milliseconds: 300), vsync: this);

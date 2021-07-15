@@ -2,7 +2,7 @@
  * @Description:搜索顶部
  * @Author: iamsmiling
  * @Date: 2021-05-24 16:15:07
- * @LastEditTime: 2021-06-02 22:49:01
+ * @LastEditTime: 2021-07-15 16:05:12
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/rotate_button.dart';
@@ -11,7 +11,16 @@ import 'package:taoju5_c/ui/pages/search/dialog/remove_search_history_dialog.dar
 
 class SearchHeader extends StatelessWidget {
   final List<String> history;
-  const SearchHeader({Key? key, required this.history}) : super(key: key);
+  final Function(String) onRemove;
+  final Function()? onEmpty;
+  final Function(String) onSearch;
+  const SearchHeader(
+      {Key? key,
+      required this.history,
+      required this.onRemove,
+      this.onEmpty,
+      required this.onSearch})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +41,10 @@ class SearchHeader extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               GestureDetector(
-                  onTap: () =>
-                      openClearSearchHistoryDialog(context, history: history),
+                  onTap: () => openClearSearchHistoryDialog(
+                        context,
+                        onEmpty: onEmpty,
+                      ),
                   child: Text(
                     "清除记录",
                     style: TextStyle(
@@ -50,10 +61,10 @@ class SearchHeader extends StatelessWidget {
               children: [
                 for (String v in history)
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => onSearch(v),
                     onLongPress: () {
                       openRemoveSearchHistoryDialog(context,
-                              history: history, value: v)
+                              onRemove: onRemove, value: v)
                           .whenComplete(() => null);
                     },
                     child: Container(

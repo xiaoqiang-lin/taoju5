@@ -58,6 +58,13 @@ PODS:
   - FMDB/standard (2.7.5)
   - image_picker (0.0.1):
     - Flutter
+  - JCore (2.6.2)
+  - JPush (3.6.1):
+    - JCore (< 3.0.0, >= 2.0.0)
+  - jpush_flutter (0.0.2):
+    - Flutter
+    - JCore (= 2.6.2)
+    - JPush (= 3.6.1)
   - multi_image_picker (4.7.15):
     - BSImagePicker (~> 2.10.3)
     - Flutter
@@ -107,6 +114,7 @@ DEPENDENCIES:
   - flutter_bugly (from `.symlinks/plugins/flutter_bugly/ios`)
   - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - multi_image_picker (from `.symlinks/plugins/multi_image_picker/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -135,6 +143,8 @@ SPEC REPOS:
     - BSImageView
     - Bugly
     - FMDB
+    - JCore
+    - JPush
     - Reachability
     - WechatOpenSDK
 
@@ -163,6 +173,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluwx/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  jpush_flutter:
+    :path: ".symlinks/plugins/jpush_flutter/ios"
   multi_image_picker:
     :path: ".symlinks/plugins/multi_image_picker/ios"
   package_info:
@@ -215,6 +227,9 @@ SPEC CHECKSUMS:
   fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
+  JCore: 0cb4fc5892bc97af4f27283875369ead3eaa3067
+  JPush: 507d66d7ea307faba1330666d48e4e92af611659
+  jpush_flutter: e75658a5342e3bfe22d9f3de5dfacd3ef44230c5
   multi_image_picker: 58577ab96d99b35c82d626db7d81906d14c2b667
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

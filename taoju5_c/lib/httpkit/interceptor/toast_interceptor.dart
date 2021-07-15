@@ -2,7 +2,7 @@
  * @Description: 某些接口需要提示操作成功的信息
  * @Author: iamsmiling
  * @Date: 2021-05-14 14:26:35
- * @LastEditTime: 2021-06-08 15:55:29
+ * @LastEditTime: 2021-07-07 13:59:52
  */
 import 'package:dio/dio.dart';
 import 'package:taoju5_c/utils/toast.dart';
@@ -19,6 +19,20 @@ class ToastInterceptor extends InterceptorsWrapper {
     "/app/user/delAddress",
     "/app/user/changePassword",
     // "/app/user/deleteFootprint"
+
+    ///订单相关
+    ///
+    ///确认选品
+    "/app/order/orderSelectedGoods",
+
+    ///删除订单
+    "/app/refund/deleteOrder",
+
+    ///取消订单
+    "/app/refund/cancelOrder",
+
+    ///取消商品
+    // "/app/refund/orderRefund",
   ];
 
   @override

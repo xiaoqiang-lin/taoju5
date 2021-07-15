@@ -2,14 +2,14 @@
  * @Description: 移除搜索项
  * @Author: iamsmiling
  * @Date: 2021-05-24 17:17:28
- * @LastEditTime: 2021-05-24 17:49:47
+ * @LastEditTime: 2021-07-15 11:02:47
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/res/R.dart';
 
 Future openRemoveSearchHistoryDialog(BuildContext context,
-    {required List<String> history, required String value}) {
+    {required Function(String) onRemove, required String value}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -43,7 +43,7 @@ Future openRemoveSearchHistoryDialog(BuildContext context,
                     PrimaryButton(
                       text: "删除",
                       onPressed: () {
-                        history.remove(value);
+                        onRemove(value);
                       },
                       size: PrimaryButtonSize.middle,
                     )
@@ -57,7 +57,7 @@ Future openRemoveSearchHistoryDialog(BuildContext context,
 }
 
 Future openClearSearchHistoryDialog(BuildContext context,
-    {required List<String> history}) {
+    {required Function()? onEmpty}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -90,7 +90,7 @@ Future openClearSearchHistoryDialog(BuildContext context,
                     ),
                     PrimaryButton(
                       text: "删除",
-                      onPressed: history.clear,
+                      onPressed: onEmpty,
                       size: PrimaryButtonSize.middle,
                     )
                   ],

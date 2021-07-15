@@ -2,7 +2,7 @@
  * @Description: 窗帘打开方式
  * @Author: iamsmiling
  * @Date: 2021-05-08 11:24:01
- * @LastEditTime: 2021-06-03 17:22:04
+ * @LastEditTime: 2021-06-30 12:33:16
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -23,6 +23,18 @@ class WindowOpenModeEntity {
     options = JsonKit.asList(json["options"])
         .map((e) => WindowOpenModeOptionEntity.fromJson(e))
         .toList();
+  }
+
+  void initWithIdAndName(int windowOptionId, String name) {
+    options.forEach((e) {
+      e.selected = e.windowOptionId == windowOptionId && e.name.contains(name);
+    });
+    options.forEach((element) {
+      print(windowOptionId);
+      print(name);
+      print(element.name);
+      print(element.selected);
+    });
   }
 
   WindowOpenModeOptionEntity? get selectedOpenOption {

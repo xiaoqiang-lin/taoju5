@@ -2,7 +2,7 @@
  * @Description: 上传图片按钮
  * @Author: iamsmiling
  * @Date: 2021-04-19 11:37:51
- * @LastEditTime: 2021-05-27 16:57:13
+ * @LastEditTime: 2021-07-12 15:17:34
  */
 import 'dart:typed_data';
 
@@ -17,14 +17,15 @@ import 'package:http_parser/http_parser.dart';
 
 class UploadImageController extends GetxController {
   late int maxCount;
-  UploadImageController({this.maxCount = 5});
+  UploadImageController({this.maxCount = 5, required this.formData});
   List<Widget> images = [];
+  late dio.FormData? formData = dio.FormData();
 
   Future<dio.FormData?> pickImage() async {
     if (images.length >= maxCount) return null;
     List<AssetEntity>? assets = await AssetPicker.pickAssets(
       Get.context!,
-      maxAssets: maxCount,
+      maxAssets: maxCount - images.length,
     );
     if (assets == null) return null;
 
@@ -54,7 +55,7 @@ class UploadImageController extends GetxController {
         map.addAll({"screentshot[$i]": files[i]});
       }
     }
-    dio.FormData formData = dio.FormData.fromMap(map);
+    formData = dio.FormData.fromMap(map);
     return formData;
   }
 
@@ -68,17 +69,19 @@ class UploadImageButton extends StatelessWidget {
   final Color color;
   final double width;
   final double height;
+  final dio.FormData? formData;
   const UploadImageButton(
       {Key? key,
       this.color = const Color(0xfff5f5f5),
       this.width = 56,
-      this.height = 56})
+      this.height = 56,
+      required this.formData})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UploadImageController>(
-        init: UploadImageController(),
+        init: UploadImageController(formData: formData),
         builder: (_) {
           return Container(
             child: Wrap(

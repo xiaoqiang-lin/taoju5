@@ -2,7 +2,7 @@
  * @Description:商品清单数据模型
  * @Author: iamsmiling
  * @Date: 2021-06-02 14:50:35
- * @LastEditTime: 2021-06-04 10:50:21
+ * @LastEditTime: 2021-06-23 10:13:23
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -31,7 +31,7 @@ class OrderProductMainfestEntity {
 
   OrderProductMainfestEntity.fromJson(Map json) {
     items = JsonKit.asList(json["order_goods"])
-        .map((e) => JsonKit.asList(e)
+        .map((e) => JsonKit.asList(e["checklist"])
             .map((o) => OrderProductMainfestItemEntity.fromJson(o))
             .toList())
         .toList();

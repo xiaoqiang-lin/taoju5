@@ -2,15 +2,15 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:16:47
- * @LastEditTime: 2021-06-10 17:17:39
+ * @LastEditTime: 2021-06-26 09:36:36
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/carousel/carousel_slide.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/component/carousel/carousel_image_slider.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
-import 'package:taoju5_c/res/R.dart';
 import 'dart:math' as math;
+
+import 'package:taoju5_c/res/R.dart';
 
 class ProductDetailBannerSection extends StatelessWidget {
   final ProductDetailEntity product;
@@ -24,31 +24,18 @@ class ProductDetailBannerSection extends StatelessWidget {
     for (int i = 0; i < images.length; i++) {
       max = math.max(max, images[i].aspectRatio);
     }
+
     return max;
   }
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlide(
-      itemCount: product.images.length,
+    return CarouselImageSlider(
+      height: R.dimen.width / maxAspectRatio,
+      // width: R.dimen.width,
+      // aspectRatio: maxAspectRatio,
       viewportFraction: 1,
-      itemHeight: R.dimen.width * (1 / maxAspectRatio),
-      itemWidth: R.dimen.width,
-      bigImages: product.images.map((e) => e.bigImage).toList(),
-      thunmbnails: product.images.map((e) => e.cover).toList(),
-      itemBuilder: (BuildContext context, int i) {
-        PictureEntity item = product.images[i];
-        return ChimeraImage(
-          item.cover,
-          width: R.dimen.width,
-          // cache: true,
-          // // height: R.dimen.width,
-          // heroTag: item.bigImage,
-          borderRadius: BorderRadius.zero,
-          fit: item.aspectRatio > 1 ? BoxFit.fitWidth : BoxFit.fitHeight,
-          // images: product.images.map((e) => e.bigImage).toList(),
-        );
-      },
+      pictures: product.images,
     );
   }
 }

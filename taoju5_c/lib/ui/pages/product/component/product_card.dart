@@ -2,7 +2,7 @@
  * @Description: 商品卡片
  * @Author: iamsmiling
  * @Date: 2021-05-19 10:40:00
- * @LastEditTime: 2021-06-08 14:50:41
+ * @LastEditTime: 2021-07-02 14:08:44
  */
 
 import 'package:flutter/material.dart';
@@ -25,7 +25,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.toNamed(
-          AppRoutes.category + AppRoutes.productDetail + "/${product.id}"),
+          AppRoutes.category + AppRoutes.productDetail + "/${product.id}",
+          arguments: Get.arguments,
+          parameters: Get.parameters as Map<String, String>?),
       child: Container(
         width: width,
         child: Column(
@@ -37,6 +39,8 @@ class ProductCard extends StatelessWidget {
                   product.cover,
                   width: width,
                   height: width,
+                  cacheWidth: width?.toInt(),
+                  cacheHeight: width?.toInt(),
                 ),
                 Positioned(
                     right: 0,
@@ -109,6 +113,11 @@ class ProductPlusCard extends StatelessWidget {
   const ProductPlusCard(
       {Key? key, required this.product, this.width, this.brandVisible = true})
       : super(key: key);
+
+  void jump() {
+    Get.toNamed(
+        AppRoutes.category + AppRoutes.productDetail + "/${product.id}");
+  }
 
   @override
   Widget build(BuildContext context) {

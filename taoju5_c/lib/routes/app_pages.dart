@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-06-08 17:01:09
+ * @LastEditTime: 2021-07-15 16:09:44
  */
 
 import 'package:get/get.dart';
@@ -68,6 +68,8 @@ import 'package:taoju5_c/ui/pages/mine/subpage/setting/subpage/about_app_page.da
 import 'package:taoju5_c/ui/pages/net_off/net_off_page.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_binding.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commt_order_page.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order_success/commit_order_success_binding.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order_success/commit_order_success_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/aftersell/aftersell_binding.dart';
@@ -78,8 +80,14 @@ import 'package:taoju5_c/ui/pages/order/order_detail/subpage/logistics/logistcis
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/logistics/logistics_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/mainfest/order_mainfest_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/measure_data/measure_data_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/measure_data/measure_data_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/order_comment/order_comment_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/order_comment/order_comment_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/refund/refund_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/refund/refund_page.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/select_refund_product/select_refund_product_binding.dart';
+import 'package:taoju5_c/ui/pages/order/order_detail/subpage/select_refund_product/select_refund_product_page.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_binding.dart';
 import 'package:taoju5_c/ui/pages/order/order_list/order_list_page.dart';
 import 'package:taoju5_c/ui/pages/pay/pay_binding.dart';
@@ -92,6 +100,8 @@ import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/pr
 import 'package:taoju5_c/ui/pages/product/product_detail/subpage/comment_list/product_comment_list_page.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_binding.dart';
 import 'package:taoju5_c/ui/pages/product/product_list/product_list_page.dart';
+import 'package:taoju5_c/ui/pages/product/product_selectable_list/product_selectable_list_binding.dart';
+import 'package:taoju5_c/ui/pages/product/product_selectable_list/product_selectable_list_page.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_category/scene_category_binding.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_category/scene_category_page.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_detail/scene_detail_binding.dart';
@@ -100,6 +110,8 @@ import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_binding.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_page.dart';
 import 'package:taoju5_c/ui/pages/search/search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/search_page.dart';
+import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_binding.dart';
+import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_page.dart';
 import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
@@ -275,7 +287,17 @@ class AppPages {
     GetPage(
         name: AppRoutes.search,
         page: () => SearchPage(),
-        binding: SearchBinding()),
+        binding: SearchBinding(),
+        children: [
+          GetPage(
+              name: AppRoutes.searchProduct + "/:keyword",
+              page: () => ProductSearchPage(),
+              binding: ProductSearchBinding()),
+        ]),
+    GetPage(
+        name: AppRoutes.searchProduct + "/:keyword",
+        page: () => ProductSearchPage(),
+        binding: ProductSearchBinding()),
 
     GetPage(
         name: AppRoutes.imageCrop,
@@ -283,12 +305,12 @@ class AppPages {
         binding: ImageCropBinding()),
 
     GetPage(
-        name: AppRoutes.videoPlayer,
+        name: AppRoutes.videoPlayer + "/:id",
         page: () => VideoPage(),
         binding: VideoBinding()),
 
     GetPage(
-        name: AppRoutes.articleDetail,
+        name: AppRoutes.articleDetail + "/:id",
         page: () => ArticleDetailPage(),
         binding: ArticleDetailBinding()),
 
@@ -302,7 +324,11 @@ class AppPages {
         page: () => CommitOrderPage(),
         binding: CommitOrderBinding()),
     GetPage(
-        name: AppRoutes.orderDetail + "/:id",
+        name: AppRoutes.commitOrderSuccess,
+        page: () => CommitOrderSuccessPage(),
+        binding: CommitOrderSuccessBinding()),
+    GetPage(
+        name: AppRoutes.orderDetail + "/:order_id",
         page: () => OrderDetailPage(),
         binding: OrderDetailBinding(),
         children: [
@@ -325,7 +351,19 @@ class AppPages {
           GetPage(
               name: AppRoutes.orderComment,
               page: () => OrderCommentPage(),
-              binding: OrderCommentBinding())
+              binding: OrderCommentBinding()),
+          GetPage(
+              name: AppRoutes.measureData + "/:id",
+              page: () => MeasureDataPage(),
+              binding: MeasureDataBinding()),
+          GetPage(
+              name: AppRoutes.refund,
+              page: () => RefundPage(),
+              binding: RefundBinding()),
+          GetPage(
+              name: AppRoutes.selectRefundProduct,
+              page: () => SelectRefundProductPage(),
+              binding: SelectRefundProductBinding())
         ]),
 
     ///支付
@@ -379,5 +417,11 @@ class AppPages {
       page: () => StoreDetailPage(),
       binding: StoreDetailBinding(),
     ),
+
+    GetPage(
+      name: AppRoutes.selectProduct,
+      page: () => ProductSelectableListPage(),
+      binding: ProductSelectableListBinding(),
+    )
   ];
 }

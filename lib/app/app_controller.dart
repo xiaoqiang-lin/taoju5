@@ -2,7 +2,7 @@
  * @Description: app控制器
  * @Author: iamsmiling
  * @Date: 2021-06-07 09:50:44
- * @LastEditTime: 2021-06-07 10:28:14
+ * @LastEditTime: 2021-06-21 17:15:26
  */
 
 import 'dart:io';
@@ -87,7 +87,7 @@ class AppController extends GetxController {
   ///获取最新的app信息
   Future<String> _getLatestAppInfo() {
     Map params = {};
-
+    print(params);
     if (Platform.isIOS) {
       params = {"app_type": "Ios"};
     }

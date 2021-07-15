@@ -2,13 +2,14 @@
  * @Description:
  * @Author: iamsmiling
  * @Date: 2021-04-17 21:31:19
- * @LastEditTime: 2021-05-06 11:13:07
+ * @LastEditTime: 2021-06-24 15:15:24
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_page.dart';
+import 'package:taoju5_c/ui/pages/home/home_controller.dart';
 import 'package:taoju5_c/ui/pages/home/home_page.dart';
 import 'package:taoju5_c/ui/pages/mine/mine_page.dart';
 import 'package:taoju5_c/ui/pages/school/school_page.dart';
@@ -47,6 +48,8 @@ class MainController extends GetxController {
   ];
 
   int currentIndex = 0;
+
+  late double homeOffset;
 
   void switchTo(int index) {
     currentIndex = index;

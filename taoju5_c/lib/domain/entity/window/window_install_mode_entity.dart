@@ -2,7 +2,7 @@
  * @Description: 窗帘安装方式
  * @Author: iamsmiling
  * @Date: 2021-05-08 12:12:01
- * @LastEditTime: 2021-06-03 17:18:14
+ * @LastEditTime: 2021-06-29 17:32:40
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -47,6 +47,12 @@ class WindowInstalllModeEntity {
       }
     }
     return list;
+  }
+
+  void initWithName(String name) {
+    options.forEach((e) {
+      e.selected = e.name.contains(name);
+    });
   }
 }
 

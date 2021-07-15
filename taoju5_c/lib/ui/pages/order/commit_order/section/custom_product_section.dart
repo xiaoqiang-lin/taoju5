@@ -2,16 +2,16 @@
  * @Description:定制品区域
  * @Author: iamsmiling
  * @Date: 2021-05-14 17:39:30
- * @LastEditTime: 2021-06-01 16:07:03
+ * @LastEditTime: 2021-07-14 14:54:09
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taoju5_c/domain/entity/order/preorder_info_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/order/widget/deposit_tip_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/freight_tip_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/install_time_picker_bar.dart';
-import 'package:taoju5_c/ui/pages/order/widget/less_than_two_window_tip_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/measure_time_picker_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/order_measurement_need_switch_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/product_adaptor_card.dart';
@@ -23,12 +23,14 @@ class CustomProductSection extends StatelessWidget {
   final Function(String?)? onMeasureTimeChanged;
   final Function(String?)? onInstallTimeChanged;
   final ValueChanged<bool> onNeedMeasureChanged;
+  final PreOrderInfoEntity order;
   const CustomProductSection(
       {Key? key,
       required this.products,
       this.onMeasureTimeChanged,
       this.onInstallTimeChanged,
-      required this.onNeedMeasureChanged})
+      required this.onNeedMeasureChanged,
+      required this.order})
       : super(key: key);
 
   double get totalPrice {
@@ -89,8 +91,10 @@ class CustomProductSection extends StatelessWidget {
         InstallTimePickerBar(
           onValueChanged: onInstallTimeChanged,
         ),
-        DepositTipBar(),
-        LessThanTwoWindowTipBar(),
+        DepositTipBar(
+          order: order,
+        ),
+        // LessThanTwoWindowTipBar(),
         TailAmountTipBar(),
         FreightTipBar(),
         TotalPriceTipBar(
@@ -99,13 +103,5 @@ class CustomProductSection extends StatelessWidget {
         )
       ],
     );
-    // return ListView.separated(
-    //     shrinkWrap: true,
-    //     physics: NeverScrollableScrollPhysics(),
-    //     itemBuilder: (BuildContext context, int i) {
-    //       return ProductAdaptorCard(product: products[i]);
-    //     },
-    //     separatorBuilder: (BuildContext context, int i) => Divider(),
-    //     itemCount: products.length);
   }
 }

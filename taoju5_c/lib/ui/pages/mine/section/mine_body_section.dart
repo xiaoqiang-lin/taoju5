@@ -2,7 +2,7 @@
  * @Description: 个人中心
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-07 17:50:06
+ * @LastEditTime: 2021-07-07 10:13:37
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -11,10 +11,22 @@ import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/mine/mine_controller.dart';
 
 class MineBodySection extends StatelessWidget {
   final List<OrderTabEntity> kongos;
   const MineBodySection({Key? key, required this.kongos}) : super(key: key);
+
+  ///页面跳转
+  Future? jump(Map<String, String>? params) {
+    return Get.toNamed(AppRoutes.mine + AppRoutes.orderList,
+            arguments: kongos, parameters: params)
+        ?.then((value) {
+      if (value == true && Get.isRegistered<MineController>()) {
+        Get.find<MineController>().fetchData();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +41,7 @@ class MineBodySection extends StatelessWidget {
                 Text("我的订单", style: R.style.headline6),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.orderList,
-                      arguments: kongos, parameters: {"index": "0"}),
+                  onTap: () => jump({"index": "0"}),
                   child: Text("查看全部", style: R.style.tileTip),
                 ),
                 Image.asset(R.image.next)
@@ -45,10 +56,7 @@ class MineBodySection extends StatelessWidget {
                 for (OrderTabEntity item
                     in kongos.where((e) => e.icon.isNotEmpty))
                   GestureDetector(
-                    onTap: () => Get.toNamed(
-                        AppRoutes.mine + AppRoutes.orderList,
-                        arguments: kongos,
-                        parameters: {"index": "${kongos.indexOf(item)}"}),
+                    onTap: () => jump({"index": "${kongos.indexOf(item)}"}),
                     child: Stack(
                       children: [
                         Container(

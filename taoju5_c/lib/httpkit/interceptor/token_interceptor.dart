@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:38:48
- * @LastEditTime: 2021-06-07 10:35:31
+ * @LastEditTime: 2021-06-29 10:12:14
  */
 import 'dart:convert';
 
@@ -20,7 +20,10 @@ class TokenInterceptor extends InterceptorsWrapper {
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     if (!_noTokenUrls.contains(options.path)) {
       var token = await LocalStorage.get("token");
-      options.queryParameters.addAll({"token": token});
+      options.queryParameters.addAll({
+        "token":
+            "MDAwMDAwMDAwMJjcemKSuIGetZ54rH53e6rAiXmVjbuGYY9ns9Gbi4XOgs11Y37LgWqzrnxlgHiLag"
+      });
     }
     handler.next(options);
   }

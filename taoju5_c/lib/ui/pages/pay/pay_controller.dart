@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:04:06
- * @LastEditTime: 2021-06-04 10:38:42
+ * @LastEditTime: 2021-07-15 10:40:33
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
@@ -11,6 +11,7 @@ import 'package:taoju5_c/domain/repository/order_repository.dart';
 import 'package:taoju5_c/res/R.dart';
 
 import 'package:fluwx/fluwx.dart' as fluwx;
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class PayController extends GetxController {
   late double price;
@@ -26,12 +27,21 @@ class PayController extends GetxController {
     super.onInit();
     // 监听支付结果
     fluwx.weChatResponseEventHandler.listen((event) async {
-      print(event.errCode);
-      print(event.errStr);
       // 支付成功
       if (event.errCode == 0) {}
+      if (event is fluwx.WeChatPaymentResponse) {
+        if (event.isSuccessful) {
+          afterPaySuccess();
+        }
+      }
       // 关闭弹窗
     });
+  }
+
+  void afterPaySuccess() {
+    Get.back();
+    Get.back();
+    Get.toNamed(AppRoutes.commitOrderSuccess);
   }
 
   void onClose() {}
@@ -67,28 +77,23 @@ class PayController extends GetxController {
         payStrategy = e.strategy;
       }
     });
+    arg.payStrategy = payStrategy;
 
     update(["pay"]);
   }
 
-  Future<PayOrderEntity> createOrder() {
+  Future<PayOrderEntity> sendPayRequest() {
     OrderRepository repository = OrderRepository();
-
-    ///如果商品列表为空 说明是测量
-    if (arg.products.isEmpty) {
-      return repository.createMeasureOrder(arg.params);
-    }
-    return repository.createOrder(arg.params);
+    return repository.sendPayRequest(arg.path, params: arg.params);
   }
 
-  Future pay() {
-    return createOrder().then((PayOrderEntity value) {
-      payStrategy.pay(value);
+  Future? pay() {
+    // Get.back();
+    // Get.back();
+    // return Get.toNamed(AppRoutes.commitOrderSuccess);
+
+    return sendPayRequest().then((PayOrderEntity value) {
+      payStrategy.pay(value, callback: afterPaySuccess);
     });
-    // ToastKit.loading();
-    // print(arg.params);
-    // return repository.createMeasureOrder(arg.params).then((value) {
-    //   payStrategy.pay(value);
-    // }).whenComplete(ToastKit.dismiss);
   }
 }

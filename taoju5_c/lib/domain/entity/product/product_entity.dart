@@ -2,9 +2,13 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-06-08 14:50:16
+ * @LastEditTime: 2021-06-25 16:00:30
  */
 
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter/rendering.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/utils/common_kit.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
@@ -35,6 +39,8 @@ class ProductEntity {
 
   late String unit;
 
+  late String size;
+
   late bool isHot;
 
   late bool isNew;
@@ -58,9 +64,38 @@ class ProductEntity {
     unit = json["goods_unit"];
     isHot = JsonKit.asBool(json["is_hot"]);
     isNew = JsonKit.asBool(json["is_new"]);
-    brand = "品牌名称";
-    material = "材质名称";
+    brand = json["show_name"];
+    material = json["material_name"];
     price = json["price"];
     browseId = json["browse_id"];
+    size = json["pic_spec"];
   }
+
+  double get _width {
+    if (size.contains(",")) {
+      String val = size.split(",").first;
+      return CommonKit.asDouble(val);
+    }
+    if (size.contains("*")) {
+      String val = size.split("*").first;
+      return CommonKit.asDouble(val);
+    }
+    return 0;
+  }
+
+  double get _height {
+    if (size.contains(",")) {
+      String val = size.split(",").last;
+      return CommonKit.asDouble(val);
+    }
+    if (size.contains("*")) {
+      String val = size.split("*").last;
+      return CommonKit.asDouble(val);
+    }
+    return 0;
+  }
+
+  double get aspectRatio => _height == 0 ? 1 : _width / _height;
+
+  BoxFit get fit => aspectRatio > 1 ? BoxFit.fitHeight : BoxFit.contain;
 }

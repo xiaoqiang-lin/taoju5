@@ -26,6 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply from: 'tinker-support.gradle'
 apply plugin: 'hannibal'
+apply plugin: 'com.huawei.agconnect'
 def keystorePropertiesFile = rootProject.file("key.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -64,7 +65,7 @@ android {
                 AMAP_KEY : "c861bca41e4014c514a13ba71cce758a", /// 高德地图key
 
                 JPUSH_PKGNAME : "com.buyi.taojuwu",
-                JPUSH_APPKEY : "c35981f8bafb7c46f4f72909", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY : "a70c04782d38dd556eb9cb61", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
 
                 XIAOMI_APPID : "MI-2882303761518581560",
@@ -159,17 +160,13 @@ dependencies {
 
     implementation 'com.amap.api:location:latest.integration'
 
-    implementation 'cn.jiguang.sdk:jcore:2.7.2'  // 此处以JCore 2.7.2 版本为例。
-    implementation 'cn.jiguang.sdk:jpush:4.0.0'  // 此处以JPush 4.0.0 版本为例
     // 接入华为厂商
-    implementation 'com.huawei.hms:push:4.0.2.300'
-    implementation 'cn.jiguang.sdk.plugin:huawei:4.0.0'// 极光厂商插件版本与接入 JPush 版本保持一致，下同
+    implementation 'com.huawei.hms:push:5.1.1.301'
+    implementation 'cn.jiguang.sdk.plugin:huawei:4.0.9'// 极光厂商插件版本与接入 JPush 版本保持一致，下同
     // 接入 VIVO 厂商
-    implementation 'cn.jiguang.sdk.plugin:vivo:4.0.0' 
+    implementation 'cn.jiguang.sdk.plugin:vivo:4.0.9' 
     // 接入 OPPO 厂商
-    implementation 'cn.jiguang.sdk.plugin:oppo:4.0.0' 
+    implementation 'cn.jiguang.sdk.plugin:oppo:4.0.9' 
     // 接入小米厂商
-    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.0.0' 
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.0.9' 
 }
-
-apply plugin: 'com.huawei.agconnect'

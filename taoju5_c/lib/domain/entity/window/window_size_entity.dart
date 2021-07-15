@@ -2,7 +2,7 @@
  * @Description:  窗户大小
  * @Author: iamsmiling
  * @Date: 2021-05-10 17:58:48
- * @LastEditTime: 2021-06-03 17:06:07
+ * @LastEditTime: 2021-06-29 18:19:09
  */
 import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe

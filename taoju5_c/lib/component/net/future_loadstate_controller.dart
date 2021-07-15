@@ -2,7 +2,7 @@
  * @Description: 网络请求加载
  * @Author: iamsmiling
  * @Date: 2021-04-06 09:15:12
- * @LastEditTime: 2021-06-01 16:39:42
+ * @LastEditTime: 2021-07-06 16:11:26
  */
 import 'dart:async';
 
@@ -49,6 +49,7 @@ abstract class BaseFutureLoadStateController<T> extends GetxController
   }
 
   Future fetchData() {
+    // change(value, status: RxStatus.loading());
     return loadData().then((
       T value,
     ) {

@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:usesCleartextTraffic="true"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.buyi.taojuwu">
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
@@ -19,6 +18,7 @@
     <application
         android:name="com.buyi.taojuwu.Taoju5Application"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:label"
         android:label="淘居屋">
@@ -95,5 +95,26 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0HbLNqBeCFVPUCH3xIYiuhf5jvIUe3pw" />
+
+         <!--小米推送配置 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                <!--Required  显示通知栏 -->
+                <category android:name="${applicationId}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

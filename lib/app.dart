@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  *  @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-06-09 10:44:47
+ * @LastEditTime: 2021-07-14 09:45:00
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/app/app_binding.dart';
@@ -30,12 +30,6 @@ class TaojuwuApp extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
-    // return GetMaterialApp(
-    //   unknownRoute: AppPages.unkonw,
-    //   theme: R.theme.lightTheme,
-    //   initialRoute: AppRoutes.loginGuide,
-    //   getPages: AppPages.pages,
-    // );
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         ScreenUtil.init(constraints,
@@ -49,7 +43,6 @@ class TaojuwuApp extends StatelessWidget {
           getPages: AppPages.pages,
           builder: (BuildContext context, Widget child) {
             return MediaQuery(
-              //Setting font does not change with system font size
               data: MediaQuery.of(context).copyWith(
                   boldText: false,
                   textScaleFactor: GetPlatform.isAndroid ? 0.88 : 1.0),
@@ -58,7 +51,6 @@ class TaojuwuApp extends StatelessWidget {
           },
           // builder: EasyLoading.init(),
           initialBinding: AppBinding(),
-
           defaultTransition: Transition.cupertino,
         );
       },

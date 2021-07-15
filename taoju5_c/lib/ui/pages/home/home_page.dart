@@ -2,12 +2,12 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-06-11 17:55:23
+ * @LastEditTime: 2021-07-15 11:19:36
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/commendation/commendation_fragement.dart';
@@ -20,11 +20,10 @@ import 'package:taoju5_c/ui/pages/home/section/home_special_topic_section.dart';
 
 import 'home_controller.dart';
 import 'section/home_banner_section.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  static MethodChannel methodChannel = MethodChannel('taoju5_amap');
 
   // _goToMapView() async {
   //   return methodChannel.invokeMethod("goToMapView");
@@ -49,7 +48,8 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: R.dimen.dp8),
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.search),
+                  onTap: () => Get.toNamed(AppRoutes.search,
+                      parameters: {"search_type": '1'}),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,20 +78,51 @@ class HomePage extends StatelessWidget {
                     onPressed: () => Get.toNamed(AppRoutes.message))
               ],
             ),
-            body: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(child: HomeBannerSection()),
-                SliverToBoxAdapter(child: HomeSceneSection()),
-                SliverToBoxAdapter(child: HomeCustomMadeSection()),
-                SliverToBoxAdapter(child: HomeDecorationPrefectureSection()),
-                SliverToBoxAdapter(child: HomePhysicialStoreSection()),
-                SliverToBoxAdapter(child: HomeSpecialOfferPrefectureSection()),
-                SliverToBoxAdapter(child: HomeSpecialTopicSection()),
-                SliverToBoxAdapter(
-                  child: CommendationFragment(),
-                )
-              ],
-            ),
+            body: FutureLoadStateBuilder<HomeController>(
+                controller: _,
+                builder: (_) {
+                  return SmartRefresher(
+                    controller: _.refreshController,
+                    enablePullDown: true,
+                    enablePullUp: true,
+                    onRefresh: _.refreshData,
+                    onLoading: _.loadMore,
+                    scrollController: _.scrollController,
+                    child: CustomScrollView(
+                      controller: _.scrollController,
+                      slivers: [
+                        SliverToBoxAdapter(child: HomeBannerSection()),
+                        SliverToBoxAdapter(child: HomeSceneSection()),
+                        SliverToBoxAdapter(child: HomeCustomMadeSection()),
+                        SliverToBoxAdapter(
+                            child: HomeDecorationPrefectureSection()),
+                        SliverToBoxAdapter(child: HomePhysicialStoreSection()),
+                        SliverToBoxAdapter(
+                            child: HomeSpecialOfferPrefectureSection()),
+                        SliverToBoxAdapter(child: HomeSpecialTopicSection()),
+                        SliverToBoxAdapter(
+                          child: CommendationFragment(
+                            scrollController: _.scrollController,
+                            tag: "home",
+                            header: Container(
+                              margin: EdgeInsets.only(
+                                  left: R.dimen.dp24,
+                                  top: R.dimen.dp24,
+                                  bottom: R.dimen.dp15),
+                              child: Text(
+                                "精选推荐",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: R.dimen.sp15,
+                                    color: R.color.ff333333),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
           );
         });
   }

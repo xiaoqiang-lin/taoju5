@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-06-08 17:41:59
+ * @LastEditTime: 2021-07-13 10:53:13
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
@@ -45,6 +45,17 @@ BaseProductType getProductType(int code) =>
     }[code] ??
     FabricCurtainProductType();
 
+class ProductMaterialEntity {
+  late String key;
+
+  late String value;
+
+  ProductMaterialEntity.fromJson(Map json) {
+    key = json["attr_value"];
+    value = json["attr_value_name"];
+  }
+}
+
 class ProductDetailEntity {
   late int id;
   late String name;
@@ -70,7 +81,9 @@ class ProductDetailEntity {
 
   late int count = 1;
 
-  late List<String>? detailImages;
+  List detailImages = [];
+
+  List<ProductMaterialEntity> materialSet = [];
 
   late int skuId;
 
@@ -106,6 +119,8 @@ class ProductDetailEntity {
 
   Map args = {};
 
+  late CurtainAttributeEntity attribute = CurtainAttributeEntity();
+
   ProductDetailEntity();
 
   ProductDetailEntity.fromJson(Map json) {
@@ -139,9 +154,12 @@ class ProductDetailEntity {
     skus = JsonKit.asList(json["sku_list"])
         .map((e) => ProductSkuEntity.fromJson(e))
         .toList();
-    // detailImages = JsonKit.asList(JsonKit.asWebUrl(json["new_description"]))
-    //     .toList()
-    //     .cast<String>();
+    detailImages = JsonKit.asList(json["new_description"])
+        .map((e) => JsonKit.asWebUrl(e))
+        .toList();
+    materialSet = JsonKit.asList(json["goods_attribute_list"])
+        .map((e) => ProductMaterialEntity.fromJson(e))
+        .toList();
     images = JsonKit.asList(json["goods_img_list"])
         .map((e) => PictureEntity.fromJson(e))
         .toList();
@@ -182,7 +200,7 @@ class ProductDetailEntity {
   }
 
   ProductAdaptorEntity adapt(
-      List<CurtainAttributeKeyValuePairEntity> attributes) {
+      {List<CurtainAttributeKeyValuePairEntity>? attributes}) {
     return ProductAdaptorEntity.fromProductWithAttribute(this, attributes);
   }
 }

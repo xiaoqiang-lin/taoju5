@@ -2,7 +2,7 @@
  * @Description: 安装时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 15:56:45
- * @LastEditTime: 2021-06-01 16:44:54
+ * @LastEditTime: 2021-07-14 10:01:19
  */
 import 'dart:async';
 
@@ -43,7 +43,7 @@ class _InstallTimePickerBarState extends State<InstallTimePickerBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: R.dimen.dp10),
+      // margin: EdgeInsets.only(top: R.dimen.dp10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

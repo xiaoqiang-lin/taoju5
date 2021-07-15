@@ -2,7 +2,7 @@
  * @Description: 登录引导页面
  * @Author: iamsmiling
  * @Date: 2021-06-04 14:10:06
- * @LastEditTime: 2021-06-04 17:54:22
+ * @LastEditTime: 2021-06-17 17:36:36
  */
 
 import 'package:flutter/material.dart';
@@ -116,3 +116,5 @@ class LoginGuidePage extends StatelessWidget {
     );
   }
 }
+
+class CilpRRect {}

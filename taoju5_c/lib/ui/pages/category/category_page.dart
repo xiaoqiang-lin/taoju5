@@ -2,7 +2,7 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-06-08 11:00:16
+ * @LastEditTime: 2021-06-24 15:27:12
  */
 import 'dart:ui';
 
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
+import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_behavior.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
@@ -113,38 +114,43 @@ class CategoryPage extends GetView<CategoryController> {
                           //       )
                           //   ],
                           // ),
-                          child: ListView.builder(
-                              itemCount: _.categories.length,
-                              itemBuilder: (BuildContext context, int i) {
-                                CategoryEntity item = _.categories[i];
-                                return GestureDetector(
-                                  onTap: () => _.onTabChanged(i),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: R.dimen.dp20),
-                                    child: AnimatedDefaultTextStyle(
-                                        child: Text(item.name),
-                                        style: item == _.currentCategory
-                                            ? TextStyle(
-                                                fontSize: R.dimen.sp12,
-                                                fontWeight: FontWeight.w600,
-                                                color: R.color.ff333333)
-                                            : TextStyle(
-                                                color: R.color.ff333333,
-                                                fontSize: R.dimen.sp12,
-                                                fontWeight: FontWeight.w500),
-                                        duration:
-                                            const Duration(milliseconds: 200)),
-                                  ),
-                                );
-                              }),
+                          child: ScrollConfiguration(
+                            behavior: NoRippleScrollBehavior(),
+                            child: ListView.builder(
+                                itemCount: _.categories.length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  CategoryEntity item = _.categories[i];
+                                  return GestureDetector(
+                                    onTap: () => _.onTabChanged(i),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: R.dimen.dp20),
+                                      child: AnimatedDefaultTextStyle(
+                                          child: Text(item.name),
+                                          style: item == _.currentCategory
+                                              ? TextStyle(
+                                                  fontSize: R.dimen.sp12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: R.color.ff333333)
+                                              : TextStyle(
+                                                  color: R.color.ff333333,
+                                                  fontSize: R.dimen.sp12,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                          duration: const Duration(
+                                              milliseconds: 200)),
+                                    ),
+                                  );
+                                }),
+                          ),
                         );
                       },
                     )),
                 Expanded(
                     flex: 4,
                     child: PageView.builder(
+                        scrollBehavior: NoRippleScrollBehavior(),
                         controller: _.pageController,
                         scrollDirection: Axis.vertical,
                         itemCount: _.categories.length,

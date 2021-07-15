@@ -2,13 +2,14 @@
  * @Description: 带刷新功能的list
  * @Author: iamsmiling
  * @Date: 2021-05-19 14:26:16
- * @LastEditTime: 2021-05-28 16:50:03
+ * @LastEditTime: 2021-06-25 14:47:18
  */
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_behavior.dart';
 
 import 'flutter_loadstate_builder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -17,7 +18,7 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
     with StateMixin<List<T>> {
   Future<List<T>> loadData({Map? params});
 
-  late RefreshController refreshController;
+  RefreshController? refreshController;
 
   List<T> list = [];
 
@@ -31,12 +32,16 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
 
   late Map initialParams;
 
-  PullToRefreshListViewBuilderController({
-    this.pageIndexKey = "page_index",
-    this.pageSizeKey = "page_size",
-    this.currentPage = 1,
-    this.pageSize = 20,
-  }) {
+  setRefreshController(RefreshController controller) {
+    refreshController = controller;
+  }
+
+  PullToRefreshListViewBuilderController(
+      {this.pageIndexKey = "page_index",
+      this.pageSizeKey = "page_size",
+      this.currentPage = 1,
+      this.pageSize = 20,
+      this.refreshController}) {
     this.initialParams = {
       pageSizeKey: pageSize,
     };
@@ -45,7 +50,9 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
   @override
   void onInit() {
     _fetchData();
-    refreshController = RefreshController();
+    print(refreshController == null);
+    print("+++++++++");
+    refreshController ??= RefreshController();
     super.onInit();
   }
 
@@ -57,7 +64,9 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
         list = val;
         change(val, status: RxStatus.success());
       }
-    }).catchError((err) {
+    }).catchError((err, s) {
+      print(err);
+      print(s);
       change(list, status: RxStatus.error());
     });
   }
@@ -74,17 +83,17 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
     return loadData(params: params).then((List<T> val) {
       if (val.isEmpty) {
         change(val, status: RxStatus.empty());
-        refreshController.loadNoData();
+        refreshController?.loadNoData();
       } else {
         change(val, status: RxStatus.success());
-        refreshController.refreshCompleted();
+        refreshController?.refreshCompleted();
       }
     }).catchError((err, StackTrace stackTrace) {
       print(err);
       print(stackTrace);
       change(list, status: RxStatus.success());
-      refreshController.refreshFailed();
-    });
+      refreshController?.refreshFailed();
+    }).whenComplete(update);
   }
 
   Future loadMore({Map? params}) {
@@ -102,22 +111,24 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
 
       if (val.isEmpty) {
         print(arr.length);
-        refreshController.loadNoData();
+        print('哈哈哈哈哈哈');
+        refreshController?.loadNoData();
       } else {
         print(arr.length);
-        refreshController.loadComplete();
+        print("啦啦啦啦啦啦啦");
+        refreshController?.loadComplete();
       }
     }).catchError((err, StackTrace stackTrace) {
       print(err);
       print(stackTrace);
       change(list, status: RxStatus.success());
-      refreshController.loadFailed();
-    });
+      refreshController?.loadFailed();
+    }).whenComplete(update);
   }
 
   @override
-  onClose() {
-    refreshController.dispose();
+  void onClose() {
+    refreshController?.dispose();
     return super.onClose();
   }
 }
@@ -159,6 +170,8 @@ class PullToRefreshGridViewBuilder<
 
   @override
   Widget build(BuildContext context) {
+    print(tag);
+    print("))))=====");
     return Get.find<T>(tag: tag).obx(
         (state) => Builder(
               builder: (context) => GetBuilder<T>(
@@ -166,7 +179,7 @@ class PullToRefreshGridViewBuilder<
                 autoRemove: autoRemove,
                 builder: (_) {
                   return SmartRefresher(
-                      controller: _.refreshController,
+                      controller: _.refreshController!,
                       enablePullDown: enablePullDown,
                       enablePullUp: enablePullUp,
                       onRefresh: _.refreshData,
@@ -229,7 +242,7 @@ class PullToRefreshListViewBuilder<
                 autoRemove: autoRemove,
                 builder: (_) {
                   return SmartRefresher(
-                      controller: _.refreshController,
+                      controller: _.refreshController!,
                       enablePullDown: enablePullDown,
                       enablePullUp: enablePullUp,
                       onRefresh: _.refreshData,
@@ -261,6 +274,8 @@ class PullToRefreshStaggeredGridViewBuilder<
   final T? init;
 
   final Object? id;
+
+  final ScrollController? scrollController;
 
   final WidgetBuilder? loadingBuilder;
   final WidgetBuilder? errorBuilder;
@@ -299,7 +314,8 @@ class PullToRefreshStaggeredGridViewBuilder<
       required this.staggeredTileBuilder,
       this.crossAxisCount = 4,
       this.mainAxisSpacing = 15,
-      this.crossAxisSpacing = 16})
+      this.crossAxisSpacing = 16,
+      this.scrollController})
       : super(key: key);
 
   @override
@@ -309,26 +325,26 @@ class PullToRefreshStaggeredGridViewBuilder<
               builder: (context) => GetBuilder<T>(
                 tag: tag,
                 autoRemove: autoRemove,
+                global: true,
                 builder: (_) {
-                  return SmartRefresher(
-                      controller: _.refreshController,
-                      enablePullDown: enablePullDown,
-                      enablePullUp: enablePullUp,
-                      onRefresh: _.refreshData,
-                      onLoading: _.loadMore,
-                      child: StaggeredGridView.builder(
-                          gridDelegate:
-                              SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-                                  staggeredTileBuilder: staggeredTileBuilder,
-                                  crossAxisCount: crossAxisCount,
-                                  mainAxisSpacing: mainAxisSpacing,
-                                  crossAxisSpacing: crossAxisSpacing,
-                                  staggeredTileCount: _.list.length),
-                          // padding: padding,
-                          shrinkWrap: shrinkWrap,
-                          itemCount: _.list.length,
-                          itemBuilder: (BuildContext context, int i) =>
-                              itemBuilder(_.list[i])));
+                  return ScrollConfiguration(
+                    behavior: NoRippleScrollBehavior(),
+                    child: StaggeredGridView.builder(
+                        padding: padding,
+                        gridDelegate:
+                            SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                                staggeredTileBuilder: staggeredTileBuilder,
+                                crossAxisCount: crossAxisCount,
+                                mainAxisSpacing: mainAxisSpacing,
+                                crossAxisSpacing: crossAxisSpacing,
+                                staggeredTileCount: _.list.length),
+                        // padding: padding,
+                        shrinkWrap: shrinkWrap,
+                        itemCount: _.list.length,
+                        controller: scrollController,
+                        itemBuilder: (BuildContext context, int i) =>
+                            itemBuilder(_.list[i])),
+                  );
                 },
                 id: id,
               ),

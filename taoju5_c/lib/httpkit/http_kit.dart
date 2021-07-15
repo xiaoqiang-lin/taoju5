@@ -2,7 +2,7 @@
  * @Description: 网络请求封装
  * @Author: iamsmiling
  * @Date: 2021-03-30 21:39:00
- * @LastEditTime: 2021-05-27 09:18:46
+ * @LastEditTime: 2021-07-07 11:12:14
  */
 import 'dart:convert';
 
@@ -68,11 +68,11 @@ class HttpKit {
     ///错误拦截
     dio.interceptors.add(HttpErrorInterceptor());
 
-    ///特殊的逻辑处理
-    dio.interceptors.add(BlocInterceptor());
-
     ///提示信息处理
     dio.interceptors.add(ToastInterceptor());
+
+    ///特殊的逻辑处理
+    dio.interceptors.add(BlocInterceptor());
   }
 
   Future<BaseEntity> get(String url, {Map? params, Options? options}) async {

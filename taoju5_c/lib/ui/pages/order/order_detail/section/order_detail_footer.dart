@@ -2,11 +2,12 @@
  * @Description: 订单详情底部
  * @Author: iamsmiling
  * @Date: 2021-05-18 14:38:11
- * @LastEditTime: 2021-06-04 06:35:37
+ * @LastEditTime: 2021-06-22 15:41:13
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/copy_button.dart';
+import 'package:taoju5_c/component/carousel/carousel_image_slider.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -18,39 +19,32 @@ class OrderDetailFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-              vertical: R.dimen.dp15, horizontal: R.dimen.dp24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                order.manuscript.title,
-                style:
-                    TextStyle(fontSize: R.dimen.sp14, color: R.color.ff181818),
-              ),
-              // Visibility(
-              //     visible: order.manuscript.pictures.isNotEmpty,
-              //     child: Container(
-              //       padding: EdgeInsets.only(top: R.dimen.dp10),
-              //       child: CarouselSlide(
-              //         itemCount: order.manuscript.pictures.length,
-              //         viewportFraction: 1,
-              //         itemHeight:
-              //             (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
-              //         itemWidth: R.dimen.width - R.dimen.dp24 * 2,
-              //         itemBuilder: (BuildContext context, int i) {
-              //           return ChimeraImage(
-              //             order.manuscript.pictures[i].cover,
-              //             heroTag:
-              //                 "${order.manuscript.pictures[i].cover}" + "$i",
-              //           );
-              //         },
-              //         containerHeight:
-              //             (R.dimen.width - R.dimen.dp24 * 2) * 155 / 327,
-              //       ),
-              //     )),
-            ],
+        Visibility(
+          visible: order.manuscript.pictures.isNotEmpty,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                vertical: R.dimen.dp15, horizontal: R.dimen.dp24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  order.manuscript.title,
+                  style: TextStyle(
+                      fontSize: R.dimen.sp14, color: R.color.ff181818),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: R.dimen.dp10),
+                  child: CarouselImageSlider(
+                    viewportFraction: 1,
+                    pictures: order.manuscript.pictures,
+                    // height: R.dimen.dp158,
+                    borderRadius: BorderRadius.circular(R.dimen.sp7),
+                    width: R.dimen.width,
+                    aspectRatio: 155 / 327,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         Divider(

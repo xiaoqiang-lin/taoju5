@@ -2,10 +2,8 @@
  * @Description: 窗帘配套参数校验
  * @Author: iamsmiling
  * @Date: 2021-05-14 10:10:21
- * @LastEditTime: 2021-06-03 16:48:46
+ * @LastEditTime: 2021-07-08 15:18:56
  */
-
-import 'dart:convert';
 
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
@@ -19,13 +17,13 @@ class MatchingSetParamsEntity extends BaseParamsEntity {
   Map get params => {
         "craft_id": attribute.craft.selectedOption?.id ?? 0,
         "process_method": "${attribute.craft.selectedOption?.id ?? 0}",
-        "wc_attr": jsonEncode({
+        "wc_attr": {
           "craft_id": [attribute.craft.selectedOption?.id ?? 0],
           "gauze_id": [attribute.gauze.selectedOption?.id ?? 0],
           "parts_id": [attribute.sectionalbar.selectedOption?.id ?? 0],
           "curtain_id": [attribute.valance.selectedOption?.id ?? 0],
           "lining_id": [attribute.riboux.selectedOption?.id ?? 0],
-        })
+        }
       };
   bool finished = false;
 

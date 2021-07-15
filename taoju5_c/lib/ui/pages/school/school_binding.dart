@@ -11,6 +11,6 @@ import 'package:taoju5_c/ui/pages/school/school_controller.dart';
 class SchoolBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => SchoolController());
+    Get.lazyPut(() => SchoolParentController());
   }
 }

@@ -2,13 +2,13 @@
  * @Description: 订单列表数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:49:46
- * @LastEditTime: 2021-06-11 15:01:50
+ * @LastEditTime: 2021-07-07 15:17:48
  */
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
-import 'package:taoju5_c/domain/entity/order/order_tab_entity.dart';
+import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 
 enum OrderType {
@@ -21,15 +21,16 @@ enum OrderType {
 
 class OrderListWrapperEntity {
   late List<OrderEntity> orders;
-  late List<OrderTabEntity> tabs;
+  late CancelOrderReasonEntity reason;
 
   OrderListWrapperEntity.fromJson(Map json) {
-    orders = JsonKit.asList(json["order_list"]["data"])
+    orders = JsonKit.asList(json["data"])
         .map((e) => OrderEntity.fromJson(e))
         .toList();
-    tabs = JsonKit.asList(json["order_title"])
-        .map((e) => OrderTabEntity.fromJson(e))
-        .toList();
+    reason = CancelOrderReasonEntity.fromJson(json["reason"]);
+    orders.forEach((element) {
+      element.reason = reason;
+    });
   }
 }
 
@@ -44,6 +45,12 @@ class OrderEntity {
   late String tip;
 
   late List<OrderActionButtonEntity> actions;
+
+  late String cancelOrderMessage;
+
+  late double amount;
+
+  late CancelOrderReasonEntity reason;
 
   OrderType get orderType =>
       {1: OrderType.selectOrder, 2: OrderType.measureOrder}[_orderTypeCode] ??
@@ -60,6 +67,8 @@ class OrderEntity {
     actions = JsonKit.asList(json["button"])
         .map((e) => OrderActionButtonEntity.fromJson(e))
         .toList();
+    cancelOrderMessage = json["refund_hint"];
+    amount = JsonKit.asDouble(json["pay_money"]);
   }
 }
 
@@ -71,20 +80,19 @@ class OrderActionButtonEntity {
 
   late int _modeCode;
 
-  late int action;
-
   PrimaryButtonMode get mode =>
       {
-        1: PrimaryButtonMode.inkwellButton,
-        2: PrimaryButtonMode.elevatedButton,
+        0: PrimaryButtonMode.inkwellButton,
+        1: PrimaryButtonMode.elevatedButton,
+        2: PrimaryButtonMode.inkwellButton,
         3: PrimaryButtonMode.textButton,
       }[_modeCode] ??
       PrimaryButtonMode.textButton;
 
   OrderActionButtonEntity.fromJson(Map json) {
     enabled = JsonKit.asBool(json["enable"]);
-    _modeCode = json["type"];
+    _modeCode = json["color"];
     text = json["name"];
-    action = 1;
+    actionCode = json["type"];
   }
 }

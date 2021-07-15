@@ -19,7 +19,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.bugly:tinker-support:1.2.1'
         classpath 'com.sk.hannibal:hannibal:1.0.7'
-        classpath 'com.huawei.agconnect:agcp:1.2.1.301'
+        classpath 'com.huawei.agconnect:agcp:1.4.2.300'
+        // classpath 'com.huawei.agconnect:agconnect-apms-plugin:1.2.1.300'
 
     }
 }

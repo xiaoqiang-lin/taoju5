@@ -2,7 +2,7 @@
  * @Description: 意向上门量尺时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 14:55:46
- * @LastEditTime: 2021-06-01 16:43:59
+ * @LastEditTime: 2021-07-14 09:53:49
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class _MeasureTimePickerBarState extends State<MeasureTimePickerBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: R.dimen.dp10),
+      // margin: EdgeInsets.only(top: R.dimen.dp10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

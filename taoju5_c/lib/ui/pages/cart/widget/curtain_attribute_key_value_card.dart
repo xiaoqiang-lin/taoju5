@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性
  * @Author: iamsmiling
  * @Date: 2021-05-14 15:21:33
- * @LastEditTime: 2021-06-11 16:02:28
+ * @LastEditTime: 2021-07-08 14:58:18
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
@@ -38,7 +38,9 @@ class CurtainAttributeKeyValueCard extends StatelessWidget {
                   child: Text(
                     "${item.key}: ${item.value}",
                     style: TextStyle(
-                        fontSize: R.dimen.sp10, color: R.color.ff999999),
+                        height: 1.8,
+                        fontSize: R.dimen.sp10,
+                        color: R.color.ff999999),
                   ),
                 )
             ],

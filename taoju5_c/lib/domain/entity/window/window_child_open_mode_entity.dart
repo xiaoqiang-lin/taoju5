@@ -2,7 +2,7 @@
  * @Description: 窗帘打开方式的子选项
  * @Author: iamsmiling
  * @Date: 2021-05-10 18:01:21
- * @LastEditTime: 2021-05-13 10:26:27
+ * @LastEditTime: 2021-06-30 09:45:23
  */
 
 // ignore: import_of_legacy_library_into_null_safe

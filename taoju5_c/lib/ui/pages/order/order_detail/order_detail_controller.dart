@@ -2,7 +2,7 @@
  * @Description: 订单详情
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:05
- * @LastEditTime: 2021-05-27 16:54:56
+ * @LastEditTime: 2021-07-12 17:15:50
  */
 
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
@@ -10,11 +10,12 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/domain/repository/order_repository.dart';
-import 'package:taoju5_c/ui/pages/order/order_detail/dialog/cancel_order_dialog.dart';
+import 'package:taoju5_c/ui/pages/order/mixin/order_operation_mixin.dart';
 
 class OrderDetailController
-    extends BaseFutureLoadStateController<OrderDetailEntity> {
-  String? id = Get.parameters["id"];
+    extends BaseFutureLoadStateController<OrderDetailEntity>
+    with OrderOperationMixin {
+  String? id = Get.parameters["order_id"];
 
   late OrderDetailEntity order;
 
@@ -30,10 +31,7 @@ class OrderDetailController
     });
   }
 
-  Map<int, Function()> get actionMap => {1: cancelOrder};
-
-  Future cancelOrder() {
-    return openCancelOrderDialog(Get.context!);
-    // return openCancelOrderModal(Get.context!, order.cancelOrderReason);
+  Future operate(OrderActionButtonEntity a) {
+    return Function.apply(actionMap[a.actionCode] ?? (_) {}, [order, a]);
   }
 }

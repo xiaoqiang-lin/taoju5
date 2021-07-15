@@ -2,7 +2,7 @@
  * @Description: 商品相关的接口
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:00:14
- * @LastEditTime: 2021-06-11 17:53:18
+ * @LastEditTime: 2021-07-15 09:29:24
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -36,4 +36,8 @@ class ProductAPI {
 
   Future<BaseEntity> commendation(Map? params) =>
       _http.get("/app/goods/maybeLikeGoodsList", params: params);
+
+  ///搜索词
+  Future<BaseEntity> keywords(Map? params) =>
+      _http.get("/app/goods/searchContent", params: params);
 }

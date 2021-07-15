@@ -2,7 +2,7 @@
  * @Description: 价格计算代理
  * @Author: iamsmiling
  * @Date: 2021-05-12 14:49:09
- * @LastEditTime: 2021-05-24 10:43:45
+ * @LastEditTime: 2021-07-13 09:46:22
  */
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
@@ -20,12 +20,10 @@ abstract class BaseProductPriceDelegator {
 ///窗帘类商品的基类
 abstract class BaseCurtainProductPriceDelegator
     extends BaseProductPriceDelegator {
-  ///窗帘商品属性
-  late CurtainAttributeEntity attribute;
-
-  BaseCurtainProductPriceDelegator(ProductDetailEntity product,
-      {required this.attribute})
+  BaseCurtainProductPriceDelegator(ProductDetailEntity product)
       : super(product);
+
+  CurtainAttributeEntity get attribute => product.attribute;
 
   ///商品单价
   double get unitPrice => product.price;
@@ -57,18 +55,16 @@ abstract class BaseCurtainProductPriceDelegator
 
 class RollingCurtainProductPriceDelegator
     extends BaseCurtainProductPriceDelegator {
-  RollingCurtainProductPriceDelegator(
-      ProductDetailEntity product, CurtainAttributeEntity attribute)
-      : super(product, attribute: attribute);
+  RollingCurtainProductPriceDelegator(ProductDetailEntity product)
+      : super(product);
   @override
   double get totalPrice => unitPrice * area;
 }
 
 class FabricCurtainProductPriceDelegator
     extends BaseCurtainProductPriceDelegator {
-  FabricCurtainProductPriceDelegator(
-      ProductDetailEntity product, CurtainAttributeEntity attribute)
-      : super(product, attribute: attribute);
+  FabricCurtainProductPriceDelegator(ProductDetailEntity product)
+      : super(product);
 
   double get unitPrice => product.price;
 
@@ -95,7 +91,7 @@ class FabricCurtainProductPriceDelegator
   double get accessoryPrice => attribute.matchingSet.accessoryPrice;
 
   double get heightFactor {
-    return heightM > thresholdHeightM ? 1.5 : 0;
+    return heightM > thresholdHeightM ? 1.5 : 1.0;
   }
 
   //窗帘主布高度因子
@@ -104,7 +100,9 @@ class FabricCurtainProductPriceDelegator
 
     if (heightM > thresholdHeightM && product.isCustomSize) {
       factor = (widthM + heightM - 2.65) / widthM;
+      print("窗帘主布高度因子1---$factor");
     }
+    print("窗帘主布高度因子2---$factor");
     return factor;
   }
 
