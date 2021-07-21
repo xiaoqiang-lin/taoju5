@@ -2,7 +2,7 @@
  * @Description: 商品适配器模型
  * @Author: iamsmiling
  * @Date: 2021-05-14 16:35:07
- * @LastEditTime: 2021-07-12 10:15:49
+ * @LastEditTime: 2021-07-19 17:33:54
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shake_animation_widget/shake_animation_widget.dart';
@@ -87,6 +87,8 @@ class ProductAdaptorEntity {
       MeasureStatus.unMeasure;
   bool get signet => measureStatus == MeasureStatus.confirmed;
 
+  bool selected = false;
+
   ProductAdaptorEntity.fromCartEntity(CartEntity cart) {
     attributes = cart.attributes;
     description = cart.description;
@@ -110,7 +112,7 @@ class ProductAdaptorEntity {
   ProductAdaptorEntity.fromProductWithAttribute(ProductDetailEntity product,
       List<CurtainAttributeKeyValuePairEntity>? attributes) {
     this.attributes = attributes ?? [];
-    description = product.attributeDesc;
+    description = product.specTip;
     image = product.currentSku?.picture.cover ?? "";
     unitPrice = product.currentSku?.price ?? product.price;
     totalPrice = product.totalPrice;
@@ -157,6 +159,7 @@ class ProductAdaptorEntity {
         "length": length ?? "",
         "cart_id": cartId,
         "measure_id": measureId,
+        "craft_id": craftId,
         ...arg
       };
 }

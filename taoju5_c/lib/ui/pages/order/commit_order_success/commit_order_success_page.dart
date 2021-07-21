@@ -2,7 +2,7 @@
  * @Description: 订单提交成功
  * @Author: iamsmiling
  * @Date: 2021-06-11 17:09:01
- * @LastEditTime: 2021-06-25 14:58:45
+ * @LastEditTime: 2021-07-17 17:04:12
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -64,7 +64,8 @@ class CommitOrderSuccessPage extends GetView<CommitOrderSuccessController> {
                         ),
                         PrimaryButton(
                           text: "查看订单",
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed(
+                              AppRoutes.orderDetail + "/${controller.id}"),
                           mode: PrimaryButtonMode.inkwellButton,
                           size: PrimaryButtonSize.middle,
                           constraints: BoxConstraints(

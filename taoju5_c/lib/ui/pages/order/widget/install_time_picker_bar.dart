@@ -2,7 +2,7 @@
  * @Description: 安装时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 15:56:45
- * @LastEditTime: 2021-07-14 10:01:19
+ * @LastEditTime: 2021-07-17 16:01:49
  */
 import 'dart:async';
 
@@ -43,22 +43,34 @@ class _InstallTimePickerBarState extends State<InstallTimePickerBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(top: R.dimen.dp10),
+      margin: EdgeInsets.only(top: R.dimen.dp15),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "意向上门安装时间",
             style: TextStyle(fontSize: R.dimen.sp14, color: R.color.ff181818),
           ),
-          Expanded(
-            child: ReadOnlyTextFormField(
-              initialValue: _value,
-              key: ValueKey(_value),
-              onTap: _select,
-              hintText: "请选择期望上门时间",
+          GestureDetector(
+            onTap: _select,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${_value ?? "请选择期望上门时间"}",
+                  style: _value == null
+                      ? TextStyle(
+                          fontSize: R.dimen.sp11,
+                          color: R.color.ff999999,
+                        )
+                      : TextStyle(
+                          fontSize: R.dimen.sp14, color: R.color.ff333333),
+                ),
+                Image.asset(R.image.next)
+              ],
             ),
-          ),
+          )
         ],
       ),
     );

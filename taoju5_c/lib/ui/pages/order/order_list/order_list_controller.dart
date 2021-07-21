@@ -2,7 +2,7 @@
  * @Description: 订单列表
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:44:47
- * @LastEditTime: 2021-07-07 15:19:01
+ * @LastEditTime: 2021-07-19 09:44:12
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
@@ -81,7 +81,8 @@ class OrderListController
 
   @override
   Future<List<OrderEntity>> loadData({Map? params}) {
-    return _repository.orderList({"status": category.status}).then((value) {
+    return _repository.orderList(
+        {"status": category.status, ...(params ?? {})}).then((value) {
       orders = value;
       return value;
     });

@@ -2,7 +2,7 @@
  * @Description: 购物车相关的接口
  * @Author: iamsmiling
  * @Date: 2021-04-27 14:44:07
- * @LastEditTime: 2021-06-01 14:06:07
+ * @LastEditTime: 2021-07-20 09:55:03
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -28,5 +28,10 @@ class CartAPI {
   ///购物车列表
   Future<BaseEntity> modifyCartCount({Map? params}) {
     return _http.post("/app/cart/modifyCartNum", params: params);
+  }
+
+  ///修改购物车属性
+  Future<BaseEntity> modifyCartSku({Map? params}) {
+    return _http.post("/app/cart/modifyCartAccessory", params: params);
   }
 }

@@ -2,11 +2,13 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-07-13 10:53:13
+ * @LastEditTime: 2021-07-20 15:03:43
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
+import 'dart:convert';
+
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
@@ -30,7 +32,7 @@ class FabricCurtainProductType extends CustomProductType {}
 class RollingCurtainProductType extends CustomProductType {}
 
 ///窗纱
-class FabricScreenProductType extends CustomProductType {}
+class FabricScreenProductType extends FabricCurtainProductType {}
 
 /// 型材视为成品
 class SectionbarProductType extends FinishedProductType {}
@@ -107,8 +109,6 @@ class ProductDetailEntity {
 
   late bool like;
 
-  String attributeDesc = "";
-
   ///规格信息
   String specTip = "去填写";
 
@@ -117,11 +117,23 @@ class ProductDetailEntity {
   ///型材id
   int craftId = -1;
 
+  double totalPrice = 0;
+
   Map args = {};
 
   late CurtainAttributeEntity attribute = CurtainAttributeEntity();
 
   ProductDetailEntity();
+
+  // String get abbrSpec {
+
+  //   if (productType is SectionbarProductType) {
+  //     return "用料：$length米  x$count";
+  //   }
+  //   if(productType is FinishedProductType){
+  //     return
+  //   }
+  // }
 
   ProductDetailEntity.fromJson(Map json) {
     id = json["goods_id"];
@@ -189,18 +201,32 @@ class ProductDetailEntity {
     if (skus.isEmpty) return null;
     for (int i = 0; i < skus.length; i++) {
       ProductSkuEntity item = skus[i];
-      if (currentSpecName == item.name || skuId == item.id) return item;
+      if (currentSpecName == item.name) return item;
     }
     return null;
-  }
-
-  double get totalPrice {
-    if (currentSku == null) return 0;
-    return (currentSku?.price ?? 0) * count;
   }
 
   ProductAdaptorEntity adapt(
       {List<CurtainAttributeKeyValuePairEntity>? attributes}) {
     return ProductAdaptorEntity.fromProductWithAttribute(this, attributes);
+  }
+}
+
+extension ProductDetailEntityKit on ProductDetailEntity {
+  void saveMeasureId(int id) {
+    measureId = id;
+    args = {
+      "wc_attr": jsonEncode({
+        "craft_id": [attribute.matchingSet.craft.selectedOption?.id ?? 0],
+        "gauze_id": [attribute.matchingSet.gauze.selectedOption?.id ?? 0],
+        "parts_id": [
+          attribute.matchingSet.sectionalbar.selectedOption?.id ?? 0
+        ],
+        "curtain_id": [attribute.matchingSet.valance.selectedOption?.id ?? 0],
+        "lining_id": [attribute.matchingSet.riboux.selectedOption?.id ?? 0],
+      })
+    };
+    specTip =
+        "【${attribute.measureData.room.selectedOption?.name}】【${attribute.measureData.facade.value}】【${attribute.measureData.installMode.selectedOption?.name ?? ''}】【${attribute.measureData.openModeDescription}】【宽: ${attribute.measureData.size.widthM}m 高 ${attribute.measureData.size.heightM}m 离地距离: ${attribute.measureData.groundClearance.value}cm】";
   }
 }

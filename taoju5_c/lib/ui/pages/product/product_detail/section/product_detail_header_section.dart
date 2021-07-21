@@ -2,7 +2,7 @@
  * @Description: 商品详情头部
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:33:30
- * @LastEditTime: 2021-07-05 10:15:13
+ * @LastEditTime: 2021-07-20 11:00:42
  */
 
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class ProductDetailHeaderSection extends StatelessWidget {
               Divider(),
               if (product.productType is RollingCurtainProductType)
                 GestureDetector(
-                  // onTap: _.openRollingCurtainProductAttributeDialog,
+                  onTap: _.showAttributePicker,
                   child: Container(
                     padding: EdgeInsets.symmetric(
                         vertical: R.dimen.dp20, horizontal: R.dimen.dp20),

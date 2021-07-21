@@ -2,15 +2,20 @@
  * @Description:首页专题推荐
  * @Author: iamsmiling
  * @Date: 2021-04-21 11:07:29
- * @LastEditTime: 2021-05-26 14:12:36
+ * @LastEditTime: 2021-07-21 17:37:54
  */
 
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/domain/entity/home/home_topic_article_section_entity.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:get/get.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 
 class HomeSpecialTopicSection extends StatelessWidget {
-  const HomeSpecialTopicSection({Key? key}) : super(key: key);
+  final HomeTopicArticleSectionEntity topic;
+  const HomeSpecialTopicSection({Key? key, required this.topic})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +28,17 @@ class HomeSpecialTopicSection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("专题推荐", style: R.style.h2),
+                Text("${topic.title}", style: R.style.h2),
                 Spacer(),
-                Text("更多", style: R.style.moreTip),
-                Image.asset(R.image.next)
+                GestureDetector(
+                  // onTap: ()=>Get.toNamed(AppRoutes.),
+                  child: Row(
+                    children: [
+                      Text("更多", style: R.style.moreTip),
+                      Image.asset(R.image.next)
+                    ],
+                  ),
+                )
               ],
             ),
           ),

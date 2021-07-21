@@ -2,7 +2,7 @@
  * @Description: 订单详情主体
  * @Author: iamsmiling
  * @Date: 2021-05-18 11:26:16
- * @LastEditTime: 2021-07-08 15:07:16
+ * @LastEditTime: 2021-07-19 09:15:12
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -132,7 +132,7 @@ class _ProductAdapterWithActionCardState
                     child: Container(
                         margin: EdgeInsets.only(left: R.dimen.dp5),
                         child: Text(
-                          "(${b.hint})",
+                          "${b.hint}",
                           style: TextStyle(
                               fontSize: R.dimen.sp11, color: R.color.ff999999),
                         )),
@@ -140,7 +140,7 @@ class _ProductAdapterWithActionCardState
                   ),
                   Spacer(),
                   Text(
-                    "¥${b.amount.value}",
+                    "${b.amount.value}",
                     style: TextStyle(
                         fontSize: R.dimen.sp14,
                         color: b.amount.highlighted
@@ -192,7 +192,7 @@ class OrderDetailBody extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "  ¥${o.amount.value}",
+                          "  ${o.amount.value}",
                           style: TextStyle(
                               fontSize: R.dimen.sp14,
                               fontWeight: o.amount.bold

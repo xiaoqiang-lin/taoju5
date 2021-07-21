@@ -2,7 +2,7 @@
  * @Description: 视屏播放逻辑处理
  * @Author: iamsmiling
  * @Date: 2021-04-22 22:21:17
- * @LastEditTime: 2021-07-12 16:24:54
+ * @LastEditTime: 2021-07-16 14:51:42
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
@@ -21,6 +21,7 @@ class VideoController
 
   @override
   void onInit() {
+    print(Get.parameters);
     videoPlayerController = VideoPlayerController.network(
         "http://buyi.taoju5.com//upload/goods_video/2021042310313757613.mp4")
       ..initialize().then((_) {

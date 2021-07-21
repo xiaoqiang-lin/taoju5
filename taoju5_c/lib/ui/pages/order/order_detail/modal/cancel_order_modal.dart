@@ -2,7 +2,7 @@
  * @Description:取消订单
  * @Author: iamsmiling
  * @Date: 2021-05-20 15:07:27
- * @LastEditTime: 2021-07-15 17:40:36
+ * @LastEditTime: 2021-07-16 15:32:21
  */
 
 import 'package:flutter/cupertino.dart';
@@ -84,6 +84,9 @@ Future openCancelOrderModal<int>(
                 ),
                 bottomNavigationBar: Container(
                   height: kBottomNavigationBarHeight,
+                  margin: EdgeInsets.only(
+                    bottom: Get.mediaQuery.padding.bottom + R.dimen.dp7,
+                  ),
                   decoration:
                       BoxDecoration(color: R.color.ffffffff, boxShadow: [
                     BoxShadow(
@@ -92,7 +95,6 @@ Future openCancelOrderModal<int>(
                         color: Colors.black.withAlpha(18))
                   ]),
                   padding: EdgeInsets.only(
-                      bottom: Get.mediaQuery.padding.bottom + R.dimen.dp7,
                       left: R.dimen.dp20,
                       right: R.dimen.dp20,
                       top: R.dimen.dp8),

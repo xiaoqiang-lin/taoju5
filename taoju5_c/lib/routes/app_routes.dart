@@ -2,7 +2,7 @@
  * @Description: C端app路由
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:40:24
- * @LastEditTime: 2021-07-15 15:47:46
+ * @LastEditTime: 2021-07-21 15:52:32
  */
 
 class AppRoutes {
@@ -134,4 +134,8 @@ class AppRoutes {
   static const searchOrder = _prefix + "/searchOrder";
 
   static const searchArticle = _prefix + "/searchArticle";
+
+  static const softDecorationList = _prefix + "/softDecorationList";
+
+  static const storeList = _prefix + "/storeList";
 }

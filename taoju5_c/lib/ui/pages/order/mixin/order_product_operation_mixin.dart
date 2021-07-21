@@ -2,7 +2,7 @@
  * @Description: 订单商品操作
  * @Author: iamsmiling
  * @Date: 2021-07-01 17:20:03
- * @LastEditTime: 2021-07-15 18:22:46
+ * @LastEditTime: 2021-07-20 13:09:30
  */
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
@@ -78,8 +78,10 @@ mixin OrderProductOperationMixin {
 
   ///退款
   Future refund(OrderDetailEntity order, ProductAdaptorEntity product) {
-    RefundProductParamsEntity arg =
-        RefundProductParamsEntity(products: [product], order: order);
+    RefundProductParamsEntity arg = RefundProductParamsEntity(
+        products: [product],
+        orderId: "${order.id}",
+        cancelOrderReason: order.cancelOrderReason);
     return Get.toNamed(
             AppRoutes.orderDetail + "/${order.id}" + AppRoutes.refund,
             arguments: arg) ??
@@ -140,7 +142,8 @@ mixin OrderProductOperationMixin {
     return openCancelOrderDialog(Get.context!, order.cancelOrderMessage)
         .then((value) {
       if (value == true) {
-        return openCancelOrderModal(Get.context!, order.reason).then((value) {
+        return openCancelOrderModal(Get.context!, order.reason, title: "取消商品")
+            .then((value) {
           if (value is String) {
             return _repository.cancelOrder(
                 params: {"order_id": order.id, "order_close_reason": value});
@@ -178,11 +181,14 @@ mixin OrderProductOperationMixin {
 
   ///批量退款
   Future batchRefund(OrderEntity order) {
-    return Get.toNamed(AppRoutes.pay,
-            arguments: CreateOrderParamsEntity(
-                orderId: "${order.id}",
-                totalPrice: order.amount,
-                path: "/app/order/orderPay")) ??
+    return Get.toNamed(
+            AppRoutes.orderDetail +
+                "/${order.id}" +
+                AppRoutes.selectRefundProduct,
+            arguments: RefundProductParamsEntity(
+                products: order.products,
+                cancelOrderReason: order.reason,
+                orderId: "${order.id}")) ??
         Future.value();
   }
 }

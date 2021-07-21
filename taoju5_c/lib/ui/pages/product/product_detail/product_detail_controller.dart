@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:05:21
- * @LastEditTime: 2021-07-13 10:53:57
+ * @LastEditTime: 2021-07-20 14:53:41
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,6 @@ import 'package:taoju5_c/domain/entity/params/order/measure_data_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/repository/cart_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
-import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_action_bar.dart';
@@ -24,6 +23,9 @@ import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_finished_pro
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_curtain_product_attribute_modal.dart'
     as curtainProductModal;
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/select_product_modal/select_product_modal.dart';
+
+import 'dialog/rolling_curtain_product_attribute/rolling_curtain_product_attribute_dialog.dart'
+    as rollingCurtainProductDialog;
 
 class ProductDetailController
     extends ChimeraRefreshController<ProductDetailEntity> {
@@ -54,45 +56,12 @@ class ProductDetailController
   openFinishedProductAttributeModal() {
     if (Get.isBottomSheetOpen == true) return;
     finishedProductModal.openFinishedProductAttributeModal(Get.context!,
-        product: product, footerBuilder: (BuildContext context) {
-      return Container(
-        height: kBottomNavigationBarHeight,
-        padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
-        margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "小计",
-                  style: TextStyle(fontSize: R.dimen.sp12),
-                ),
-                Text(
-                  "¥${product.currentSku?.price.toStringAsFixed(2)}",
-                  style: TextStyle(
-                      color: R.color.ffff5005, fontSize: R.dimen.sp14),
-                )
-              ],
-            ),
-            ProductActionBar(
-              onAddToCart: () {
-                product.attribute.finished = true;
-                addToCart();
-              },
-              onPurchase: () {
-                product.attribute.finished = true;
-                buy();
-              },
-            )
-          ],
-        ),
+        product: product, actionBuilder: (BuildContext context) {
+      return ProductActionBar(
+        onAddToCart: addToCart,
+        onPurchase: buy,
       );
-    }).whenComplete(() {
-      product.attribute.finished = true;
-    });
+    }).whenComplete(update);
   }
 
   openCurtainProductAttributeModal() {
@@ -108,18 +77,19 @@ class ProductDetailController
         });
   }
 
-  // openRollingCurtainProductAttributeDialog() {
-  //   return _repository.productAttribute({"goods_id": id}).then((value) {
-  //     // attribute = value;
-  //   }).catchError((err) {
-  //     print(err);
-  //   }).then((value) {
-  //     rollingCurtainProductDialog.openRollingCurtainProductAttributeDialog(
-  //       Get.context!,
-  //       product: product,
-  //     );
-  //   });
-  // }
+  openRollingCurtainProductAttributeDialog() {
+    return _repository.productAttribute({"goods_id": id}).then((value) {
+      product.attribute = value;
+    }).catchError((err, s) {
+      print(err);
+      print(s);
+    }).then((value) {
+      rollingCurtainProductDialog.openRollingCurtainProductAttributeDialog(
+          Get.context!,
+          product: product,
+          attribute: product.attribute);
+    });
+  }
 
   openSectionalbarProductAttributeDialog() {
     return sectionalbarProductDialog.openSectionalbarProductAttributeDialog(
@@ -158,7 +128,7 @@ class ProductDetailController
     if (product.productType is FabricCurtainProductType) {
       return openCurtainProductAttributeModal();
     } else if (product.productType is RollingCurtainProductType) {
-      // return openRollingCurtainProductAttributeDialog();
+      return openRollingCurtainProductAttributeDialog();
     } else if (product.productType is SectionbarProductType) {
       return openSectionalbarProductAttributeDialog();
     }
@@ -175,9 +145,7 @@ class ProductDetailController
 
     MeasureDataParamsEntity arg =
         MeasureDataParamsEntity(measureData: product.attribute.measureData);
-    return repository.saveMeasureData(arg.params).then((value) {
-      product.measureId = value;
-    });
+    return repository.saveMeasureData(arg.params).then(product.saveMeasureId);
   }
 
   Future addToCart() {
@@ -193,7 +161,7 @@ class ProductDetailController
 
   Future? buy() {
     if (product.productType is FinishedProductType) {
-      Get.toNamed(AppRoutes.commitOrder,
+      return Get.toNamed(AppRoutes.commitOrder,
           arguments: [product.adapt()], preventDuplicates: false);
     }
     MatchingSetParamsEntity arg =

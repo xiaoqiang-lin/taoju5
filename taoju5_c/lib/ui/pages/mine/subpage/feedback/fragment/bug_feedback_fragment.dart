@@ -2,7 +2,7 @@
  * @Description: bug反馈
  * @Author: iamsmiling
  * @Date: 2021-04-19 09:49:56
- * @LastEditTime: 2021-05-27 16:52:44
+ * @LastEditTime: 2021-07-16 10:47:28
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,7 +62,7 @@ class BugFeedbackFragment extends StatelessWidget {
                       EdgeInsets.only(top: R.dimen.dp14, bottom: R.dimen.dp10),
                   child: Text("上传凭证（非必填）", style: R.style.h3)),
 
-              UploadImageButton(formData: _.arg.formData),
+              UploadImageButton(),
 
               Container(
                   margin:

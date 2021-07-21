@@ -2,7 +2,7 @@
  * @Description: 商品分类
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:58:17
- * @LastEditTime: 2021-07-08 10:49:15
+ * @LastEditTime: 2021-07-21 18:04:17
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -12,8 +12,10 @@ class CategoryEntity {
   String name = "";
   String image = "";
   int type = -1;
+  String isHot = "";
 
-  CategoryEntity({required this.id, required this.name, this.type = -1});
+  CategoryEntity(
+      {required this.id, required this.name, this.type = -1, this.isHot = ""});
 
   List<CategoryEntity> children = [];
 

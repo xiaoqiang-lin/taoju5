@@ -2,7 +2,7 @@
  * @Description: 带刷新功能的list
  * @Author: iamsmiling
  * @Date: 2021-05-19 14:26:16
- * @LastEditTime: 2021-06-25 14:47:18
+ * @LastEditTime: 2021-07-21 16:47:37
  */
 
 import 'package:flutter/cupertino.dart';
@@ -14,8 +14,17 @@ import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_beha
 import 'flutter_loadstate_builder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-abstract class PullToRefreshListViewBuilderController<T> extends GetxController
-    with StateMixin<List<T>> {
+import 'future_loadstate_controller.dart';
+
+class ChimeraPager<T> {
+  late List<T> list;
+  late int totalPage;
+
+  ChimeraPager({required this.list, required this.totalPage});
+}
+
+abstract class PullToRefreshListViewBuilderController<T>
+    extends BaseFutureLoadStateController<List<T>> {
   Future<List<T>> loadData({Map? params});
 
   RefreshController? refreshController;
@@ -26,9 +35,11 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
 
   late String pageSizeKey;
 
-  late int pageSize;
+  late int pageSize = 10;
 
-  late int currentPage;
+  late int currentPage = 1;
+
+  late int totalPage = 0;
 
   late Map initialParams;
 
@@ -50,8 +61,7 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
   @override
   void onInit() {
     _fetchData();
-    print(refreshController == null);
-    print("+++++++++");
+
     refreshController ??= RefreshController();
     super.onInit();
   }
@@ -73,18 +83,17 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
 
   Future refreshData({Map? params}) {
     print("刷新数据");
-
     currentPage = 1;
     params ??= {};
-    params.addAll({pageIndexKey: currentPage});
-    params.addAll(initialParams);
+    params.addAll({pageIndexKey: currentPage, ...initialParams});
     change(list, status: RxStatus.loading());
-    print("请求参数------$params");
+
     return loadData(params: params).then((List<T> val) {
       if (val.isEmpty) {
         change(val, status: RxStatus.empty());
         refreshController?.loadNoData();
       } else {
+        list = val;
         change(val, status: RxStatus.success());
         refreshController?.refreshCompleted();
       }
@@ -100,22 +109,26 @@ abstract class PullToRefreshListViewBuilderController<T> extends GetxController
     params ??= {};
     currentPage++;
     params.addAll({pageIndexKey: currentPage, pageSizeKey: pageSize});
-    print("上拉加载更多");
-    print(params);
+    if (currentPage >= totalPage) {
+      refreshController?.loadNoData();
+      return Future.value();
+    }
+
     return loadData(params: params).then((List<T> val) {
       // change(val, status: RxStatus.success());
-      List<T> arr = [];
-      arr.addAll(list);
-      arr.addAll(val);
-      list = arr;
+      // List<T> arr = [];
+      // arr.addAll(list);
+      // arr.addAll(val);
+      // list = arr.toSet().toList();
 
       if (val.isEmpty) {
-        print(arr.length);
+        print(val.length);
         print('哈哈哈哈哈哈');
         refreshController?.loadNoData();
       } else {
-        print(arr.length);
+        print(val.length);
         print("啦啦啦啦啦啦啦");
+        list.addAll(val);
         refreshController?.loadComplete();
       }
     }).catchError((err, StackTrace stackTrace) {

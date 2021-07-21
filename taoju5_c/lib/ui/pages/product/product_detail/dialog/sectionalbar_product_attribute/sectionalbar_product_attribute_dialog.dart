@@ -2,7 +2,7 @@
  * @Description: 型材属性弹窗
  * @Author: iamsmiling
  * @Date: 2021-05-24 11:15:20
- * @LastEditTime: 2021-07-08 17:23:31
+ * @LastEditTime: 2021-07-20 10:43:37
  */
 
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:taoju5_c/domain/entity/params/cart/add_to_cart_params.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/ui/pages/product/product_detail/price_delegator/price_delegator.dart';
 
 Future openSectionalbarProductAttributeDialog(BuildContext context,
     {required ProductDetailEntity product,
@@ -22,6 +23,7 @@ Future openSectionalbarProductAttributeDialog(BuildContext context,
     Function()? buy}) {
   return showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           child: SectionalbarProductAttributeDialog(
@@ -37,9 +39,22 @@ Future openSectionalbarProductAttributeDialog(BuildContext context,
 class SectionalbarController extends GetxController {
   late ProductDetailEntity product;
   late AddToCartParamsEntity arg;
+  late BaseProductPriceDelegator priceDelegator;
 
   SectionalbarController({required this.product}) {
     arg = AddToCartParamsEntity(product: product);
+    priceDelegator = SectionalBarProductPriceDelegator(product);
+  }
+
+  void setLength(String val) {
+    arg.setLength(val);
+    product.specTip = "用料 ${val}cm";
+    update();
+  }
+
+  void setCount(int count) {
+    product.count = count;
+    update();
   }
 }
 
@@ -107,7 +122,7 @@ class SectionalbarProductAttributeDialog extends StatelessWidget {
                                 hintText: "请输入长度",
                               ),
                               initialValue: _.arg.product.length?.toString(),
-                              onChanged: _.arg.setLength,
+                              onChanged: _.setLength,
                               hintColor: _.arg.lengthError
                                   ? R.color.ffff5005
                                   : R.color.ffbcbcbc,
@@ -129,9 +144,7 @@ class SectionalbarProductAttributeDialog extends StatelessWidget {
                                       fontSize: R.dimen.sp14,
                                       color: R.color.ff333333)),
                             ),
-                            StepCounter(onChanged: (int value) {
-                              product.count = value;
-                            }),
+                            StepCounter(onChanged: _.setCount),
                           ],
                         ),
                       ),
@@ -143,7 +156,7 @@ class SectionalbarProductAttributeDialog extends StatelessWidget {
                             style: TextStyle(fontSize: R.dimen.sp12),
                             children: [
                               TextSpan(
-                                  text: "¥1999.00",
+                                  text: "¥${_.priceDelegator.totalPrice}",
                                   style: TextStyle(
                                       fontSize: R.dimen.sp15,
                                       color: R.color.ffff5005))

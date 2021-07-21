@@ -2,7 +2,7 @@
  * @Description: 是否需要上门测量选择器
  * @Author: iamsmiling
  * @Date: 2021-05-14 18:01:07
- * @LastEditTime: 2021-06-03 16:09:59
+ * @LastEditTime: 2021-07-20 18:05:33
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +41,8 @@ class _OrderMeasurementNeedSwitchBarState
 
   @override
   Widget build(BuildContext context) {
+    print("执行build");
+    print("是否需要测量---$value");
     return Container(
         margin: EdgeInsets.only(top: R.dimen.dp18),
         child: Row(
@@ -49,9 +51,9 @@ class _OrderMeasurementNeedSwitchBarState
               child: Text.rich(TextSpan(
                   text: "是否需要上门测装\n",
                   style: TextStyle(
-                      fontSize: R.dimen.sp14,
-                      color: R.color.ff181818,
-                      fontWeight: FontWeight.w500),
+                    fontSize: R.dimen.sp14,
+                    color: R.color.ff181818,
+                  ),
                   children: [
                     WidgetSpan(
                         child: Container(
@@ -88,6 +90,7 @@ class _OrderMeasurementNeedSwitchBarState
                         width: R.dimen.dp48,
                         height: R.dimen.dp28,
                         child: CupertinoSwitch(
+                            key: ValueKey(value),
                             activeColor: R.color.ffee9b5f,
                             value: value,
                             onChanged: _onChanged)),

@@ -2,21 +2,23 @@
  * @Description: 门店卡片
  * @Author: iamsmiling
  * @Date: 2021-06-08 16:08:22
- * @LastEditTime: 2021-06-08 17:02:04
+ * @LastEditTime: 2021-07-21 16:50:25
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
+import 'package:taoju5_c/domain/entity/store/store_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 
 class PhysicialStoreCard extends StatelessWidget {
-  const PhysicialStoreCard({Key? key}) : super(key: key);
+  final StoreEntity store;
+  const PhysicialStoreCard({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.storeDetail),
+      onTap: () => Get.toNamed(AppRoutes.storeDetail + "/${store.id}"),
       child: Container(
         width: R.dimen.dp200,
         height: R.dimen.dp158,
@@ -30,7 +32,7 @@ class PhysicialStoreCard extends StatelessWidget {
             Column(
               children: [
                 ChimeraImage(
-                  "https://i.loli.net/2021/04/13/2VkqWFU5sxwSQcu.png",
+                  store.image,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(R.dimen.sp7),
                       topRight: Radius.circular(R.dimen.sp7)),
@@ -41,7 +43,7 @@ class PhysicialStoreCard extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp20),
                   child: Text(
-                    "门店名称",
+                    "${store.name}",
                     style: TextStyle(
                         fontSize: R.dimen.sp12, fontWeight: FontWeight.w600),
                   ),
@@ -58,13 +60,13 @@ class PhysicialStoreCard extends StatelessWidget {
                           right: R.dimen.dp10,
                         ),
                         child: Text(
-                          "4.9分",
+                          "${store.score}分",
                           style: TextStyle(
                               color: R.color.ff5005, fontSize: R.dimen.sp10),
                         ),
                       ),
                       Text(
-                        "累计成交单数245",
+                        "${store.description}",
                         style: TextStyle(
                             color: R.color.ff00000, fontSize: R.dimen.sp10),
                       )
@@ -73,12 +75,16 @@ class PhysicialStoreCard extends StatelessWidget {
                 )
               ],
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(R.dimen.dp44 / 2),
-              child: Image.network(
-                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202003%2F26%2F20200326190143_vRnnf.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621503756&t=4c7d0cd048ba77776bc5261dd05c036a",
-                width: R.dimen.dp44,
-                height: R.dimen.dp44,
+            Positioned(
+              top: R.dimen.dp64,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(R.dimen.dp44 / 2),
+                child: Image.network(
+                  store.avatar,
+                  width: R.dimen.dp44,
+                  height: R.dimen.dp44,
+                  fit: BoxFit.fill,
+                ),
               ),
             )
           ],

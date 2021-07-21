@@ -2,26 +2,23 @@
  * @Description: 上传图片按钮
  * @Author: iamsmiling
  * @Date: 2021-04-19 11:37:51
- * @LastEditTime: 2021-07-12 15:17:34
+ * @LastEditTime: 2021-07-16 10:47:14
  */
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:taoju5_bc/utils/common_kit.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
-import 'package:http_parser/http_parser.dart';
 
 class UploadImageController extends GetxController {
   late int maxCount;
-  UploadImageController({this.maxCount = 5, required this.formData});
+  UploadImageController({this.maxCount = 5});
   List<Widget> images = [];
-  late dio.FormData? formData = dio.FormData();
+  late Map formData = {};
 
-  Future<dio.FormData?> pickImage() async {
+  Future pickImage() async {
     if (images.length >= maxCount) return null;
     List<AssetEntity>? assets = await AssetPicker.pickAssets(
       Get.context!,
@@ -34,15 +31,12 @@ class UploadImageController extends GetxController {
     //     enableCamera: true,
     //     materialOptions: MaterialOptions(
     //         allViewTitle: "所有照片", textOnNothingSelected: "暂未选中照片"));
-    List<dio.MultipartFile> files = [];
-
     Map<String, dynamic> map = {};
     for (AssetEntity item in assets) {
       Uint8List? buffer = await item.originBytes;
+      map["screenshot[${assets.indexOf(item)}]"] =
+          base64Encode(buffer?.toList() ?? []);
       if (buffer == null) continue;
-      String ext = CommonKit.getFileExt(item.id);
-      dio.MultipartFile multipartFile = dio.MultipartFile.fromBytes(buffer,
-          filename: item.id, contentType: MediaType("image", ext));
       images.add(Image.memory(
         buffer,
         width: R.dimen.dp56,
@@ -50,12 +44,9 @@ class UploadImageController extends GetxController {
         fit: BoxFit.contain,
       ));
       update();
-      files.add(multipartFile);
-      for (int i = 0; i < files.length; i++) {
-        map.addAll({"screentshot[$i]": files[i]});
-      }
     }
-    formData = dio.FormData.fromMap(map);
+
+    formData = map;
     return formData;
   }
 
@@ -69,19 +60,17 @@ class UploadImageButton extends StatelessWidget {
   final Color color;
   final double width;
   final double height;
-  final dio.FormData? formData;
-  const UploadImageButton(
-      {Key? key,
-      this.color = const Color(0xfff5f5f5),
-      this.width = 56,
-      this.height = 56,
-      required this.formData})
-      : super(key: key);
+  const UploadImageButton({
+    Key? key,
+    this.color = const Color(0xfff5f5f5),
+    this.width = 56,
+    this.height = 56,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UploadImageController>(
-        init: UploadImageController(formData: formData),
+        init: UploadImageController(),
         builder: (_) {
           return Container(
             child: Wrap(

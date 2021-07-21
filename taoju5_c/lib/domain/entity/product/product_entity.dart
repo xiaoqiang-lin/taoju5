@@ -2,7 +2,7 @@
  * @Description: 商品模型
  * @Author: iamsmiling
  * @Date: 2021-04-23 18:10:58
- * @LastEditTime: 2021-06-25 16:00:30
+ * @LastEditTime: 2021-07-21 10:19:14
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -18,6 +18,8 @@ class MallEntity {
 
   late List<ProductEntity> products;
 
+  late int totalPage;
+
   MallEntity.fromJson(Map json) {
     categories = JsonKit.asList(json["category_list"])
         .map((e) => CategoryEntity.fromJson(e))
@@ -25,6 +27,8 @@ class MallEntity {
     products = JsonKit.asList(json["goods_list"])
         .map((e) => ProductEntity.fromJson(e))
         .toList();
+    totalPage = JsonKit.asInt(json["page_count"]);
+    print("---$totalPage");
   }
 }
 
@@ -56,6 +60,8 @@ class ProductEntity {
 
   bool removed = false;
 
+  late double marketPrice;
+
   ProductEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
@@ -69,6 +75,7 @@ class ProductEntity {
     price = json["price"];
     browseId = json["browse_id"];
     size = json["pic_spec"];
+    marketPrice = JsonKit.asDouble(json["market_price"]);
   }
 
   double get _width {

@@ -2,7 +2,7 @@
  * @Description: 订单详情页面
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:40
- * @LastEditTime: 2021-07-12 10:49:44
+ * @LastEditTime: 2021-07-19 17:41:16
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,7 +68,7 @@ class OrderDetailPage extends GetView<OrderDetailController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                for (OrderActionButtonEntity a in _.actions)
+                for (OrderActionButtonEntity a in _.actions.reversed)
                   PrimaryButton(
                     text: a.text,
                     onPressed: () {

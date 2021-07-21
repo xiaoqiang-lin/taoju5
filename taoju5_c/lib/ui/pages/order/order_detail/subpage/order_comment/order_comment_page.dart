@@ -2,7 +2,7 @@
  * @Description: 订单评论
  * @Author: iamsmiling
  * @Date: 2021-05-26 09:33:25
- * @LastEditTime: 2021-07-12 15:13:13
+ * @LastEditTime: 2021-07-16 10:47:36
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +79,6 @@ class OrderCommentPage extends GetView<OrderCommentController> {
                 width: R.dimen.dp80,
                 height: R.dimen.dp80,
                 color: R.color.transparent,
-                formData: controller.formData,
               ),
             )
           ],

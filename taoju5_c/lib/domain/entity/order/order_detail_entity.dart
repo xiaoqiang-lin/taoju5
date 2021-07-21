@@ -2,7 +2,7 @@
  * @Description: 订单详情数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-18 09:27:53
- * @LastEditTime: 2021-07-12 17:24:33
+ * @LastEditTime: 2021-07-19 09:12:56
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -123,7 +123,7 @@ class OrderBillAmountEntity {
   late bool bold;
 
   OrderBillAmountEntity.fromJson(Map json) {
-    value = JsonKit.asDouble(json["value"]).toStringAsFixed(2);
+    value = json["value"];
     highlighted = JsonKit.asBool(json["color"]);
     bold = JsonKit.asBool(json["bold"]);
   }

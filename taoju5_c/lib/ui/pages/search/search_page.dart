@@ -2,7 +2,7 @@
  * @Description: 搜索窗帘
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:02:50
- * @LastEditTime: 2021-07-15 16:04:58
+ * @LastEditTime: 2021-07-16 16:50:37
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -59,7 +59,7 @@ class SearchPage extends GetView<SearchController> {
                           Container(
                             margin: EdgeInsets.only(left: R.dimen.dp3),
                             child: Text(
-                              "搜索您想找的内容",
+                              "${_.searchTip}",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: R.dimen.sp10,

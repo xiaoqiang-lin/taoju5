@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性选择
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:57:25
- * @LastEditTime: 2021-07-08 15:29:05
+ * @LastEditTime: 2021-07-19 15:57:41
  */
 import 'dart:convert';
 
@@ -54,7 +54,6 @@ class CurtainProductAttributeController
       measureDataArg.finished = true;
       switchIndex(1);
     } catch (err) {
-      print(err);
       measureDataArg.finished = false;
     } finally {
       update();
@@ -199,7 +198,7 @@ class CurtainProductAttributeController
           ],
         })
       };
-      product.attributeDesc =
+      product.specTip =
           "【${product.attribute.measureData.room.selectedOption?.name}】【${product.attribute.measureData.facade.value}】【${product.attribute.measureData.installMode.selectedOption?.name ?? ''}】【${product.attribute.measureData.openModeDescription}】【\n 宽:${product.attribute.measureData.size.widthM}m/高${product.attribute.measureData.size.heightM}m/离地距离:${product.attribute.measureData.groundClearance.value}cm";
       return value;
     });

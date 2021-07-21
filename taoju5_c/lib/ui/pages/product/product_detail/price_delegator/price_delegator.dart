@@ -2,7 +2,7 @@
  * @Description: 价格计算代理
  * @Author: iamsmiling
  * @Date: 2021-05-12 14:49:09
- * @LastEditTime: 2021-07-13 09:46:22
+ * @LastEditTime: 2021-07-19 14:04:15
  */
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
@@ -15,6 +15,33 @@ abstract class BaseProductPriceDelegator {
   double get totalPrice;
 
   BaseProductPriceDelegator(this.product);
+}
+
+///型材价格计算
+class SectionalBarProductPriceDelegator extends BaseProductPriceDelegator {
+  SectionalBarProductPriceDelegator(ProductDetailEntity product)
+      : super(product);
+
+  @override
+  double get totalPrice {
+    double t = (product.length ?? 0) * product.price * product.count;
+    product.totalPrice = t;
+    return t;
+  }
+}
+
+///成品价格计算
+class FinishedProductPriceDelegator extends BaseProductPriceDelegator {
+  FinishedProductPriceDelegator(ProductDetailEntity product) : super(product);
+
+  @override
+  double get totalPrice {
+    double t = (product.currentSku?.price ?? 0) * (product.count);
+    print(product.currentSku?.price);
+    print("++++++++++++——————————————————————————");
+    product.totalPrice = t;
+    return t;
+  }
 }
 
 ///窗帘类商品的基类
@@ -58,7 +85,11 @@ class RollingCurtainProductPriceDelegator
   RollingCurtainProductPriceDelegator(ProductDetailEntity product)
       : super(product);
   @override
-  double get totalPrice => unitPrice * area;
+  double get totalPrice {
+    double t = unitPrice * area;
+    product.totalPrice = t;
+    return t;
+  }
 }
 
 class FabricCurtainProductPriceDelegator
@@ -151,7 +182,7 @@ class FabricCurtainProductPriceDelegator
           sectionalbarPrice * widthM +
           accessoryPrice;
     }
-
+    product.totalPrice = tmp;
     return tmp;
   }
 }

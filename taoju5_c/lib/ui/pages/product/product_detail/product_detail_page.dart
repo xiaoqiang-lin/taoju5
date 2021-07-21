@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:04:58
- * @LastEditTime: 2021-07-08 11:24:19
+ * @LastEditTime: 2021-07-20 15:09:00
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,8 +49,6 @@ class ProductDetailPage extends StatelessWidget {
                       id: _.id,
                       like: _.product.like,
                     ),
-                    // IconButton(
-                    //     icon: Image.asset(R.image.hasCollected), onPressed: () {}),
                     IconButton(
                         icon:
                             Image.asset(R.image.share, color: R.color.ff00000),

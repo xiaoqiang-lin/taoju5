@@ -2,11 +2,12 @@
  * @Description: 商品规格选项chip
  * @Author: iamsmiling
  * @Date: 2021-04-25 16:13:58
- * @LastEditTime: 2021-07-09 11:13:17
+ * @LastEditTime: 2021-07-17 15:04:17
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/image/intertaive_photo_view.dart';
+import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -155,9 +156,9 @@ class _ProductSpecImageChip extends StatelessWidget {
                     height: w,
                     fit: BoxFit.cover,
                     enlarge: false,
+                    placeHolder: (_, __) => SizedBox.shrink(),
                     picture: PictureEntity(id: src, cover: src, bigImage: src),
-                    cacheWidth: 1000,
-                    cacheHeight: 1000,
+
                     // heroTag: src,
                     // magnifier: Image.asset(R.image.scale),
                     // magnifierMarginTop: R.dimen.dp7,
@@ -177,6 +178,7 @@ class _ProductSpecImageChip extends StatelessWidget {
                       openColor: Colors.transparent,
                       middleColor: Colors.transparent,
                       openElevation: 0,
+                      transitionType: ContainerTransitionType.fadeThrough,
                       openBuilder: (BuildContext context,
                           void Function({Object? returnValue}) action) {
                         return InteractivePhotoView(

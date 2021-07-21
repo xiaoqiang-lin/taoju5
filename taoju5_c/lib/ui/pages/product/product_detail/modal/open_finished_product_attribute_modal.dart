@@ -2,7 +2,7 @@
  * @Description: 成品弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:33:44
- * @LastEditTime: 2021-06-23 15:27:06
+ * @LastEditTime: 2021-07-19 14:49:19
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'package:taoju5_c/ui/pages/product/product_detail/modal/finished_product_
 
 Future openFinishedProductAttributeModal(BuildContext context,
     {required ProductDetailEntity product,
-    required WidgetBuilder footerBuilder}) {
+    required WidgetBuilder actionBuilder}) {
   return showModalPopUp(context, builder: (BuildContext context) {
     return ModalWrapper(builder: (BuildContext context) {
       return GetBuilder<FinishedProductAttributeController>(
@@ -145,8 +145,45 @@ Future openFinishedProductAttributeModal(BuildContext context,
                     ),
                   ),
                 ),
-                bottomNavigationBar: Builder(
-                  builder: footerBuilder,
+                bottomNavigationBar: Container(
+                  decoration:
+                      BoxDecoration(color: R.color.ffffffff, boxShadow: [
+                    BoxShadow(
+                        spreadRadius: 1,
+                        offset: Offset(0, -1),
+                        color: Colors.black.withAlpha(18))
+                  ]),
+                  height: kBottomNavigationBarHeight,
+                  padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+                  margin:
+                      EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: R.dimen.dp8, bottom: R.dimen.dp4),
+                            child: Text(
+                              "小计",
+                              style: TextStyle(fontSize: R.dimen.sp12),
+                            ),
+                          ),
+                          Text(
+                            "¥${_.priceDelegator.totalPrice.toStringAsFixed(2)}",
+                            key: ValueKey(_.priceDelegator.totalPrice),
+                            style: TextStyle(
+                                color: R.color.ffff5005,
+                                fontSize: R.dimen.sp15),
+                          )
+                        ],
+                      ),
+                      Builder(builder: actionBuilder)
+                    ],
+                  ),
                 ));
           });
     });

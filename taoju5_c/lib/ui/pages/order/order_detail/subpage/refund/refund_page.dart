@@ -2,7 +2,7 @@
  * @Description: 退款页面
  * @Author: iamsmiling
  * @Date: 2021-07-09 13:59:12
- * @LastEditTime: 2021-07-12 15:15:13
+ * @LastEditTime: 2021-07-16 09:56:14
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -96,7 +96,7 @@ class RefundPage extends GetView<RefundController> {
                                       margin:
                                           EdgeInsets.only(right: R.dimen.dp4),
                                       child: Text(
-                                        _.description,
+                                        _.arg.reason,
                                         style: TextStyle(
                                             fontSize: R.dimen.sp12,
                                             color: R.color.ff999999),
@@ -166,6 +166,7 @@ class RefundPage extends GetView<RefundController> {
                           TextFormField(
                             maxLines: 3,
                             maxLength: 200,
+                            onChanged: controller.setDescription,
                             style: TextStyle(fontSize: R.dimen.sp12),
                             buildCounter: (
                               BuildContext context, {
@@ -195,7 +196,6 @@ class RefundPage extends GetView<RefundController> {
                               width: R.dimen.dp56,
                               height: R.dimen.dp56,
                               color: R.color.transparent,
-                              formData: controller.arg.formData,
                             ),
                           )
                         ],
@@ -224,7 +224,7 @@ class RefundPage extends GetView<RefundController> {
             right: R.dimen.dp20),
         child: PrimaryButton(
           text: "提交",
-          onPressed: () {},
+          onPressed: controller.submit,
           margin: EdgeInsets.only(
             bottom: Get.mediaQuery.padding.bottom + R.dimen.dp8,
           ),

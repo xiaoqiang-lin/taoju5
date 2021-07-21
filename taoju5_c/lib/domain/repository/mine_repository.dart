@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:38:20
- * @LastEditTime: 2021-06-08 14:22:38
+ * @LastEditTime: 2021-07-16 10:55:45
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
@@ -56,7 +56,7 @@ class MineRepository {
 
   ///修改用户信息
   Future feedback({Map? params, dynamic formData}) =>
-      _api.feedback(params: params, formData: formData);
+      _api.feedback(formData: params);
 
   ///我的足迹
   Future<List<FootPrintEntity>> footprint({Map? params}) =>

@@ -2,14 +2,14 @@
  * @Description: 选择需要退款的商品
  * @Author: iamsmiling
  * @Date: 2021-07-12 16:41:16
- * @LastEditTime: 2021-07-15 17:57:13
+ * @LastEditTime: 2021-07-19 16:55:23
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
-import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/params/order/refund_product_entity.dart';
+import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/subpage/select_refund_product/select_refund_product_controller.dart';
@@ -27,7 +27,7 @@ class SelectRefundProductPage extends StatelessWidget {
         ),
         body: ListView.builder(
           itemBuilder: (BuildContext context, int i) {
-            OrderProductEntity o = _.order.products[i];
+            ProductAdaptorEntity o = _.products[i];
             return Container(
               padding: EdgeInsets.symmetric(vertical: R.dimen.dp20),
               decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class SelectRefundProductPage extends StatelessWidget {
                         margin: EdgeInsets.only(
                             left: R.dimen.dp15, right: R.dimen.dp6),
                         child: ChimeraImage(
-                          o.product.image,
+                          o.image,
                           width: R.dimen.dp85,
                           height: R.dimen.dp85,
                           fit: BoxFit.fill,
@@ -65,14 +65,14 @@ class SelectRefundProductPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              o.product.name,
+                              o.name,
                               style: TextStyle(
                                   fontSize: R.dimen.sp14,
                                   color: R.color.ff333333,
                                   fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              "¥${o.product.totalPrice}",
+                              "¥${o.totalPrice}",
                               style: TextStyle(fontSize: R.dimen.sp12),
                             )
                           ],
@@ -83,10 +83,7 @@ class SelectRefundProductPage extends StatelessWidget {
                             color: R.color.ff999999, fontSize: R.dimen.sp12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(o.product.skuName),
-                            Text("x${o.product.count}")
-                          ],
+                          children: [Text(o.skuName), Text("x${o.count}")],
                         ),
                       )
                     ],
@@ -95,7 +92,7 @@ class SelectRefundProductPage extends StatelessWidget {
               ),
             );
           },
-          itemCount: _.order.products.length,
+          itemCount: _.products.length,
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.only(
@@ -132,13 +129,12 @@ class SelectRefundProductPage extends StatelessWidget {
                     ? null
                     : () => Get.toNamed(
                         AppRoutes.orderDetail +
-                            "/${_.order.id}" +
+                            "/${_.orderId}" +
                             AppRoutes.refund,
                         arguments: RefundProductParamsEntity(
-                            products: _.selectedProducts
-                                .map((e) => e.product)
-                                .toList(),
-                            order: _.order)),
+                            products: _.selectedProducts,
+                            cancelOrderReason: _.arg.cancelOrderReason,
+                            orderId: "${_.orderId}")),
                 size: PrimaryButtonSize.middle,
               )
             ],

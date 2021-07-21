@@ -134,6 +134,8 @@ class CTheme {
           FloatingActionButtonThemeData(backgroundColor: R.color.ffee9b5f),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+              TextStyle(fontWeight: FontWeight.normal)),
           elevation: MaterialStateProperty.all(0),
           overlayColor: MaterialStateProperty.all(R.color.transparent),
           shape: MaterialStateProperty.all(StadiumBorder()),
@@ -148,6 +150,8 @@ class CTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
+              textStyle: MaterialStateProperty.all(
+                  TextStyle(fontWeight: FontWeight.normal)),
               elevation: MaterialStateProperty.all(0),
               overlayColor: MaterialStateProperty.all(R.color.transparent),
               shape: MaterialStateProperty.all(StadiumBorder()),
@@ -171,6 +175,8 @@ class CTheme {
                   MaterialStateProperty.all(Size(R.dimen.dp60, R.dimen.dp30)))),
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
+              textStyle: MaterialStateProperty.all(
+                  TextStyle(fontWeight: FontWeight.normal)),
               overlayColor: MaterialStateProperty.all(R.color.transparent),
               shape: MaterialStateProperty.all(StadiumBorder()),
               foregroundColor: MaterialStateProperty.resolveWith((states) {

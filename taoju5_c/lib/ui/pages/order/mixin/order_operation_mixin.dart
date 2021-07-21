@@ -2,11 +2,12 @@
  * @Description: 订单操作
  * @Author: iamsmiling
  * @Date: 2021-07-01 17:19:17
- * @LastEditTime: 2021-07-12 17:19:40
+ * @LastEditTime: 2021-07-19 09:22:24
  */
 import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
+import 'package:taoju5_c/domain/entity/params/order/refund_product_entity.dart';
 import 'package:taoju5_c/domain/repository/order_repository.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
@@ -25,7 +26,8 @@ mixin OrderOperationMixin {
             4: payBalance,
             5: logistics,
             6: receive,
-            8: refund,
+            7: refund,
+            8: batchRefund,
             9: delete
           };
 
@@ -93,13 +95,27 @@ mixin OrderOperationMixin {
     });
   }
 
-  ///批量退款
+  ///申请退款
   Future refund(OrderDetailEntity order, OrderActionButtonEntity? action) {
+    return Get.toNamed(
+            AppRoutes.orderDetail + "/${order.id}" + AppRoutes.refund,
+            arguments: RefundProductParamsEntity(
+                products: order.products.map((e) => e.product).toList(),
+                cancelOrderReason: order.cancelOrderReason,
+                orderId: "${order.id}")) ??
+        Future.value();
+  }
+
+  ///批量退款
+  Future batchRefund(OrderDetailEntity order, OrderActionButtonEntity? action) {
     return Get.toNamed(
             AppRoutes.orderDetail +
                 "/${order.id}" +
                 AppRoutes.selectRefundProduct,
-            arguments: order) ??
+            arguments: RefundProductParamsEntity(
+                products: order.products.map((e) => e.product).toList(),
+                cancelOrderReason: order.cancelOrderReason,
+                orderId: "${order.id}")) ??
         Future.value();
   }
 }

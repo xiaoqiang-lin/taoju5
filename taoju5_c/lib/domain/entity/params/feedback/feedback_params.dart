@@ -2,10 +2,9 @@
  * @Description: 反馈
  * @Author: iamsmiling
  * @Date: 2021-04-22 14:58:52
- * @LastEditTime: 2021-07-12 15:18:18
+ * @LastEditTime: 2021-07-16 10:58:45
  */
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
-import 'package:dio/dio.dart' as dio;
 
 ///反馈类型分为两类
 enum FeedbackType { bug, suggestion }
@@ -21,14 +20,13 @@ class FeedbackParamsEntity extends BaseParamsEntity {
   FeedbackType feedbackType = FeedbackType.bug;
   String? description;
   String? telephone;
-  late dio.FormData? formData = dio.FormData();
+  late Map formData = {};
 
   @override
   Map get params => {
         "feedback_type": feedbackType.code,
         "question": description,
         "contact_details": telephone,
-        "screenshot": formData
       };
 
   @override

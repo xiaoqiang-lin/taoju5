@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-21 15:31:05
- * @LastEditTime: 2021-07-08 15:10:03
+ * @LastEditTime: 2021-07-21 18:00:26
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -112,7 +112,7 @@ class _CarouselImageSlideState extends State<CarouselImageSlider> {
                       item.cover,
                       borderRadius: widget.borderRadius,
                       enlarge: false,
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.fill,
                       picture: item,
                       width: widget.width,
                       placeHolder: (BuildContext context, _) {

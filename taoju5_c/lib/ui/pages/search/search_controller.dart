@@ -2,7 +2,7 @@
  * @Description: 商品搜索
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:50:59
- * @LastEditTime: 2021-07-15 16:21:50
+ * @LastEditTime: 2021-07-16 16:51:05
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
@@ -36,6 +36,14 @@ class SearchController extends BaseFutureLoadStateController {
   SearchType type = _getSearchTypeFromCode(Get.parameters["search_type"] ?? '');
 
   late GetStorage box;
+
+  String get searchTip => searchTipMap[type] ?? "搜索您想找的内容";
+
+  Map<SearchType, String> get searchTipMap => {
+        SearchType.order: "搜索我的订单",
+        SearchType.product: "搜索您想找的内容",
+        SearchType.article: "搜索您想找的内容"
+      };
 
   Map<SearchType, Future Function({Map? params})> get loadDataMap => {
         SearchType.product: searchProducts,

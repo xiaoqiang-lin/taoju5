@@ -2,7 +2,7 @@
  * @Description: 业务逻辑相关的拦截器 （比如在商品加入购物成功之后需要刷新购物车页面的数据）
  * @Author: iamsmiling
  * @Date: 2021-05-06 11:15:44
- * @LastEditTime: 2021-07-07 17:30:59
+ * @LastEditTime: 2021-07-20 10:03:06
  */
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as g;

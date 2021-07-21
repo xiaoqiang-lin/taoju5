@@ -2,7 +2,7 @@
  * @Description: 不需要测量
  * @Author: iamsmiling
  * @Date: 2021-05-25 09:08:59
- * @LastEditTime: 2021-06-01 16:41:38
+ * @LastEditTime: 2021-07-20 17:32:24
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -11,6 +11,7 @@ import 'package:taoju5_c/res/R.dart';
 Future openNoMeasurementDialog(BuildContext context) {
   return showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding: EdgeInsets.only(

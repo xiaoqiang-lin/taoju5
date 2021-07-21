@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-21 10:35:04
- * @LastEditTime: 2021-04-20 11:27:18
+ * @LastEditTime: 2021-07-16 16:25:13
  */
 
 import 'package:flutter/material.dart';
@@ -137,6 +137,7 @@ class ProductListParentController extends GetxController
     Map map = {};
     map.addAll(model.params);
     map.addAll({"category_type": currentTabModel.id});
+    print(map);
     productListController.refreshData(parameters: map);
   }
 

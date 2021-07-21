@@ -2,7 +2,7 @@
  * @Description: 意向上门量尺时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 14:55:46
- * @LastEditTime: 2021-05-07 16:39:31
+ * @LastEditTime: 2021-07-20 16:12:14
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,18 +38,31 @@ class _WindowCountPickerBarState extends State<WindowCountPickerBar> {
       margin: EdgeInsets.only(top: R.dimen.dp10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "测量窗数",
             style: TextStyle(fontSize: R.dimen.sp14, color: R.color.ff181818),
           ),
-          Expanded(
-            child: ReadOnlyTextFormField(
-                hintText: "请选择测量窗数",
-                key: ValueKey(_value),
-                initialValue: _value,
-                onTap: _select),
-          ),
+          GestureDetector(
+            onTap: _select,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${_value ?? "请选择测量窗数"}",
+                  style: _value == null
+                      ? TextStyle(
+                          fontSize: R.dimen.sp11,
+                          color: R.color.ff999999,
+                        )
+                      : TextStyle(
+                          fontSize: R.dimen.sp14, color: R.color.ff333333),
+                ),
+                Image.asset(R.image.next)
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -90,10 +103,10 @@ class __WindowCountPickerViewState extends State<_WindowCountPickerView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            height: 128,
+            height: 156,
             margin: EdgeInsets.only(bottom: R.dimen.dp20),
             child: CupertinoPicker.builder(
-                itemExtent: 30,
+                itemExtent: 48,
                 onSelectedItemChanged: (int i) {
                   currentOption = options[i];
                 },
@@ -103,9 +116,9 @@ class __WindowCountPickerViewState extends State<_WindowCountPickerView> {
                     child: Text(
                       options[i] + "窗",
                       style: TextStyle(
-                          fontSize: R.dimen.sp15,
-                          color: R.color.ff1b1b1b,
-                          fontWeight: FontWeight.w600),
+                        fontSize: R.dimen.sp14,
+                        color: R.color.ff333333,
+                      ),
                     ),
                   );
                 }),
@@ -126,6 +139,7 @@ class __WindowCountPickerViewState extends State<_WindowCountPickerView> {
                   margin: EdgeInsets.only(left: R.dimen.dp10),
                   onPressed: () => Navigator.of(context).pop(currentOption),
                   mode: PrimaryButtonMode.elevatedButton,
+                  textStyle: TextStyle(fontWeight: FontWeight.normal),
                   size: PrimaryButtonSize.middle,
                 )
               ],

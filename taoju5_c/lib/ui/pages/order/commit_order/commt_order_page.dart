@@ -2,7 +2,7 @@
  * @Description: 提交订单ui
  * @Author: iamsmiling
  * @Date: 2021-04-28 11:16:33
- * @LastEditTime: 2021-07-14 15:05:03
+ * @LastEditTime: 2021-07-20 17:38:38
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -10,14 +10,14 @@ import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_behavior.dart';
 // ignore: unused_import
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
+import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 // ignore: unused_import
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/order/commit_order/commit_order_controller.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/ui/pages/order/commit_order/section/custom_product_section.dart';
-import 'package:taoju5_c/ui/pages/order/commit_order/section/finished_product_section.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order/section/measure_order_section.dart';
+import 'package:taoju5_c/ui/pages/order/commit_order/section/select_order_section.dart';
 import 'package:taoju5_c/ui/pages/order/widget/order_fulfillment_chart.dart';
-import 'package:taoju5_c/ui/pages/order/widget/order_note_fill_bar.dart';
 import 'package:taoju5_c/ui/pages/order/widget/order_term_of_service.dart';
 
 class CommitOrderPage extends GetView<CommitOrderController> {
@@ -139,37 +139,10 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                           ],
                         ),
                       ),
-                      Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-                          child: CustomProductSection(
-                            onNeedMeasureChanged: controller.setNeedMeasure,
-                            onInstallTimeChanged: controller.setInstallTime,
-                            onMeasureTimeChanged: controller.setMeasureTime,
-                            products: controller.customProducts,
-                            order: controller.order!,
-                          )),
-                      Container(
-                        height: R.dimen.dp10,
-                        color: R.color.fff5f5f5,
-                        width: R.dimen.width,
-                      ),
-                      Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-                          child: FinishedProductSection(
-                              products: controller.finishedProducts)),
-                      Container(
-                        height: R.dimen.dp10,
-                        color: R.color.fff5f5f5,
-                        width: R.dimen.width,
-                      ),
-                      Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-                          child: OrderNoteFillBar(
-                            onValueChanged: controller.setOrderRemark,
-                          )),
+                      if (controller.orderType == OrderType.measureOrder)
+                        MeasureOrderSection(controller: controller)
+                      else
+                        SelectOrderSection(controller: controller),
                       Container(
                         height: R.dimen.dp10,
                         color: R.color.fff5f5f5,
@@ -205,7 +178,7 @@ class CommitOrderPage extends GetView<CommitOrderController> {
                       ])),
                   PrimaryButton(
                     text: "提交订单",
-                    onPressed: controller.submit,
+                    onPressed: _.defaultAddress == null ? null : _.submit,
                     margin: EdgeInsets.only(left: R.dimen.dp12),
                     padding: EdgeInsets.symmetric(
                         vertical: R.dimen.dp10, horizontal: R.dimen.dp22),

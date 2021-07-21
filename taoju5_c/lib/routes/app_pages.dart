@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-07-15 16:09:44
+ * @LastEditTime: 2021-07-21 15:53:12
  */
 
 import 'package:get/get.dart';
@@ -112,8 +112,12 @@ import 'package:taoju5_c/ui/pages/search/search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/search_page.dart';
 import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_page.dart';
+import 'package:taoju5_c/ui/pages/soft_decoration/soft_decoration_list_binding.dart';
+import 'package:taoju5_c/ui/pages/soft_decoration/soft_decoration_list_page.dart';
 import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_binding.dart';
 import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_page.dart';
+import 'package:taoju5_c/ui/pages/store/store_list/store_list_binding.dart';
+import 'package:taoju5_c/ui/pages/store/store_list/store_list_page.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_binding.dart';
 import 'package:taoju5_c/ui/pages/video/video_player_page.dart';
 
@@ -324,7 +328,7 @@ class AppPages {
         page: () => CommitOrderPage(),
         binding: CommitOrderBinding()),
     GetPage(
-        name: AppRoutes.commitOrderSuccess,
+        name: AppRoutes.commitOrderSuccess + "/:order_id",
         page: () => CommitOrderSuccessPage(),
         binding: CommitOrderSuccessBinding()),
     GetPage(
@@ -399,7 +403,7 @@ class AppPages {
         binding: SceneCategoryBinding(),
         children: [
           GetPage(
-              name: AppRoutes.sceneList + "/:id",
+              name: AppRoutes.sceneList,
               page: () => SceneListPage(),
               binding: SceneListBinding())
         ]),
@@ -413,15 +417,26 @@ class AppPages {
 
     ///门店详情
     GetPage(
-      name: AppRoutes.storeDetail,
+      name: AppRoutes.storeDetail + "/:id",
       page: () => StoreDetailPage(),
       binding: StoreDetailBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.storeList,
+      page: () => StoreListPage(),
+      binding: StoreListBinding(),
     ),
 
     GetPage(
       name: AppRoutes.selectProduct,
       page: () => ProductSelectableListPage(),
       binding: ProductSelectableListBinding(),
-    )
+    ),
+
+    ///软装列表
+    GetPage(
+        name: AppRoutes.softDecorationList,
+        page: () => SoftDecorationListPage(),
+        binding: SoftDecorationListBinding())
   ];
 }

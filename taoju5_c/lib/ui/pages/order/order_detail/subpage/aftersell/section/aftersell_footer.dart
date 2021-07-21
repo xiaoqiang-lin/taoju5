@@ -94,9 +94,7 @@ class AfterSellFooter extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                             top: R.dimen.dp7, right: R.dimen.dp7),
-                        child: UploadImageButton(
-                          formData: controller.formData,
-                        ),
+                        child: UploadImageButton(),
                       )
                     ],
                   ),

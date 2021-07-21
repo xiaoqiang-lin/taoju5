@@ -2,7 +2,7 @@
  * @Description: 创建订单参数
  * @Author: iamsmiling
  * @Date: 2021-05-06 10:35:11
- * @LastEditTime: 2021-07-06 17:55:23
+ * @LastEditTime: 2021-07-20 16:15:26
  */
 
 import 'package:taoju5_c/domain/entity/params/base_params_entity.dart';
@@ -63,7 +63,7 @@ class CreateOrderExtraParamsEntity extends BaseParamsEntity {
   CreateOrderExtraParamsEntity(
       {this.deposit = 100,
       this.installTime,
-      this.windowCount = '20',
+      this.windowCount,
       this.measureTime});
 
   @override

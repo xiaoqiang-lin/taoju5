@@ -2,7 +2,7 @@
  * @Description: 订单详情
  * @Author: iamsmiling
  * @Date: 2021-05-17 18:24:05
- * @LastEditTime: 2021-07-12 17:15:50
+ * @LastEditTime: 2021-07-19 09:24:55
  */
 
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';

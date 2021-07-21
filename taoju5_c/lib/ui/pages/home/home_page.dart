@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-07-15 11:19:36
+ * @LastEditTime: 2021-07-21 17:58:38
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,6 @@ import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_sectio
 import 'package:taoju5_c/ui/pages/home/section/home_physicial_store_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_scene_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_special_offer_prefecture_section.dart';
-import 'package:taoju5_c/ui/pages/home/section/home_special_topic_section.dart';
 
 import 'home_controller.dart';
 import 'section/home_banner_section.dart';
@@ -91,15 +90,23 @@ class HomePage extends StatelessWidget {
                     child: CustomScrollView(
                       controller: _.scrollController,
                       slivers: [
-                        SliverToBoxAdapter(child: HomeBannerSection()),
-                        SliverToBoxAdapter(child: HomeSceneSection()),
-                        SliverToBoxAdapter(child: HomeCustomMadeSection()),
                         SliverToBoxAdapter(
-                            child: HomeDecorationPrefectureSection()),
-                        SliverToBoxAdapter(child: HomePhysicialStoreSection()),
+                            child: HomeBannerSection(ads: _.home.ads)),
                         SliverToBoxAdapter(
-                            child: HomeSpecialOfferPrefectureSection()),
-                        SliverToBoxAdapter(child: HomeSpecialTopicSection()),
+                            child: HomeSceneSection(scene: _.home.scene)),
+                        SliverToBoxAdapter(
+                            child:
+                                HomeCustomMadeSection(curtain: _.home.curtain)),
+                        SliverToBoxAdapter(
+                            child: HomeDecorationPrefectureSection(
+                                soft: _.home.soft)),
+                        SliverToBoxAdapter(
+                            child:
+                                HomePhysicialStoreSection(store: _.home.store)),
+                        SliverToBoxAdapter(
+                            child: HomeSpecialOfferPrefectureSection(
+                                special: _.home.special)),
+                        // SliverToBoxAdapter(child: HomeSpecialTopicSection()),
                         SliverToBoxAdapter(
                           child: CommendationFragment(
                             scrollController: _.scrollController,

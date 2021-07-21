@@ -2,7 +2,7 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-07-15 11:19:53
+ * @LastEditTime: 2021-07-20 18:21:55
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -106,87 +106,132 @@ class SchoolPage extends GetView<SchoolParentController> {
                                 autoRemove: false,
                                 tag: "${c.id}",
                                 builder: (_) {
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: R.dimen.dp20),
-                                    child: StaggeredGridView.countBuilder(
-                                      padding: EdgeInsets.zero,
-                                      crossAxisCount: 4,
-                                      itemCount: _.courses.length,
-                                      mainAxisSpacing: R.dimen.dp15,
-                                      crossAxisSpacing: R.dimen.dp16,
-                                      staggeredTileBuilder: (index) {
-                                        return StaggeredTile.fit(2);
-                                      },
-                                      itemBuilder:
-                                          (BuildContext context, int i) {
-                                        CourseEntity item = _.courses[i];
-                                        return GestureDetector(
-                                          onTap: item.isVideo
-                                              ? () => Get.toNamed(
-                                                  AppRoutes.videoPlayer +
-                                                      "/${item.id}")
-                                              : () => Get.toNamed(
-                                                  AppRoutes.articleDetail +
-                                                      "/${item.id}",
-                                                  arguments: item.type),
-                                          child: Stack(
-                                            children: [
-                                              Container(
-                                                width: (assignableWidth -
-                                                        R.dimen.dp15) /
-                                                    2.00,
-                                                height: (assignableWidth -
-                                                            R.dimen.dp15) /
-                                                        2.00 *
-                                                        (item.aspectRatio) +
-                                                    48,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                  return FutureLoadStateBuilder<
+                                          SchoolController>(
+                                      controller: _,
+                                      tag: "${c.id}",
+                                      builder: (_) {
+                                        return Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: R.dimen.dp20),
+                                          child: StaggeredGridView.countBuilder(
+                                            padding: EdgeInsets.zero,
+                                            crossAxisCount: 4,
+                                            itemCount: _.courses.length,
+                                            mainAxisSpacing: R.dimen.dp15,
+                                            crossAxisSpacing: R.dimen.dp16,
+                                            staggeredTileBuilder: (index) {
+                                              return StaggeredTile.fit(2);
+                                            },
+                                            itemBuilder:
+                                                (BuildContext context, int i) {
+                                              CourseEntity item = _.courses[i];
+                                              return GestureDetector(
+                                                onTap: item.isVideo
+                                                    ? () => Get.toNamed(
+                                                        AppRoutes.videoPlayer +
+                                                            "/${item.id}")
+                                                    : () => Get.toNamed(
+                                                        AppRoutes
+                                                                .articleDetail +
+                                                            "/${item.id}",
+                                                        arguments: item.type),
+                                                child: Stack(
                                                   children: [
-                                                    ChimeraImage(
-                                                      _.courses[i].cover,
+                                                    Container(
                                                       width: (assignableWidth -
                                                               R.dimen.dp15) /
                                                           2.00,
                                                       height: (assignableWidth -
-                                                              R.dimen.dp15) /
-                                                          2.00 *
-                                                          (item.aspectRatio),
-                                                      fit: BoxFit.fill,
+                                                                  R.dimen
+                                                                      .dp15) /
+                                                              2.00 *
+                                                              (item
+                                                                  .aspectRatio) +
+                                                          48,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          ChimeraImage(
+                                                            _.courses[i].cover,
+                                                            width: (assignableWidth -
+                                                                    R.dimen
+                                                                        .dp15) /
+                                                                2.00,
+                                                            height: (assignableWidth -
+                                                                    R.dimen
+                                                                        .dp15) /
+                                                                2.00 *
+                                                                (item
+                                                                    .aspectRatio),
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .only(
+                                                                    top: R.dimen
+                                                                        .dp10,
+                                                                    bottom: R
+                                                                        .dimen
+                                                                        .dp6),
+                                                            child: Text(
+                                                              item.title,
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                  fontSize: R
+                                                                      .dimen
+                                                                      .sp12),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        right: R
+                                                                            .dimen
+                                                                            .dp6),
+                                                                child: Image
+                                                                    .asset(R
+                                                                        .image
+                                                                        .eye),
+                                                              ),
+                                                              Text(
+                                                                item.description,
+                                                                style: TextStyle(
+                                                                    fontSize: R
+                                                                        .dimen
+                                                                        .sp10,
+                                                                    color: R
+                                                                        .color
+                                                                        .ff999999),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: R.dimen.dp10),
-                                                      child: Text(
-                                                        item.desc,
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                R.dimen.sp12),
+                                                    Positioned(
+                                                      top: R.dimen.dp10,
+                                                      right: R.dimen.dp10,
+                                                      child: Visibility(
+                                                        child: Image.asset(
+                                                            R.image.video),
+                                                        visible: item.isVideo,
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                              ),
-                                              Positioned(
-                                                top: R.dimen.dp10,
-                                                right: R.dimen.dp10,
-                                                child: Visibility(
-                                                  child: Image.asset(
-                                                      R.image.video),
-                                                  visible: item.isVideo,
-                                                ),
-                                              )
-                                            ],
+                                              );
+                                            },
                                           ),
                                         );
-                                      },
-                                    ),
-                                  );
+                                      });
                                 })
                         ],
                       ))

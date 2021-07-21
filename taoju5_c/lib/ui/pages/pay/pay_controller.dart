@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-30 11:04:06
- * @LastEditTime: 2021-07-15 10:40:33
+ * @LastEditTime: 2021-07-17 17:08:00
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/params/order/create_order_params.dart';
@@ -16,6 +16,7 @@ import 'package:taoju5_c/routes/app_routes.dart';
 class PayController extends GetxController {
   late double price;
   late PayStrategy payStrategy;
+  late PayOrderEntity payOrder;
 
   CreateOrderParamsEntity arg;
   PayController({required this.arg}) {
@@ -41,7 +42,7 @@ class PayController extends GetxController {
   void afterPaySuccess() {
     Get.back();
     Get.back();
-    Get.toNamed(AppRoutes.commitOrderSuccess);
+    Get.toNamed(AppRoutes.commitOrderSuccess + "/${payOrder.orderId}");
   }
 
   void onClose() {}
@@ -93,6 +94,7 @@ class PayController extends GetxController {
     // return Get.toNamed(AppRoutes.commitOrderSuccess);
 
     return sendPayRequest().then((PayOrderEntity value) {
+      payOrder = value;
       payStrategy.pay(value, callback: afterPaySuccess);
     });
   }

@@ -2,7 +2,7 @@
  * @Description: 商品适配器卡片
  * @Author: iamsmiling
  * @Date: 2021-05-14 17:07:23
- * @LastEditTime: 2021-06-11 16:09:44
+ * @LastEditTime: 2021-07-19 15:24:44
  */
 
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class ProductAdaptorCard extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Text("${product.description}",
-                                    maxLines: 3,
+                                    maxLines: 5,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: R.dimen.sp12,

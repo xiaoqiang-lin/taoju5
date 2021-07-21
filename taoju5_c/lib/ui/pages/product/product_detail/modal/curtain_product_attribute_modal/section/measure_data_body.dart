@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-07-02 14:56:15
- * @LastEditTime: 2021-07-08 14:50:46
+ * @LastEditTime: 2021-07-19 15:53:19
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
@@ -23,11 +23,9 @@ class MeasureDataBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(
-          child: RoomExpansionPanel(
-              room: product.attribute.measureData.room,
-              onRoomChanged: controller.selectRoom),
-        ),
+        RoomExpansionPanel(
+            room: product.attribute.measureData.room,
+            onRoomChanged: controller.selectRoom),
         WindowPatternExpansionPanel(
           measureData: product.attribute.measureData,
           onWindowFacadeChanged: controller.selectWindow,

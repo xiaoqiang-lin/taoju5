@@ -2,7 +2,7 @@
  * @Description: 订单筛选面板
  * @Author: iamsmiling
  * @Date: 2021-05-25 15:42:27
- * @LastEditTime: 2021-06-08 06:05:07
+ * @LastEditTime: 2021-07-19 09:32:47
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
@@ -40,6 +40,7 @@ Future<int?> showOrderFilterModal(BuildContext ctx,
                     radius: R.dimen.sp7,
                     constraints: BoxConstraints(maxWidth: w, minWidth: w),
                     size: PrimaryButtonSize.middle,
+                    textStyle: TextStyle(fontSize: R.dimen.sp12),
                     padding: EdgeInsets.symmetric(vertical: R.dimen.dp9),
                     onPressed: () =>
                         Get.back(result: _.categories.indexOf(tab)),

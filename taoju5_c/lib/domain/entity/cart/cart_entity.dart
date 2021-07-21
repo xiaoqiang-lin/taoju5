@@ -2,7 +2,7 @@
  * @Description: 购物车模型
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:55:21
- * @LastEditTime: 2021-06-01 10:58:51
+ * @LastEditTime: 2021-07-20 10:32:28
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -62,6 +62,19 @@ class CartEntity {
         .toList();
     args = JsonKit.asMap(json["wc_attr"]);
     craftId = JsonKit.asInt(json["process_method"]);
-    print("***********************--------------------------");
+  }
+
+  void reAssign(CartEntity c) {
+    id = c.id;
+    count = c.count;
+    checked = c.checked;
+    description = c.description;
+    image = c.image;
+    totalPrice = c.totalPrice;
+    unitPrice = c.unitPrice;
+    productName = c.productName;
+    productId = c.productId;
+    skuId = c.skuId;
+    skuName = c.skuName;
   }
 }

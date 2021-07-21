@@ -2,7 +2,7 @@
  * @Description: 订单相关
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:03:16
- * @LastEditTime: 2021-07-13 10:32:27
+ * @LastEditTime: 2021-07-17 16:21:18
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -97,4 +97,8 @@ class OrderAPI {
   ///订单操作弹窗提醒文字
   Future<BaseEntity> operationHint({Map? params}) =>
       _http.get("/app/order/orderOperationMessage", params: params);
+
+  ///检验地址是否有效
+  Future<BaseEntity> validateAddress({Map? params}) =>
+      _http.get("/app/order/meaServiceScope", params: params);
 }

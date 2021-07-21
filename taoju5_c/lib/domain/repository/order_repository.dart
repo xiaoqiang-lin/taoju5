@@ -2,7 +2,7 @@
  * @Description: 订单相关
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:02:45
- * @LastEditTime: 2021-07-13 10:45:55
+ * @LastEditTime: 2021-07-17 16:24:33
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
@@ -182,5 +182,11 @@ class OrderRepository {
   Future<PreOrderInfoEntity> orderInfo(Map params) =>
       _api.orderInfo(params).then((value) {
         return PreOrderInfoEntity.fromJson(value.data);
+      });
+
+  ///检验地址是否有效
+  Future<String> validateAddress({Map? params}) =>
+      _api.validateAddress(params: params).then((value) {
+        return value.data;
       });
 }

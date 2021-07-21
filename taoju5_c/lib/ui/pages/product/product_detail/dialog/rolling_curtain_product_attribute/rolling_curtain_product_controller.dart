@@ -2,7 +2,7 @@
  * @Description: 卷帘商品逻辑处理
  * @Author: iamsmiling
  * @Date: 2021-05-24 10:38:13
- * @LastEditTime: 2021-07-09 11:26:07
+ * @LastEditTime: 2021-07-20 15:00:04
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/domain/entity/params/cart/add_to_cart_params.dart';
@@ -76,8 +76,13 @@ class RollingCurtainProductAttributeController extends GetxController {
   Future addToCart() {
     CartRepository repository = CartRepository();
     return saveMeasureData().then((value) {
+      product.measureId = value;
+
       ///此时还没有获取到测量id ，初始化为-1
-      AddToCartParamsEntity arg = AddToCartParamsEntity(product: product);
+      AddToCartParamsEntity arg = AddToCartParamsEntity(
+        product: product,
+      );
+
       repository.addToCart(params: arg.params);
     }).catchError((err) {
       print(err);

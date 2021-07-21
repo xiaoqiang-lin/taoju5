@@ -2,12 +2,11 @@
  * @Description: 意向上门量尺时间选择
  * @Author: iamsmiling
  * @Date: 2021-05-06 14:55:46
- * @LastEditTime: 2021-07-14 09:53:49
+ * @LastEditTime: 2021-07-17 16:00:08
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
-import 'package:taoju5_c/component/textfield/readonly_text_form_field.dart';
 import 'package:taoju5_c/res/R.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -61,21 +60,43 @@ class _MeasureTimePickerBarState extends State<MeasureTimePickerBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(top: R.dimen.dp10),
+      margin: EdgeInsets.only(top: R.dimen.dp15),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "意向上门测量时间",
             style: TextStyle(fontSize: R.dimen.sp14, color: R.color.ff181818),
           ),
-          Expanded(
-            child: ReadOnlyTextFormField(
-                key: ValueKey(_value),
-                initialValue: _value,
-                hintText: "请选择期望上门时间",
-                onTap: _select),
-          ),
+
+          GestureDetector(
+            onTap: _select,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "${_value ?? "请选择期望上门时间"}",
+                  style: _value == null
+                      ? TextStyle(
+                          fontSize: R.dimen.sp11,
+                          color: R.color.ff999999,
+                        )
+                      : TextStyle(
+                          fontSize: R.dimen.sp14, color: R.color.ff333333),
+                ),
+                Image.asset(R.image.next)
+              ],
+            ),
+          )
+
+          // Expanded(
+          //   child: ReadOnlyTextFormField(
+          //       key: ValueKey(_value),
+          //       initialValue: _value,
+          //       hintText: "请选择期望上门时间",
+          //       onTap: _select),
+          // ),
         ],
       ),
     );

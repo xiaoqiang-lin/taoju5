@@ -2,7 +2,7 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:49:59
- * @LastEditTime: 2021-07-12 15:58:33
+ * @LastEditTime: 2021-07-16 14:54:56
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -11,11 +11,12 @@ import 'package:taoju5_bc/utils/common_kit.dart';
 class CourseEntity {
   late int id;
   late String cover;
-  late String desc;
+  late String title;
   late bool isVideo;
   late double ratio;
   late String href;
   late String size;
+  late String description;
   int? type;
 
   CourseEntity(
@@ -23,7 +24,7 @@ class CourseEntity {
       required this.cover,
       required this.isVideo,
       required this.ratio,
-      required this.desc,
+      required this.title,
       this.type,
       required this.href});
 
@@ -32,7 +33,8 @@ class CourseEntity {
     cover = json["image"];
     isVideo = json["article_type"] == 2;
     size = json["pic_spec"] ?? "";
-    desc = json["title"];
+    title = json["title"];
+    description = json["browse"];
   }
 
   double get _width {

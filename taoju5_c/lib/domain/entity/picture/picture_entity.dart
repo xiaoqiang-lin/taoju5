@@ -2,7 +2,7 @@
  * @Description: 图片
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:42:29
- * @LastEditTime: 2021-07-08 15:13:15
+ * @LastEditTime: 2021-07-21 17:59:20
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/rendering.dart';
@@ -19,11 +19,13 @@ class PictureEntity {
   late String bigImage;
   late String thumbnail;
 
-  PictureEntity(
-      {required this.id,
-      required this.cover,
-      required this.bigImage,
-      this.size = ""});
+  PictureEntity({
+    required this.id,
+    required this.cover,
+    required this.bigImage,
+    this.size = "",
+    this.thumbnail = "",
+  });
 
   PictureEntity.fromJson(Map json) {
     id = "${json["pic_id"]}";

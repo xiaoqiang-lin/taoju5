@@ -2,7 +2,7 @@
  * @Description: cart
  * @Author: iamsmiling
  * @Date: 2021-04-21 14:33:06
- * @LastEditTime: 2021-07-05 09:55:05
+ * @LastEditTime: 2021-07-20 10:47:01
  */
 
 import 'package:flutter/material.dart';
@@ -26,7 +26,11 @@ import 'dialog/remove_from_cart_dialog.dart' as dialog;
 class CartController extends ChimeraRefreshController<List<CartEntity>> {
   CartRepository _repository = CartRepository();
 
-  List<CartEntity> carts = [];
+  // List<CartEntity> carts = [];
+
+  List<CartEntity> carts = <CartEntity>[];
+
+  RxList<CartEntity> selectedCarts = (<CartEntity>[]).obs;
 
   @override
   void onInit() {
@@ -73,13 +77,15 @@ class CartController extends ChimeraRefreshController<List<CartEntity>> {
       ProductDetailEntity product = ProductDetailEntity();
       product.length = cart.length;
       product.count = cart.count;
+      product.price = cart.unitPrice;
+
       return openSectionalbarProductAttributeDialog(Get.context!,
           product: product, footerBuilder: (BuildContext context) {
         return Container(
           alignment: Alignment.center,
           child: PrimaryButton(
             text: "确定",
-            onPressed: () {},
+            onPressed: () => modifySectionalbarAttribute(cart, product),
             size: PrimaryButtonSize.large,
           ),
         );
@@ -94,41 +100,12 @@ class CartController extends ChimeraRefreshController<List<CartEntity>> {
       product.count = cart.count;
 
       modal.openFinishedProductAttributeModal(Get.context!, product: product,
-          footerBuilder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: R.color.ffe5e5e5))),
-          height: kBottomNavigationBarHeight,
-          padding: EdgeInsets.symmetric(
-              horizontal: R.dimen.dp20, vertical: R.dimen.dp7),
-          margin: EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "小计：",
-                    style: TextStyle(fontSize: R.dimen.sp12),
-                  ),
-                  Text(
-                    "¥${product.totalPrice.toStringAsFixed(2)}",
-                    key: ValueKey(product.totalPrice),
-                    style: TextStyle(
-                        color: R.color.ffff5005, fontSize: R.dimen.sp14),
-                  )
-                ],
-              ),
-              PrimaryButton(
-                text: "确定",
-                onPressed: () {},
-                constraints: BoxConstraints(
-                    minHeight: R.dimen.dp45, minWidth: R.dimen.dp200),
-              )
-            ],
-          ),
+          actionBuilder: (BuildContext context) {
+        return PrimaryButton(
+          text: "确定",
+          onPressed: () => modifyCartSku(cart, product),
+          constraints:
+              BoxConstraints(minHeight: R.dimen.dp45, minWidth: R.dimen.dp200),
         );
       });
     });
@@ -136,18 +113,32 @@ class CartController extends ChimeraRefreshController<List<CartEntity>> {
 
   void select(CartEntity cart, bool checked) {
     cart.checked = checked;
-    totalPrice.value = caculate();
-    checkedAll.value = carts.every((e) => e.checked);
+    update();
+    selectedCarts.value = carts.where((e) => e.checked).toList();
   }
+
+  double get totalPrice {
+    if (selectedCarts.isEmpty) return 0;
+    double s = 0;
+    selectedCarts.forEach((e) {
+      s += e.totalPrice;
+    });
+    return s;
+  }
+
+  bool get checkedAll => carts.isEmpty ? false : carts.every((e) => e.checked);
+
+  List<ProductAdaptorEntity> get selectedProducts => selectedCarts
+      .where((e) => e.checked)
+      .map((e) => ProductAdaptorEntity.fromCartEntity(e))
+      .toList();
 
   void selectAll(bool flag) {
     carts.forEach((e) {
       e.checked = flag;
-      print("全选----$flag");
     });
-    checkedAll.value = flag;
-    totalPrice.value = caculate();
     update();
+    selectedCarts.value = carts.where((e) => e.checked).toList();
     // checkedAll.value = carts.every((e) => e.checked);
   }
 
@@ -155,38 +146,39 @@ class CartController extends ChimeraRefreshController<List<CartEntity>> {
     return _repository.modifyCartCount(params: {
       "num": count,
       "cart_id": cart.id,
-      "sku_id": cart.skuId
+      "sku_id": cart.skuId,
     }).then((value) {
       cart.count = count;
-      cart.totalPrice = value;
-      totalPrice.value = caculate();
+      // cart.totalPrice = value;
+      Get.back();
     });
   }
 
-  final totalPrice = 0.0.obs;
-  final checkedAll = false.obs;
-
-  ///计算总价
-  double caculate() {
-    double t = 0;
-    for (int i = 0; i < carts.length; i++) {
-      CartEntity item = carts[i];
-      double price = !item.checked
-          ? 0
-          : item.productType is FinishedProductType
-              ? item.unitPrice * item.count
-              : item.totalPrice;
-      t += price;
-    }
-    print("总价");
-    print(t);
-    return t;
+  Future modifyCartSku(CartEntity cart, ProductDetailEntity product) {
+    return _repository.modifyCartSku(params: {
+      "num": product.count,
+      "cart_id": cart.id,
+      "sku_id": product.currentSku?.id,
+      "length": product.length
+    }).then((value) {
+      cart.reAssign(value);
+      Get.back();
+    }).whenComplete(update);
   }
 
-  List<ProductAdaptorEntity> get selectedProducts => carts
-      .where((e) => e.checked)
-      .map((e) => ProductAdaptorEntity.fromCartEntity(e))
-      .toList();
+  ///修改型材属性
+  Future modifySectionalbarAttribute(
+      CartEntity cart, ProductDetailEntity product) {
+    return _repository.modifyCartSku(params: {
+      "num": product.count,
+      "cart_id": cart.id,
+      "sku_id": cart.skuId,
+      "length": product.length
+    }).then((value) {
+      cart.reAssign(value);
+      Get.back();
+    }).whenComplete(update);
+  }
 
   @override
   Future loadMore({Map? params}) {

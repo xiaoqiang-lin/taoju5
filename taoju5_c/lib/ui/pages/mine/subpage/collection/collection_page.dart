@@ -2,12 +2,14 @@
  * @Description: 收藏夹
  * @Author: iamsmiling
  * @Date: 2021-06-08 15:57:00
- * @LastEditTime: 2021-06-11 16:27:24
+ * @LastEditTime: 2021-07-16 15:23:26
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/mine/subpage/collection/collection_controller.dart';
+
+import 'fragment/product_collection_fragment.dart';
 
 class CollectionPage extends GetView<CollectionController> {
   const CollectionPage({Key? key}) : super(key: key);
@@ -33,7 +35,7 @@ class CollectionPage extends GetView<CollectionController> {
           ),
         ),
         body: TabBarView(children: [
-          Text("商品"),
+          ProductCollectionFragment(),
           Text("门店"),
           Text("搭配方案"),
           Text("专题文章"),

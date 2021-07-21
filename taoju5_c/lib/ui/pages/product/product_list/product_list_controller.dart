@@ -2,7 +2,7 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-07-15 10:01:18
+ * @LastEditTime: 2021-07-21 18:07:21
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -125,6 +125,10 @@ class ProductListParentController
 
   refreshData() {
     if (!Get.isRegistered<ProductListController>(tag: currentTag)) return;
+    print({
+      "sort": sortTye.sort,
+      "order": sortTye.order,
+    });
     return Get.find<ProductListController>(tag: currentTag)
         .refreshData(params: {
       "sort": sortTye.sort,
@@ -186,20 +190,17 @@ class ProductListController
 
   ProductListController(this.category);
 
-  // ProductListParentController get parentController =>
-  //     Get.find<ProductListParentController>();
-
   @override
   Future<List<ProductEntity>> loadData({Map? params}) {
     Map map = {
       "category_id": category.id,
-      "order_goods_id": Get.parameters["order_goods_id"]
+      "order_goods_id": Get.parameters["order_goods_id"],
+      "is_hot": category.isHot,
+      ...(params ?? {})
     };
     return repository.productList(map).then((value) {
-      list = value.products;
-      print("++++++++__________");
-      print("yyyyyyyy-----------");
-      return list;
+      totalPage = value.totalPage;
+      return value.products;
       // return value;
     });
   }
