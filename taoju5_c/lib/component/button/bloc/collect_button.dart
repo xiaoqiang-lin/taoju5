@@ -2,7 +2,7 @@
  * @Description: 收藏按钮
  * @Author: iamsmiling
  * @Date: 2021-06-08 17:04:06
- * @LastEditTime: 2021-06-08 17:43:15
+ * @LastEditTime: 2021-07-21 18:23:25
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/animated_button.dart';
@@ -70,6 +70,7 @@ class _CollectButtonState extends State<CollectButton> {
   @override
   Widget build(BuildContext context) {
     return AnimatedButton(
+        key: ValueKey(like),
         active: like,
         onPressed: collect,
         activeWidget: Image.asset(R.image.hasCollected),

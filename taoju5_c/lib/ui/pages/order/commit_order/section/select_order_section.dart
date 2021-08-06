@@ -2,7 +2,7 @@
  * @Description: 选品单
  * @Author: iamsmiling
  * @Date: 2021-07-20 15:48:28
- * @LastEditTime: 2021-07-20 15:58:00
+ * @LastEditTime: 2021-07-23 11:30:05
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/res/R.dart';
@@ -42,6 +42,11 @@ class SelectOrderSection extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
               child: FinishedProductSection(
                   products: controller.finishedProducts)),
+          Container(
+            height: R.dimen.dp10,
+            color: R.color.fff5f5f5,
+            width: R.dimen.width,
+          ),
           Container(
               padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
               child: OrderNoteFillBar(

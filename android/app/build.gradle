@@ -136,6 +136,7 @@ android {
 
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
 
 
@@ -151,7 +152,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.sk.flutterpatch:flutterpatch:0.0.6'
+    implementation 'com.sk.flutterpatch:flutterpatch:0.0.7'
     implementation "com.android.support:multidex:1.0.1" // 多dex配置
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.14.10'

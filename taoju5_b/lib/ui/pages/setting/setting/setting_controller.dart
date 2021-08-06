@@ -2,7 +2,7 @@
  * @Description: SettingController
  * @Author: iamsmiling
  * @Date: 2020-12-22 15:53:57
- * @LastEditTime: 2021-04-17 17:39:32
+ * @LastEditTime: 2021-07-26 09:10:52
  */
 
 import 'package:get/get.dart';
@@ -38,7 +38,7 @@ class SettingController extends GetxController {
         ///清空客户信息
         Get.find<CustomerProviderController>().clear();
         //页面跳转
-        Get.offAndToNamed(BAppRoutes.login);
+        Get.offAndToNamed('/loginGuide');
       }
     }).whenComplete(update);
   }

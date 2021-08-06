@@ -2,7 +2,7 @@
  * @Description: 商品适配器卡片
  * @Author: iamsmiling
  * @Date: 2021-05-14 17:07:23
- * @LastEditTime: 2021-07-19 15:24:44
+ * @LastEditTime: 2021-08-03 13:43:25
  */
 
 import 'package:flutter/material.dart';
@@ -39,13 +39,10 @@ class ProductAdaptorCard extends StatelessWidget {
             padding: EdgeInsets.only(top: R.dimen.dp15),
             child: Row(
               children: [
-                ChimeraImage(
-                  product.image,
-                  width: R.dimen.dp85,
-                  height: R.dimen.dp85,
-                  fit: BoxFit.fill,
-                  // heroTag: "${product.image}" + "${product.id}",
-                ),
+                ChimeraImage(product.image,
+                    width: R.dimen.dp85, height: R.dimen.dp85, fit: BoxFit.cover
+                    // heroTag: "${product.image}" + "${product.id}",
+                    ),
                 Expanded(
                   child: Container(
                     height: R.dimen.dp85,
@@ -75,7 +72,7 @@ class ProductAdaptorCard extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Text("${product.description}",
-                                    maxLines: 5,
+                                    maxLines: 4,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: R.dimen.sp12,

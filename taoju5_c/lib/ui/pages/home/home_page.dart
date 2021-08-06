@@ -2,7 +2,7 @@
  * @Description: c端首页
  * @Author: iamsmiling
  * @Date: 2021-02-02 20:12:27
- * @LastEditTime: 2021-07-21 17:58:38
+ * @LastEditTime: 2021-07-27 18:13:39
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
 import 'package:taoju5_c/ui/pages/commendation/commendation_fragement.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_custom_made_section.dart';
 import 'package:taoju5_c/ui/pages/home/section/home_decoration_prefecture_section.dart';
@@ -20,6 +21,8 @@ import 'package:taoju5_c/ui/pages/home/section/home_special_offer_prefecture_sec
 import 'home_controller.dart';
 import 'section/home_banner_section.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'section/home_special_topic_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -79,6 +82,7 @@ class HomePage extends StatelessWidget {
             ),
             body: FutureLoadStateBuilder<HomeController>(
                 controller: _,
+                loadingBuilder: (_) => SizedBox.expand(),
                 builder: (_) {
                   return SmartRefresher(
                     controller: _.refreshController,
@@ -106,7 +110,9 @@ class HomePage extends StatelessWidget {
                         SliverToBoxAdapter(
                             child: HomeSpecialOfferPrefectureSection(
                                 special: _.home.special)),
-                        // SliverToBoxAdapter(child: HomeSpecialTopicSection()),
+                        SliverToBoxAdapter(
+                            child:
+                                HomeSpecialTopicSection(topic: _.home.topic)),
                         SliverToBoxAdapter(
                           child: CommendationFragment(
                             scrollController: _.scrollController,

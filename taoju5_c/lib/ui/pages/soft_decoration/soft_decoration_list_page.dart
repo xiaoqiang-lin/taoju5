@@ -2,7 +2,7 @@
  * @Description: 软装方案
  * @Author: iamsmiling
  * @Date: 2021-07-21 11:17:04
- * @LastEditTime: 2021-07-21 14:14:46
+ * @LastEditTime: 2021-07-26 09:55:38
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +25,7 @@ class SoftDecorationListPage extends GetView<SoftDecorationListController> {
         padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
         child: Wrap(
           spacing: R.dimen.dp10,
+          runSpacing: R.dimen.dp10,
           children: [
             for (SoftDecorationEntity item in controller.list)
               SoftDecorationCard(soft: item, width: w, height: w)

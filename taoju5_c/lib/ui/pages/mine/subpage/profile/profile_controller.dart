@@ -2,7 +2,7 @@
  * @Description: 个人资料
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-04-27 15:25:57
+ * @LastEditTime: 2021-08-05 13:44:33
  */
 import 'dart:typed_data';
 
@@ -16,6 +16,7 @@ import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'modal/choose_image_source_modal.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -74,6 +75,14 @@ class ProfileController extends GetxController {
   void setBirthday() {
     openDatePicker(Get.context!).then((value) {
       print(value);
+    });
+  }
+
+  void setAvatar() {
+    Get.toNamed(AppRoutes.mine + AppRoutes.profile + AppRoutes.modifyUserAvatar,
+        parameters: {"avatar": user.avatar})?.then((value) {
+      user.avatar = value;
+      update();
     });
   }
 }

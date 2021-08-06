@@ -2,7 +2,7 @@
  * @Description: 商品列表逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-23 17:29:16
- * @LastEditTime: 2021-07-21 18:07:21
+ * @LastEditTime: 2021-07-28 14:06:14
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +14,8 @@ import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/domain/repository/category_repository.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/res/R.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
+import 'package:taoju5_c/ui/pages/search/search_keyword_fragment/search_keyword_controller.dart';
 
 enum ProductSortTye {
   ///默认排序
@@ -82,6 +84,8 @@ class ProductListParentController
   List<CategoryEntity> _categories = [];
   PeoductViewMode viewMode = PeoductViewMode.gridMode;
 
+  String keyword = Get.parameters["keyword"] ?? "";
+
   List<CategoryEntity> get categories =>
       _categories.length > 1 ? _categories : [CategoryEntity(id: -1, name: "")];
 
@@ -125,14 +129,13 @@ class ProductListParentController
 
   refreshData() {
     if (!Get.isRegistered<ProductListController>(tag: currentTag)) return;
-    print({
+
+    ProductListController c = Get.find<ProductListController>(tag: currentTag);
+    c.keyword = keyword;
+    return c.refreshData(params: {
       "sort": sortTye.sort,
       "order": sortTye.order,
-    });
-    return Get.find<ProductListController>(tag: currentTag)
-        .refreshData(params: {
-      "sort": sortTye.sort,
-      "order": sortTye.order,
+      "keyword": keyword
     });
   }
 
@@ -165,6 +168,13 @@ class ProductListParentController
   }
 
   Future<List<CategoryEntity>> loadData({Map? params}) {
+    ///如果是从搜索页面过来
+    if (Get.previousRoute.contains(AppRoutes.search)) {
+      CategoryEntity c = Get.arguments;
+      initTabBarController([c]);
+      Get.lazyPut(() => ProductListController(c), tag: "${c.id}");
+      return Future.value([c]);
+    }
     CategoryRepository repository = CategoryRepository();
     return repository.categoryList(params: {"category_id": category.id}).then(
         (List<CategoryEntity> list) {
@@ -180,6 +190,20 @@ class ProductListParentController
       print("出现错误");
     });
   }
+
+  search() {
+    if (Get.isRegistered<SearchKeywordController>()) {
+      Get.reload<SearchKeywordController>();
+    }
+    return Get.toNamed(AppRoutes.searchInput, parameters: {"keyword": keyword})
+        ?.then((value) {
+      if (value is String && value.isNotEmpty) {
+        keyword = value;
+        update();
+        refreshData();
+      }
+    });
+  }
 }
 
 class ProductListController
@@ -190,12 +214,15 @@ class ProductListController
 
   ProductListController(this.category);
 
+  String keyword = Get.parameters["keyword"] ?? "";
+
   @override
   Future<List<ProductEntity>> loadData({Map? params}) {
     Map map = {
       "category_id": category.id,
       "order_goods_id": Get.parameters["order_goods_id"],
       "is_hot": category.isHot,
+      "keyword": keyword,
       ...(params ?? {})
     };
     return repository.productList(map).then((value) {

@@ -2,7 +2,7 @@
  * @Description: 场景
  * @Author: iamsmiling
  * @Date: 2021-05-28 09:26:01
- * @LastEditTime: 2021-06-04 07:41:48
+ * @LastEditTime: 2021-07-30 10:08:56
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,8 +38,16 @@ class SceneListParentController
 
   @override
   void onClose() {
-    super.onClose();
     tabController.dispose();
+
+    for (SceneCategoryEntity c in categoryList) {
+      if (Get.isRegistered<SceneListController>(tag: "${c.id}")) {
+        Get.delete<SceneListController>(tag: "${c.id}", force: true);
+      }
+      // Get.lazyPut(() => SceneListController(category: c, type: category.type),
+      //     tag: "${c.id}");
+    }
+    super.onClose();
   }
 }
 
@@ -53,7 +61,14 @@ class SceneListController
   @override
   Future<List<SceneEntity>> loadData({Map? params}) {
     SceneRepository repository = SceneRepository();
-    return repository
-        .sceneList(params: {"category_id": category.id, "type": type});
+    return repository.sceneList(params: {
+      "category_id": category.id,
+      "type": type,
+      ...(params ?? {})
+    }).then((value) {
+      list = [...list, ...value.list];
+      totalPage = value.totalPage;
+      return list;
+    });
   }
 }

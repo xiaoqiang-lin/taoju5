@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-05-10 09:33:26
- * @LastEditTime: 2021-05-10 09:58:17
+ * @LastEditTime: 2021-08-04 14:50:37
  */
 import 'dart:ui';
 
@@ -34,6 +34,7 @@ class ModalWrapper extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final double? height;
+
   const ModalWrapper(
       {Key? key, required this.builder, this.margin, this.padding, this.height})
       : super(key: key);

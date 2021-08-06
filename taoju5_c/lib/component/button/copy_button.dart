@@ -2,12 +2,13 @@
  * @Description: 复制按钮
  * @Author: iamsmiling
  * @Date: 2021-05-18 15:03:07
- * @LastEditTime: 2021-05-18 16:04:36
+ * @LastEditTime: 2021-07-26 09:30:00
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/utils/toast.dart';
 
 class CopyButton extends StatelessWidget {
   final String content;
@@ -17,11 +18,13 @@ class CopyButton extends StatelessWidget {
 
   void _copy() {
     Clipboard.setData(ClipboardData(text: content));
+
+    ToastKit.warning("$successTip");
     // ToastKit.success(successTip);
-    Get.snackbar("", "",
-        duration: Duration(milliseconds: 1500),
-        messageText: Text(successTip),
-        backgroundColor: Colors.black.withOpacity(.5));
+    // Get.snackbar("", "",
+    //     duration: Duration(milliseconds: 1500),
+    //     messageText: Text(successTip),
+    //     backgroundColor: Colors.black.withOpacity(.5));
   }
 
   @override

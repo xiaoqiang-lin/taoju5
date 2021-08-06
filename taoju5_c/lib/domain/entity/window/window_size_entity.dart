@@ -2,7 +2,7 @@
  * @Description:  窗户大小
  * @Author: iamsmiling
  * @Date: 2021-05-10 17:58:48
- * @LastEditTime: 2021-06-29 18:19:09
+ * @LastEditTime: 2021-07-22 11:21:16
  */
 import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -20,6 +20,8 @@ class WindowSizeEntity {
   ShakeAnimationController heightShakeController = ShakeAnimationController();
   bool widthError = false;
   bool heightError = false;
+
+  WindowSizeEntity();
   WindowSizeEntity.fromJson(Map? json) {
     if (json == null) return;
     label = json["label"];

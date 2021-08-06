@@ -2,7 +2,7 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:54:58
- * @LastEditTime: 2021-07-16 15:37:57
+ * @LastEditTime: 2021-07-29 17:57:39
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +67,7 @@ class $CAPP extends StatelessWidget {
         theme: R.theme.lightTheme,
         defaultTransition: Transition.cupertino,
         popGesture: false,
+        debugShowCheckedModeBanner: AppConfig.isDebug,
         // builder: EasyLoading.init(),
         builder: (BuildContext context, Widget? child) {
           return MediaQuery(

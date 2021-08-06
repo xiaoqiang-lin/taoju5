@@ -2,13 +2,14 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-26 16:00:04
- * @LastEditTime: 2021-07-08 14:49:52
+ * @LastEditTime: 2021-07-27 09:15:15
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/order/mixin/order_product_operation_mixin.dart';
 import 'package:taoju5_c/ui/pages/order/order_detail/order_detail_controller.dart';
 
@@ -36,7 +37,7 @@ class ProductActionBar extends StatelessWidget with OrderProductOperationMixin {
       height: R.dimen.dp45,
 
       ///如果上一个页面是选品页面 则显示确认选品按钮
-      child: Get.isRegistered<OrderDetailController>()
+      child: Get.previousRoute.contains(AppRoutes.selectProduct)
           ? PrimaryButton(
               text: "确认选品",
               onPressed: onSelect,

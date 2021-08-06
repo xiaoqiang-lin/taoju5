@@ -2,7 +2,7 @@
  * @Description: 商品卡片
  * @Author: iamsmiling
  * @Date: 2021-05-19 10:40:00
- * @LastEditTime: 2021-07-02 14:08:44
+ * @LastEditTime: 2021-07-29 10:11:35
  */
 
 import 'package:flutter/material.dart';
@@ -39,8 +39,8 @@ class ProductCard extends StatelessWidget {
                   product.cover,
                   width: width,
                   height: width,
-                  cacheWidth: width?.toInt(),
-                  cacheHeight: width?.toInt(),
+                  // cacheWidth: width?.toInt(),
+                  // cacheHeight: width?.toInt(),
                 ),
                 Positioned(
                     right: 0,
@@ -64,7 +64,7 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("【${product.brand}】",
+                    Text("${product.brand}",
                         style: TextStyle(fontSize: R.dimen.sp12)),
                     Expanded(
                       child: Text("${product.name}",

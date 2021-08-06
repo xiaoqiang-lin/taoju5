@@ -2,7 +2,7 @@
  * @Description: 订单列表数据模型
  * @Author: iamsmiling
  * @Date: 2021-05-13 15:49:46
- * @LastEditTime: 2021-07-07 15:17:48
+ * @LastEditTime: 2021-07-27 14:38:03
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -22,6 +22,8 @@ enum OrderType {
 class OrderListWrapperEntity {
   late List<OrderEntity> orders;
   late CancelOrderReasonEntity reason;
+  late int totalCount;
+  late int totalPage;
 
   OrderListWrapperEntity.fromJson(Map json) {
     orders = JsonKit.asList(json["data"])
@@ -31,6 +33,8 @@ class OrderListWrapperEntity {
     orders.forEach((element) {
       element.reason = reason;
     });
+    totalPage = JsonKit.asInt(json["page_count"]);
+    totalCount = JsonKit.asInt(json["total_count"]);
   }
 }
 

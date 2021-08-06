@@ -2,7 +2,7 @@
  * @Description:空间
  * @Author: iamsmiling
  * @Date: 2021-05-08 15:27:09
- * @LastEditTime: 2021-06-30 11:06:06
+ * @LastEditTime: 2021-07-22 11:27:13
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -14,9 +14,11 @@ class WindowRoomEntity {
   late bool isRequired;
   late String message;
   late String label;
-  late List<WindowRoomOptionEntity> options;
+  List<WindowRoomOptionEntity> options = [];
 
   String? _value;
+
+  WindowRoomEntity();
 
   ShakeAnimationController shakeController = ShakeAnimationController();
   WindowRoomEntity.fromJson(Map json) {
@@ -50,6 +52,7 @@ class WindowRoomEntity {
   initByName(String name) {
     _value = name;
     print("------$options");
+
     options.forEach((e) {
       print(e.name);
       print(name);

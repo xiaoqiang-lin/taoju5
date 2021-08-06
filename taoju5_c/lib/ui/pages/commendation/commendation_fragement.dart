@@ -2,7 +2,7 @@
  * @Description:  推荐页面
  * @Author: iamsmiling
  * @Date: 2021-06-11 17:23:58
- * @LastEditTime: 2021-06-25 14:58:28
+ * @LastEditTime: 2021-07-28 17:50:16
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
@@ -11,14 +11,20 @@ import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_staggered_card.dart';
+import 'package:get/get.dart';
 
 class CommendationFragment extends StatelessWidget {
   final ScrollController? scrollController;
   final Widget? header;
 
   final String? tag;
+  final Map? arguments;
   const CommendationFragment(
-      {Key? key, this.scrollController, this.header, required this.tag})
+      {Key? key,
+      this.scrollController,
+      this.header,
+      required this.tag,
+      this.arguments})
       : super(key: key);
 
   @override
@@ -31,8 +37,15 @@ class CommendationFragment extends StatelessWidget {
             ProductEntity>(
           // shrinkWrap: true,
           enablePullDown: false,
+
+          initState: (_) {
+            Get.find<CommendationController>(tag: tag).arguments =
+                arguments ?? {};
+          },
+          loadingBuilder: (_) => SizedBox.shrink(),
           scrollController: scrollController,
           tag: tag,
+          shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
           itemBuilder: (ProductEntity item) =>
               ProductStaggeredCard(product: item),

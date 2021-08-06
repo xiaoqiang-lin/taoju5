@@ -2,7 +2,7 @@
  * @Description:实体类
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-06-08 16:29:54
+ * @LastEditTime: 2021-08-05 13:44:45
  */
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
@@ -68,5 +68,13 @@ class MineController extends BaseFutureLoadStateController {
       user = list.first;
       kongos = list.last;
     }).whenComplete(update);
+  }
+
+  void editProfie() {
+    Get.toNamed(AppRoutes.mine + AppRoutes.setting, arguments: user)
+        ?.then((value) {
+      user = value;
+      update();
+    });
   }
 }

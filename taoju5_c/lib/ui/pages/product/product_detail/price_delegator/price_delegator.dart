@@ -2,7 +2,7 @@
  * @Description: 价格计算代理
  * @Author: iamsmiling
  * @Date: 2021-05-12 14:49:09
- * @LastEditTime: 2021-07-19 14:04:15
+ * @LastEditTime: 2021-08-04 15:28:33
  */
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
@@ -37,8 +37,6 @@ class FinishedProductPriceDelegator extends BaseProductPriceDelegator {
   @override
   double get totalPrice {
     double t = (product.currentSku?.price ?? 0) * (product.count);
-    print(product.currentSku?.price);
-    print("++++++++++++——————————————————————————");
     product.totalPrice = t;
     return t;
   }

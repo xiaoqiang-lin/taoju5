@@ -2,13 +2,30 @@
  * @Description: 购物车模型
  * @Author: iamsmiling
  * @Date: 2021-04-27 16:55:21
- * @LastEditTime: 2021-07-20 10:32:28
+ * @LastEditTime: 2021-08-05 17:54:05
  */
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
+
+class CartEntityListWrapperEntity {
+  late List<CartEntity> list;
+
+  late int totalPage;
+
+  late int totalCount;
+
+  CartEntityListWrapperEntity.fromJson(Map json) {
+    list = JsonKit.asList(json["cart_list"])
+        .map((e) => CartEntity.fromJson(e))
+        .toList();
+    totalPage = JsonKit.asInt(json["page_count"]);
+
+    totalCount = JsonKit.asInt(json["total_count"]);
+  }
+}
 
 class CartEntity {
   late int id;
@@ -28,6 +45,7 @@ class CartEntity {
   late double unitPrice;
   late String description;
   late List<CurtainAttributeKeyValuePairEntity> attributes;
+  CurtainMeasureDataAttributeEntity? measureData;
   late int measureId;
   late Map args;
 
@@ -36,6 +54,20 @@ class CartEntity {
   bool removed = false;
 
   late int craftId;
+
+  late bool isFixedHeight;
+
+  late bool isFixedWidth;
+
+  late bool isCustomSize;
+
+  late double doorWidth;
+
+  late double flowerSize;
+
+  late bool hasFlower;
+
+  late double thresholdHeight = 270;
 
   BaseProductType get productType => getProductType(productTypeCode);
 
@@ -62,6 +94,17 @@ class CartEntity {
         .toList();
     args = JsonKit.asMap(json["wc_attr"]);
     craftId = JsonKit.asInt(json["process_method"]);
+    isFixedHeight = json['fixed_height'] == 1;
+    isFixedWidth = json['fixed_height'] == 2;
+    isCustomSize = json['fixed_height'] == 3;
+
+    ///后台数据以cm为单位
+    doorWidth = JsonKit.asDouble(json['larghezza_size']);
+    flowerSize = JsonKit.asDouble(json['flower_distance']);
+
+    hasFlower = json['is_flower'] == 1;
+
+    thresholdHeight = JsonKit.asDouble(json["super_height"]);
   }
 
   void reAssign(CartEntity c) {

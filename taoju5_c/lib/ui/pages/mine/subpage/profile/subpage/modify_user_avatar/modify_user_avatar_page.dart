@@ -2,7 +2,7 @@
  * @Description: 修改头像
  * @Author: iamsmiling
  * @Date: 2021-04-22 13:15:54
- * @LastEditTime: 2021-04-22 14:19:23
+ * @LastEditTime: 2021-08-05 13:40:55
  */
 
 import 'package:flutter/material.dart';
@@ -17,22 +17,28 @@ class ModifyUserAvatarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ModifyUserAvatarController>(
       builder: (_) {
-        return Scaffold(
-          backgroundColor: R.color.ff00000,
-          appBar: AppBar(
+        return WillPopScope(
+          onWillPop: () async {
+            Get.back(result: _.src);
+            return true;
+          },
+          child: Scaffold(
             backgroundColor: R.color.ff00000,
-            titleSpacing: 0,
-            iconTheme: IconThemeData(color: R.color.ffffffff),
-            title: Text(
-              "头像",
-              style: TextStyle(color: R.color.ffffffff),
+            appBar: AppBar(
+              backgroundColor: R.color.ff00000,
+              titleSpacing: 0,
+              iconTheme: IconThemeData(color: R.color.ffffffff),
+              title: Text(
+                "头像",
+                style: TextStyle(color: R.color.ffffffff),
+              ),
+              actions: [
+                IconButton(
+                    icon: Image.asset(R.image.more), onPressed: _.pickImage)
+              ],
             ),
-            actions: [
-              IconButton(
-                  icon: Image.asset(R.image.more), onPressed: _.pickImage)
-            ],
+            body: Center(child: _.avatar),
           ),
-          body: Center(child: _.avatar),
         );
       },
     );

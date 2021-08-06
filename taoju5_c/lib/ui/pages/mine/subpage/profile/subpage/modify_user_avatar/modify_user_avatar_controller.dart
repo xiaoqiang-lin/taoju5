@@ -2,7 +2,7 @@
  * @Description:修改头像逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-22 13:24:31
- * @LastEditTime: 2021-06-04 12:50:55
+ * @LastEditTime: 2021-08-05 13:34:34
  */
 import 'dart:typed_data';
 
@@ -14,7 +14,7 @@ import 'package:taoju5_bc/utils/common_kit.dart';
 import 'package:taoju5_c/domain/entity/params/user/modify_user_profile_params.dart';
 import 'package:taoju5_c/domain/entity/user/user_entity.dart';
 import 'package:taoju5_c/domain/repository/mine_repository.dart';
-import 'package:taoju5_c/routes/app_routes.dart';
+
 import 'package:taoju5_c/utils/toast.dart';
 
 import 'dialog/image_source_picker_dialog.dart';
@@ -22,14 +22,16 @@ import 'package:dio/dio.dart' as dio;
 import 'package:http_parser/http_parser.dart';
 
 class ModifyUserAvatarController extends GetxController {
-  late Widget avatar;
+  late Image avatar;
+
+  String src = Get.parameters["avatar"] ?? "";
 
   @override
   void onInit() {
     assert(
         Get.parameters["avatar"] is String && Get.parameters["avatar"] != null);
     avatar = Image.network(
-      Get.parameters["avatar"]!,
+      src,
       width: Get.width,
     );
     super.onInit();
@@ -67,6 +69,7 @@ class ModifyUserAvatarController extends GetxController {
     return _repository
         .modifyUserProfile(arg.params, formData: formData)
         .then((UserEntity val) {
+      src = val.avatar;
       avatar = Image.network(val.avatar);
     }).whenComplete(() {
       ToastKit.dismiss();

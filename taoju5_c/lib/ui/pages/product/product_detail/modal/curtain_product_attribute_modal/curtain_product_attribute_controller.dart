@@ -2,7 +2,7 @@
  * @Description: 窗帘商品属性选择
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:57:25
- * @LastEditTime: 2021-07-19 15:57:41
+ * @LastEditTime: 2021-08-06 10:58:05
  */
 import 'dart:convert';
 
@@ -27,20 +27,35 @@ class CurtainProductAttributeController
   late FabricCurtainProductPriceDelegator priceDelegator;
   late MeasureDataParamsEntity measureDataArg;
   late MatchingSetParamsEntity matchingSetArg;
-  CurtainProductAttributeController({required this.product}) {
+  late CurtainMeasureDataAttributeEntity? measureData;
+  late CurtainMatchingSetAttributeEntity? matchingSet;
+  late Function(
+          CurtainMeasureDataAttributeEntity, CurtainMatchingSetAttributeEntity)
+      initAttribute;
+  CurtainProductAttributeController(
+      {required this.product, this.measureData, this.matchingSet}) {
     priceDelegator = FabricCurtainProductPriceDelegator(product);
   }
 
   Future<CurtainAttributeEntity> loadData({Map? params}) {
     ProductRepository repository = ProductRepository();
-    return repository.productAttribute({"goods_id": product.id}).then((value) {
+
+    return repository.productAttribute(
+        {"goods_id": product.id, ...(params ?? {})}).then((value) async {
       product.attribute = value;
-      measureDataArg = MeasureDataParamsEntity(
-          measureData: product.attribute.measureData,
-          finished: product.attribute.finished);
-      matchingSetArg = MatchingSetParamsEntity(
-          attribute: product.attribute.matchingSet,
-          finished: product.attribute.finished);
+
+      if (product.measureId != -1) {
+        await repository.measureData(
+            params: {"measure_id": product.measureId}).then((value) {
+          product.attribute.measureData.initFromJson(value);
+          measureDataArg = MeasureDataParamsEntity(
+              measureData: product.attribute.measureData,
+              finished: product.attribute.finished);
+          matchingSetArg = MatchingSetParamsEntity(
+              attribute: product.attribute.matchingSet,
+              finished: product.attribute.finished);
+        });
+      }
       return value;
     }).whenComplete(update);
   }
@@ -223,5 +238,17 @@ class CurtainProductAttributeController
     } finally {
       // ToastKit.dismiss();
     }
+  }
+}
+
+class CartCurtainProductAttributeController
+    extends CurtainProductAttributeController {
+  CartCurtainProductAttributeController({
+    required ProductDetailEntity product,
+  }) : super(product: product);
+
+  @override
+  Future<CurtainAttributeEntity> loadData({Map? params}) {
+    return Future.value();
   }
 }

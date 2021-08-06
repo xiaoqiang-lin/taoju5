@@ -2,11 +2,13 @@
  * @Description: 带刷新功能的list
  * @Author: iamsmiling
  * @Date: 2021-05-19 14:26:16
- * @LastEditTime: 2021-07-21 16:47:37
+ * @LastEditTime: 2021-07-29 16:22:19
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:taoju5_c/component/noripple_scroll_behavior/noripple_scroll_behavior.dart';
@@ -16,6 +18,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'future_loadstate_controller.dart';
 
+import 'package:flutter/widgets.dart' as prefix0;
+
 class ChimeraPager<T> {
   late List<T> list;
   late int totalPage;
@@ -23,11 +27,99 @@ class ChimeraPager<T> {
   ChimeraPager({required this.list, required this.totalPage});
 }
 
+// A Sliver for  Expanding empty space
+class SliverFillEmptySpace extends SingleChildRenderObjectWidget {
+  /// Creates a sliver that contains a single box widget.
+  SliverFillEmptySpace({
+    Key? key,
+  }) : super(key: key, child: Container());
+
+  @override
+  RenderSliverFillEmptySpace createRenderObject(BuildContext context) =>
+      RenderSliverFillEmptySpace();
+}
+
+class RenderSliverFillEmptySpace extends RenderSliverSingleBoxAdapter {
+  /// Creates a [RenderSliver] that wraps a [RenderBox].
+  RenderSliverFillEmptySpace({
+    RenderBox? child,
+  }) : super(child: child);
+
+  @override
+  void performLayout() {
+    double emptySpaceExtent =
+        constraints.viewportMainAxisExtent - constraints.precedingScrollExtent;
+
+    if (emptySpaceExtent > 0) {
+      child?.layout(constraints.asBoxConstraints(maxExtent: emptySpaceExtent),
+          parentUsesSize: true);
+      double childExtent = emptySpaceExtent;
+      final double paintedChildSize =
+          calculatePaintOffset(constraints, from: 0.0, to: childExtent);
+      final double cacheExtent =
+          calculateCacheOffset(constraints, from: 0.0, to: childExtent);
+      geometry = SliverGeometry(
+        scrollExtent: childExtent,
+        paintExtent: paintedChildSize,
+        cacheExtent: cacheExtent,
+        maxPaintExtent: childExtent,
+      );
+      setChildParentData(child!, constraints, geometry!);
+    } else {
+      geometry = SliverGeometry.zero;
+    }
+  }
+}
+
+class FillEmptyCustomScrollView extends prefix0.CustomScrollView {
+  final bool enableFillEmpty;
+  const FillEmptyCustomScrollView({
+    Key? key,
+    required this.enableFillEmpty,
+    Axis scrollDirection = Axis.vertical,
+    bool reverse = false,
+    ScrollController? controller,
+    bool? primary,
+    ScrollPhysics? physics,
+    bool shrinkWrap = false,
+    Key? center,
+    double anchor = 0.0,
+    double? cacheExtent,
+    this.slivers = const <Widget>[],
+    int? semanticChildCount,
+    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
+  }) : super(
+          key: key,
+          scrollDirection: scrollDirection,
+          reverse: reverse,
+          controller: controller,
+          primary: primary,
+          physics: physics,
+          shrinkWrap: shrinkWrap,
+          center: center,
+          anchor: anchor,
+          cacheExtent: cacheExtent,
+          semanticChildCount: semanticChildCount,
+          dragStartBehavior: dragStartBehavior,
+        );
+
+  /// The slivers to place inside the viewport.
+  final List<Widget> slivers;
+
+  @override
+  List<Widget> buildSlivers(BuildContext context) {
+    if (enableFillEmpty) slivers.add(SliverFillEmptySpace());
+    return slivers;
+  }
+}
+
 abstract class PullToRefreshListViewBuilderController<T>
     extends BaseFutureLoadStateController<List<T>> {
   Future<List<T>> loadData({Map? params});
 
   RefreshController? refreshController;
+
+  late ScrollController scrollController;
 
   List<T> list = [];
 
@@ -39,11 +131,12 @@ abstract class PullToRefreshListViewBuilderController<T>
 
   late int currentPage = 1;
 
-  late int totalPage = 0;
+  late int totalPage = double.maxFinite ~/ 1;
 
   late Map initialParams;
 
   setRefreshController(RefreshController controller) {
+    print("先执行构造韩素");
     refreshController = controller;
   }
 
@@ -51,7 +144,7 @@ abstract class PullToRefreshListViewBuilderController<T>
       {this.pageIndexKey = "page_index",
       this.pageSizeKey = "page_size",
       this.currentPage = 1,
-      this.pageSize = 20,
+      this.pageSize = 10,
       this.refreshController}) {
     this.initialParams = {
       pageSizeKey: pageSize,
@@ -60,9 +153,11 @@ abstract class PullToRefreshListViewBuilderController<T>
 
   @override
   void onInit() {
+    print("在执行构造Init");
     _fetchData();
 
     refreshController ??= RefreshController();
+    scrollController = ScrollController();
     super.onInit();
   }
 
@@ -113,7 +208,7 @@ abstract class PullToRefreshListViewBuilderController<T>
       refreshController?.loadNoData();
       return Future.value();
     }
-
+    print(params);
     return loadData(params: params).then((List<T> val) {
       // change(val, status: RxStatus.success());
       // List<T> arr = [];
@@ -122,13 +217,9 @@ abstract class PullToRefreshListViewBuilderController<T>
       // list = arr.toSet().toList();
 
       if (val.isEmpty) {
-        print(val.length);
-        print('哈哈哈哈哈哈');
         refreshController?.loadNoData();
       } else {
-        print(val.length);
-        print("啦啦啦啦啦啦啦");
-        list.addAll(val);
+        list = [...list, ...val];
         refreshController?.loadComplete();
       }
     }).catchError((err, StackTrace stackTrace) {
@@ -142,6 +233,7 @@ abstract class PullToRefreshListViewBuilderController<T>
   @override
   void onClose() {
     refreshController?.dispose();
+    scrollController.dispose();
     return super.onClose();
   }
 }
@@ -198,6 +290,7 @@ class PullToRefreshGridViewBuilder<
                       onRefresh: _.refreshData,
                       onLoading: _.loadMore,
                       child: GridView.builder(
+                        cacheExtent: 500,
                         shrinkWrap: true,
                         padding: padding,
                         gridDelegate: gridDelegate,
@@ -261,6 +354,7 @@ class PullToRefreshListViewBuilder<
                       onRefresh: _.refreshData,
                       onLoading: _.loadMore,
                       child: ListView.builder(
+                        cacheExtent: 500,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int i) =>
                             itemBuilder(_.list[i]),
@@ -285,10 +379,13 @@ class PullToRefreshStaggeredGridViewBuilder<
   final bool enablePullUp;
   final String? tag;
   final T? init;
+  final void Function(GetBuilderState<T> state)? initState;
 
   final Object? id;
 
   final ScrollController? scrollController;
+
+  final RefreshController? refreshController;
 
   final WidgetBuilder? loadingBuilder;
   final WidgetBuilder? errorBuilder;
@@ -328,7 +425,9 @@ class PullToRefreshStaggeredGridViewBuilder<
       this.crossAxisCount = 4,
       this.mainAxisSpacing = 15,
       this.crossAxisSpacing = 16,
-      this.scrollController})
+      this.scrollController,
+      this.refreshController,
+      this.initState})
       : super(key: key);
 
   @override
@@ -338,26 +437,51 @@ class PullToRefreshStaggeredGridViewBuilder<
               builder: (context) => GetBuilder<T>(
                 tag: tag,
                 autoRemove: autoRemove,
+                initState: initState,
                 global: true,
                 builder: (_) {
-                  return ScrollConfiguration(
-                    behavior: NoRippleScrollBehavior(),
-                    child: StaggeredGridView.builder(
-                        padding: padding,
-                        gridDelegate:
-                            SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-                                staggeredTileBuilder: staggeredTileBuilder,
-                                crossAxisCount: crossAxisCount,
-                                mainAxisSpacing: mainAxisSpacing,
-                                crossAxisSpacing: crossAxisSpacing,
-                                staggeredTileCount: _.list.length),
-                        // padding: padding,
-                        shrinkWrap: shrinkWrap,
-                        itemCount: _.list.length,
-                        controller: scrollController,
-                        itemBuilder: (BuildContext context, int i) =>
-                            itemBuilder(_.list[i])),
-                  );
+                  return StaggeredGridView.builder(
+                      padding: padding,
+                      gridDelegate:
+                          SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                              staggeredTileBuilder: staggeredTileBuilder,
+                              crossAxisCount: crossAxisCount,
+                              mainAxisSpacing: mainAxisSpacing,
+                              crossAxisSpacing: crossAxisSpacing,
+                              staggeredTileCount: _.list.length),
+                      // padding: padding,
+                      shrinkWrap: shrinkWrap,
+                      itemCount: _.list.length,
+                      controller: scrollController,
+                      itemBuilder: (BuildContext context, int i) =>
+                          itemBuilder(_.list[i]));
+                  // return SmartRefresher(
+                  //   controller: _.refreshController!,
+                  //   scrollController: scrollController,
+                  //   cacheExtent: 500,
+                  //   enablePullDown: enablePullDown,
+                  //   enablePullUp: enablePullDown,
+                  //   onLoading: _.loadMore,
+                  //   onRefresh: _.refreshData,
+                  //   child: ScrollConfiguration(
+                  //     behavior: NoRippleScrollBehavior(),
+                  //     child: StaggeredGridView.builder(
+                  //         padding: padding,
+                  //         gridDelegate:
+                  //             SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                  //                 staggeredTileBuilder: staggeredTileBuilder,
+                  //                 crossAxisCount: crossAxisCount,
+                  //                 mainAxisSpacing: mainAxisSpacing,
+                  //                 crossAxisSpacing: crossAxisSpacing,
+                  //                 staggeredTileCount: _.list.length),
+                  //         // padding: padding,
+                  //         shrinkWrap: shrinkWrap,
+                  //         itemCount: _.list.length,
+                  //         controller: scrollController,
+                  //         itemBuilder: (BuildContext context, int i) =>
+                  //             itemBuilder(_.list[i])),
+                  //   ),
+                  // );
                 },
                 id: id,
               ),

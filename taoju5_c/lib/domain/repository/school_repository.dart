@@ -2,7 +2,7 @@
  * @Description: 陶学院相关的api
  * @Author: iamsmiling
  * @Date: 2021-07-08 10:42:35
- * @LastEditTime: 2021-07-16 14:15:07
+ * @LastEditTime: 2021-07-23 17:35:33
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -23,16 +23,22 @@ class SchoolRepository {
       });
 
   ///文章列表
-  Future<List<CourseEntity>> getCourseList(Map? params) =>
+  Future<CourseListWrapperEntity> getCourseList(Map? params) =>
       _api.getCourseList(params).then((value) {
-        return JsonKit.asList(value.data["data"])
-            .map((e) => CourseEntity.fromJson(e))
-            .toList();
+        return CourseListWrapperEntity.fromJson(value.data);
       });
 
   ///文章详情
   Future<ArticleDetailEntity> getArticleDetail(Map? params) =>
       _api.getArticleDetail(params).then((value) {
         return ArticleDetailEntity.fromJson(value.data);
+      });
+
+  ///专题列表表头
+  Future<List<CategoryEntity>> getTopicTabs(Map? params) =>
+      _api.getTopicTabs(params).then((value) {
+        return JsonKit.asList(value.data)
+            .map((e) => CategoryEntity.fromJson(e))
+            .toList();
       });
 }

@@ -2,10 +2,11 @@
  * @Description: 数据存储
  * @Author: iamsmiling
  * @Date: 2020-12-18 17:19:33
- * @LastEditTime: 2021-04-17 18:03:36
+ * @LastEditTime: 2021-07-27 17:58:34
  */
 import 'dart:io';
 
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,16 @@ class StorageManager {
     // sync 同步操作
     temporaryDirectory = await getTemporaryDirectory();
     sharedPreferences = await SharedPreferences.getInstance();
+
+    await GetStorage.init('c');
+    await GetStorage.init('b');
+    await GetStorage.init();
+
+    GetStorage().write("firstRun", sharedPreferences.get("firstRun") ?? true);
+
+    GetStorage('c').write("token", sharedPreferences.get("ctoken"));
+
+    GetStorage('b').write("token", sharedPreferences.get("btoken"));
   }
 
   clear() {

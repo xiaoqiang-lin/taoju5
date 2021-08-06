@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  *  @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-07-21 16:46:05
+ * @LastEditTime: 2021-08-05 16:44:21
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,17 +41,18 @@ class TaojuwuApp extends StatelessWidget {
         complete: Text('刷新成功', style: TextStyle(color: Colors.grey)),
         failed: Text('刷新失败', style: TextStyle(color: Colors.grey)),
       ),
-      footerTriggerDistance: 56,
+      footerTriggerDistance: 72,
+      hideFooterWhenNotFull: true, // Viewport不满一屏时,禁用上拉加载更多功能
       footerBuilder: () => ClassicFooter(
         loadingText: '正在加载',
         noDataText: '我也是有底线的哦',
         failedText: '加载失败',
         canLoadingText: '上拉加载更多',
         idleText: '上拉加载更多',
-        height: 50,
+        height: 48,
         loadingIcon: SizedBox(
-          width: 25,
-          height: 25,
+          width: 24,
+          height: 24,
           child: CupertinoActivityIndicator(),
         ),
       ),

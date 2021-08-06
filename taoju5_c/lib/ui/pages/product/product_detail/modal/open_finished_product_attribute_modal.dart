@@ -2,7 +2,7 @@
  * @Description: 成品弹窗
  * @Author: iamsmiling
  * @Date: 2021-04-25 14:33:44
- * @LastEditTime: 2021-07-19 14:49:19
+ * @LastEditTime: 2021-08-05 15:57:20
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:taoju5_c/component/modal_wrapper/modal_wrapper.dart';
 import 'package:taoju5_c/component/step_counter/step_counter.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
+import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_spec_option_chip.dart';
@@ -17,11 +18,32 @@ import 'package:taoju5_c/ui/pages/product/product_detail/modal/finished_product_
 
 Future openFinishedProductAttributeModal(BuildContext context,
     {required ProductDetailEntity product,
-    required WidgetBuilder actionBuilder}) {
-  return showModalPopUp(context, builder: (BuildContext context) {
+    required WidgetBuilder actionBuilder}) async {
+  ///如果 [FinishedProductAttributeController] 没有注册过 则注册
+  if (!product.initialzed &&
+      !Get.isRegistered<FinishedProductAttributeController>(
+          tag: "${product.id}")) {
+    Get.lazyPut(() => FinishedProductAttributeController(product: product),
+        tag: "${product.id}");
+    ProductRepository productRepository = ProductRepository();
+    await productRepository.productDetailWithSkuId(
+        {"goods_id": product.id, "sku_id": product.skuId}).then((value) {
+      value.count = product.count;
+      product.prototype(value);
+    });
+  } else {
+    product.prototype(
+        Get.find<FinishedProductAttributeController>(tag: "${product.id}")
+            .product);
+  }
+
+  return showModalPopUp(context, barrierDismissible: false,
+      builder: (BuildContext context) {
     return ModalWrapper(builder: (BuildContext context) {
       return GetBuilder<FinishedProductAttributeController>(
-          init: FinishedProductAttributeController(product: product),
+          autoRemove: false,
+          tag: "${product.id}",
+          // init: FinishedProductAttributeController(product: product),
           builder: (_) {
             return Scaffold(
                 body: SingleChildScrollView(
@@ -133,6 +155,7 @@ Future openFinishedProductAttributeModal(BuildContext context,
                                   )),
                               Spacer(),
                               StepCounter(
+                                key: ValueKey(product.count),
                                 initialValue: product.count,
                                 maxValue: product.currentSku?.stock ?? 999,
                                 onChanged: _.setCount,

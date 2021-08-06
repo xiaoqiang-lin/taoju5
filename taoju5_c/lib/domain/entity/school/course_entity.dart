@@ -2,11 +2,25 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:49:59
- * @LastEditTime: 2021-07-16 14:54:56
+ * @LastEditTime: 2021-07-23 17:51:14
  */
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/utils/json_kit.dart';
+
+class CourseListWrapperEntity {
+  late List<CourseEntity> list;
+  late int totalPage;
+
+  CourseListWrapperEntity.fromJson(Map json) {
+    list = JsonKit.asList(json["data"])
+        .map((e) => CourseEntity.fromJson(e))
+        .toList();
+    totalPage = json["page_count"];
+  }
+}
 
 class CourseEntity {
   late int id;
@@ -30,7 +44,7 @@ class CourseEntity {
 
   CourseEntity.fromJson(Map json) {
     id = json["article_id"];
-    cover = json["image"];
+    cover = JsonKit.asWebUrl(json["image"]);
     isVideo = json["article_type"] == 2;
     size = json["pic_spec"] ?? "";
     title = json["title"];

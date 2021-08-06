@@ -2,18 +2,21 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 14:11:33
- * @LastEditTime: 2021-07-20 15:03:43
+ * @LastEditTime: 2021-08-06 10:43:33
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
+import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
 import 'package:taoju5_c/domain/entity/picture/picture_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_adaptor_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_sku_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_spec_entity.dart';
+import 'package:taoju5_c/domain/entity/scene/scene_product_entity.dart';
 
 import 'curtain_attribute_entity.dart';
 
@@ -59,27 +62,27 @@ class ProductMaterialEntity {
 }
 
 class ProductDetailEntity {
-  late int id;
-  late String name;
-  late int type;
-  late double marketPrice;
-  late double promotionPrice;
-  late double price;
-  late String description;
-  late String unit;
-  late int stock;
-  late int maxPurchase;
-  late int minPurchase;
-  late String saleCount;
+  late int id = 0;
+  late String name = "";
+  late int type = 0;
+  late double marketPrice = 0;
+  late double promotionPrice = 0;
+  late double price = 0;
+  late String description = "";
+  late String unit = "";
+  late int stock = 0;
+  late int maxPurchase = 0;
+  late int minPurchase = 0;
+  late String saleCount = "";
 
-  late bool isFixedHeight; // 窗帘是否定高
-  late bool isFixedWidth; //窗帘是否定宽
-  late bool isCustomSize; //自定义宽高
+  late bool isFixedHeight = true; // 窗帘是否定高
+  late bool isFixedWidth = false; //窗帘是否定宽
+  late bool isCustomSize = false; //自定义宽高
 
-  late double doorWidth; //门幅
-  late double flowerSize; //花距
-  late bool hasFlower; // 窗帘是否有拼花
-  late List<PictureEntity> images;
+  late double doorWidth = 0; //门幅
+  late double flowerSize = 0; //花距
+  late bool hasFlower = true; // 窗帘是否有拼花
+  late List<PictureEntity> images = [];
 
   late int count = 1;
 
@@ -87,12 +90,12 @@ class ProductDetailEntity {
 
   List<ProductMaterialEntity> materialSet = [];
 
-  late int skuId;
+  late int skuId = 0;
 
   ///sku
-  late List<ProductSkuEntity> skus;
+  List<ProductSkuEntity> skus = [];
 
-  late List<ProductSpecEntity> specs;
+  List<ProductSpecEntity> specs = [];
 
   double get doorWidthM => doorWidth / 100;
 
@@ -105,9 +108,9 @@ class ProductDetailEntity {
   double? height;
 
   ///高度阈值
-  late double thresholdHeight;
+  late double thresholdHeight = 270;
 
-  late bool like;
+  late bool like = false;
 
   ///规格信息
   String specTip = "去填写";
@@ -123,6 +126,8 @@ class ProductDetailEntity {
 
   late CurtainAttributeEntity attribute = CurtainAttributeEntity();
 
+  late bool initialzed = false;
+
   ProductDetailEntity();
 
   // String get abbrSpec {
@@ -135,6 +140,41 @@ class ProductDetailEntity {
   //   }
   // }
 
+  ProductDetailEntity.fromCartEntity(CartEntity cart) {
+    id = cart.productId;
+    skuId = cart.skuId;
+    length = cart.length;
+    count = cart.count;
+    price = cart.unitPrice;
+    isCustomSize = cart.isCustomSize;
+    isFixedHeight = cart.isFixedHeight;
+    isFixedWidth = cart.isFixedWidth;
+    doorWidth = cart.doorWidth;
+    flowerSize = cart.flowerSize;
+    thresholdHeight = cart.thresholdHeight;
+    attribute.measureData =
+        cart.measureData ?? CurtainMeasureDataAttributeEntity();
+    measureId = cart.measureId;
+  }
+  ProductDetailEntity.fromSceneProduct(SceneProductEntity product) {
+    id = product.id;
+    skuId = product.skuId;
+    count = product.count;
+    name = product.name;
+    type = product.typeCode;
+    price = product.price;
+    description = product.description;
+    unit = product.unit;
+    isFixedHeight = product.isFixedHeight;
+    isFixedWidth = product.isFixedWidth;
+    isCustomSize = product.isCustomSize;
+
+    ///后台数据以cm为单位
+    doorWidth = product.doorWidth;
+    flowerSize = product.flowerSize;
+    hasFlower = product.hasFlower;
+    thresholdHeight = product.thresholdHeight;
+  }
   ProductDetailEntity.fromJson(Map json) {
     id = json["goods_id"];
     name = json["goods_name"];
@@ -148,7 +188,7 @@ class ProductDetailEntity {
     maxPurchase = json["max_buy"];
     minPurchase = json["min_buy"];
     saleCount = json["sales"];
-    isFixedHeight = JsonKit.asBool(json["fixed_height"]);
+
     isFixedHeight = json['fixed_height'] == 1;
     isFixedWidth = json['fixed_height'] == 2;
     isCustomSize = json['fixed_height'] == 3;
@@ -187,6 +227,51 @@ class ProductDetailEntity {
     } else if (productType is FinishedProductType) {
       specTip = "请选择商品规格";
     }
+
+    initialzed = true;
+  }
+
+  ProductDetailEntity prototype(ProductDetailEntity proto) {
+    id = proto.id;
+    name = proto.name;
+    type = proto.type;
+    price = proto.price;
+    marketPrice = proto.marketPrice;
+    promotionPrice = proto.promotionPrice;
+    description = proto.description;
+    unit = proto.unit;
+    stock = proto.stock;
+    maxPurchase = proto.maxPurchase;
+    minPurchase = proto.minPurchase;
+    saleCount = proto.saleCount;
+    isFixedHeight = proto.isFixedHeight;
+    isFixedHeight = proto.isFixedHeight;
+    isFixedWidth = proto.isFixedWidth;
+    isCustomSize = proto.isCustomSize;
+    like = proto.like;
+
+    ///后台数据以cm为单位
+    doorWidth = proto.doorWidth;
+    flowerSize = proto.flowerSize;
+
+    hasFlower = proto.hasFlower;
+
+    specs = proto.specs;
+    skus = proto.skus;
+    detailImages = proto.detailImages;
+    materialSet = proto.materialSet;
+    images = proto.images;
+
+    skuId = proto.skuId;
+
+    thresholdHeight = proto.thresholdHeight;
+
+    specTip = proto.specTip;
+
+    initialzed = proto.initialzed;
+    count = proto.count;
+    attribute = proto.attribute;
+    return proto;
   }
 
   BaseProductType get productType => getProductType(type);

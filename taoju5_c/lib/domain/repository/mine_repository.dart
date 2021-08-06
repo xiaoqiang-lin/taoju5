@@ -2,7 +2,7 @@
  * @Description: 我的
  * @Author: iamsmiling
  * @Date: 2021-04-16 16:38:20
- * @LastEditTime: 2021-07-16 10:55:45
+ * @LastEditTime: 2021-07-29 10:10:34
  */
 
 import 'package:taoju5_c/domain/entity/address/address_entity.dart';
@@ -59,11 +59,9 @@ class MineRepository {
       _api.feedback(formData: params);
 
   ///我的足迹
-  Future<List<FootPrintEntity>> footprint({Map? params}) =>
+  Future<FootPrintEntityListWrapperEntity> footprint({Map? params}) =>
       _api.footprint(params: params).then((value) {
-        return JsonKit.asList(value.data["data"])
-            .map((e) => FootPrintEntity.fromJson(e))
-            .toList();
+        return FootPrintEntityListWrapperEntity.fromJson(value.data);
       });
 
   ///我的足迹

@@ -2,13 +2,12 @@
  * @Description: 我的足迹
  * @Author: iamsmiling
  * @Date: 2021-05-19 10:55:36
- * @LastEditTime: 2021-06-08 15:49:23
+ * @LastEditTime: 2021-07-29 10:11:08
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5_c/component/button/primary_button.dart';
 import 'package:taoju5_c/component/checkbox/c_round_checked_box.dart';
-import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
 import 'package:taoju5_c/domain/entity/footprint/footprint_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';

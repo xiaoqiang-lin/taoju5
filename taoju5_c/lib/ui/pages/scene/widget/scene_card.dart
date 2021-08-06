@@ -2,7 +2,7 @@
  * @Description: 场景卡片
  * @Author: iamsmiling
  * @Date: 2021-05-29 14:04:48
- * @LastEditTime: 2021-05-29 14:06:26
+ * @LastEditTime: 2021-07-26 08:45:47
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -20,8 +20,9 @@ class SceneCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(AppRoutes.sceneDetail + "/${scene.id}"),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
+        // padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ChimeraImage(
               scene.image,
@@ -29,7 +30,7 @@ class SceneCard extends StatelessWidget {
               height: (R.dimen.width - R.dimen.dp20 * 2 - R.dimen.dp15) /
                   2.001 *
                   scene.aspectRatio,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Container(
               margin: EdgeInsets.only(top: R.dimen.dp6, bottom: R.dimen.dp6),
@@ -47,12 +48,15 @@ class SceneCard extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(R.image.eye),
-                  Text(
-                    scene.label,
-                    style: TextStyle(
-                        fontSize: R.dimen.sp10,
-                        color: R.color.ff999999,
-                        fontWeight: FontWeight.w400),
+                  Container(
+                    margin: EdgeInsets.only(left: R.dimen.dp4),
+                    child: Text(
+                      scene.label,
+                      style: TextStyle(
+                          fontSize: R.dimen.sp10,
+                          color: R.color.ff999999,
+                          fontWeight: FontWeight.w400),
+                    ),
                   )
                 ],
               ),

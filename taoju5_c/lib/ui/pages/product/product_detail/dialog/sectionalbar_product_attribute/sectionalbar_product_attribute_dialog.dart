@@ -2,7 +2,7 @@
  * @Description: 型材属性弹窗
  * @Author: iamsmiling
  * @Date: 2021-05-24 11:15:20
- * @LastEditTime: 2021-07-20 10:43:37
+ * @LastEditTime: 2021-07-26 09:43:20
  */
 
 import 'package:flutter/material.dart';
@@ -26,11 +26,26 @@ Future openSectionalbarProductAttributeDialog(BuildContext context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          child: SectionalbarProductAttributeDialog(
-            product: product,
-            footerBuilder: footerBuilder,
-            addToCart: addToCart,
-            buy: buy,
+          child: Stack(
+            children: [
+              SectionalbarProductAttributeDialog(
+                product: product,
+                footerBuilder: footerBuilder,
+                addToCart: addToCart,
+                buy: buy,
+              ),
+              Positioned(
+                  right: R.dimen.dp12,
+                  top: R.dimen.dp12,
+                  child: GestureDetector(
+                    onTap: Get.back,
+                    child: Image.asset(
+                      R.image.closeImage,
+                      color: R.color.ff333333,
+                      width: R.dimen.dp14,
+                    ),
+                  ))
+            ],
           ),
         );
       });

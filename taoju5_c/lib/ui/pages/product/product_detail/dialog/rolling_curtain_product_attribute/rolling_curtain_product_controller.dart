@@ -2,9 +2,10 @@
  * @Description: 卷帘商品逻辑处理
  * @Author: iamsmiling
  * @Date: 2021-05-24 10:38:13
- * @LastEditTime: 2021-07-20 15:00:04
+ * @LastEditTime: 2021-08-05 10:52:37
  */
 import 'package:get/get.dart';
+import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/domain/entity/params/cart/add_to_cart_params.dart';
 import 'package:taoju5_c/domain/entity/params/order/measure_data_params.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
@@ -15,19 +16,26 @@ import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/price_delegator/price_delegator.dart';
 
-class RollingCurtainProductAttributeController extends GetxController {
-  late CurtainAttributeEntity attribute;
+class RollingCurtainProductAttributeController
+    extends BaseFutureLoadStateController {
   late RollingCurtainProductPriceDelegator priceDelegator;
   late ProductDetailEntity product;
-  RollingCurtainProductAttributeController(
-      {required this.product, required this.attribute}) {
+  RollingCurtainProductAttributeController({required this.product}) {
     priceDelegator = RollingCurtainProductPriceDelegator(product);
-    attribute.measureData.size.width = product.width;
-    attribute.measureData.size.height = product.height;
+  }
+
+  Future<CurtainAttributeEntity> loadData({Map? params}) {
+    ProductRepository repository = ProductRepository();
+
+    return repository.productAttribute({"goods_id": product.id}).then((value) {
+      product.attribute = value;
+      return value;
+    }).whenComplete(update);
   }
 
   selectRoom(WindowRoomOptionEntity option) {
-    for (WindowRoomOptionEntity o in attribute.measureData.room.options) {
+    for (WindowRoomOptionEntity o
+        in product.attribute.measureData.room.options) {
       o.selected = o == option;
     }
     update();
@@ -36,15 +44,15 @@ class RollingCurtainProductAttributeController extends GetxController {
   Future saveMeasureData() {
     ProductRepository repository = ProductRepository();
     MeasureDataParamsEntity arg =
-        MeasureDataParamsEntity(measureData: attribute.measureData);
+        MeasureDataParamsEntity(measureData: product.attribute.measureData);
     try {
       arg.validate();
-      attribute.finished = true;
+      product.attribute.finished = true;
       return repository.saveMeasureData(arg.params);
     } catch (err, stack) {
       print(err);
       print(stack);
-      attribute.finished = false;
+      product.attribute.finished = false;
     } finally {
       update();
     }
@@ -53,23 +61,23 @@ class RollingCurtainProductAttributeController extends GetxController {
 
   ///在关闭弹窗时调用
   hasFinished() {
-    attribute.finished = (attribute.measureData.room.selectedOption != null) &&
-        (attribute.measureData.sizeIsNotEmpty);
-    if (attribute.finished) {
-      product.specTip =
-          "${attribute.measureData.room.selectedOption?.name ?? ''},宽：${attribute.measureData.size.width}，高：${attribute.measureData.size.width}";
-    }
+    // attribute.finished = (attribute.measureData.room.selectedOption != null) &&
+    //     (attribute.measureData.sizeIsNotEmpty);
+    // if (attribute.finished) {
+    //   product.specTip =
+    //       "${attribute.measureData.room.selectedOption?.name ?? ''},宽：${attribute.measureData.size.width}，高：${attribute.measureData.size.width}";
+    // }
   }
 
   void setHeight(String val) {
-    attribute.measureData.size.setHeight(val);
-    product.height = attribute.measureData.size.height;
+    product.attribute.measureData.size.setHeight(val);
+    product.height = product.attribute.measureData.size.height;
     update();
   }
 
   void setWidth(String val) {
-    attribute.measureData.size.setWidth(val);
-    product.width = attribute.measureData.size.width;
+    product.attribute.measureData.size.setWidth(val);
+    product.width = product.attribute.measureData.size.width;
     update();
   }
 

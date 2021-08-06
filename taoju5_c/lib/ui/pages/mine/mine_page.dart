@@ -38,9 +38,7 @@ class MinePage extends StatelessWidget {
               ),
               actions: [
                 GestureDetector(
-                    onTap: () => Get.toNamed(AppRoutes.mine + AppRoutes.setting,
-                        arguments: _.user),
-                    child: Image.asset(R.image.setting))
+                    onTap: _.editProfie, child: Image.asset(R.image.setting))
               ],
             ),
             body: FutureLoadStateBuilder<MineController>(

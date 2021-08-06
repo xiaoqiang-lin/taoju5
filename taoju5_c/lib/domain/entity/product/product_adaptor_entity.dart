@@ -2,16 +2,17 @@
  * @Description: 商品适配器模型
  * @Author: iamsmiling
  * @Date: 2021-05-14 16:35:07
- * @LastEditTime: 2021-07-19 17:33:54
+ * @LastEditTime: 2021-08-05 17:06:59
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shake_animation_widget/shake_animation_widget.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 import 'package:taoju5_c/domain/entity/cart/cart_entity.dart';
-import 'package:taoju5_c/domain/entity/order/order_detail_entity.dart';
 import 'package:taoju5_c/domain/entity/order/order_entity.dart';
 import 'package:taoju5_c/domain/entity/product/curtain_attribute_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_detail_entity.dart';
+import 'package:taoju5_c/domain/entity/scene/scene_product_entity.dart';
 
 ///测量状态
 enum MeasureStatus {
@@ -88,6 +89,25 @@ class ProductAdaptorEntity {
   bool get signet => measureStatus == MeasureStatus.confirmed;
 
   bool selected = false;
+
+  ProductAdaptorEntity.fromSceneProduct(SceneProductEntity product) {
+    attributes = product.pairs;
+    description = product.description;
+    image = product.image;
+    unitPrice = product.price;
+    totalPrice = product.totalPrice;
+    name = product.name;
+    count = product.count;
+    craftId = product.craftId;
+    measureId = product.measureId;
+    args = product.wcAttr;
+    skuId = product.skuId;
+    skuName = product.skuName;
+    productType = product.productType;
+    arg = product.wcAttr;
+    length = product.length;
+    measureId = product.measureId;
+  }
 
   ProductAdaptorEntity.fromCartEntity(CartEntity cart) {
     attributes = cart.attributes;

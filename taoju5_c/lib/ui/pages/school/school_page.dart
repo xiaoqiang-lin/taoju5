@@ -2,18 +2,19 @@
  * @Description: 淘学院
  * @Author: iamsmiling
  * @Date: 2021-04-21 13:31:54
- * @LastEditTime: 2021-07-20 18:21:55
+ * @LastEditTime: 2021-07-29 09:45:08
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
 import 'package:taoju5_c/component/net/flutter_loadstate_builder.dart';
 import 'package:taoju5_c/domain/entity/category/category_entity.dart';
-import 'package:taoju5_c/domain/entity/school/course_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
 import 'package:taoju5_c/ui/pages/school/school_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:taoju5_c/ui/pages/school/widget/article_card.dart';
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SchoolPage extends GetView<SchoolParentController> {
   const SchoolPage({Key? key}) : super(key: key);
@@ -83,6 +84,7 @@ class SchoolPage extends GetView<SchoolParentController> {
               builder: (_) {
                 return DefaultTabController(
                   length: _.categories.length,
+                  initialIndex: _.currentIndex,
                   child: Column(
                     children: [
                       Container(
@@ -102,137 +104,54 @@ class SchoolPage extends GetView<SchoolParentController> {
                           child: TabBarView(
                         children: [
                           for (CategoryEntity c in _.categories)
-                            GetBuilder<SchoolController>(
-                                autoRemove: false,
-                                tag: "${c.id}",
-                                builder: (_) {
-                                  return FutureLoadStateBuilder<
-                                          SchoolController>(
-                                      controller: _,
-                                      tag: "${c.id}",
-                                      builder: (_) {
-                                        return Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: R.dimen.dp20),
-                                          child: StaggeredGridView.countBuilder(
-                                            padding: EdgeInsets.zero,
-                                            crossAxisCount: 4,
-                                            itemCount: _.courses.length,
-                                            mainAxisSpacing: R.dimen.dp15,
-                                            crossAxisSpacing: R.dimen.dp16,
-                                            staggeredTileBuilder: (index) {
-                                              return StaggeredTile.fit(2);
-                                            },
-                                            itemBuilder:
-                                                (BuildContext context, int i) {
-                                              CourseEntity item = _.courses[i];
-                                              return GestureDetector(
-                                                onTap: item.isVideo
-                                                    ? () => Get.toNamed(
-                                                        AppRoutes.videoPlayer +
-                                                            "/${item.id}")
-                                                    : () => Get.toNamed(
-                                                        AppRoutes
-                                                                .articleDetail +
-                                                            "/${item.id}",
-                                                        arguments: item.type),
-                                                child: Stack(
-                                                  children: [
-                                                    Container(
-                                                      width: (assignableWidth -
-                                                              R.dimen.dp15) /
-                                                          2.00,
-                                                      height: (assignableWidth -
-                                                                  R.dimen
-                                                                      .dp15) /
-                                                              2.00 *
-                                                              (item
-                                                                  .aspectRatio) +
-                                                          48,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          ChimeraImage(
-                                                            _.courses[i].cover,
-                                                            width: (assignableWidth -
-                                                                    R.dimen
-                                                                        .dp15) /
-                                                                2.00,
-                                                            height: (assignableWidth -
-                                                                    R.dimen
-                                                                        .dp15) /
-                                                                2.00 *
-                                                                (item
-                                                                    .aspectRatio),
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Container(
-                                                            margin: EdgeInsets
-                                                                .only(
-                                                                    top: R.dimen
-                                                                        .dp10,
-                                                                    bottom: R
-                                                                        .dimen
-                                                                        .dp6),
-                                                            child: Text(
-                                                              item.title,
-                                                              maxLines: 2,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: TextStyle(
-                                                                  fontSize: R
-                                                                      .dimen
-                                                                      .sp12),
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Container(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        right: R
-                                                                            .dimen
-                                                                            .dp6),
-                                                                child: Image
-                                                                    .asset(R
-                                                                        .image
-                                                                        .eye),
-                                                              ),
-                                                              Text(
-                                                                item.description,
-                                                                style: TextStyle(
-                                                                    fontSize: R
-                                                                        .dimen
-                                                                        .sp10,
-                                                                    color: R
-                                                                        .color
-                                                                        .ff999999),
-                                                              )
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Positioned(
-                                                      top: R.dimen.dp10,
-                                                      right: R.dimen.dp10,
-                                                      child: Visibility(
-                                                        child: Image.asset(
-                                                            R.image.video),
-                                                        visible: item.isVideo,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      });
-                                })
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: R.dimen.dp20),
+                              child: GetBuilder<SchoolController>(
+                                  autoRemove: false,
+                                  tag: "${c.id}",
+                                  builder: (_) {
+                                    return FutureLoadStateBuilder<
+                                            SchoolController>(
+                                        controller: _,
+                                        tag: "${c.id}",
+                                        builder: (_) {
+                                          return SmartRefresher(
+                                            scrollController:
+                                                _.scrollController,
+                                            controller: _.refreshController!,
+                                            enablePullDown: true,
+                                            enablePullUp: true,
+                                            onRefresh: _.refreshData,
+                                            onLoading: _.loadMore,
+                                            child: StaggeredGridView.builder(
+                                              itemCount: _.courses.length,
+                                              controller: _.scrollController,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int i) {
+                                                return ArticleCard(
+                                                    artilce: _.courses[i]);
+                                              },
+                                              gridDelegate:
+                                                  SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                                                      staggeredTileBuilder:
+                                                          (index) {
+                                                        return StaggeredTile
+                                                            .fit(2);
+                                                      },
+                                                      crossAxisCount: 4,
+                                                      mainAxisSpacing:
+                                                          R.dimen.dp15,
+                                                      crossAxisSpacing:
+                                                          R.dimen.dp16,
+                                                      staggeredTileCount:
+                                                          _.list.length),
+                                            ),
+                                          );
+                                        });
+                                  }),
+                            )
                         ],
                       ))
                     ],

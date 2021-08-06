@@ -2,7 +2,7 @@
  * @Description: 门店卡片
  * @Author: iamsmiling
  * @Date: 2021-06-08 16:08:22
- * @LastEditTime: 2021-07-21 16:50:25
+ * @LastEditTime: 2021-07-23 09:20:38
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -38,7 +38,7 @@ class PhysicialStoreCard extends StatelessWidget {
                       topRight: Radius.circular(R.dimen.sp7)),
                   height: R.dimen.dp90,
                   width: R.dimen.dp200,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 Container(
                   margin: EdgeInsets.only(top: R.dimen.dp20),

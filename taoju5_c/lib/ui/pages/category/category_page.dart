@@ -2,7 +2,7 @@
  * @Description: 分类逻辑
  * @Author: iamsmiling
  * @Date: 2021-04-19 16:45:21
- * @LastEditTime: 2021-06-24 15:27:12
+ * @LastEditTime: 2021-07-26 09:27:45
  */
 import 'dart:ui';
 
@@ -174,7 +174,7 @@ class CategoryPage extends GetView<CategoryController> {
                                     item.image,
                                     width: assignableWidth,
                                     height: assignableWidth * (120 / 235),
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 Wrap(
@@ -203,7 +203,7 @@ class CategoryPage extends GetView<CategoryController> {
                                                               R.dimen.dp15 *
                                                                   2) /
                                                           factor,
-                                                      fit: BoxFit.fitHeight,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                     Positioned.fill(
                                                         child: Visibility(

@@ -2,7 +2,7 @@
  * @Description: 设置页面
  * @Author: iamsmiling
  * @Date: 2020-12-22 15:53:48
- * @LastEditTime: 2021-01-12 10:39:31
+ * @LastEditTime: 2021-07-26 09:12:38
  */
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -107,7 +107,7 @@ class SettingPage extends StatelessWidget {
             // ),
             // Divider(),
 
-            Divider(),
+            // Divider(),
             XLabelTile(
               label: "我的客服",
               trailing: Text(

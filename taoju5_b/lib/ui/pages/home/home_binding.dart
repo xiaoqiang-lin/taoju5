@@ -2,7 +2,7 @@
  * @Description: taoju5Binding
  * @Author: iamsmiling
  * @Date: 2020-12-21 09:22:04
- * @LastEditTime: 2021-02-02 21:21:40
+ * @LastEditTime: 2021-07-30 06:43:20
  */
 import 'package:get/get.dart';
 import 'package:taoju5_b/ui/pages/home/customer_provider_controller.dart';
@@ -16,9 +16,14 @@ class TaojuwuBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => AppController());
-    Get.put(TaojuwuController());
-    Get.put(HomeController());
-    Get.put(CustomerProviderController(), permanent: true);
-    Get.put(UserProviderController(), permanent: true);
+    Get.lazyPut(() => TaojuwuController());
+    Get.lazyPut(() => BHomeController());
+    Get.lazyPut(() => CustomerProviderController(), fenix: true);
+    Get.lazyPut(() => UserProviderController(), fenix: true);
+    // Get.put(AppController());
+    // Get.put(TaojuwuController());
+    // Get.put(BHomeController());
+    // Get.put(CustomerProviderController(), permanent: true);
+    // Get.put(UserProviderController(), permanent: true);
   }
 }

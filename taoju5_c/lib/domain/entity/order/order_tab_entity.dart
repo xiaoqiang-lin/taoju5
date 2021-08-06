@@ -2,7 +2,7 @@
  * @Description: sho
  * @Author: iamsmiling
  * @Date: 2021-05-17 16:50:40
- * @LastEditTime: 2021-06-03 17:55:19
+ * @LastEditTime: 2021-07-28 14:52:39
  */
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -15,6 +15,8 @@ class OrderTabEntity {
   late bool visible;
   late String icon;
   int count = 0;
+
+  OrderTabEntity({this.status = ""});
 
   OrderTabEntity.fromJson(Map json) {
     label = json["status_name"];

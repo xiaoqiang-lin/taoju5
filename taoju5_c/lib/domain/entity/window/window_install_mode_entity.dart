@@ -2,14 +2,16 @@
  * @Description: 窗帘安装方式
  * @Author: iamsmiling
  * @Date: 2021-05-08 12:12:01
- * @LastEditTime: 2021-06-29 17:32:40
+ * @LastEditTime: 2021-07-22 11:27:31
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
 class WindowInstalllModeEntity {
   late String label;
-  late List<WindowInstallModeOptionEntity> options;
+  List<WindowInstallModeOptionEntity> options = [];
+
+  WindowInstalllModeEntity();
 
   WindowInstalllModeEntity.fromJson(Map json) {
     label = json["label"];

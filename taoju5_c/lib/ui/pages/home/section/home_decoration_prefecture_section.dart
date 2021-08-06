@@ -2,11 +2,9 @@
  * @Description: 软装专区
  * @Author: iamsmiling
  * @Date: 2021-04-20 16:54:05
- * @LastEditTime: 2021-07-21 12:00:56
+ * @LastEditTime: 2021-07-26 09:56:46
  */
 import 'package:flutter/material.dart';
-import 'package:taoju5_c/component/image/chimera_image.dart';
-import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/entity/home/home_soft_decoration_section_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 
@@ -52,8 +50,9 @@ class HomeDecorationPrefectureSection extends StatelessWidget {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: soft.items.length,
-                  itemBuilder: (BuildContext context, int i) =>
-                      SoftDecorationCard(soft: soft.items[i])))
+                  itemBuilder: (BuildContext context, int i) => Container(
+                      margin: EdgeInsets.only(right: R.dimen.dp10),
+                      child: SoftDecorationCard(soft: soft.items[i]))))
         ],
       ),
     );

@@ -28,7 +28,7 @@ class SoftDecorationCard extends StatelessWidget {
       child: Container(
           width: width,
           height: height,
-          margin: EdgeInsets.only(right: R.dimen.dp10),
+          // margin: EdgeInsets.only(right: R.dimen.dp10),
           alignment: Alignment.center,
           child: Stack(
             alignment: Alignment.center,

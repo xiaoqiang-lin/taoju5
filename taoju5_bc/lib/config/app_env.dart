@@ -2,7 +2,7 @@
  * @Description: app环境
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:32:32
- * @LastEditTime: 2021-04-15 14:51:27
+ * @LastEditTime: 2021-08-06 11:03:45
  */
 enum AppEnv { $b, $c }
 enum AppMode { release, debug }
@@ -18,9 +18,9 @@ String getAppName({AppEnv env = AppEnv.$b, AppMode mode = AppMode.debug}) {
 
 String getServerHost({AppEnv env = AppEnv.$b, AppMode mode = AppMode.release}) {
   Map<String, String> map = {
-    {AppEnv.$b, AppMode.debug}.toString(): "http://buyi.taoju5.com",
+    {AppEnv.$b, AppMode.debug}.toString(): "https://buyiweb.taoju5.com",
     {AppEnv.$b, AppMode.release}.toString(): "http://www.taoju5.com",
-    {AppEnv.$c, AppMode.debug}.toString(): "http://buyi.taoju5.com",
+    {AppEnv.$c, AppMode.debug}.toString(): "https://buyiweb.taoju5.com",
     {AppEnv.$c, AppMode.release}.toString(): "http://www.apple.com",
   };
   return map[{env, mode}.toString()];

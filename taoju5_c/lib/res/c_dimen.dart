@@ -2,7 +2,7 @@
  * @Description: 艰巨
  * @Author: iamsmiling
  * @Date: 2021-04-14 09:40:34
- * @LastEditTime: 2021-07-21 15:00:20
+ * @LastEditTime: 2021-07-23 17:55:00
  */
 // part of R;
 import 'package:get/get.dart';
@@ -49,7 +49,7 @@ class CDimen {
   final double dp17 = 17;
   final double dp9 = 9;
   final double dp108 = 108;
-
+  final double dp104 = 104;
   final double dp6 = 6;
   final double dp25 = 25;
   final double dp28 = 28;

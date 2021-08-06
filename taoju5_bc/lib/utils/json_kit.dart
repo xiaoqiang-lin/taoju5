@@ -2,7 +2,7 @@
  * @Description: json转换工具类
  * @Author: iamsmiling
  * @Date: 2020-12-21 09:59:08
- * @LastEditTime: 2021-05-21 15:44:36
+ * @LastEditTime: 2021-07-22 09:53:49
  */
 
 import 'package:taoju5_bc/config/net_config.dart';
@@ -36,7 +36,7 @@ abstract class JsonKit {
 
   static double asDouble(dynamic n) {
     if (n is num) return n.toDouble();
-    if (GetUtils.isNum(n)) return double.tryParse(n);
+    if (n is String && GetUtils.isNum(n)) return double.tryParse(n);
     if (n is double) return n;
     return 0.0;
   }
@@ -45,7 +45,6 @@ abstract class JsonKit {
     if (GetUtils.isNullOrBlank(value)) return false;
     if (value is bool) return value;
     if (value is num) return value > 0;
-
     return true;
   }
 

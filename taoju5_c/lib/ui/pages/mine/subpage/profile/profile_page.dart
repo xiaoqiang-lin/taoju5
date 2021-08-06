@@ -11,117 +11,120 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("个人资料"),
-        ),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ///头像
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Get.toNamed(
-                      AppRoutes.mine +
-                          AppRoutes.profile +
-                          AppRoutes.modifyUserAvatar,
-                      parameters: {"avatar": _.user.avatar}),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                    child: Row(
-                      children: [
-                        Text(
-                          "头像",
-                          style: TextStyle(fontSize: R.dimen.sp14),
-                        ),
-                        Spacer(),
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundImage: NetworkImage(_.user.avatar),
-                        ),
-                        Image.asset(R.image.next)
-                      ],
+      return WillPopScope(
+        onWillPop: () async {
+          Get.back(result: _.user);
+          return true;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("个人资料"),
+          ),
+          body: Container(
+            margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ///头像
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: _.setAvatar,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "头像",
+                            style: TextStyle(fontSize: R.dimen.sp14),
+                          ),
+                          Spacer(),
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundImage: NetworkImage(_.user.avatar),
+                          ),
+                          Image.asset(R.image.next)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Divider(),
+                  Divider(),
 
-                ///昵称
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Get.toNamed(
-                      AppRoutes.mine +
-                          AppRoutes.profile +
-                          AppRoutes.modifyUserNickname,
-                      arguments: _.user),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                    child: Row(
-                      children: [
-                        Text(
-                          "昵称",
-                          style: TextStyle(fontSize: R.dimen.sp14),
-                        ),
-                        Spacer(),
-                        Text(
-                          _.user.name,
-                          style: TextStyle(fontSize: R.dimen.sp12),
-                        ),
-                        Image.asset(R.image.next)
-                      ],
+                  ///昵称
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => Get.toNamed(
+                        AppRoutes.mine +
+                            AppRoutes.profile +
+                            AppRoutes.modifyUserNickname,
+                        arguments: _.user),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "昵称",
+                            style: TextStyle(fontSize: R.dimen.sp14),
+                          ),
+                          Spacer(),
+                          Text(
+                            _.user.name,
+                            style: TextStyle(fontSize: R.dimen.sp12),
+                          ),
+                          Image.asset(R.image.next)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Divider(),
+                  Divider(),
 
-                ///性别
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: _.setGender,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                    child: Row(
-                      children: [
-                        Text(
-                          "性别",
-                          style: TextStyle(fontSize: R.dimen.sp14),
-                        ),
-                        Spacer(),
-                        Text(
-                          _.user.gender.name,
-                          style: TextStyle(
-                              fontSize: R.dimen.sp12, color: R.color.ffb4b4b4),
-                        ),
-                        Image.asset(R.image.next)
-                      ],
+                  ///性别
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: _.setGender,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "性别",
+                            style: TextStyle(fontSize: R.dimen.sp14),
+                          ),
+                          Spacer(),
+                          Text(
+                            _.user.gender.name,
+                            style: TextStyle(
+                                fontSize: R.dimen.sp12,
+                                color: R.color.ffb4b4b4),
+                          ),
+                          Image.asset(R.image.next)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Divider(),
+                  Divider(),
 
-                GestureDetector(
-                  onTap: _.setBirthday,
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
-                    child: Row(
-                      children: [
-                        Text(
-                          "生日",
-                          style: TextStyle(fontSize: R.dimen.sp14),
-                        ),
-                        Spacer(),
-                        Text("1988/08/08",
-                            style: TextStyle(fontSize: R.dimen.sp12)),
-                        Image.asset(R.image.next)
-                      ],
+                  GestureDetector(
+                    onTap: _.setBirthday,
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: R.dimen.dp16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "生日",
+                            style: TextStyle(fontSize: R.dimen.sp14),
+                          ),
+                          Spacer(),
+                          Text("1988/08/08",
+                              style: TextStyle(fontSize: R.dimen.sp12)),
+                          Image.asset(R.image.next)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Divider(),
-              ],
+                  Divider(),
+                ],
+              ),
             ),
           ),
         ),

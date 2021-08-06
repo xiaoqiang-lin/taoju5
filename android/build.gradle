@@ -1,24 +1,34 @@
 buildscript {
     ext.kotlin_version = '1.4.10'
     repositories {
-        google()
-        jcenter()
-         maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+maven {
+            url 'https://maven.aliyun.com/repository/public'
         }
         maven {
             url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
         }
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+        }
 
-        maven { url 'https://dl.bintray.com/magicbaby/maven' }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+       
+
+        // maven { url 'https://dl.bintray.com/magicbaby/maven' }
         maven { url 'http://developer.huawei.com/repo/'}
+        google()
+        jcenter()
+        maven { url "https://www.jitpack.io" }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.bugly:tinker-support:1.2.1'
-        classpath 'com.sk.hannibal:hannibal:1.0.7'
+        // classpath 'com.sk.hannibal:hannibal:1.0.7'
+        classpath 'com.github.magicbaby810:hannibalx:0.1'
         classpath 'com.huawei.agconnect:agcp:1.4.2.300'
         // classpath 'com.huawei.agconnect:agconnect-apms-plugin:1.2.1.300'
 
@@ -27,18 +37,26 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
-         maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+     maven {
+            url 'https://maven.aliyun.com/repository/public'
         }
         maven {
             url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
         }
-//        google()
-//        jcenter()
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+        }
+
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+      
+      
+       google()
+       jcenter()
         maven { url 'https://dl.bintray.com/magicbaby/maven' }
         maven {url 'http://developer.huawei.com/repo/'}
+        
     }
 }
 

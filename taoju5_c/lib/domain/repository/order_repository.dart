@@ -2,7 +2,7 @@
  * @Description: 订单相关
  * @Author: iamsmiling
  * @Date: 2021-05-07 16:02:45
- * @LastEditTime: 2021-07-17 16:24:33
+ * @LastEditTime: 2021-07-27 14:38:14
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:convert';
@@ -56,9 +56,9 @@ class OrderRepository {
         return WxPayOrderEntity.fromJson(value.data);
       });
 
-  Future<List<OrderEntity>> orderList(Map? params) =>
+  Future<OrderListWrapperEntity> orderList(Map? params) =>
       _api.orderList(params).then((BaseEntity response) {
-        return OrderListWrapperEntity.fromJson(response.data).orders;
+        return OrderListWrapperEntity.fromJson(response.data);
       });
 
   Future<OrderDetailEntity> orderDetail(Map? params) =>

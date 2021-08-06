@@ -2,17 +2,19 @@
  * @Description: 窗型
  * @Author: iamsmiling
  * @Date: 2021-05-08 11:14:08
- * @LastEditTime: 2021-06-30 10:49:51
+ * @LastEditTime: 2021-07-30 11:18:43
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
 
 class WindowFacadeEntity {
   late String label;
-  late List<WindowFacadeOptionEntity> options;
+  List<WindowFacadeOptionEntity> options = [];
 
   ///将窗帘样式 窗型选择 有盒无盒 视为children
-  late List<WindowFacadeEntity> children;
+  List<WindowFacadeEntity> children = [];
+
+  WindowFacadeEntity();
 
   WindowFacadeEntity.fromJson(Map json) {
     label = json["label"];
@@ -37,6 +39,13 @@ class WindowFacadeEntity {
       }
     }
     return val.join("/");
+  }
+
+  int get count {
+    if (value.contains("单")) return 1;
+    if (value.contains("L")) return 2;
+    if (value.contains("U")) return 3;
+    return 1;
   }
 
   /// 窗型id -1表示未找到匹配的窗型

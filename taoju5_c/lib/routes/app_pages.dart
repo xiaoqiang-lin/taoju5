@@ -2,13 +2,15 @@
  * @Description: c端app
  * @Author: iamsmiling
  * @Date: 2021-02-02 22:39:50
- * @LastEditTime: 2021-07-21 15:53:12
+ * @LastEditTime: 2021-07-28 15:09:59
  */
 
 import 'package:get/get.dart';
 import 'package:taoju5_c/routes/middleware/product_detail/product_browse_middleware.dart';
-import 'package:taoju5_c/ui/pages/article/article_detail_binding.dart';
-import 'package:taoju5_c/ui/pages/article/article_detail_page.dart';
+import 'package:taoju5_c/ui/pages/article/article_detail/article_detail_binding.dart';
+import 'package:taoju5_c/ui/pages/article/article_detail/article_detail_page.dart';
+import 'package:taoju5_c/ui/pages/article/article_list/article_list_binding.dart';
+import 'package:taoju5_c/ui/pages/article/article_list/article_list_page.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_binding.dart';
 import 'package:taoju5_c/ui/pages/cart/cart_page.dart';
 import 'package:taoju5_c/ui/pages/category/category_binding.dart';
@@ -110,8 +112,10 @@ import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_binding.dart';
 import 'package:taoju5_c/ui/pages/scene/scene_list/scene_list_page.dart';
 import 'package:taoju5_c/ui/pages/search/search_binding.dart';
 import 'package:taoju5_c/ui/pages/search/search_page.dart';
-import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_binding.dart';
-import 'package:taoju5_c/ui/pages/search/subpage/product_search_list/product_search_page.dart';
+import 'package:taoju5_c/ui/pages/search/subpage/order_search_list/search_order_binding.dart';
+import 'package:taoju5_c/ui/pages/search/subpage/order_search_list/search_order_page.dart';
+import 'package:taoju5_c/ui/pages/search_input_page/search_input_binding.dart';
+import 'package:taoju5_c/ui/pages/search_input_page/search_input_page.dart';
 import 'package:taoju5_c/ui/pages/soft_decoration/soft_decoration_list_binding.dart';
 import 'package:taoju5_c/ui/pages/soft_decoration/soft_decoration_list_page.dart';
 import 'package:taoju5_c/ui/pages/store/store_detail/store_detail_binding.dart';
@@ -289,19 +293,24 @@ class AppPages {
 
     ///搜索
     GetPage(
-        name: AppRoutes.search,
-        page: () => SearchPage(),
-        binding: SearchBinding(),
-        children: [
-          GetPage(
-              name: AppRoutes.searchProduct + "/:keyword",
-              page: () => ProductSearchPage(),
-              binding: ProductSearchBinding()),
-        ]),
+      name: AppRoutes.search,
+      page: () => SearchPage(),
+      binding: SearchBinding(),
+    ),
+
+    ///搜索输入页面
     GetPage(
-        name: AppRoutes.searchProduct + "/:keyword",
-        page: () => ProductSearchPage(),
-        binding: ProductSearchBinding()),
+      name: AppRoutes.searchInput,
+      page: () => SearchInputPage(),
+      binding: SearchInputBinding(),
+    ),
+
+    ///订单搜索结果页面
+    GetPage(
+      name: AppRoutes.searchOrder,
+      page: () => SearchOrderPage(),
+      binding: SearchOrderBinding(),
+    ),
 
     GetPage(
         name: AppRoutes.imageCrop,
@@ -437,6 +446,12 @@ class AppPages {
     GetPage(
         name: AppRoutes.softDecorationList,
         page: () => SoftDecorationListPage(),
-        binding: SoftDecorationListBinding())
+        binding: SoftDecorationListBinding()),
+
+    ///专题推荐
+    GetPage(
+        name: AppRoutes.articleList,
+        page: () => ArticleListPage(),
+        binding: ArticleListBinding())
   ];
 }

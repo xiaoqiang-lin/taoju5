@@ -2,11 +2,10 @@
  * @Description: 场景详情
  * @Author: iamsmiling
  * @Date: 2021-05-29 10:31:44
- * @LastEditTime: 2021-05-29 11:14:12
+ * @LastEditTime: 2021-07-30 10:25:12
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
-import 'package:taoju5_c/domain/entity/product/product_entity.dart';
 import 'package:taoju5_c/domain/entity/scene/scene_detail_entity.dart';
 import 'package:taoju5_c/res/R.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_card.dart';
@@ -21,59 +20,70 @@ class SceneDetailBody extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
       child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(
-              top: R.dimen.dp18,
-              bottom: R.dimen.dp12,
-            ),
-            child: Row(
+          Visibility(
+            visible: scene.products.isNotEmpty,
+            child: Column(
               children: [
-                Text(
-                  "包含商品",
-                  style: TextStyle(
-                      fontSize: R.dimen.sp14, fontWeight: FontWeight.w600),
-                ),
                 Container(
-                  margin: EdgeInsets.only(left: R.dimen.dp6),
-                  child: Text(
-                    "(${scene.products.length})",
-                    style: TextStyle(
-                        fontSize: R.dimen.sp9,
-                        color: R.color.ff999999,
-                        fontWeight: FontWeight.w400),
+                  margin: EdgeInsets.only(
+                    top: R.dimen.dp18,
+                    bottom: R.dimen.dp12,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "包含商品",
+                        style: TextStyle(
+                            fontSize: R.dimen.sp14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: R.dimen.dp6),
+                        child: Text(
+                          "(${scene.products.length})",
+                          style: TextStyle(
+                              fontSize: R.dimen.sp9,
+                              color: R.color.ff999999,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                          margin: EdgeInsets.only(right: R.dimen.dp2),
+                          child: Text(
+                            "查看全部",
+                            style: TextStyle(
+                                fontSize: R.dimen.sp12,
+                                color: R.color.ffb4b4b4),
+                          )),
+                      Image.asset(R.image.next),
+                    ],
                   ),
                 ),
-                Spacer(),
                 Container(
-                    margin: EdgeInsets.only(right: R.dimen.dp2),
-                    child: Text(
-                      "查看全部",
-                      style: TextStyle(
-                          fontSize: R.dimen.sp12, color: R.color.ffb4b4b4),
-                    )),
-                Image.asset(R.image.next),
+                  height: R.dimen.width * 216 / 375,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: scene.products.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      double w = (R.dimen.width -
+                              R.dimen.dp20 * 2 -
+                              R.dimen.dp10 * 2) /
+                          3.00001;
+                      return Container(
+                        margin: EdgeInsets.only(right: R.dimen.dp10),
+                        width: w,
+                        height: w * 171 / 105,
+                        child:
+                            ProductCard(width: w, product: scene.products[i]),
+                      );
+                    },
+                  ),
+                ),
+                Divider(),
               ],
             ),
           ),
-          Container(
-            height: R.dimen.width * 216 / 375,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: scene.products.length,
-              itemBuilder: (BuildContext context, int i) {
-                double w =
-                    (R.dimen.width - R.dimen.dp20 * 2 - R.dimen.dp10 * 2) /
-                        3.00001;
-                return Container(
-                  margin: EdgeInsets.only(right: R.dimen.dp10),
-                  width: w,
-                  height: w * 171 / 105,
-                  child: ProductCard(width: w, product: scene.products[i]),
-                );
-              },
-            ),
-          ),
-          Divider(),
           Container(
             margin: EdgeInsets.only(top: R.dimen.dp20, bottom: R.dimen.dp10),
             child: Row(

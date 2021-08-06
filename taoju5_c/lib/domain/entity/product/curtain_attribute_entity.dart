@@ -2,8 +2,11 @@
  * @Description: 窗帘属性
  * @Author: iamsmiling
  * @Date: 2021-05-08 15:22:03
- * @LastEditTime: 2021-07-08 15:32:07
+ * @LastEditTime: 2021-08-06 10:30:47
  */
+
+// ignore: import_of_legacy_library_into_null_safe
+import 'dart:convert';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
@@ -22,6 +25,7 @@ import 'package:shake_animation_widget/shake_animation_widget.dart';
 
 class CurtainAttributeEntity {
   bool finished = false;
+  bool initialized = false;
   late CurtainMeasureDataAttributeEntity measureData;
 
   late CurtainMatchingSetAttributeEntity matchingSet;
@@ -36,6 +40,8 @@ class CurtainAttributeEntity {
 
   ///json1 数据来自 assets/data/measure_data.json json2数据来自/app/goods/wcAttr接口
   CurtainAttributeEntity.fromJson(Map json1, Map json2) {
+    initialized = true;
+
     ///空间
     if (!JsonKit.isNullOrBlank(json2["room_list"])) {
       json1["measure_data"]["room"]?..addAll((json2["room_list"]));
@@ -83,7 +89,7 @@ class CurtainAttributeEntity {
 }
 
 class CurtainMeasureDataAttributeEntity {
-  late String label;
+  String label = "";
 
   late WindowFacadeEntity facade;
 
@@ -93,11 +99,15 @@ class CurtainMeasureDataAttributeEntity {
 
   late WindowRoomEntity room;
 
-  late List<WindowChildOpenModeEntity> _childOpenModes;
+  List<WindowChildOpenModeEntity> _childOpenModes = [];
 
   late WindowSizeEntity size;
 
   late WindowGroundClearanceEntity groundClearance;
+
+  String? wcAttrId;
+  String? installType;
+  String? openType;
 
   String? sectionalBar;
   String? note;
@@ -124,7 +134,7 @@ class CurtainMeasureDataAttributeEntity {
 
   String get brief =>
       "${room.selectedOption?.name},${facade.value},${openMode.selectedOpenOption?.name}";
-
+  CurtainMeasureDataAttributeEntity();
   CurtainMeasureDataAttributeEntity.fromJson(Map json) {
     label = json["label"];
     facade = WindowFacadeEntity.fromJson(json["window"]);
@@ -139,6 +149,58 @@ class CurtainMeasureDataAttributeEntity {
 
     groundClearance =
         WindowGroundClearanceEntity.fromJson(json["ground_clearance"]);
+  }
+  CurtainMeasureDataAttributeEntity.fromCartProductJson(Map json) {
+    sectionalBar = json["parts_type"] ?? "";
+    size = WindowSizeEntity();
+    initSize("${json["width"]}", "${json["height"]}");
+    groundClearance = WindowGroundClearanceEntity();
+    initGroundClearance("${json["vertical_ground_height"]}");
+    room = WindowRoomEntity();
+    room.initByName(json["install_room"]);
+    installMode = WindowInstalllModeEntity();
+    installMode.initWithName(json["install_type"]);
+    openType = json["open_type"];
+    wcAttrId = "${json["wc_attr_id"]}";
+    installType = json["install_type"];
+    openMode = WindowOpenModeEntity();
+    openMode.initWithIdAndName(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["open_type"]);
+    facade = WindowFacadeEntity();
+    facade.init(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["window_type"]);
+  }
+
+  void initFromJson(Map json) {
+    initSize("${json["width"]}", "${json["height"]}");
+    initGroundClearance("${json["vertical_ground_height"]}");
+    room.initByName(json["install_room"]);
+    installMode.initWithName(json["install_type"]);
+    openMode.initWithIdAndName(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["open_type"]);
+    facade.init(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["window_type"]);
+  }
+
+  CurtainMeasureDataAttributeEntity.fromSceneProductJson(Map json) {
+    sectionalBar = json["parts_type"];
+    size = WindowSizeEntity();
+    initSize("${json["width"]}", "${json["height"]}");
+    groundClearance = WindowGroundClearanceEntity();
+    initGroundClearance("${json["vertical_ground_height"]}");
+    room = WindowRoomEntity();
+    room.initByName(json["install_room"]);
+    installMode = WindowInstalllModeEntity();
+    installMode.initWithName(json["install_type"]);
+    openType = json["open_type"];
+    wcAttrId = "${json["wc_attr_id"]}";
+    installType = json["install_type"];
+    openMode = WindowOpenModeEntity();
+    openMode.initWithIdAndName(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["open_type"]);
+    facade = WindowFacadeEntity();
+    facade.init(
+        JsonKit.asInt(JsonKit.asInt(json["wc_attr_id"])), json["window_type"]);
   }
 
   CurtainMeasureDataAttributeEntity.fromJson2(Map json, Map json2) {
@@ -170,9 +232,9 @@ class CurtainMeasureDataAttributeEntity {
 
     Map tmp = JsonKit.asMap(json2["data"]);
 
-    initSize(json2["width"], json2["height"]);
+    initSize("${json2["width"]}", "${json2["height"]}");
 
-    initGroundClearance(json2["vertical_ground_height"]);
+    initGroundClearance("${json2["vertical_ground_height"]}");
 
     initABC(
       aOpenMode: tmp["A"],
@@ -340,19 +402,22 @@ class CurtainMeasureDataAttributeEntity {
 
   Map get params {
     Map map = {
-      "wc_attr_id": windowOptionId,
+      "wc_attr_id": wcAttrId ?? windowOptionId,
       "install_room": room.value,
       "vertical_ground_height": groundClearance.value,
-      "install_type": selectedInstallOption?.name,
-      "open_type": selectedOpenOption?.name,
+      "install_type": installType ?? selectedInstallOption?.name,
+      "open_type": openType ?? selectedOpenOption?.name,
+      "window_type": windowOptionName,
       "width": size.width,
       "height": size.height,
-      "parts_type": sectionalBarCode
+      "parts_type": sectionalBarCode ?? sectionalBar,
+      "several_wall": facade.count
     };
     Map data = {};
 
     for (WindowChildOpenModeEntity child in childOpenModes) {
       data.addAll(child.params);
+      map = {...map, ...child.params};
     }
     map.addAll({"data": data});
     return map;
@@ -402,6 +467,8 @@ class CurtainMatchingSetAttributeEntity {
     return 0;
   }
 
+  void initFromId(int id) {}
+
   List<CurtainAddtionalProductEntity> get attributes =>
       [craft, sectionalbar, gauze, riboux, valance];
 
@@ -435,6 +502,18 @@ class CurtainMatchingSetAttributeEntity {
     // accessory = CurtainAddtionalProductEntity.fromList(json["accessory_list"],
     //     label: "配饰");
   }
+
+  Map get params => {
+        "process_method": [craft.selectedOption?.id ?? 0],
+        "wc_attr": jsonEncode({
+          "process_method": [craft.selectedOption?.id ?? 0],
+          "craft_id": [craft.selectedOption?.id ?? 0],
+          "gauze_id": [gauze.selectedOption?.id ?? 0],
+          "parts_id": [sectionalbar.selectedOption?.id ?? 0],
+          "curtain_id": [valance.selectedOption?.id ?? 0],
+          "lining_id": [riboux.selectedOption?.id ?? 0],
+        })
+      };
 }
 
 ///窗帘附加商品

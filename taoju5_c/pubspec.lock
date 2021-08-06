@@ -287,7 +287,7 @@ packages:
       name: flutter_bugly
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.2+1"
+    version: "0.3.3"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -501,6 +501,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.3"
+  keframe:
+    dependency: "direct main"
+    description:
+      name: keframe
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.2"
   logger:
     dependency: transitive
     description:
@@ -528,7 +535,7 @@ packages:
       name: multi_image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.8.00"
+    version: "4.8.01"
   nested:
     dependency: transitive
     description:

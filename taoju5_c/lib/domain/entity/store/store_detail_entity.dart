@@ -2,7 +2,7 @@
  * @Description: 门店详情
  * @Author: iamsmiling
  * @Date: 2021-07-21 14:19:38
- * @LastEditTime: 2021-07-21 15:25:52
+ * @LastEditTime: 2021-07-21 18:17:04
  */
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/json_kit.dart';
@@ -18,6 +18,7 @@ class StoreDetailEntity {
   late String bussinessHours;
   late String score;
   late String address;
+  late bool isCollected;
 
   StoreDetailEntity.fromJson(Map json) {
     id = json["shop_id"];
@@ -30,5 +31,6 @@ class StoreDetailEntity {
     bussinessHours = json["shop_workingtime"];
     score = "${json["grade"]}";
     address = "${json["all_address"]}".replaceAll(" ", "");
+    isCollected = JsonKit.asBool(json["is_collect"]);
   }
 }

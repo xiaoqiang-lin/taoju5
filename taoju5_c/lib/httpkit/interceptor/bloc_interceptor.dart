@@ -2,7 +2,7 @@
  * @Description: 业务逻辑相关的拦截器 （比如在商品加入购物成功之后需要刷新购物车页面的数据）
  * @Author: iamsmiling
  * @Date: 2021-05-06 11:15:44
- * @LastEditTime: 2021-07-20 10:03:06
+ * @LastEditTime: 2021-07-23 11:22:09
  */
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as g;
@@ -17,14 +17,15 @@ class BlocInterceptor extends InterceptorsWrapper {
   // List<_Taoju5Bloc> blocs = [AddToCartBloc()];
   Map<String, _Taoju5Bloc> blocs = {
     "/app/cart/addCart": _AddToCartBloc(),
+    "/app/cart/addCartList": _AddToCartBloc(),
     "/app/order/orderCreate": _AddToCartBloc(),
 
     ///订单相关
     ///选品
     "/app/order/selectGoods": _OrderOperationBloc(),
 
-    ///保存或修改测量数据
-    "/app/order/saveMeasure": _OrderOperationBloc(),
+    ///修改测量数据
+    "/app/order/updateMeasure": _OrderOperationBloc(),
 
     ///取消商品
     "/app/refund/orderRefund": _OrderOperationBloc(),

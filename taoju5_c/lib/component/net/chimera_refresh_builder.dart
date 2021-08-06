@@ -2,7 +2,7 @@
  * @Description: easyRefreshuilder
  * @Author: iamsmiling
  * @Date: 2021-06-24 14:09:10
- * @LastEditTime: 2021-07-06 15:51:50
+ * @LastEditTime: 2021-08-03 15:02:00
  */
 
 import 'package:flutter/material.dart';
@@ -16,10 +16,9 @@ abstract class ChimeraRefreshController<T>
 
   @override
   void onInit() {
-    super.onInit();
     refreshController = RefreshController(initialRefresh: false);
     scrollController = ScrollController();
-    print("哈哈哈哈哈哈1111");
+    super.onInit();
   }
 
   Future refreshData() {

@@ -2,14 +2,18 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2021-04-27 09:38:48
- * @LastEditTime: 2021-07-20 16:32:46
+ * @LastEditTime: 2021-07-30 14:37:24
  */
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:taoju5_c/local_storage/local_storage.dart';
+import 'package:get_storage/get_storage.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/storage/storage_manager.dart';
 
 class TokenInterceptor extends InterceptorsWrapper {
+  GetStorage storgae = GetStorage('c');
+
   List<String> _noTokenUrls = [
     "/app/login/sendConsumerPhoneCode",
     "/app/login/login",
@@ -17,19 +21,20 @@ class TokenInterceptor extends InterceptorsWrapper {
   ];
 
   @override
-  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (!_noTokenUrls.contains(options.path)) {
-      var token = await LocalStorage.get("token");
+      var token = storgae.read("token");
       options.queryParameters.addAll({
-        "token":
-            "MDAwMDAwMDAwMJjcemKSuIGetZ54rH53e6rAiXmVjbuGYY9ns9Gbi4XOgs11Y37LgWqzrnxlgHiLag"
+        "token": token
+        // "token":
+        //     "MDAwMDAwMDAwMJjcemKSuIGetZ54rH53e6rAiXmVjbuGYY9ns9Gbi4XOgs11Y37LgWqzrnxlgHiLag"
       });
     }
     handler.next(options);
   }
 
   clearToken() {
-    LocalStorage.remove("token");
+    storgae.remove('token');
   }
 
   @override
@@ -38,8 +43,9 @@ class TokenInterceptor extends InterceptorsWrapper {
       var json = jsonDecode(response.data);
       String token = json["data"] ?? "";
       if (response.statusCode == 200 && token.isNotEmpty) {
-        await LocalStorage.save("token", token);
-        await LocalStorage.save("authed", true);
+        storgae.write("token", token);
+        storgae.write("authed", true);
+        await StorageManager().sharedPreferences.setString("ctoken", token);
       }
     }
 

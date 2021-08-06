@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:04:58
- * @LastEditTime: 2021-07-20 15:09:00
+ * @LastEditTime: 2021-08-03 15:13:19
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,6 +34,7 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProductDetailController>(
         tag: Get.parameters["id"],
+        autoRemove: false,
         builder: (_) {
           return FutureLoadStateBuilder<ProductDetailController>(
             controller: _,
@@ -60,7 +61,10 @@ class ProductDetailPage extends StatelessWidget {
                 ),
                 body: SmartRefresher(
                   enablePullDown: true,
-                  enablePullUp: true,
+
+                  ///如果是来自选品页面则没有为你推荐的模块 不允许下拉
+                  enablePullUp:
+                      !Get.previousRoute.contains(AppRoutes.selectProduct),
                   controller: _.refreshController,
                   // scrollController: _.scrollController,
                   onLoading: _.loadMore,
@@ -91,20 +95,24 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       ProdictDetailImageSection(product: _.product),
                       SliverToBoxAdapter(
-                        child: CommendationFragment(
-                          scrollController: _.scrollController,
-                          tag: "product",
-                          header: Container(
-                            margin: EdgeInsets.only(
-                                left: R.dimen.dp24,
-                                top: R.dimen.dp20,
-                                bottom: R.dimen.dp15),
-                            child: Text(
-                              "为你推荐",
-                              style: TextStyle(
-                                  fontSize: R.dimen.sp15,
-                                  color: R.color.ff333333,
-                                  fontWeight: FontWeight.w600),
+                        child: Visibility(
+                          visible: !Get.previousRoute
+                              .contains(AppRoutes.selectProduct),
+                          child: CommendationFragment(
+                            scrollController: _.scrollController,
+                            tag: "product-${_.id}",
+                            header: Container(
+                              margin: EdgeInsets.only(
+                                  left: R.dimen.dp24,
+                                  top: R.dimen.dp20,
+                                  bottom: R.dimen.dp15),
+                              child: Text(
+                                "为你推荐",
+                                style: TextStyle(
+                                    fontSize: R.dimen.sp15,
+                                    color: R.color.ff333333,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ),

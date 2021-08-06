@@ -32,26 +32,26 @@ class ChimeraImage extends StatelessWidget {
   final int? cacheWidth;
   final int? cacheHeight;
   final FilterQuality filterQuality;
-
-  const ChimeraImage(
-    this.src, {
-    Key? key,
-    this.fadeInDuration = const Duration(milliseconds: 200),
-    this.width,
-    this.height,
-    this.fit,
-    this.borderRadius = const BorderRadius.all(Radius.circular(7)),
-    this.fadeOutDuration = const Duration(milliseconds: 275),
-    this.placeHolder,
-    this.placeholderFadeInDuration,
-    this.errorWidget,
-    this.enlarge = false,
-    this.picture,
-    this.cache = true,
-    this.cacheWidth,
-    this.cacheHeight,
-    this.filterQuality = FilterQuality.low,
-  }) : super(key: key);
+  final ProgressIndicatorBuilder? progressIndicatorBuilder;
+  const ChimeraImage(this.src,
+      {Key? key,
+      this.fadeInDuration = const Duration(milliseconds: 675),
+      this.width,
+      this.height,
+      this.fit,
+      this.borderRadius = const BorderRadius.all(Radius.circular(7)),
+      this.fadeOutDuration = const Duration(milliseconds: 500),
+      this.placeHolder,
+      this.placeholderFadeInDuration,
+      this.errorWidget,
+      this.enlarge = false,
+      this.picture,
+      this.cache = true,
+      this.cacheWidth,
+      this.cacheHeight,
+      this.filterQuality = FilterQuality.low,
+      this.progressIndicatorBuilder})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,27 +64,49 @@ class ChimeraImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        useOldImageOnUrlChange: true,
+
         placeholderFadeInDuration: placeholderFadeInDuration,
         memCacheHeight: cacheHeight,
         memCacheWidth: cacheWidth,
+        progressIndicatorBuilder: progressIndicatorBuilder ??
+            (BuildContext context, String desc, _) {
+              return Container(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                    color: const Color(0xFFF1F1F1), borderRadius: borderRadius),
+              );
+              // return Shimmer.fromColors(
+              //   period: const Duration(milliseconds: 800),
+              //   baseColor: const Color(0xFFF1F1F1),
+              //   highlightColor: Colors.white,
+              //   child: Container(
+              //     width: width,
+              //     height: height,
+              //     decoration: BoxDecoration(
+              //         color: const Color(0xFFF1F1F1),
+              //         borderRadius: borderRadius),
+              //   ),
+              // );
+            },
+
         // memCacheWidth:
         //     cacheWidth == null ? null : cacheWidth! * devicePixelRatio.round(),
-        placeholder: placeHolder ??
-            (BuildContext context, String desc) {
-              return Shimmer.fromColors(
-                period: const Duration(milliseconds: 1000),
-                baseColor: const Color(0xFFF5F5F5),
-                highlightColor: Colors.white,
-                child: Container(
-                  width: width,
-                  height: height,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: borderRadius),
-                ),
-              );
-            },
+        // placeholder: placeHolder ??
+        //     (BuildContext context, String desc) {
+        //       return Shimmer.fromColors(
+        //         period: const Duration(milliseconds: 1000),
+        //         baseColor: const Color(0xFFF5F5F5),
+        //         highlightColor: Colors.white,
+        //         child: Container(
+        //           width: width,
+        //           height: height,
+        //           decoration: BoxDecoration(
+        //               color: const Color(0xFFF5F5F5),
+        //               borderRadius: borderRadius),
+        //         ),
+        //       );
+        //     },
         errorWidget: errorWidget ??
             (BuildContext context, String desc, _) {
               return Container(

@@ -2,7 +2,7 @@
  * @Description:首页场景模块
  * @Author: iamsmiling
  * @Date: 2021-04-17 18:16:40
- * @LastEditTime: 2021-07-21 10:31:49
+ * @LastEditTime: 2021-07-26 11:24:16
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5_c/component/image/chimera_image.dart';
@@ -34,7 +34,7 @@ class HomeSceneSection extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(top: R.dimen.dp27, bottom: R.dimen.dp15),
-            padding: EdgeInsets.symmetric(horizontal: R.dimen.dp24),
+            padding: EdgeInsets.symmetric(horizontal: R.dimen.dp20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -73,46 +73,46 @@ class HomeSceneSection extends StatelessWidget {
                           width: assignableWidth * .6,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(R.dimen.dp12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${first.name}", style: R.style.h2),
-                            Container(
-                                margin: EdgeInsets.only(
-                                    top: R.dimen.dp3, bottom: R.dimen.dp10),
-                                child: Text(
-                                  "对于定制我们一丝不苟",
-                                  style: TextStyle(fontSize: R.dimen.sp12),
-                                )),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: R.dimen.dp10,
-                                  vertical: R.dimen.dp3),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(R.dimen.sp12),
-                                  color: R.color.ff832f03.withOpacity(.7)),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    "我要选购",
-                                    style: TextStyle(
-                                        color: R.color.ffffffff,
-                                        fontSize: R.dimen.sp13),
-                                  ),
-                                  Image.asset(
-                                    R.image.next,
-                                    color: R.color.ffffffff,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   padding: EdgeInsets.all(R.dimen.dp12),
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Text("${first.name}", style: R.style.h2),
+                      //       Container(
+                      //           margin: EdgeInsets.only(
+                      //               top: R.dimen.dp3, bottom: R.dimen.dp10),
+                      //           child: Text(
+                      //             "对于定制我们一丝不苟",
+                      //             style: TextStyle(fontSize: R.dimen.sp12),
+                      //           )),
+                      //       Container(
+                      //         padding: EdgeInsets.symmetric(
+                      //             horizontal: R.dimen.dp10,
+                      //             vertical: R.dimen.dp3),
+                      //         decoration: BoxDecoration(
+                      //             borderRadius:
+                      //                 BorderRadius.circular(R.dimen.sp12),
+                      //             color: R.color.ff832f03.withOpacity(.7)),
+                      //         child: Row(
+                      //           mainAxisSize: MainAxisSize.min,
+                      //           children: [
+                      //             Text(
+                      //               "我要选购",
+                      //               style: TextStyle(
+                      //                   color: R.color.ffffffff,
+                      //                   fontSize: R.dimen.sp13),
+                      //             ),
+                      //             Image.asset(
+                      //               R.image.next,
+                      //               color: R.color.ffffffff,
+                      //             )
+                      //           ],
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -135,28 +135,28 @@ class HomeSceneSection extends StatelessWidget {
                               height: (assignableHeight - R.dimen.dp10) / 2,
                               fit: BoxFit.fill,
                             ),
-                            Container(
-                              padding: EdgeInsets.all(R.dimen.dp12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${second.name}",
-                                    style: TextStyle(
-                                        color: R.color.ffee7e2d,
-                                        fontSize: R.dimen.sp15,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    "生活需要更多点缀",
-                                    style: TextStyle(
-                                      color: R.color.ffee7e2d,
-                                      fontSize: R.dimen.sp12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   padding: EdgeInsets.all(R.dimen.dp12),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text(
+                            //         "${second.name}",
+                            //         style: TextStyle(
+                            //             color: R.color.ffee7e2d,
+                            //             fontSize: R.dimen.sp15,
+                            //             fontWeight: FontWeight.w600),
+                            //       ),
+                            //       Text(
+                            //         "生活需要更多点缀",
+                            //         style: TextStyle(
+                            //           color: R.color.ffee7e2d,
+                            //           fontSize: R.dimen.sp12,
+                            //         ),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                         // Container(
@@ -212,30 +212,30 @@ class HomeSceneSection extends StatelessWidget {
                                     width: assignableWidth * .4,
                                     height:
                                         (assignableHeight - R.dimen.dp10) / 2,
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.all(R.dimen.dp12),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${third.name}",
-                                          style: TextStyle(
-                                              color: R.color.ffffffff,
-                                              fontSize: R.dimen.sp15,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        Text(
-                                          "用心打造家居之美",
-                                          style: TextStyle(
-                                              color: R.color.ffffffff,
-                                              fontSize: R.dimen.sp12),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   padding: EdgeInsets.all(R.dimen.dp12),
+                                  //   child: Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Text(
+                                  //         "${third.name}",
+                                  //         style: TextStyle(
+                                  //             color: R.color.ffffffff,
+                                  //             fontSize: R.dimen.sp15,
+                                  //             fontWeight: FontWeight.w600),
+                                  //       ),
+                                  //       Text(
+                                  //         "用心打造家居之美",
+                                  //         style: TextStyle(
+                                  //             color: R.color.ffffffff,
+                                  //             fontSize: R.dimen.sp12),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               )),
                         ),

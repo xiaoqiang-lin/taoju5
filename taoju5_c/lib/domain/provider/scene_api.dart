@@ -2,7 +2,7 @@
  * @Description: 场景
  * @Author: iamsmiling
  * @Date: 2021-05-28 09:43:49
- * @LastEditTime: 2021-05-29 14:00:12
+ * @LastEditTime: 2021-07-30 14:31:35
  */
 import 'package:taoju5_c/domain/entity/base_entity.dart';
 import 'package:taoju5_c/httpkit/http_kit.dart';
@@ -29,4 +29,12 @@ class SceneAPI {
   ///场景详情
   Future<BaseEntity> moreScene({Map? params}) =>
       _http.get("/app/scenes/moreScenes", params: params);
+
+  ///获取软装方案商品详情
+  Future<BaseEntity> sceneProductDetail({Map? params}) =>
+      _http.get("/app/scenes/softProjectGoodsDetail", params: params);
+
+  ///修改场景商品属性
+  Future<BaseEntity> modifySceneProductAttribute({Map? params}) =>
+      _http.get("/app/scenes/editGoodsAttr", params: params);
 }

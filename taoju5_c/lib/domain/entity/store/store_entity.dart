@@ -2,7 +2,7 @@
  * @Description:门店列表数据模型
  * @Author: iamsmiling
  * @Date: 2021-07-21 16:49:33
- * @LastEditTime: 2021-07-21 16:54:17
+ * @LastEditTime: 2021-07-28 16:24:18
  */
 
 // ignore: import_of_legacy_library_into_null_safe

@@ -2,16 +2,21 @@
  * @Description: 商品搜索
  * @Author: iamsmiling
  * @Date: 2021-05-17 14:50:59
- * @LastEditTime: 2021-07-16 16:51:05
+ * @LastEditTime: 2021-07-28 15:11:00
  */
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
+import 'package:taoju5_bc/storage/storage_manager.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:taoju5_bc/utils/common_kit.dart';
-import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
+import 'package:taoju5_c/component/net/chimera_refresh_builder.dart';
 import 'package:get/get.dart';
+import 'package:taoju5_c/domain/entity/category/category_entity.dart';
 import 'package:taoju5_c/domain/repository/product_repository.dart';
 import 'package:taoju5_c/routes/app_routes.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
+import 'package:taoju5_c/ui/pages/search/search_keyword_fragment/search_keyword_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ///搜索类型
 enum SearchType { product, order, article }
@@ -25,17 +30,17 @@ SearchType _getSearchTypeFromCode(String code) {
       SearchType.product;
 }
 
-class SearchController extends BaseFutureLoadStateController {
+class SearchController extends ChimeraRefreshController {
   String keyword = '';
 
-  List<String> keyList = [];
-
   List<String> historyList = [];
+
+  List<String> hotKeywords = [];
 
   bool focused = false;
   SearchType type = _getSearchTypeFromCode(Get.parameters["search_type"] ?? '');
 
-  late GetStorage box;
+  late SharedPreferences sp;
 
   String get searchTip => searchTipMap[type] ?? "搜索您想找的内容";
 
@@ -51,11 +56,16 @@ class SearchController extends BaseFutureLoadStateController {
         SearchType.article: searchArticle
       };
 
-  Map<SearchType, Future? Function()> get jumpMap => {
+  Map<SearchType, Future? Function(String)> get _jumpMap => {
         SearchType.product: jumpToProductList,
         SearchType.order: jumpToOrderList,
         SearchType.article: jumpToArticleList
       };
+
+  jump(String key) {
+    print("点击进行页面跳转");
+    return (_jumpMap[type] ?? (_) {})(key);
+  }
 
   @override
   Future loadData({Map? params}) {
@@ -65,9 +75,9 @@ class SearchController extends BaseFutureLoadStateController {
   ///搜索商品
   Future searchProducts({Map? params}) {
     ProductRepository repository = ProductRepository();
-
-    return repository.keywords().then((value) {
-      keyList = value;
+    return repository.hotKeywords().then((value) {
+      hotKeywords = value;
+      print(hotKeywords);
     });
   }
 
@@ -75,7 +85,7 @@ class SearchController extends BaseFutureLoadStateController {
   Future searchOrder({Map? params}) {
     ProductRepository repository = ProductRepository();
     return repository.keywords().then((value) {
-      keyList = value;
+      // keyList = value;
     });
   }
 
@@ -83,22 +93,25 @@ class SearchController extends BaseFutureLoadStateController {
   Future searchArticle({Map? params}) {
     ProductRepository repository = ProductRepository();
     return repository.keywords().then((value) {
-      keyList = value;
+      // keyList = value;
     });
   }
 
   ///跳转到商品列表
-  Future? jumpToProductList() {
-    return Get.toNamed(AppRoutes.searchProduct + "/$keyword");
+  Future? jumpToProductList(String key) {
+    return Get.toNamed(AppRoutes.category + AppRoutes.productList,
+        parameters: {"keyword": key},
+        arguments: CategoryEntity(id: -1, name: "搜索商品"));
+    // return Get.toNamed(AppRoutes.searchProduct, parameters: {"keyword": key});
   }
 
   ///跳转到订单列表
-  Future? jumpToOrderList() {
-    // return Get.toNamed(AppRoutes.productList, parameters: {"keyword": keyword});
+  Future? jumpToOrderList(String key) {
+    return Get.toNamed(AppRoutes.searchOrder, parameters: {"keyword": keyword});
   }
 
   ///跳转到列表
-  Future? jumpToArticleList() {
+  Future? jumpToArticleList(String key) {
     // return Get.toNamed(AppRoutes, parameters: {"keyword": keyword});
   }
 
@@ -112,48 +125,27 @@ class SearchController extends BaseFutureLoadStateController {
     update();
   }
 
-  List<List<String>> get keyOptions {
-    if (GetUtils.isNullOrBlank(keyList) ?? true) {
-      return [];
-    }
-    List<List<String>> list = [];
-    (keyList.where((e) => e.isCaseInsensitiveContainsAny(keyword)))
-        .forEach((e) {
-      int startIndex = e.indexOf(RegExp("$keyword", caseSensitive: false));
-      if (startIndex != -1) {
-        List<String> arr = [];
-        arr.add(e.substring(0, startIndex));
-        int len = e.length > startIndex + keyword.length
-            ? startIndex + keyword.length
-            : e.length;
-
-        arr.add(e.substring(startIndex, len));
-        arr.add(e.substring(len));
-        list.add(arr);
-      }
-    });
-    return list;
-  }
-
   void onChanged(String val) {
     CommonKit.debounce(() {
       keyword = val;
-      update(["keyword"]);
+      Get.find<SearchKeywordController>().setKeyWord(val);
     }, Duration(milliseconds: 375))();
   }
 
   void onSubmitted(String val) {
     if (val.isEmpty || historyList.contains(val)) return;
     historyList.add(val);
-    box.write(type.toString(), historyList);
+    sp.setStringList(type.toString(), historyList);
   }
 
   @override
   void onInit() {
+    sp = StorageManager().sharedPreferences;
+    historyList = sp.getStringList(type.toString()) ?? [];
+    Get.lazyPut(() => CommendationController(controller: refreshController),
+        tag: "$type");
+    Get.lazyPut(() => SearchKeywordController());
     super.onInit();
-    box = GetStorage(type.toString());
-    GetStorage.init(type.toString());
-    historyList = (box.read(type.toString()) ?? []).cast<String>();
   }
 
   void search([String? key]) {
@@ -161,18 +153,31 @@ class SearchController extends BaseFutureLoadStateController {
       keyword = key;
     }
     onSubmitted(keyword);
-    (jumpMap[type] ?? (_) {})();
+    (_jumpMap[type] ?? (_) {})(key ?? "");
   }
 
   void onRemove(String val) {
     historyList.remove(val);
-    box.write(type.toString(), historyList);
+    sp.setStringList(type.toString(), historyList);
     update();
   }
 
   void onEmpty() {
     historyList.clear();
-    box.erase();
+    sp.clear();
     update();
+  }
+
+  @override
+  Future loadMore({Map? params}) {
+    return Get.find<CommendationController>(tag: "$type").loadMore();
+  }
+
+  @override
+  void onClose() {
+    Get.delete<CommendationController>(tag: "$type", force: true);
+    Get.delete<SearchController>(force: true);
+    Get.delete<SearchKeywordController>(force: true);
+    super.onClose();
   }
 }

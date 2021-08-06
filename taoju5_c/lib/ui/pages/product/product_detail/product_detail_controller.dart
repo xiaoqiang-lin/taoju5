@@ -2,7 +2,7 @@
  * @Description: 商品详情
  * @Author: iamsmiling
  * @Date: 2021-04-23 15:05:21
- * @LastEditTime: 2021-07-20 14:53:41
+ * @LastEditTime: 2021-08-05 15:54:38
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +18,7 @@ import 'package:taoju5_c/ui/pages/commendation/commendation_controller.dart';
 import 'package:taoju5_c/ui/pages/product/component/product_action_bar.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/dialog/sectionalbar_product_attribute/sectionalbar_product_attribute_dialog.dart'
     as sectionalbarProductDialog;
+import 'package:taoju5_c/ui/pages/product/product_detail/modal/finished_product_attribute_modal/finished_product_attribute_modal_controller.dart';
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_finished_product_attribute_modal.dart'
     as finishedProductModal;
 import 'package:taoju5_c/ui/pages/product/product_detail/modal/open_curtain_product_attribute_modal.dart'
@@ -26,6 +27,9 @@ import 'package:taoju5_c/ui/pages/product/product_detail/modal/select_product_mo
 
 import 'dialog/rolling_curtain_product_attribute/rolling_curtain_product_attribute_dialog.dart'
     as rollingCurtainProductDialog;
+import 'dialog/rolling_curtain_product_attribute/rolling_curtain_product_controller.dart';
+import 'dialog/sectionalbar_product_attribute/sectionalbar_product_attribute_dialog.dart';
+import 'modal/curtain_product_attribute_modal/curtain_product_attribute_controller.dart';
 
 class ProductDetailController
     extends ChimeraRefreshController<ProductDetailEntity> {
@@ -37,17 +41,21 @@ class ProductDetailController
 
   @override
   void onInit() {
-    print(Get.parameters);
-
     super.onInit();
     Get.lazyPut(() => CommendationController(controller: refreshController),
-        tag: "product");
+        tag: "product-$id");
+    Get.lazyPut(() => CurtainProductAttributeController(product: product),
+        tag: "$id");
+    print(Get.parameters);
   }
 
   @override
   Future<ProductDetailEntity> loadData({Map? params}) {
     return _repository.productDetail({"goods_id": id}).then((value) {
       product = value;
+
+      Get.lazyPut(() => FinishedProductAttributeController(product: product),
+          tag: "${product.id}");
       return value;
     });
   }
@@ -65,16 +73,23 @@ class ProductDetailController
   }
 
   openCurtainProductAttributeModal() {
-    return _repository
-        .productAttribute({"goods_id": id})
-        .then((value) {
-          product.attribute = value;
-        })
-        .catchError((err) {})
-        .then((value) {
-          curtainProductModal.openCurtainProductAttributeModal(Get.context!,
-              product: product, addToCart: addToCart, buy: buy);
-        });
+    print(product.attribute.initialized);
+    return curtainProductModal.openCurtainProductAttributeModal(Get.context!,
+        product: product, addToCart: addToCart, buy: buy);
+    // if (product.attribute.initialized) {
+    //   return curtainProductModal.openCurtainProductAttributeModal(Get.context!,
+    //       product: product, addToCart: addToCart, buy: buy);
+    // }
+    // return _repository
+    //     .productAttribute({"goods_id": id})
+    //     .then((value) {
+    //       product.attribute = value;
+    //     })
+    //     .catchError((err) {})
+    //     .then((value) {
+    //       curtainProductModal.openCurtainProductAttributeModal(Get.context!,
+    //           product: product, addToCart: addToCart, buy: buy);
+    //     });
   }
 
   openRollingCurtainProductAttributeDialog() {
@@ -86,8 +101,7 @@ class ProductDetailController
     }).then((value) {
       rollingCurtainProductDialog.openRollingCurtainProductAttributeDialog(
           Get.context!,
-          product: product,
-          attribute: product.attribute);
+          product: product);
     });
   }
 
@@ -184,7 +198,25 @@ class ProductDetailController
 
   @override
   Future loadMore({Map? params}) {
-    return Get.find<CommendationController>(tag: "product")
+    return Get.find<CommendationController>(tag: "product-$id")
         .loadMore(params: params);
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    Get.delete<CurtainProductAttributeController>(
+        tag: "${product.id}", force: true);
+    Get.delete<CommendationController>(tag: "product-$id", force: true);
+    Get.delete<ProductDetailController>(tag: "${product.id}");
+    Get.delete<FinishedProductAttributeController>(
+        tag: "${product.id}", force: true);
+    Get.delete<FinishedProductAttributeController>(
+        tag: "${product.id}", force: true);
+    Get.delete<CurtainProductAttributeController>(
+        tag: "${product.id}", force: true);
+    Get.delete<RollingCurtainProductAttributeController>(
+        tag: "${product.id}", force: true);
+    Get.delete<SectionalbarController>(tag: "${product.id}", force: true);
   }
 }

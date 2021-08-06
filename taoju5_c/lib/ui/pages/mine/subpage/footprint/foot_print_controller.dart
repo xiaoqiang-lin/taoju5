@@ -2,9 +2,8 @@
  * @Description: 我的足迹
  * @Author: iamsmiling
  * @Date: 2021-05-19 10:56:38
- * @LastEditTime: 2021-06-08 15:45:50
+ * @LastEditTime: 2021-07-29 10:10:53
  */
-import 'package:taoju5_c/component/net/future_loadstate_controller.dart';
 import 'package:taoju5_c/component/net/pull_to_refresh_list_view_builder.dart';
 import 'package:taoju5_c/domain/entity/footprint/footprint_entity.dart';
 import 'package:taoju5_c/domain/entity/product/product_entity.dart';
@@ -17,8 +16,9 @@ class FootPrintController
   @override
   Future<List<FootPrintEntity>> loadData({Map? params}) {
     return _repository.footprint().then((value) {
-      footprints = value;
-      return value;
+      footprints = value.list;
+      totalPage = value.totalPage;
+      return footprints;
     });
   }
 

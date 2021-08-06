@@ -2,7 +2,7 @@
  * @Description: app模块
  * @Author: iamsmiling
  * @Date: 2021-01-12 10:01:50
- * @LastEditTime: 2021-01-12 10:30:50
+ * @LastEditTime: 2021-07-26 09:18:52
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ import 'package:taoju5_b/res/b_dimens.dart';
 import 'package:taoju5_b/ui/pages/home/home_controller.dart';
 import 'package:taoju5_b/ui/pages/home/widget/app_module_card.dart';
 
-class HomePageBody extends GetView<HomeController> {
+class HomePageBody extends GetView<BHomeController> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
