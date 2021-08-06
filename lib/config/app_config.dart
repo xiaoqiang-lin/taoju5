@@ -2,7 +2,7 @@
  * @Description: App相关配置
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:20:38
- * @LastEditTime: 2021-06-17 09:11:30
+ * @LastEditTime: 2021-08-06 11:18:43
  */
 
 import 'package:flutter/foundation.dart';

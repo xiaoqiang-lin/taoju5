@@ -2,7 +2,7 @@
  * @Description: 自定义封装swiper
  * @Author: iamsmiling
  * @Date: 2021-01-19 17:47:39
- * @LastEditTime: 2021-01-19 18:00:49
+ * @LastEditTime: 2021-08-06 11:16:36
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
