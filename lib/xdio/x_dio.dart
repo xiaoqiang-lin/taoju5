@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-04-25 17:48:33
+ * @LastEditTime: 2021-08-06 18:03:06
  */
 
 import 'dart:convert';
@@ -14,6 +14,7 @@ import 'package:taoju5/utils/json_kit.dart';
 import 'package:taoju5/utils/x_logger.dart';
 import 'package:taoju5/config/net_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class XDio {
   // 私有构造函数
@@ -45,7 +46,7 @@ class XDio {
           handler.next(error);
         },
         onRequest:
-            ((RequestOptions options, RequestInterceptorHandler handler) {
+            ((RequestOptions options, RequestInterceptorHandler handler) async {
           // Map queryParameters = options.queryParameters;
           // options.queryParameters = _formatParams(queryParameters);
           // var formData = options.data;
@@ -55,8 +56,8 @@ class XDio {
           List<String> _whiteList = ["/api/login/login"];
 
           if (!_whiteList.contains(options.path)) {
-            String token =
-                StorageManager().sharedPreferences?.getString("token");
+            SharedPreferences sp = await SharedPreferences.getInstance();
+            String token = sp.getString("token");
             String deviceInfo =
                 StorageManager().sharedPreferences?.getString("device_info");
             Map<String, String> headers = {};
