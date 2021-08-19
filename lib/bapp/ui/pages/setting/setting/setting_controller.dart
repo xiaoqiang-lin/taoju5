@@ -2,7 +2,7 @@
  * @Description: SettingController
  * @Author: iamsmiling
  * @Date: 2020-12-22 15:53:57
- * @LastEditTime: 2021-04-25 17:32:35
+ * @LastEditTime: 2021-08-17 21:27:32
  */
 
 import 'package:get/get.dart';
@@ -15,6 +15,7 @@ import 'package:taoju5/bapp/ui/pages/home/user_provider_controller.dart';
 import 'package:taoju5/storage/storage_manager.dart';
 import 'package:taoju5/xdio/x_dio.dart';
 import 'package:taoju5/config/app_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingController extends GetxController {
   String cacheSize = "";
@@ -29,11 +30,14 @@ class SettingController extends GetxController {
       Get.find<UserProviderController>();
 
   void logOut() {
-    showLogoutDialog(Get.context).then((value) {
+    showLogoutDialog(Get.context).then((value) async {
       if (value) {
         ///清除token
         XDio().refreshToken("");
         StorageManager().sharedPreferences.remove("token");
+        await SharedPreferences.getInstance().then((instance) {
+          instance.remove("token");
+        });
 
         ///清空客户信息
         Get.find<CustomerProviderController>().clear();

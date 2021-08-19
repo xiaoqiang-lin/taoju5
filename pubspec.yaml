@@ -78,6 +78,7 @@ dev_dependencies:
   # geolocator: ^6.2.1
   # amap_location: ^0.2.0
   carousel_slider: ^4.0.0-nullsafety.0
+  get_storage: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -2,7 +2,7 @@
  * @Description: app入口
  * @Author: iamsmiling
  * @Date: 2020-12-15 12:05:52
- * @LastEditTime: 2021-02-03 10:30:05
+ * @LastEditTime: 2021-08-12 14:13:41
  */
 
 // import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ void startApp() {
   runApp(TaojuwuApp());
 }
 
-void _webmain() {
-  AppInitializer.init();
+void _webmain() async {
+  await AppInitializer.init();
   startApp();
 }

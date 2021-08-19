@@ -2,7 +2,7 @@
  * @Description: 用户信息详情
  * @Author: iamsmiling
  * @Date: 2020-12-21 16:34:44
- * @LastEditTime: 2021-02-02 17:53:50
+ * @LastEditTime: 2021-08-13 17:07:25
  */
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/routes/bapp_pages.dart';
@@ -70,7 +70,7 @@ class CustomerDetailModel {
   }
 
   Map toJson() => {
-        'id': id,
+        'id': id ?? "",
         'client_name': name,
         'client_mobile': tel,
         'client_wx': wx,

@@ -2,7 +2,7 @@
  * @Description: 数据存储
  * @Author: iamsmiling
  * @Date: 2020-12-18 17:19:33
- * @LastEditTime: 2021-02-01 11:24:39
+ * @LastEditTime: 2021-08-12 14:12:50
  */
 import 'dart:io';
 
@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'taojuwu_storage.dart';
+import 'package:get_storage/get_storage.dart';
 
 class StorageManager {
   StorageManager._();
@@ -31,6 +32,7 @@ class StorageManager {
   init() async {
     // async 异步操作
     // sync 同步操作
+    await GetStorage.init();
     temporaryDirectory = await getTemporaryDirectory();
     sharedPreferences = await SharedPreferences.getInstance();
   }

@@ -2,7 +2,7 @@
  * @Description: CustomerEditController
  * @Author: iamsmiling
  * @Date: 2020-12-22 09:59:14
- * @LastEditTime: 2021-04-20 12:04:27
+ * @LastEditTime: 2021-08-13 16:42:17
  */
 
 import 'package:get/get.dart';
@@ -85,9 +85,19 @@ class CustomerEditController extends GetxController {
   Future edit() {
     if (!CommonKit.isMobileNumber(target.tel)) {
       EasyLoading.showInfo("请输入正确的手机号");
-      return Future.error(false);
+      return Future.value(false);
     }
+
+    if (target.address == null ||
+        target.address.address == null ||
+        target.address.address.address == null ||
+        target.address.address.address.isEmpty) {
+      EasyLoading.showInfo("请选择区域地址");
+      return Future.value(false);
+    }
+
     XLogger.v(target.toJson());
+    // EasyLoading.show();
     return _repository.editCustomer(params: target.toJson()).then((value) {
       target = value;
       confirm();
