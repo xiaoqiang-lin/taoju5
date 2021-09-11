@@ -2,9 +2,10 @@
  * @Description: 商品列表页
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:29:05
- * @LastEditTime: 2021-04-20 12:01:13
+ * @LastEditTime: 2021-09-11 12:54:25
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/bapp/domain/model/product/product_tab_model.dart';
@@ -31,6 +32,7 @@ class ProductListPage extends StatelessWidget {
             onWillPop: controller.back,
             child: Scaffold(
               appBar: XSearchBar(
+                preferredSize: Size.fromHeight(56),
                 key: ValueKey("mallPage"),
                 hintText: controller.keyword,
                 actions: [
@@ -46,85 +48,115 @@ class ProductListPage extends StatelessWidget {
                 ],
                 onTap: controller.search,
                 readOnly: true,
-                bottom: PreferredSize(
-                    child: Column(
-                      children: [
-                        GetBuilder<ProductListParentController>(
-                          id: "tab",
-                          builder: (_) {
-                            return TabBar(
-                              controller: controller.tabController,
-                              tabs: [
-                                for (ProductTabModel tab in controller.tabList)
-                                  Text(tab.name)
-                              ],
-                            );
-                          },
-                        ),
-                        ProductListHeader(),
-                      ],
-                    ),
-                    preferredSize: Size.fromHeight(48)),
+                // bottom: PreferredSize(
+                //     child: Column(
+                //       children: [
+                // GetBuilder<ProductListParentController>(
+                //   id: "tab",
+                //   builder: (_) {
+                //     return TabBar(
+                //       controller: controller.tabController,
+                //       tabs: [
+                //         for (ProductTabModel tab in controller.tabList)
+                //           Text(tab.name)
+                //       ],
+                //     );
+                //   },
+                // ),
+                // ProductListHeader(),
+                //       ],
+                //     ),
+                //     preferredSize: Size.fromHeight(48)),
               ),
-              body: GetBuilder<ProductListParentController>(
-                  id: "tabview",
-                  builder: (_) {
-                    return Scaffold(
-                      key: controller.scaffoldKey,
-                      endDrawer: ProductListFilterPage(),
-                      endDrawerEnableOpenDragGesture: false,
-                      body: TabBarView(
-                        controller: controller.tabController,
-                        children: [
-                          for (ProductTabModel tab in controller.tabList)
-                            GetBuilder<ProductListController>(
-                              init: ProductListController(type: "${tab.id}"),
-                              tag: "${tab.id}",
-                              autoRemove: false,
+              body: controller.loading
+                  ? CupertinoActivityIndicator()
+                  : GetBuilder<ProductListParentController>(
+                      id: "tabview",
+                      builder: (_) {
+                        return Column(
+                          children: [
+                            GetBuilder<ProductListParentController>(
+                              id: "tab",
                               builder: (_) {
-                                return XLoadStateBuilder(
-                                  loadState: _.loadState,
-                                  retry: _.loadData,
-                                  loadingWidget: ProductGridModeSkeleton(),
-                                  builder: (BuildContext context) {
-                                    return ProductTabView(
-                                      key: ValueKey(_.productList),
-                                      productList: _.productList,
-                                      scrollController: _.scrollController,
-                                      refreshController: _.refreshController,
-                                      onLoading: _.loadMore,
-                                      onRefresh: _.refreshData,
-                                      enablePullDown: true,
-                                      enablePullUp: true,
-                                      mode: controller.mode,
-                                    );
-                                    // return controller.isGridMode
-                                    //     ? ProductGridModeSection(
-                                    //         productList: _.productList,
-                                    //         scrollController: _.scrollController,
-                                    //         refreshController: _.refreshController,
-                                    //         onLoading: _.loadMore,
-                                    //         onRefresh: _.refreshData,
-                                    //         enablePullDown: true,
-                                    //         enablePullUp: true,
-                                    //       )
-                                    //     : ProductListModeSection(
-                                    //         productList: _.productList,
-                                    //         scrollController: _.scrollController,
-                                    //         refreshController: _.refreshController,
-                                    //         onLoading: _.loadMore,
-                                    //         onRefresh: _.refreshData,
-                                    //         enablePullDown: true,
-                                    //         enablePullUp: true,
-                                    //       );
-                                  },
+                                return Container(
+                                  color: Colors.white,
+                                  child: TabBar(
+                                    controller: controller.tabController,
+                                    tabs: [
+                                      for (ProductTabModel tab
+                                          in controller.tabList)
+                                        Text(tab.name)
+                                    ],
+                                  ),
                                 );
                               },
-                            )
-                        ],
-                      ),
-                    );
-                  }),
+                            ),
+                            ProductListHeader(),
+                            Expanded(
+                              child: Scaffold(
+                                key: controller.scaffoldKey,
+                                endDrawer: ProductListFilterPage(),
+                                endDrawerEnableOpenDragGesture: false,
+                                body: TabBarView(
+                                  controller: controller.tabController,
+                                  children: [
+                                    for (ProductTabModel tab
+                                        in controller.tabList)
+                                      GetBuilder<ProductListController>(
+                                        init: ProductListController(
+                                            type: "${tab.id}"),
+                                        tag: "${tab.id}",
+                                        autoRemove: false,
+                                        builder: (_) {
+                                          return XLoadStateBuilder(
+                                            loadState: _.loadState,
+                                            retry: _.loadData,
+                                            loadingWidget:
+                                                ProductGridModeSkeleton(),
+                                            builder: (BuildContext context) {
+                                              return ProductTabView(
+                                                key: ValueKey(_.productList),
+                                                productList: _.productList,
+                                                scrollController:
+                                                    _.scrollController,
+                                                refreshController:
+                                                    _.refreshController,
+                                                onLoading: _.loadMore,
+                                                onRefresh: _.refreshData,
+                                                enablePullDown: true,
+                                                enablePullUp: true,
+                                                mode: controller.mode,
+                                              );
+                                              // return controller.isGridMode
+                                              //     ? ProductGridModeSection(
+                                              //         productList: _.productList,
+                                              //         scrollController: _.scrollController,
+                                              //         refreshController: _.refreshController,
+                                              //         onLoading: _.loadMore,
+                                              //         onRefresh: _.refreshData,
+                                              //         enablePullDown: true,
+                                              //         enablePullUp: true,
+                                              //       )
+                                              //     : ProductListModeSection(
+                                              //         productList: _.productList,
+                                              //         scrollController: _.scrollController,
+                                              //         refreshController: _.refreshController,
+                                              //         onLoading: _.loadMore,
+                                              //         onRefresh: _.refreshData,
+                                              //         enablePullDown: true,
+                                              //         enablePullUp: true,
+                                              //       );
+                                            },
+                                          );
+                                        },
+                                      )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
             ),
           );
         });

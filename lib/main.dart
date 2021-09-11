@@ -2,12 +2,12 @@
  * @Description: app入口
  * @Author: iamsmiling
  * @Date: 2020-12-15 12:05:52
- * @LastEditTime: 2021-08-12 14:13:41
+ * @LastEditTime: 2021-09-11 12:29:14
  */
 
 // import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
+// import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:get/get.dart';
 import 'package:taoju5/app.dart';
 // import 'package:taoju5/config/app_config.dart';
@@ -27,9 +27,10 @@ void _main() {
 
 void _appMain() async {
   await AppInitializer.init();
-  return FlutterBugly.postCatchedException(() {
-    startApp();
-  });
+  startApp();
+  // return FlutterBugly.postCatchedException(() {
+  //   startApp();
+  // });
 }
 
 void startApp() {

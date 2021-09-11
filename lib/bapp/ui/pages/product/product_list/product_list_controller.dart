@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-21 10:35:04
- * @LastEditTime: 2021-04-20 12:30:15
+ * @LastEditTime: 2021-09-11 12:51:39
  */
 
 import 'package:flutter/material.dart';
@@ -50,6 +50,8 @@ class ProductListParentController extends GetxController
 
   bool isGridMode = true;
 
+  bool loading = true;
+
   ProductViewMode get mode =>
       isGridMode ? ProductViewMode.grid : ProductViewMode.list;
 
@@ -65,8 +67,13 @@ class ProductListParentController extends GetxController
           _tabList.add(ProductTabModel(name: list[i], id: i));
         }
         tabList = _tabList;
+        tabController = TabController(length: tabList.length, vsync: this)
+          ..addListener(_onTabChanged);
         update(["tab"]);
       }
+    }).whenComplete(() {
+      loading = false;
+      update();
     });
   }
 
@@ -107,8 +114,6 @@ class ProductListParentController extends GetxController
 
   @override
   void onInit() {
-    tabController = TabController(length: tabList.length, vsync: this)
-      ..addListener(_onTabChanged);
     loadData();
     super.onInit();
   }
