@@ -2,7 +2,7 @@
  * @Description: app
  * @Author: iamsmiling
  * @Date: 2021-02-03 10:26:46
- * @LastEditTime: 2021-08-06 11:16:45
+ * @LastEditTime: 2021-09-11 09:33:20
  */
 import 'package:flutter/material.dart';
 import 'package:taoju5/config/app_env.dart';
@@ -22,7 +22,7 @@ class TaojuwuApp extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         ScreenUtil.init(
           constraints,
-          Orientation.portrait,
+          orientation: Orientation.portrait,
           designSize: Size(750, 1334),
         );
         return Material(

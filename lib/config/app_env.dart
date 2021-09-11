@@ -2,7 +2,7 @@
  * @Description: app环境
  * @Author: iamsmiling
  * @Date: 2021-02-02 17:32:32
- * @LastEditTime: 2021-08-13 19:18:24
+ * @LastEditTime: 2021-09-11 09:21:43
  */
 enum AppEnv { $b, $c }
 enum AppMode { release, debug }
