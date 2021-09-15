@@ -2,11 +2,10 @@
  * @Description: bugly sdk
  * @Author: iamsmiling
  * @Date: 2020-12-16 10:38:15
- * @LastEditTime: 2021-09-11 12:29:06
+ * @LastEditTime: 2021-09-11 14:01:31
  */
 
 // import 'package:flutter_bugly/flutter_bugly.dart';
-import 'package:taoju5/config/app_config.dart';
 
 import '../i_sdk_initializer.dart';
 

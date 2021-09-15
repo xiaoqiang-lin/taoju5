@@ -2,7 +2,7 @@
  * @Description: 编辑客户页面
  * @Author: iamsmiling
  * @Date: 2020-12-22 09:59:00
- * @LastEditTime: 2021-02-02 17:52:28
+ * @LastEditTime: 2021-09-11 13:28:57
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -173,6 +173,7 @@ class CustomerEditPage extends GetView<CustomerEditController> {
                               addressResult: _.target.address?.address)),
                       XLabelTextField(
                         label: "详细地址",
+                        hintText: '需配送或测装的街道小区门牌号',
                         key: ValueKey(_.target.address.detailAddress),
                         initialValue: _.target.address.detailAddress,
                         onChanged: (String str) {

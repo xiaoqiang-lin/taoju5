@@ -2,7 +2,7 @@
  * @Descripon: app页面
  * @Author: iamsmiling
  * @Date: 2020-12-18 16:11:26
- * @LastEditTime: 2021-02-19 22:19:57
+ * @LastEditTime: 2021-09-15 20:41:21
  */
 
 import 'package:get/get.dart';
@@ -54,6 +54,8 @@ import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product
 import 'package:taoju5/bapp/ui/pages/product/cart/subpage/modify_curtain_product_attr/modify_curtain_product_attr_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/collection/collection_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/collection/collection_page.dart';
+import 'package:taoju5/bapp/ui/pages/product/privacy_policy/privacy_policy_binding.dart';
+import 'package:taoju5/bapp/ui/pages/product/privacy_policy/privacy_policy_page.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/product_detail_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_binding.dart';
 import 'package:taoju5/bapp/ui/pages/product/product_detail/subpage/design_product/scene_product_detail/scene_product_detail_page.dart';
@@ -330,6 +332,12 @@ class BAppPages {
     GetPage(
         name: BAppRoutes.searchOrder,
         page: () => OrderSearchPage(),
-        binding: OrderSearchBinding())
+        binding: OrderSearchBinding()),
+
+    /// 隐私政策
+    GetPage(
+        name: BAppRoutes.privacyPolicy,
+        page: () => PrivacyPolicyPage(),
+        binding: PrivacyPolicyBinding())
   ];
 }

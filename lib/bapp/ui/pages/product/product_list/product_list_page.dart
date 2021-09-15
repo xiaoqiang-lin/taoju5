@@ -2,7 +2,7 @@
  * @Description: 商品列表页
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:29:05
- * @LastEditTime: 2021-09-11 12:54:25
+ * @LastEditTime: 2021-09-15 20:46:21
  */
 
 import 'package:flutter/cupertino.dart';
@@ -81,11 +81,16 @@ class ProductListPage extends StatelessWidget {
                                 return Container(
                                   color: Colors.white,
                                   child: TabBar(
+                                    isScrollable: true,
+                                    labelPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
                                     controller: controller.tabController,
                                     tabs: [
                                       for (ProductTabModel tab
                                           in controller.tabList)
-                                        Text(tab.name)
+                                        Tab(
+                                          child: Text(tab.name),
+                                        )
                                     ],
                                   ),
                                 );

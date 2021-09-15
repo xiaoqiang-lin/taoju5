@@ -2,7 +2,7 @@
  * @Description: 设置页面
  * @Author: iamsmiling
  * @Date: 2020-12-22 15:53:48
- * @LastEditTime: 2021-01-12 10:39:31
+ * @LastEditTime: 2021-09-15 20:41:53
  */
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -106,6 +106,10 @@ class SettingPage extends StatelessWidget {
             //   onTap: () => Get.toNamed(BAppRoutes.forgetPassword),
             // ),
             // Divider(),
+            XLabelTile(
+              label: "隐私政策",
+              onTap: () => Get.toNamed(BAppRoutes.privacyPolicy),
+            ),
 
             Divider(),
             XLabelTile(

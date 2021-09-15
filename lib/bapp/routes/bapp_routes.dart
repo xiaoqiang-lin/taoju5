@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: iamsmiling
  * @Date: 2020-12-18 16:16:31
- * @LastEditTime: 2021-02-19 22:19:28
+ * @LastEditTime: 2021-09-15 20:40:19
  */
 part of 'bapp_pages.dart';
 
@@ -103,4 +103,6 @@ abstract class BAppRoutes {
   static const searchOrder = "/order/search";
 
   static const searchProduct = "/product/search";
+
+  static const privacyPolicy = "/privacyPolicy";
 }

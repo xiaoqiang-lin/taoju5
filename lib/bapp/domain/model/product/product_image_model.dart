@@ -1,3 +1,9 @@
+/*
+ * @Description: //TODO
+ * @Author: iamsmiling
+ * @Date: 2021-09-11 13:05:44
+ * @LastEditTime: 2021-09-11 13:27:04
+ */
 import 'package:flutter/rendering.dart';
 import 'package:taoju5/utils/json_kit.dart';
 import 'package:get/get.dart';
@@ -55,6 +61,7 @@ extension ProductImageModelKit on ProductImageModel {
     if (GetUtils.isNullOrBlank(spec)) {
       return bigImageUrl;
     }
-    return longImageUrl;
+
+    return longImageUrl.isEmpty ? bigImageUrl : longImageUrl;
   }
 }

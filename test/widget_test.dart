@@ -2,7 +2,7 @@
  * @Description: //TODO
  * @Author: iamsmiling
  * @Date: 2021-09-11 11:14:30
- * @LastEditTime: 2021-09-11 12:29:32
+ * @LastEditTime: 2021-09-11 14:01:35
  */
 // This is a basic Flutter widget test.
 //
@@ -13,8 +13,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:taoju5/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

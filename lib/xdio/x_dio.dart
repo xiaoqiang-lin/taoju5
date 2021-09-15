@@ -2,7 +2,7 @@
  * @Description: 基于dio的二次封装
  * @Author: iamsmiling
  * @Date: 2020-12-18 14:34:12
- * @LastEditTime: 2021-08-06 18:03:06
+ * @LastEditTime: 2021-09-11 16:28:55
  */
 
 import 'dart:convert';
@@ -26,7 +26,8 @@ class XDio {
   ///白名单里面的api不需要错误提示
   List<String> whiteList = [
     "/api/Config/getAppUpgradeInfo",
-    "/api/goods/wcAttr"
+    "/api/goods/wcAttr",
+    "/api/order/getShop"
   ];
 
   bool _isInWhiteList(String url) {
@@ -58,6 +59,11 @@ class XDio {
           if (!_whiteList.contains(options.path)) {
             SharedPreferences sp = await SharedPreferences.getInstance();
             String token = sp.getString("token");
+            String p = g.Get.parameters["token"];
+            if ((token == null || token.isEmpty) &&
+                (p != null && p.isNotEmpty)) {
+              token = p;
+            }
             String deviceInfo =
                 StorageManager().sharedPreferences?.getString("device_info");
             Map<String, String> headers = {};
@@ -90,6 +96,11 @@ class XDio {
           if (baseResponse.code == -999 || baseResponse.code == -9999) {
             EasyLoading.showInfo("请重新登录");
             g.Get.offAllNamed(BAppRoutes.login);
+          }
+          if (g.GetPlatform.isWeb) {
+            response.data = baseResponse;
+            handler.next(response);
+            return;
           }
           if (!baseResponse.isValid &&
               !_isInWhiteList(response.requestOptions.path)) {
